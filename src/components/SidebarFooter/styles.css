@@ -1,0 +1,41 @@
+.sidebar-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e1e5e9;
+  padding: 12px 20px;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-icon {
+  width: 16px;
+  height: 16px;
+  color: #6c757d;
+}
+
+.footer-text {
+  font-size: 12px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Dark mode */
+[data-theme='dark'] .sidebar-footer {
+  background-color: #2d2d2d;
+  border-top-color: #333;
+}
+
+[data-theme='dark'] .footer-icon {
+  color: #9ca3af;
+}
+
+[data-theme='dark'] .footer-text {
+  color: #9ca3af;
+}

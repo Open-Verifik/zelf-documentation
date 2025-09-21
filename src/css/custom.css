@@ -1,0 +1,751 @@
+/**
+ * GitBook-inspired styling for Zelf Documentation
+ */
+
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables for GitBook-style design */
+:root {
+  /* Colors matching GitBook design */
+  --ifm-color-primary: #007AFF;
+  --ifm-color-primary-dark: #0056CC;
+  --ifm-color-primary-darker: #004BB3;
+  --ifm-color-primary-darkest: #003D99;
+  --ifm-color-primary-light: #1A8CFF;
+  --ifm-color-primary-lighter: #3399FF;
+  --ifm-color-primary-lightest: #4DA6FF;
+  
+  /* Text colors */
+  --ifm-color-content: #24292E;
+  --ifm-color-content-secondary: #586069;
+  --ifm-color-content-tertiary: #8B949E;
+  
+  /* Background colors */
+  --ifm-background-color: #FFFFFF;
+  --ifm-background-surface-color: #F6F8FA;
+  
+  /* Border colors */
+  --ifm-border-color: #E1E4E8;
+  --ifm-border-color-light: #F1F3F4;
+  
+  /* Font family */
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  
+  /* Font sizes */
+  --ifm-font-size-base: 16px;
+  --ifm-h1-font-size: 2.5rem;
+  --ifm-h2-font-size: 2rem;
+  --ifm-h3-font-size: 1.5rem;
+  --ifm-h4-font-size: 1.25rem;
+  --ifm-h5-font-size: 1.125rem;
+  --ifm-h6-font-size: 1rem;
+  
+  /* Spacing */
+  --ifm-spacing-horizontal: 1.5rem;
+  --ifm-spacing-vertical: 1.5rem;
+  
+  /* Code styling */
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  
+  /* Sidebar */
+  --ifm-sidebar-width: 280px;
+  --ifm-sidebar-background-color: #FFFFFF;
+  --ifm-sidebar-border-color: #E1E4E8;
+  
+  /* Navbar */
+  --ifm-navbar-background-color: #FFFFFF;
+  --ifm-navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --ifm-navbar-height: 60px;
+  
+  /* Footer */
+  --ifm-footer-background-color: #F6F8FA;
+  --ifm-footer-color: #586069;
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] {
+  --ifm-color-primary: #58A6FF;
+  --ifm-color-primary-dark: #388BFD;
+  --ifm-color-primary-darker: #1F6FEB;
+  --ifm-color-primary-darkest: #1158C7;
+  --ifm-color-primary-light: #79C0FF;
+  --ifm-color-primary-lighter: #9AD0FF;
+  --ifm-color-primary-lightest: #BCE0FF;
+  
+  --ifm-color-content: #F0F6FC;
+  --ifm-color-content-secondary: #8B949E;
+  --ifm-color-content-tertiary: #6E7681;
+  
+  --ifm-background-color: #0D1117;
+  --ifm-background-surface-color: #161B22;
+  
+  --ifm-border-color: #30363D;
+  --ifm-border-color-light: #21262D;
+  
+  --ifm-sidebar-background-color: #0D1117;
+  --ifm-sidebar-border-color: #30363D;
+  
+  --ifm-navbar-background-color: #0D1117;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Global styles */
+html {
+  font-family: var(--ifm-font-family-base);
+}
+
+body {
+  font-family: var(--ifm-font-family-base);
+  color: var(--ifm-color-content);
+  background-color: var(--ifm-background-color);
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid var(--ifm-border-color);
+  box-shadow: var(--ifm-navbar-shadow);
+  height: var(--ifm-navbar-height);
+}
+
+.navbar__brand {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #2c3e50;
+}
+
+.navbar__brand:hover {
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.navbar__logo {
+  height: 32px;
+  margin-right: 8px;
+}
+
+.navbar__logo img {
+  height: 100%;
+  width: auto;
+}
+
+.navbar__search {
+  margin-left: auto;
+}
+
+.navbar__search-input {
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-border-color);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  width: 200px;
+}
+
+.navbar__search-input:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* Navbar icons styling - More specific targeting */
+.navbar .navbar__search-button,
+.navbar .navbar__search-button svg,
+.navbar .navbar__search-button path,
+.navbar .navbar__search-button circle {
+  color: #2c3e50 !important;
+  fill: #2c3e50 !important;
+  stroke: #2c3e50 !important;
+}
+
+.navbar .navbar__search-button:hover,
+.navbar .navbar__search-button:hover svg,
+.navbar .navbar__search-button:hover path,
+.navbar .navbar__search-button:hover circle {
+  color: #1976d2 !important;
+  fill: #1976d2 !important;
+  stroke: #1976d2 !important;
+}
+
+.navbar .navbar__toggle,
+.navbar .navbar__toggle svg,
+.navbar .navbar__toggle path,
+.navbar .navbar__toggle circle {
+  color: #2c3e50 !important;
+  fill: #2c3e50 !important;
+  stroke: #2c3e50 !important;
+}
+
+.navbar .navbar__toggle:hover,
+.navbar .navbar__toggle:hover svg,
+.navbar .navbar__toggle:hover path,
+.navbar .navbar__toggle:hover circle {
+  color: #1976d2 !important;
+  fill: #1976d2 !important;
+  stroke: #1976d2 !important;
+}
+
+/* Target all navbar icons generically */
+.navbar svg,
+.navbar svg path,
+.navbar svg circle,
+.navbar svg rect {
+  color: #2c3e50 !important;
+  fill: #2c3e50 !important;
+  stroke: #2c3e50 !important;
+}
+
+.navbar button:hover svg,
+.navbar button:hover svg path,
+.navbar button:hover svg circle,
+.navbar button:hover svg rect {
+  color: #1976d2 !important;
+  fill: #1976d2 !important;
+  stroke: #1976d2 !important;
+}
+
+/* Keep navbar icons dark in both light and dark modes since navbar stays white */
+[data-theme='dark'] .navbar svg,
+[data-theme='dark'] .navbar svg path,
+[data-theme='dark'] .navbar svg circle,
+[data-theme='dark'] .navbar svg rect {
+  color: #2c3e50 !important;
+  fill: #2c3e50 !important;
+  stroke: #2c3e50 !important;
+}
+
+[data-theme='dark'] .navbar button:hover svg,
+[data-theme='dark'] .navbar button:hover svg path,
+[data-theme='dark'] .navbar button:hover svg circle,
+[data-theme='dark'] .navbar button:hover svg rect {
+  color: #1976d2 !important;
+  fill: #1976d2 !important;
+  stroke: #1976d2 !important;
+}
+
+/* Hide hamburger menu on desktop */
+@media (min-width: 997px) {
+  .navbar__toggle {
+    display: none !important;
+  }
+  
+  .navbar-sidebar {
+    display: none !important;
+  }
+}
+
+/* Ensure main content has proper layout */
+@media (min-width: 997px) {
+  .main-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .main {
+    flex: 1;
+    margin-left: 0;
+  }
+}
+
+/* GitBook-style Sidebar */
+.theme-doc-sidebar-container {
+  background-color: #ffffff;
+  border-right: 1px solid #e1e5e9;
+  padding: 0;
+  width: var(--ifm-sidebar-width);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Sidebar content area */
+.theme-doc-sidebar-container .menu {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 60px; /* Space for footer */
+}
+
+/* Main menu container */
+.menu {
+  padding: 8px 0;
+}
+
+.menu__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu__list-item {
+  margin: 0;
+}
+
+/* GitBook-style Top-level navigation items */
+.menu__link {
+  color: #2c3e50;
+  font-size: 14px;
+  padding: 4px 20px;
+  border-radius: 6px;
+  margin: 0.5px 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  font-weight: 400;
+  line-height: 1.4;
+  position: relative;
+}
+
+.menu__link:hover {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  border-left-color: #e1e5e9;
+  text-decoration: none;
+  transform: translateX(1px);
+}
+
+.menu__link--active {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  font-weight: 500;
+  border-left-color: #1976d2;
+}
+
+.menu__link--active:hover {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  transform: translateX(1px);
+}
+
+/* GitBook-style Section headers (GETTING STARTED, OFFLINE VERSION, etc.) */
+.menu__list-item-collapsible > .menu__link {
+  font-weight: 700;
+  color: #000000;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 12px 0 6px 0;
+  padding: 8px 20px;
+  background-color: transparent;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.menu__list-item-collapsible > .menu__link:hover {
+  background-color: rgba(248, 249, 250, 0.9);
+  color: #000000;
+  transform: none;
+}
+
+/* Remove active styling from section headers */
+.menu__list-item-collapsible > .menu__link--active {
+  background-color: transparent !important;
+  color: #000000 !important;
+  border-left-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Non-collapsible categories (like Getting Started) */
+.menu__list-item-collapsible:not(.menu__list-item-collapsible--collapsed) > .menu__link {
+  cursor: default;
+}
+
+.menu__list-item-collapsible:not(.menu__list-item-collapsible--collapsed) .menu__caret {
+  display: none;
+}
+
+/* GitBook-style Collapsible Caret */
+.menu__caret {
+  color: #6c757d;
+  font-size: 12px;
+  margin-left: auto;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.menu__caret::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  z-index: -1;
+}
+
+.menu__caret:hover {
+  opacity: 1;
+  color: #495057;
+}
+
+.menu__caret:hover::before {
+  background-color: #f8f9fa;
+}
+
+/* Rotate caret when expanded */
+.menu__list-item-collapsible--expanded .menu__caret {
+  transform: rotate(90deg);
+}
+
+/* Active state for caret */
+.menu__link--active .menu__caret {
+  color: #1976d2;
+  opacity: 1;
+}
+
+.menu__link--active .menu__caret::before {
+  background-color: rgba(25, 118, 210, 0.1);
+}
+
+/* Nested items */
+.menu__list-item--collapsible .menu__list {
+  margin-left: 0;
+  margin-top: 0;
+  border-left: none;
+}
+
+/* Sub-items indentation */
+.menu__list-item .menu__list-item .menu__link {
+  padding-left: 18px;
+  font-size: 13px;
+  color: #495057;
+  margin: 6px 3px;
+}
+
+.menu__list-item .menu__list-item .menu__list-item .menu__link {
+  padding-left: 52px;
+  font-size: 12px;
+  color: #6c757d;
+  margin: 6px 3px;
+}
+
+/* Active sub-items - only for individual items, not categories */
+.menu__list-item .menu__list-item .menu__link--active:not(.menu__list-item-collapsible > .menu__link) {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-left-color: #1976d2;
+}
+
+/* Remove active styling from collapsible category items */
+.menu__list-item-collapsible .menu__link--active {
+  background-color: transparent !important;
+  color: #2c3e50 !important;
+  border-left-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* GitBook-style Icons for navigation items */
+.menu__link::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.menu__link:hover::before {
+  opacity: 1;
+}
+
+.menu__link--active::before {
+  opacity: 1;
+}
+
+/* Specific icons for different items */
+.menu__link[href*="intro"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="how-it-works"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="lite-paper"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="zelf-proofs-vs-others"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="privacy-preserving"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="use-cases"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="downloads"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="offline"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="online"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="retrieve-public-key"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="create-session"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="lease"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/%3E%3Cpath d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="preview"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/%3E%3Cpath d='M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="decrypt"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="arweave"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+}
+
+.menu__link[href*="figma"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M12 12c0-5.5-4.5-10-10-10S-8 6.5-8 12s4.5 10 10 10 10-4.5 10-10z'/%3E%3C/svg%3E");
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] .theme-doc-sidebar-container {
+  background-color: #1a1a1a;
+  border-right-color: #333;
+}
+
+[data-theme='dark'] .theme-doc-sidebar-container::before {
+  background-color: #2d2d2d;
+  border-bottom-color: #333;
+}
+
+[data-theme='dark'] .menu__link {
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] .menu__link:hover {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] .menu__link--active {
+  background-color: #1e3a8a;
+  color: #60a5fa;
+}
+
+[data-theme='dark'] .menu__list-item-collapsible > .menu__link {
+  color: #9ca3af;
+  border-bottom-color: #333;
+}
+
+[data-theme='dark'] .menu__list-item .menu__list-item .menu__link {
+  color: #d1d5db;
+}
+
+[data-theme='dark'] .menu__list-item .menu__list-item .menu__list-item .menu__link {
+  color: #9ca3af;
+}
+
+/* Main content area */
+.main-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  padding: 0;
+}
+
+/* Hero banner styling */
+.hero-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  border-radius: 0;
+}
+
+.hero-banner h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero-banner .key-highlight {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* Content styling */
+.markdown h1 {
+  color: var(--ifm-color-content);
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--ifm-border-color);
+  padding-bottom: 0.5rem;
+}
+
+.markdown h2 {
+  color: var(--ifm-color-content);
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.markdown h3 {
+  color: var(--ifm-color-content);
+  font-weight: 500;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+.markdown strong {
+  color: var(--ifm-color-content);
+  font-weight: 600;
+}
+
+/* Table of contents */
+.table-of-contents {
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  padding: 1rem;
+  background-color: var(--ifm-background-surface-color);
+  border-radius: 8px;
+  border: 1px solid var(--ifm-border-color);
+}
+
+.table-of-contents__link {
+  color: var(--ifm-color-primary);
+  font-size: 0.875rem;
+  text-decoration: none;
+  display: block;
+  padding: 0.25rem 0;
+  transition: color 0.2s ease;
+}
+
+.table-of-contents__link:hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration: none;
+}
+
+/* Footer styling */
+.footer {
+  background-color: var(--ifm-footer-background-color);
+  border-top: 1px solid var(--ifm-border-color);
+  color: var(--ifm-footer-color);
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+/* Ensure sidebar is visible on desktop */
+@media (min-width: 997px) {
+  .theme-doc-sidebar-container {
+    display: block !important;
+    position: relative !important;
+    transform: none !important;
+    width: var(--ifm-sidebar-width) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .navbar-sidebar {
+    display: none !important;
+  }
+  
+  .navbar__toggle {
+    display: none !important;
+  }
+  
+  /* Force sidebar visibility */
+  .theme-doc-sidebar-container[data-sidebar="closed"] {
+    display: block !important;
+  }
+}
+
+/* Mobile responsive design */
+@media (max-width: 996px) {
+  .theme-doc-sidebar-container {
+    width: 100%;
+    position: fixed;
+    top: var(--ifm-navbar-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .theme-doc-sidebar-container[data-sidebar="open"] {
+    transform: translateX(0);
+  }
+  
+  .hero-banner h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ifm-background-surface-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ifm-border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-content-tertiary);
+}
