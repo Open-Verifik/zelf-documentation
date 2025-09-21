@@ -721,14 +721,300 @@ body {
     z-index: 1000;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
+    background-color: #ffffff !important; /* Force white background on mobile */
   }
   
   .theme-doc-sidebar-container[data-sidebar="open"] {
     transform: translateX(0);
   }
   
+  /* Override Docusaurus mobile sidebar styles */
+  .navbar-sidebar {
+    background-color: #ffffff !important;
+  }
+  
+  .navbar-sidebar .menu {
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+  }
+  
+  .navbar-sidebar .menu__link {
+    color: #2c3e50 !important;
+    background-color: transparent !important;
+  }
+  
+  .navbar-sidebar .menu__link:hover {
+    background-color: #f8f9fa !important;
+    color: #1976d2 !important;
+  }
+  
+  .navbar-sidebar .menu__link--active {
+    background-color: #e3f2fd !important;
+    color: #1976d2 !important;
+  }
+  
+  /* Mobile section headers */
+  .navbar-sidebar .menu__list-item-collapsible > .menu__link {
+    background-color: #f8f9fa !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+  
+  .navbar-sidebar .menu__list-item-collapsible > .menu__link:hover {
+    background-color: #e9ecef !important;
+    color: #000000 !important;
+  }
+  
+  /* Additional mobile sidebar styling - white background */
+  .theme-doc-sidebar-container .menu {
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+  }
+  
+  .theme-doc-sidebar-container .menu__link {
+    color: #2c3e50 !important;
+    background-color: transparent !important;
+  }
+  
+  .theme-doc-sidebar-container .menu__link:hover {
+    background-color: #f8f9fa !important;
+    color: #1976d2 !important;
+  }
+  
+  .theme-doc-sidebar-container .menu__link--active {
+    background-color: #e3f2fd !important;
+    color: #1976d2 !important;
+  }
+  
+  /* Mobile section headers */
+  .theme-doc-sidebar-container .menu__list-item-collapsible > .menu__link {
+    background-color: #f8f9fa !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+  
+  .theme-doc-sidebar-container .menu__list-item-collapsible > .menu__link:hover {
+    background-color: #e9ecef !important;
+    color: #000000 !important;
+  }
+  
+  /* Force white background on all mobile sidebar elements */
+  .navbar-sidebar,
+  .navbar-sidebar__brand,
+  .navbar-sidebar__close,
+  .navbar-sidebar__back,
+  .navbar-sidebar__items,
+  .navbar-sidebar__items .menu,
+  .navbar-sidebar__items .menu__list,
+  .navbar-sidebar__items .menu__list-item,
+  .navbar-sidebar__items .menu__list-item-collapsible,
+  .navbar-sidebar__items .menu__link {
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+  }
+  
+  /* Override any Docusaurus mobile sidebar theming */
+  [data-theme='light'] .navbar-sidebar,
+  [data-theme='light'] .navbar-sidebar .menu,
+  [data-theme='light'] .navbar-sidebar .menu__link {
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+  }
+  
+  /* Mobile sidebar header styling */
+  .navbar-sidebar__brand {
+    background-color: #f8f9fa !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+  
+  /* Mobile sidebar close button */
+  .navbar-sidebar__close {
+    background-color: transparent !important;
+    color: #2c3e50 !important;
+  }
+  
+  /* Hide mobile sidebar back button since we don't have a home page */
+  .navbar-sidebar__back {
+    display: none !important;
+  }
+  
   .hero-banner h1 {
     font-size: 2rem;
+  }
+  
+  /* Mobile content responsiveness */
+  .main-wrapper {
+    padding: 1rem !important;
+  }
+  
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .markdown {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+  
+  .markdown h1 {
+    font-size: 1.75rem !important;
+    margin-top: 1.5rem !important;
+  }
+  
+  .markdown h2 {
+    font-size: 1.5rem !important;
+    margin-top: 1.25rem !important;
+  }
+  
+  .markdown h3 {
+    font-size: 1.25rem !important;
+    margin-top: 1rem !important;
+  }
+  
+  .markdown p {
+    font-size: 16px !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .markdown ul, .markdown ol {
+    padding-left: 1.5rem !important;
+  }
+  
+  .markdown li {
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .markdown pre {
+    font-size: 14px !important;
+    padding: 1rem !important;
+    overflow-x: auto !important;
+  }
+  
+  .markdown code {
+    font-size: 14px !important;
+  }
+  
+  .markdown table {
+    font-size: 14px !important;
+    overflow-x: auto !important;
+    display: block !important;
+    white-space: nowrap !important;
+  }
+  
+  .markdown th, .markdown td {
+    padding: 0.5rem !important;
+  }
+  
+  /* Mobile navbar adjustments */
+  .navbar {
+    padding: 0.5rem 1rem !important;
+  }
+  
+  .navbar__brand {
+    font-size: 1.1rem !important;
+  }
+  
+  .navbar__logo {
+    height: 28px !important;
+  }
+}
+
+/* Tablet responsive design */
+@media (max-width: 768px) and (min-width: 481px) {
+  .markdown h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .markdown h2 {
+    font-size: 1.35rem !important;
+  }
+  
+  .markdown h3 {
+    font-size: 1.2rem !important;
+  }
+  
+  .markdown {
+    font-size: 15px !important;
+  }
+  
+  .container {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  
+  .main-wrapper {
+    padding: 1.5rem !important;
+  }
+}
+
+/* Mobile phone responsive design */
+@media (max-width: 480px) {
+  .markdown h1 {
+    font-size: 1.4rem !important;
+    margin-top: 1rem !important;
+  }
+  
+  .markdown h2 {
+    font-size: 1.25rem !important;
+    margin-top: 1rem !important;
+  }
+  
+  .markdown h3 {
+    font-size: 1.1rem !important;
+    margin-top: 0.75rem !important;
+  }
+  
+  .markdown {
+    font-size: 14px !important;
+  }
+  
+  .markdown p {
+    font-size: 14px !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  .main-wrapper {
+    padding: 0.75rem !important;
+  }
+  
+  .navbar {
+    padding: 0.25rem 0.75rem !important;
+  }
+  
+  .navbar__brand {
+    font-size: 1rem !important;
+  }
+  
+  .navbar__logo {
+    height: 24px !important;
+  }
+  
+  .markdown pre {
+    font-size: 12px !important;
+    padding: 0.75rem !important;
+  }
+  
+  .markdown code {
+    font-size: 12px !important;
+  }
+  
+  .markdown table {
+    font-size: 12px !important;
+  }
+  
+  .markdown th, .markdown td {
+    padding: 0.25rem !important;
+  }
+  
+  .markdown ul, .markdown ol {
+    padding-left: 1.25rem !important;
   }
 }
 

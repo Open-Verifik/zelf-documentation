@@ -86,6 +86,62 @@ npm run build
 
 This command generates static content into the `build` directory and can be served using any static content hosting service.
 
+## Production Deployment with PM2
+
+For production environments, you can use PM2 to manage the Docusaurus development server as a persistent process.
+
+### Install PM2
+
+```bash
+npm install -g pm2
+```
+
+### Start with PM2
+
+```bash
+pm2 start "npm start" --name "zelf-docs"
+```
+
+### PM2 Management Commands
+
+```bash
+# View running processes
+pm2 list
+
+# Restart the documentation server
+pm2 restart zelf-docs
+
+# Stop the documentation server
+pm2 stop zelf-docs
+
+# View logs
+pm2 logs zelf-docs
+
+# Monitor in real-time
+pm2 monit
+
+# Save PM2 configuration
+pm2 save
+
+# Setup PM2 to start on system boot
+pm2 startup
+```
+
+### Alternative: Serve Static Build with PM2
+
+For better performance in production, you can build the static site and serve it with PM2:
+
+```bash
+# Build the static site
+npm run build
+
+# Install serve globally
+npm install -g serve
+
+# Start serving with PM2
+pm2 start "serve -s build -l 3000" --name "zelf-docs-static"
+```
+
 ### Deployment
 
 Using SSH:
