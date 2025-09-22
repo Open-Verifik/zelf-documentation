@@ -69,7 +69,21 @@ const sidebars = {
 			type: "category",
 			label: "Integraciones",
 			collapsible: false,
-			items: ["integraciones/avalanche", "integraciones/blockdag"],
+			items: [
+				"integraciones/avalanche",
+				"integraciones/blockdag",
+				{
+					type: "category",
+					label: "Hitos BlockDAG",
+					collapsible: true,
+					items: [
+						"integraciones/blockdag-milestone-one",
+						"integraciones/blockdag-milestone-two",
+						"integraciones/blockdag-milestone-three",
+						"integraciones/blockdag-milestone-four",
+					],
+				},
+			],
 		},
 		{
 			type: "category",

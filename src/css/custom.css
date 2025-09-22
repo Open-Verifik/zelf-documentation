@@ -50,7 +50,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   
   /* Sidebar */
-  --ifm-sidebar-width: 280px;
+  --ifm-sidebar-width: 300px; /* Increased width to accommodate longer menu items */
   --ifm-sidebar-background-color: #FFFFFF;
   --ifm-sidebar-border-color: #E1E4E8;
   
@@ -451,6 +451,87 @@ body {
   margin-left: 0;
   margin-top: 0;
   border-left: none;
+}
+
+/* Collapsible menu styling for BlockDAG milestones */
+.menu__list-item-collapsible .menu__list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.menu__list-item-collapsible--expanded .menu__list {
+  max-height: 500px; /* Adjust based on content */
+}
+
+/* Ensure collapsible menu items fit properly */
+.menu__list-item-collapsible .menu__list-item {
+  margin: 0;
+}
+
+.menu__list-item-collapsible .menu__list-item .menu__link {
+  padding-left: 40px; /* Increased indentation for nested items */
+  font-size: 13px;
+  color: #495057;
+  margin: 2px 0; /* Reduced margin for tighter spacing */
+  line-height: 1.4;
+}
+
+/* Specific styling for BlockDAG milestones */
+.menu__list-item-collapsible .menu__list-item .menu__link[href*="blockdag-milestone"] {
+  font-size: 12px;
+  padding-left: 45px;
+  color: #6c757d;
+  margin: 1px 0;
+}
+
+/* Make BlockDAG milestones category label same size as other categories */
+.menu__list-item-collapsible .menu__list-item-collapsible .menu__link {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #2c3e50 !important;
+  padding-left: 20px !important;
+}
+
+/* Ensure dropdown doesn't overflow */
+.menu__list-item-collapsible .menu__list {
+  position: relative;
+  z-index: 1;
+}
+
+/* Compact spacing for milestone items */
+.menu__list-item-collapsible .menu__list-item .menu__link[href*="milestone"] {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+  :root {
+    --ifm-sidebar-width: 280px;
+  }
+  
+  .menu__list-item-collapsible .menu__list-item .menu__link[href*="blockdag-milestone"] {
+    font-size: 11px;
+    padding-left: 40px;
+  }
+}
+
+@media (max-width: 996px) {
+  :root {
+    --ifm-sidebar-width: 260px;
+  }
+  
+  .menu__list-item-collapsible .menu__list-item .menu__link {
+    padding-left: 35px;
+    font-size: 12px;
+  }
+  
+  .menu__list-item-collapsible .menu__list-item .menu__link[href*="blockdag-milestone"] {
+    font-size: 10px;
+    padding-left: 35px;
+  }
 }
 
 /* Sub-items indentation */
