@@ -1,4 +1,5 @@
 import React from "react";
+import Translate from "@docusaurus/Translate";
 import "./styles.css";
 
 export default function SidebarFooter() {
@@ -23,7 +24,9 @@ export default function SidebarFooter() {
 						/>
 					</svg>
 				</div>
-				<span className="footer-text">Powered by Docusaurus</span>
+				<span className="footer-text">
+					<Translate id="sidebar.footer.poweredBy">Powered by Docusaurus</Translate>
+				</span>
 			</div>
 		</div>
 	);

@@ -1,0 +1,46 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Getting Started": {
+    "message": "Getting Started",
+    "description": "The label for category Getting Started in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Offline Version": {
+    "message": "Offline Version",
+    "description": "The label for category Offline Version in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Online Version": {
+    "message": "Online Version",
+    "description": "The label for category Online Version in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Arweave - AR.IO": {
+    "message": "Arweave - AR.IO",
+    "description": "The label for category Arweave - AR.IO in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Functions": {
+    "message": "Functions",
+    "description": "The label for category Functions in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Integrations": {
+    "message": "Integrations",
+    "description": "The label for category Integrations in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Zelf Legal": {
+    "message": "Zelf Legal",
+    "description": "The label for category Zelf Legal in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Airdrop": {
+    "message": "Airdrop",
+    "description": "The label for category Airdrop in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Roadmap": {
+    "message": "Roadmap",
+    "description": "The label for category Roadmap in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Welcome to Zelf World": {
+    "message": "Welcome to Zelf World",
+    "description": "The label for the doc item Welcome to Zelf World in sidebar tutorialSidebar, linking to the doc intro"
+  }
+}

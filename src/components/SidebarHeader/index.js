@@ -1,4 +1,5 @@
 import React from "react";
+import Translate from "@docusaurus/Translate";
 import "./styles.css";
 
 export default function SidebarHeader() {
@@ -16,7 +17,9 @@ export default function SidebarHeader() {
 					<span className="logo-text">ZELF</span>
 				</div>
 				<div className="sidebar-dropdown">
-					<span className="dropdown-text">Zelf Documentation</span>
+					<span className="dropdown-text">
+						<Translate id="sidebar.header.documentation">Zelf Documentation</Translate>
+					</span>
 					<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 					</svg>
