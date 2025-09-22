@@ -1,4 +1,4 @@
-# 2. Create a session
+# 2. Crear una sesión
 
 ### Endpoint \[POST]
 

@@ -82,7 +82,7 @@ const config = {
 				id: "docs-es",
 				path: "docs-es",
 				routeBasePath: "docs-es",
-				sidebarPath: "./sidebars.js",
+				sidebarPath: "./sidebars-es.js",
 				editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
 			},
 		],
@@ -101,17 +101,22 @@ const config = {
 				},
 				items: [
 					{
-						type: "doc",
-						docId: "intro",
-						label: "English Docs",
+						type: "dropdown",
+						label: "Language",
 						position: "left",
-					},
-					{
-						type: "doc",
-						docId: "intro",
-						docsPluginId: "docs-es",
-						label: "Documentación en Español",
-						position: "left",
+						items: [
+							{
+								type: "doc",
+								docId: "intro",
+								label: "English",
+							},
+							{
+								type: "doc",
+								docId: "intro",
+								docsPluginId: "docs-es",
+								label: "Español",
+							},
+						],
 					},
 					{
 						type: "search",

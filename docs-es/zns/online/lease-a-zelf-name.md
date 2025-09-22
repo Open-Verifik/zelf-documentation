@@ -1,4 +1,4 @@
-# Lease a Zelf Name
+# Alquilar un Nombre Zelf
 
 ### Endpoint \[POST]
 

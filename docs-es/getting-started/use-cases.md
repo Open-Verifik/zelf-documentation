@@ -1,4 +1,4 @@
-# Use cases
+# Casos de Uso
 
 ![](https://1734807472-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpZcqM4Fiw6bW4Zvc28S3%2Fuploads%2FKJvVLaRG1YBil9hGceXG%2FTitulos-02.png?alt=media&#x26;token=dcff27d1-5439-49fe-8607-50f660dc190e)
 

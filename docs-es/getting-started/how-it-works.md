@@ -1,4 +1,4 @@
-# How it works
+# Cómo funciona
 
 [Watch the video: How it works](https://www.youtube.com/watch?t=4s&v=BdPJbX_Ku_U)
 

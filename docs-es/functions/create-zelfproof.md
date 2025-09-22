@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Create a ZelfProof
+# Crear un ZelfProof
 
 Learn how to create ZelfProofs for your applications.
 

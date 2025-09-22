@@ -1,4 +1,4 @@
-# Authentication
+# Autenticación
 
 To access our services, we require a JWT token for each API that is protected on our end, for that you will require your **email** and **apiKey** to generate a temporal token that will enable you to access the APIs.
 
@@ -6,7 +6,7 @@ To access our services, we require a JWT token for each API that is protected on
 Join our Discord to request access to the API. [https://discord.gg/49JnBAsaq9](https://discord.gg/49JnBAsaq9)
 :::
 
-### Authentication endpoint
+### Autenticación endpoint
 
 ```
 https://api.zelf.world/api/clients/auth

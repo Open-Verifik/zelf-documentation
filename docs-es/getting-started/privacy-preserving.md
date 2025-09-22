@@ -1,4 +1,4 @@
-# Privacy Preserving
+# Preservación de Privacidad
 
 ### Traditional face recognition
 

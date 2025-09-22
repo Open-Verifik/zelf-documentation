@@ -1,4 +1,4 @@
-# 1. Retrieve public key
+# 1. Obtener clave pública
 
 ### Endpoint \[GET]
 

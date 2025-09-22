@@ -1,4 +1,4 @@
-# Zelf Proofs vs Others
+# Zelf Proofs vs Otros
 
 In the last decade, many ZK-proof solutions have been born with applications in the blockchain industry. Some developers may ask, what's the difference between Zelf Proof and the conventional open-source ZK solutions? Here we present a breakdown for each technology, pointing out their differences, applications, and limits.&#x20;
 

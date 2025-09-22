@@ -1,4 +1,4 @@
-# Lite Paper
+# Documento Técnico
 
 ## Zero Trust, Zero Storage: Never lose your seed phrases with Zero Knowledge Face Proofs
 
