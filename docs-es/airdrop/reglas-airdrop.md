@@ -1,4 +1,4 @@
-# Airdrop Rules
+# Reglas de Airdrop
 
 **Important Dates**
 

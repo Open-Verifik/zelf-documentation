@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Verify our Partners
+# Verificar Nuestros Socios
 
 Discover our trusted partners and integration ecosystem.
 

@@ -1,4 +1,4 @@
-# Pricing per Domain
+# Precios por Dominio
 
 The following table represents the subscription price of a single ZelfName that is linked to a zelfProof. The license of the technology can be used in the web version, Android app \[Online and Offline] & the iOS App.
 

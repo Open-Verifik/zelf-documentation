@@ -1,4 +1,4 @@
-# Privacy Policy
+# Política de Privacidad
 
 **Last Updated: August 23, 2024**
 

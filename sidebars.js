@@ -76,7 +76,7 @@ const sidebars = {
 			type: "category",
 			label: "Integrations",
 			collapsible: false,
-			items: ["integrations/avalanche"],
+			items: ["integrations/avalanche", "integrations/blockdag"],
 		},
 		{
 			type: "category",

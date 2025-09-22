@@ -1,4 +1,4 @@
-# Permanent Storage
+# Almacenamiento Permanente
 
 ### **How Arweave Enhances ZelfProof Security**
 

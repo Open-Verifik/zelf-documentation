@@ -1,4 +1,4 @@
-# Team Members
+# Miembros del Equipo
 
 Johan Castellanos - CEO
 

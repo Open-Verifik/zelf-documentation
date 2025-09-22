@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Avalanche Integration
+# Integración con Avalanche
 
 Learn how to integrate Zelf with the Avalanche blockchain network.
 

@@ -1,4 +1,4 @@
-# Decrypt a ZelfProof
+# Descifrar un ZelfProof
 
 ### Endpoint
 

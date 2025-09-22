@@ -1,4 +1,4 @@
-# Create a QR-Code ZelfProof
+# Crear un QR-Code ZelfProof
 
 ### Endpoint
 

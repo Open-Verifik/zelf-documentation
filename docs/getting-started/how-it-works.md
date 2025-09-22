@@ -1,6 +1,14 @@
 # How it works
 
-[Watch the video: How it works](https://www.youtube.com/watch?t=4s&v=BdPJbX_Ku_U)
+<iframe 
+  width="100%" 
+  height="400" 
+  src="https://www.youtube.com/embed/BdPJbX_Ku_U?start=4" 
+  title="How it works - Zelf Biometric Recovery" 
+  frameBorder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowFullScreen>
+</iframe>
 
 ## Overview
 
