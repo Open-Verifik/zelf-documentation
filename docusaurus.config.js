@@ -46,14 +46,12 @@ const config = {
 				direction: "ltr",
 				htmlLang: "en-US",
 				calendar: "gregory",
-				path: "en",
 			},
 			es: {
 				label: "Español",
 				direction: "ltr",
 				htmlLang: "es-ES",
 				calendar: "gregory",
-				path: "es",
 			},
 		},
 	},
@@ -77,6 +75,19 @@ const config = {
 		],
 	],
 
+	plugins: [
+		[
+			"@docusaurus/plugin-content-docs",
+			{
+				id: "docs-es",
+				path: "docs-es",
+				routeBasePath: "docs-es",
+				sidebarPath: "./sidebars.js",
+				editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+			},
+		],
+	],
+
 	themeConfig:
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
@@ -90,7 +101,16 @@ const config = {
 				},
 				items: [
 					{
-						type: "localeDropdown",
+						type: "doc",
+						docId: "intro",
+						label: "English Docs",
+						position: "left",
+					},
+					{
+						type: "doc",
+						docId: "intro",
+						docsPluginId: "docs-es",
+						label: "Documentación en Español",
 						position: "left",
 					},
 					{
