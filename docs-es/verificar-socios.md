@@ -4,142 +4,142 @@ sidebar_position: 1
 
 # Verificar Nuestros Socios
 
-Discover our trusted partners and integration ecosystem.
+Descubre nuestros socios de confianza y ecosistema de integración.
 
-## Partner Network
+## Red de Socios
 
-Zelf has established partnerships with leading companies and organizations to provide comprehensive identity verification solutions.
+Zelf ha establecido asociaciones con empresas líderes y organizaciones para proporcionar soluciones integrales de verificación de identidad.
 
-## Technology Partners
+## Socios Tecnológicos
 
-### Blockchain Networks
-- **Avalanche**: High-performance blockchain integration
-- **Ethereum**: Smart contract compatibility
-- **Polygon**: Layer 2 scaling solutions
-- **Arbitrum**: Optimistic rollup integration
+### Redes Blockchain
+- **Avalanche**: Integración blockchain de alto rendimiento
+- **Ethereum**: Compatibilidad con contratos inteligentes
+- **Polygon**: Soluciones de escalamiento de Capa 2
+- **Arbitrum**: Integración de rollup optimista
 
-### Cloud Providers
-- **AWS**: Scalable infrastructure
-- **Google Cloud**: AI and ML services
-- **Microsoft Azure**: Enterprise solutions
-- **IPFS**: Decentralized storage
+### Proveedores de Nube
+- **AWS**: Infraestructura escalable
+- **Google Cloud**: Servicios de IA y ML
+- **Microsoft Azure**: Soluciones empresariales
+- **IPFS**: Almacenamiento descentralizado
 
-### Security Partners
-- **CertiK**: Smart contract auditing
-- **Quantstamp**: Security verification
-- **Chainlink**: Oracle services
-- **OpenZeppelin**: Security standards
+### Socios de Seguridad
+- **CertiK**: Auditoría de contratos inteligentes
+- **Quantstamp**: Verificación de seguridad
+- **Chainlink**: Servicios de oráculo
+- **OpenZeppelin**: Estándares de seguridad
 
-## Integration Partners
+## Socios de Integración
 
-### Financial Services
-- **Traditional Banks**: Legacy system integration
-- **Fintech Companies**: Modern financial services
-- **Payment Processors**: Transaction processing
-- **Cryptocurrency Exchanges**: Digital asset platforms
+### Servicios Financieros
+- **Bancos Tradicionales**: Integración de sistemas heredados
+- **Empresas Fintech**: Servicios financieros modernos
+- **Procesadores de Pago**: Procesamiento de transacciones
+- **Exchanges de Criptomonedas**: Plataformas de activos digitales
 
-### Identity Providers
-- **Government Agencies**: Official ID verification
-- **Corporate Systems**: Enterprise identity management
-- **Educational Institutions**: Student verification
-- **Healthcare Organizations**: Patient identity
+### Proveedores de Identidad
+- **Agencias Gubernamentales**: Verificación oficial de ID
+- **Sistemas Corporativos**: Gestión de identidad empresarial
+- **Instituciones Educativas**: Verificación de estudiantes
+- **Organizaciones de Salud**: Identidad del paciente
 
-### Technology Companies
-- **Software Vendors**: Application integration
-- **Hardware Manufacturers**: Device compatibility
-- **Service Providers**: Implementation support
-- **Consulting Firms**: Professional services
+### Empresas de Tecnología
+- **Proveedores de Software**: Integración de aplicaciones
+- **Fabricantes de Hardware**: Compatibilidad de dispositivos
+- **Proveedores de Servicios**: Soporte de implementación
+- **Firmas de Consultoría**: Servicios profesionales
 
-## Verification Process
+## Proceso de Verificación
 
-### Partner Onboarding
-1. **Application**: Submit partnership application
-2. **Review**: Technical and business evaluation
-3. **Testing**: Integration testing and validation
-4. **Certification**: Official partner certification
-5. **Support**: Ongoing technical support
+### Incorporación de Socios
+1. **Solicitud**: Enviar solicitud de asociación
+2. **Revisión**: Evaluación técnica y comercial
+3. **Pruebas**: Pruebas de integración y validación
+4. **Certificación**: Certificación oficial de socio
+5. **Soporte**: Soporte técnico continuo
 
-### Quality Standards
-- **Security**: Comprehensive security audits
-- **Compliance**: Regulatory compliance verification
-- **Performance**: Scalability and reliability testing
-- **Support**: 24/7 technical support availability
+### Estándares de Calidad
+- **Seguridad**: Auditorías de seguridad integrales
+- **Cumplimiento**: Verificación de cumplimiento regulatorio
+- **Rendimiento**: Pruebas de escalabilidad y confiabilidad
+- **Soporte**: Disponibilidad de soporte técnico 24/7
 
-## Partner Benefits
+## Beneficios para Socios
 
-### Technical Support
-- Dedicated technical resources
-- Priority support channels
-- Custom integration assistance
-- Regular training sessions
+### Soporte Técnico
+- Recursos técnicos dedicados
+- Canales de soporte prioritarios
+- Asistencia de integración personalizada
+- Sesiones de entrenamiento regulares
 
-### Business Benefits
-- Co-marketing opportunities
-- Joint go-to-market strategies
-- Revenue sharing programs
-- Exclusive access to new features
+### Beneficios Comerciales
+- Oportunidades de co-marketing
+- Estrategias conjuntas de salida al mercado
+- Programas de participación en ingresos
+- Acceso exclusivo a nuevas funciones
 
-### Development Resources
-- Early access to beta features
-- Developer documentation
-- Code examples and tutorials
-- Community forums
+### Recursos de Desarrollo
+- Acceso temprano a funciones beta
+- Documentación para desarrolladores
+- Ejemplos de código y tutoriales
+- Foros de la comunidad
 
-## Become a Partner
+## Conviértete en Socio
 
-### Requirements
-- Proven track record in relevant industry
-- Technical capability for integration
-- Commitment to security and compliance
-- Strong customer base and market presence
+### Requisitos
+- Historial comprobado en la industria relevante
+- Capacidad técnica para integración
+- Compromiso con la seguridad y cumplimiento
+- Base sólida de clientes y presencia en el mercado
 
-### Application Process
-1. **Initial Contact**: Reach out to our partnership team
-2. **Proposal Submission**: Submit detailed partnership proposal
-3. **Technical Review**: Technical evaluation and testing
-4. **Business Review**: Commercial terms and conditions
-5. **Agreement**: Sign partnership agreement
-6. **Launch**: Joint announcement and go-to-market
+### Proceso de Solicitud
+1. **Contacto Inicial**: Contáctate con nuestro equipo de asociaciones
+2. **Envío de Propuesta**: Enviar propuesta detallada de asociación
+3. **Revisión Técnica**: Evaluación y pruebas técnicas
+4. **Revisión Comercial**: Términos y condiciones comerciales
+5. **Acuerdo**: Firmar acuerdo de asociación
+6. **Lanzamiento**: Anuncio conjunto y salida al mercado
 
-### Contact Information
+### Información de Contacto
 - **Email**: partners@zelf.world
-- **Phone**: +1 (555) 123-4567
+- **Teléfono**: +1 (555) 123-4567
 - **LinkedIn**: [Zelf Partners](https://linkedin.com/company/zelf)
 - **Twitter**: [@ZelfPartners](https://twitter.com/zelfpartners)
 
-## Partner Directory
+## Directorio de Socios
 
-### By Category
-- [Blockchain Networks](#blockchain-networks)
-- [Cloud Providers](#cloud-providers)
-- [Security Partners](#security-partners)
-- [Financial Services](#financial-services)
-- [Identity Providers](#identity-providers)
-- [Technology Companies](#technology-companies)
+### Por Categoría
+- [Redes Blockchain](#blockchain-networks)
+- [Proveedores de Nube](#cloud-providers)
+- [Socios de Seguridad](#security-partners)
+- [Servicios Financieros](#financial-services)
+- [Proveedores de Identidad](#identity-providers)
+- [Empresas de Tecnología](#technology-companies)
 
-### By Region
-- **North America**: United States, Canada, Mexico
-- **Europe**: United Kingdom, Germany, France, Netherlands
-- **Asia Pacific**: Japan, Singapore, Australia, India
-- **Latin America**: Brazil, Argentina, Colombia
-- **Middle East & Africa**: UAE, South Africa, Nigeria
+### Por Región
+- **América del Norte**: Estados Unidos, Canadá, México
+- **Europa**: Reino Unido, Alemania, Francia, Países Bajos
+- **Asia Pacífico**: Japón, Singapur, Australia, India
+- **América Latina**: Brasil, Argentina, Colombia
+- **Medio Oriente y África**: EAU, Sudáfrica, Nigeria
 
-## Success Stories
+## Historias de Éxito
 
-### Case Study 1: Major Bank Integration
-- **Partner**: Leading US Bank
-- **Challenge**: Legacy system modernization
-- **Solution**: ZelfProof integration for customer authentication
-- **Results**: 40% reduction in fraud, 60% improvement in user experience
+### Caso de Estudio 1: Integración de Banco Principal
+- **Socio**: Banco Líder de EE.UU.
+- **Desafío**: Modernización de sistema heredado
+- **Solución**: Integración de ZelfProof para autenticación de clientes
+- **Resultados**: 40% de reducción en fraude, 60% de mejora en experiencia del usuario
 
-### Case Study 2: Government ID System
-- **Partner**: European Government Agency
-- **Challenge**: Digital identity verification
-- **Solution**: ZelfProof for citizen services
-- **Results**: 95% citizen satisfaction, 80% cost reduction
+### Caso de Estudio 2: Sistema ID Gubernamental
+- **Socio**: Agencia Gubernamental Europea
+- **Desafío**: Verificación de identidad digital
+- **Solución**: ZelfProof para servicios ciudadanos
+- **Resultados**: 95% de satisfacción ciudadana, 80% de reducción de costos
 
-### Case Study 3: DeFi Platform
-- **Partner**: Decentralized Finance Platform
-- **Challenge**: Sybil attack prevention
-- **Solution**: ZelfProof for proof of personhood
-- **Results**: 99.9% sybil resistance, 50% increase in legitimate users
+### Caso de Estudio 3: Plataforma DeFi
+- **Socio**: Plataforma de Finanzas Descentralizadas
+- **Desafío**: Prevención de ataques Sybil
+- **Solución**: ZelfProof para prueba de humanidad
+- **Resultados**: 99.9% de resistencia sybil, 50% de aumento en usuarios legítimos

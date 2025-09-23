@@ -6,11 +6,15 @@ sidebar_position: 3
 
 ## Overview
 
-**Duration**: Weeks 1-4  
+**Duration**: Weeks 1-4
+
+**Deadline**: September 30th, 2025
+
 **Phase**: Foundation  
+
 **Focus**: Core infrastructure and basic integration setup
 
-This milestone establishes the fundamental technical foundation for the BlockDAG x Zelf integration, focusing on core wallet integration, API development, and basic ZK Face Proof adaptation.
+This milestone establishes the fundamental technical foundation for the BlockDAG x Zelf integration, focusing on core encryption integration, API development, and ZK Face Proof adaptation.
 
 ---
 
@@ -21,10 +25,10 @@ This milestone establishes the fundamental technical foundation for the BlockDAG
 **Objective**: Generate native BlockDAG addresses and establish wallet compatibility
 
 **Tasks**:
-- [ ] Research BlockDAG address format and generation methods
-- [ ] Implement BlockDAG-compatible wallet generation in Zelf SDK
-- [ ] Create BlockDAG address validation functions
-- [ ] Test wallet generation across different BlockDAG network configurations
+- [x] Research BlockDAG address format and generation methods
+- [x] Implement BlockDAG-compatible wallet generation in Zelf SDK
+- [x] Create BlockDAG address validation functions
+- [x] Test wallet generation across different BlockDAG network configurations
 - [ ] Document wallet generation API endpoints
 
 **Acceptance Criteria**:
@@ -39,42 +43,19 @@ This milestone establishes the fundamental technical foundation for the BlockDAG
 
 ### 2. Core API Development
 
-**Objective**: Build essential API endpoints for name service operations
+**Objective**: Build essential API endpoints for name service operations with multi domain support (.blockdag | .bdag)
 
 **Tasks**:
 - [ ] Design API architecture for BlockDAG name service
-- [ ] Implement `/blockdag-name-service/search` endpoint
-- [ ] Implement `/blockdag-name-service/lease-offline` endpoint
-- [ ] Implement `/blockdag-name-service/decrypt` endpoint
-- [ ] Add rate limiting and security controls
-- [ ] Create API documentation and examples
-
-**API Endpoints**:
-
-```javascript
-// Search for available names
-POST /blockdag-name-service/search
-{
-  "name": "john.blockdag",
-  "duration": "1" // years
-}
-
-// Register name with biometric recovery
-POST /blockdag-name-service/lease-offline
-{
-  "name": "john.blockdag",
-  "zelfProof": "encrypted_biometric_proof",
-  "blockdagAddress": "bdag1234...5678"
-}
-
-// Recover wallet using biometrics
-POST /blockdag-name-service/decrypt
-{
-  "name": "john.blockdag", 
-  "faceBase64": "user_face_image",
-  "password": "optional_password"
-}
-```
+- [ ] Implement Lease endpoint
+- [ ] Implement Lease Offline endpoint
+- [ ] Implement Search by specific .blockdag TAG endpoint
+- [ ] Implement Search all the .blockdag tag registrations endpoint
+- [ ] Implement the Decryption endpoint
+- [ ] Implement the Preview ZelfProof endpoint
+- [ ] Implement the Preview .blockdag tag endpoint
+- [ ] Implement the purchase of tag domains with crypto > first with Coinbase commerce
+- [ ] Create API documentation and examples with open source Docusaurus (markdown files)
 
 **Acceptance Criteria**:
 - All three core endpoints functional
@@ -128,22 +109,6 @@ POST /blockdag-name-service/decrypt
 - [ ] Test storage and retrieval performance
 - [ ] Implement backup and redundancy systems
 
-**Metadata Schema**:
-
-```json
-{
-  "name": "john.blockdag",
-  "blockdagAddress": "bdag1234...5678",
-  "zelfProofHash": "ipfs_hash_of_encrypted_proof",
-  "registrationDate": "2024-01-15T10:30:00Z",
-  "expirationDate": "2025-01-15T10:30:00Z",
-  "metadata": {
-    "version": "1.0",
-    "encryptionType": "zk_face_proof",
-    "storageProviders": ["ipfs", "arweave"]
-  }
-}
-```
 
 **Acceptance Criteria**:
 - IPFS node operational and accessible
@@ -202,44 +167,15 @@ POST /blockdag-name-service/decrypt
 
 ---
 
-## Success Metrics
-
-### Technical Metrics
-
-- **Wallet Generation**: Successfully generate 1000+ BlockDAG addresses
-- **API Response Time**: &lt;200ms average response time for all endpoints
-- **ZK Proof Performance**: Proof generation &lt;5 seconds, verification &lt;200ms
-- **Storage Reliability**: 99.9% uptime for IPFS storage operations
-
-### Development Metrics
-
-- **Code Coverage**: &gt;90% test coverage for all new components
-- **Documentation**: 100% API endpoints documented with examples
-- **Security**: Pass security audit for wallet generation and ZK proofs
-- **Performance**: Meet all benchmark targets
-
----
-
 ## Risk Mitigation
+
+Nothing yet in this Milestone
 
 ### Technical Risks
 
-**Risk**: BlockDAG address format changes  
-**Mitigation**: Implement flexible address generation with versioning support
-
-**Risk**: ZK proof compatibility issues  
-**Mitigation**: Extensive testing with BlockDAG testnet and fallback mechanisms
-
-**Risk**: IPFS storage reliability  
-**Mitigation**: Implement multiple storage providers and redundancy systems
+Nothing yet in this Milestone
 
 ### Timeline Risks
-
-**Risk**: API development delays  
-**Mitigation**: Parallel development tracks and early integration testing
-
-**Risk**: ZK proof optimization complexity  
-**Mitigation**: Incremental optimization approach with performance monitoring
 
 ---
 
@@ -249,11 +185,11 @@ POST /blockdag-name-service/decrypt
 |-------------|----------|--------|----------|
 | BlockDAG Wallet Integration | 2 weeks | High | Critical |
 | Core API Development | 2 weeks | High | Critical |
-| ZK Face Proof Adaptation | 1.5 weeks | Medium | High |
+| ZK Face Proof Adaptation | 1 week | Medium | High |
 | IPFS Storage Setup | 1 week | Medium | High |
 
 **Total Estimated Duration**: 4 weeks  
-**Total Team Effort**: 6.5 person-weeks
+**Total Team Effort**: 3 people
 
 ---
 

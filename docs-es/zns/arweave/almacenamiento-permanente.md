@@ -1,27 +1,27 @@
 # Almacenamiento Permanente
 
-### **How Arweave Enhances ZelfProof Security**
+### **Cómo Arweave Mejora la Seguridad de ZelfProof**
 
-Every user's `zelfName`, generated during the creation of a ZelfProof, is stored on Arweave. This integration allows users to retrieve their `zelfName` at any time directly from the blockchain, ensuring they have uninterrupted access to their assets. Even **if users lose access to their device or backup**, they can retrieve their `zelfName` and `zelfProof` from **Arweave** by searching the zelfName they leased.
+Cada `zelfName` del usuario, generado durante la creación de un ZelfProof, se almacena en Arweave. Esta integración permite a los usuarios recuperar su `zelfName` en cualquier momento directamente desde la blockchain, asegurando que tengan acceso ininterrumpido a sus activos. Incluso **si los usuarios pierden acceso a su dispositivo o respaldo**, pueden recuperar su `zelfName` y `zelfProof` de **Arweave** buscando el zelfName que arrendaron.
 
-### **Retrieval and Backup**
+### **Recuperación y Respaldo**
 
-The Arweave storage mechanism ensures that users:
+El mecanismo de almacenamiento de Arweave asegura que los usuarios:
 
-1. **Never Lose Access**: Since the `zelfName` is stored on a blockchain, users can retrieve it anytime, even if other local or cloud-based storage methods fail.
-2. **Easily Recover Assets**: By fetching their `zelfName` from Arweave, users can restore their ZelfProof and access their assets with confidence, knowing that this data is secure, immutable, and permanently stored.
+1. **Nunca Pierdan Acceso**: Dado que el `zelfName` se almacena en una blockchain, los usuarios pueden recuperarlo en cualquier momento, incluso si otros métodos de almacenamiento locales o basados en la nube fallan.
+2. **Recuperen Activos Fácilmente**: Al obtener su `zelfName` de Arweave, los usuarios pueden restaurar su ZelfProof y acceder a sus activos con confianza, sabiendo que estos datos son seguros, inmutables y permanentemente almacenados.
 
-### **How It Works with Zelf Name Service**
+### **Cómo Funciona con el Servicio de Nombres Zelf**
 
-1. When a user creates a ZelfProof in Zelf Name Service, the generated ZK-Face Proof is *uploaded* to **Arweave**.
-2. The upload process generates a unique transaction ID (TX ID), which serves as a permanent reference to the ZelfProof.
-3. Users can retrieve their ZelfProof by querying Arweave using the Zelf Name that is stored inside the tags associated with the QR Code stored inside Arweave.
+1. Cuando un usuario crea un ZelfProof en el Servicio de Nombres Zelf, la Prueba ZK-Face generada se *sube* a **Arweave**.
+2. El proceso de subida genera un ID de transacción único (TX ID), que sirve como una referencia permanente al ZelfProof.
+3. Los usuarios pueden recuperar su ZelfProof consultando Arweave usando el Nombre Zelf que se almacena dentro de las etiquetas asociadas con el Código QR almacenado dentro de Arweave.
 
 ![](https://1734807472-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpZcqM4Fiw6bW4Zvc28S3%2Fuploads%2FQ7TLz069kgLsf1FfxraL%2Fimage.png?alt=media&#x26;token=697ad636-5a4f-4538-b821-c31da850ae99)
 
 <details>
 
-<summary>Example Query Result for a ZelfName </summary>
+<summary>Ejemplo de Resultado de Consulta para un ZelfName </summary>
 
 ```json
 {
@@ -77,39 +77,39 @@ The Arweave storage mechanism ensures that users:
 
 </details>
 
-#### **# Transaction Node**
+#### **# Nodo de Transacción**
 
-Each transaction is represented as a node containing the following key fields:
+Cada transacción se representa como un nodo que contiene los siguientes campos clave:
 
-* **`id`**: The unique transaction ID. This can be used to fetch the transaction data directly from Arweave using the URL format:\
+* **`id`**: El ID de transacción único. Esto puede usarse para obtener los datos de transacción directamente de Arweave usando el formato de URL:\
   `https://arweave.net/{id}`.\
-  Example:\
+  Ejemplo:\
   [https://arweave.net](pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
-* **`owner.address`**: The wallet address of the transaction creator. This is the address that uploaded the data to Arweave.
-* **`data.size`**: The size of the stored data (in bytes). In this case, it’s `18369` bytes.
+* **`owner.address`**: La dirección de billetera del creador de la transacción. Esta es la dirección que subió los datos a Arweave.
+* **`data.size`**: El tamaño de los datos almacenados (en bytes). En este caso, son `18369` bytes.
 
-#### **# Tags**
+#### **# Etiquetas**
 
-Tags are metadata associated with the transaction. In this case, they provide critical information about the `zelfProof` and its linked data:
+Las etiquetas son metadatos asociados con la transacción. En este caso, proporcionan información crítica sobre el `zelfProof` y sus datos vinculados:
 
 1. **`Content-Type`**:\
-   Indicates the MIME type of the stored data. Here, it’s `image/png`.
+   Indica el tipo MIME de los datos almacenados. Aquí, es `image/png`.
 2. **`zelfProof`**:\
-   A cryptographic proof linked to the `zelfName`. This proof is essential for identity verification, encryption, and secure wallet interactions. It’s stored in an encrypted format, ensuring privacy and security.
-3. **`ethAddress`, `solanaAddress`, and `btcAddress`**:\
-   Wallet addresses for Ethereum, Solana, and Bitcoin, respectively, associated with this `zelfName`. These addresses allow users to interact with various blockchain ecosystems.
+   Una prueba criptográfica vinculada al `zelfName`. Esta prueba es esencial para verificación de identidad, cifrado e interacciones seguras de billetera. Se almacena en un formato cifrado, asegurando privacidad y seguridad.
+3. **`ethAddress`, `solanaAddress`, y `btcAddress`**:\
+   Direcciones de billetera para Ethereum, Solana y Bitcoin, respectivamente, asociadas con este `zelfName`. Estas direcciones permiten a los usuarios interactuar con varios ecosistemas blockchain.
 4. **`evm`**:\
-   A list of Ethereum Virtual Machine (EVM)-compatible networks supported by this `zelfProof`. For example: `ETH, BNB, MATIC, AVAX`.
+   Una lista de redes compatibles con Máquina Virtual de Ethereum (EVM) soportadas por este `zelfProof`. Por ejemplo: `ETH, BNB, MATIC, AVAX`.
 5. **`zelfName`**:\
-   The unique identifier for the user (`johan1234789.zelf`). This links the `zelfProof` to the user’s account and serves as a lookup key.
+   El identificador único para el usuario (`johan1234789.zelf`). Esto vincula el `zelfProof` a la cuenta del usuario y sirve como una clave de búsqueda.
 
-#### Accessing Data
+#### Acceso a Datos
 
-To access the backup data for a specific `zelfName`:
+Para acceder a los datos de respaldo para un `zelfName` específico:
 
-1. Query Arweave’s GraphQL API:
-   * Filter by the `zelfName` tag to locate the transaction.
-   * Example query:
+1. Consultar la API GraphQL de Arweave:
+   * Filtrar por la etiqueta `zelfName` para localizar la transacción.
+   * Consulta de ejemplo:
 
      ```graphql
      {
@@ -135,12 +135,12 @@ To access the backup data for a specific `zelfName`:
        }
      }
      ```
-2. Use the returned `id` to access the transaction:
+2. Usar el `id` devuelto para acceder a la transacción:
    * URL: `https://arweave.net/{id}`
-   * Example: [https://arweave.net](pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
+   * Ejemplo: [https://arweave.net](pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
 
-This implementation establishes Arweave as the backbone of Zelf’s decentralized backup system, enabling users to securely store and retrieve their `zelfProofs,`and access to their wallets. This approach ensures a robust, reliable, and permanent solution giving users seamless access to their cryptographic assets and identities.
+Esta implementación establece a Arweave como la columna vertebral del sistema de respaldo descentralizado de Zelf, permitiendo a los usuarios almacenar y recuperar de forma segura sus `zelfProofs` y acceso a sus billeteras. Este enfoque asegura una solución robusta, confiable y permanente que proporciona a los usuarios acceso sin problemas a sus activos criptográficos e identidades.
 
-### Test it for yourself here
+### Pruébalo tú mismo aquí
 
-[Watch the video](https://arweave.dev/graphql)
+[Ver el video](https://arweave.dev/graphql)

@@ -10,94 +10,94 @@
   allowFullScreen>
 </iframe>
 
-## Overview
+## Resumen
 
-The Zero Knowledge Face Proof uses the user's face as the primary input, optionally combined with metadata and/or a password. A cryptographic AI algorithm generates a random ephemeral public key from the user's face, which is then used to encrypt metadata, producing encrypted bytes called **ZelfProof**. These **ZelfProofs**, which typically contain minimal encrypted metadata and are about 350 bytes in size, can be easily converted into QR codes for various identification mediums.
+La Prueba Facial de Conocimiento Cero utiliza el rostro del usuario como entrada principal, opcionalmente combinado con metadatos y/o una contraseña. Un algoritmo criptográfico de IA genera una clave pública efímera aleatoria a partir del rostro del usuario, que luego se utiliza para cifrar metadatos, produciendo bytes cifrados llamados **ZelfProof**. Estos **ZelfProofs**, que típicamente contienen metadatos cifrados mínimos y tienen aproximadamente 350 bytes de tamaño, pueden convertirse fácilmente en códigos QR para varios medios de identificación.
 
-Instead of comparing facial templates, Zelf verification involves decrypting a given ZelfProof using the correct corresponding private key generated up on a live face scan. A successful decryption verifies the person, while failure indicates a mismatch.
+En lugar de comparar plantillas faciales, la verificación de Zelf implica descifrar un ZelfProof dado utilizando la clave privada correspondiente correcta generada mediante un escaneo facial en vivo. Un descifrado exitoso verifica a la persona, mientras que el fallo indica una discrepancia.
 
-## How does Zelf Name Service works
+## Cómo funciona el Servicio de Nombres Zelf
 
-Zelf is built on a foundation of privacy-preserving cryptography. Here’s an in-depth look at the process:
+Zelf está construido sobre una base de criptografía que preserva la privacidad. Aquí tienes una mirada profunda al proceso:
 
-### **1. Registration (Encrypting)**
+### **1. Registro (Cifrado)**
 
-* **Face & Metadata Capture**: The user provides a live face scan along with sensitive information like the mnemonic phrase.
-* **Zelf Processing**: The captured face data is used as input to generate a private key through proprietary cryptographic algorithms. Importantly, the face data is not stored or used beyond this step, ensuring compliance with the most strict privacy regulations. The system only utilizes the face in the current session to generate a ZelfProof.
-  * **ZelfProof Processing**: A **ZelfProof**, which is a privacy-preserving, non-biometric binary structure, is generated. Unlike a biometric template, ZelfProof is:
-    * Encrypted
-    * Unique to each session
-    * Biometrically verifiable but **non-biometric** in **nature**
-* **Output**: A new ZelfProof is created every time you encrypt metadata with your face & password (optional). This ZelfProof is later saved in IPFS, Arweave, Walrus, Nostr.
-  * **No Reuse Risk**: Even if someone captures your face and password, without the correct ZelfProof for that session, they cannot retrieve the metadata encrypted initially. Similarly, without the right face or password, an old or different ZelfProof will not work.
+* **Captura de Rostro y Metadatos**: El usuario proporciona un escaneo facial en vivo junto con información sensible como la frase mnemónica.
+* **Procesamiento Zelf**: Los datos faciales capturados se utilizan como entrada para generar una clave privada a través de algoritmos criptográficos propietarios. Es importante destacar que los datos faciales no se almacenan ni se utilizan más allá de este paso, asegurando el cumplimiento de las regulaciones de privacidad más estrictas. El sistema solo utiliza el rostro en la sesión actual para generar un ZelfProof.
+  * **Procesamiento ZelfProof**: Se genera un **ZelfProof**, que es una estructura binaria que preserva la privacidad y no es biométrica. A diferencia de una plantilla biométrica, el ZelfProof es:
+    * Cifrado
+    * Único para cada sesión
+    * Verificable biométricamente pero **no biométrico** en **naturaleza**
+* **Salida**: Se crea un nuevo ZelfProof cada vez que cifras metadatos con tu rostro y contraseña (opcional). Este ZelfProof se guarda posteriormente en IPFS, Arweave, Walrus, Nostr.
+  * **Sin Riesgo de Reutilización**: Incluso si alguien captura tu rostro y contraseña, sin el ZelfProof correcto para esa sesión, no pueden recuperar los metadatos cifrados inicialmente. De manera similar, sin el rostro o contraseña correctos, un ZelfProof antiguo o diferente no funcionará.
 
-### **2. Verification (Decrypting)**
+### **2. Verificación (Descifrado)**
 
-* **Live Face Scan**: During the encryption, the user performs a live face scan. This scan is not stored but is used as a cryptographic key to initiate the verification process. ***It’s important to note that the system doesn’t compare the face to any stored biometric data.*** Instead, the face scan acts as a dynamic input to *regenerate* the cryptographic structure (**ZelfProof**) that was created during registration.
-* **ZelfProof Matching**: The ZelfProof generated during registration (when the user initially encrypted their data using their face) is dynamically recreated during the decryption process. However, since the ZelfProof is **non-biometric** and unique to each session, the system does not retrieve or store the user's face data. It merely checks that the cryptographic structure matches the one generated during the session without retaining biometric information.
-* **Decryption of Private Information**: If the regenerated ZelfProof from the live scan matches the encrypted structure, any optional sensitive information (such as the mnemonic phrase) that was secured during registration is **decrypted**. This allows the user access to their wallet so they can either see the mnemonic phrase to back it up or to sign a transaction inside our Zelf Name Service App.
+* **Escaneo Facial en Vivo**: Durante el cifrado, el usuario realiza un escaneo facial en vivo. Este escaneo no se almacena pero se utiliza como clave criptográfica para iniciar el proceso de verificación. ***Es importante notar que el sistema no compara el rostro con ningún dato biométrico almacenado.*** En su lugar, el escaneo facial actúa como una entrada dinámica para *regenerar* la estructura criptográfica (**ZelfProof**) que fue creada durante el registro.
+* **Coincidencia de ZelfProof**: El ZelfProof generado durante el registro (cuando el usuario cifró inicialmente sus datos usando su rostro) se recrea dinámicamente durante el proceso de descifrado. Sin embargo, dado que el ZelfProof es **no biométrico** y único para cada sesión, el sistema no recupera ni almacena los datos faciales del usuario. Simplemente verifica que la estructura criptográfica coincida con la generada durante la sesión sin retener información biométrica.
+* **Descifrado de Información Privada**: Si el ZelfProof regenerado del escaneo en vivo coincide con la estructura cifrada, cualquier información sensible opcional (como la frase mnemónica) que fue asegurada durante el registro se **descifra**. Esto permite al usuario acceder a su billetera para que pueda ver la frase mnemónica para respaldarla o firmar una transacción dentro de nuestra aplicación del Servicio de Nombres Zelf.
 
-### 1. *Non-Biometric* Encryption
+### 1. Cifrado *No Biométrico*
 
 ![](https://1734807472-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpZcqM4Fiw6bW4Zvc28S3%2Fuploads%2F77yriQFUAYOpMwR5XSRQ%2FImg%20KICKSTARTER-49.png?alt=media&#x26;token=fe025f01-a301-46b4-a7f7-4cf7e571d4bf)
 
-The use of facial biometrics as a core component of the **ZelfProof** creation process introduces a powerful layer of security that is uniquely tied to the individual. As a required encryption key and a private key, the face provides a secure, non-replicable method of protecting sensitive data, while ensuring that only the rightful owner can access or decrypt the information. Here's a detailed breakdown of how the biometric layer enhances security:
+El uso de biometría facial como componente central del proceso de creación de **ZelfProof** introduce una capa poderosa de seguridad que está únicamente ligada al individuo. Como clave de cifrado requerida y clave privada, el rostro proporciona un método seguro y no replicable para proteger datos sensibles, mientras asegura que solo el propietario legítimo pueda acceder o descifrar la información. Aquí tienes un desglose detallado de cómo la capa biométrica mejora la seguridad:
 
-#### 1. **Unique and Non-Replicable Key**
+#### 1. **Clave Única y No Replicable**
 
-* **Biometric Uniqueness**: Every individual’s face is unique, with distinct features such as the distance between the eyes, the shape of the nose, and the contour of the jawline. This uniqueness makes the face an ideal encryption key because it cannot be easily replicated or mimicked by others. Unlike passwords, which can be shared or guessed, facial biometrics are inherently tied to the individual, making them a robust and secure method for encryption.
-* **Private Key Functionality**: In the context of the **ZelfProof**, the face functions as a private key, meaning it is the essential element required to unlock or decrypt the encrypted data. Since the private key (i.e., the face) is unique to each person and cannot be easily duplicated, it ensures that only the individual who created the ZelfProof can decrypt or access the associated data.
+* **Unicidad Biométrica**: Cada rostro individual es único, con características distintivas como la distancia entre los ojos, la forma de la nariz y el contorno de la mandíbula. Esta unicidad hace del rostro una clave de cifrado ideal porque no puede ser fácilmente replicado o imitado por otros. A diferencia de las contraseñas, que pueden ser compartidas o adivinadas, la biometría facial está inherentemente ligada al individuo, convirtiéndola en un método robusto y seguro para el cifrado.
+* **Funcionalidad de Clave Privada**: En el contexto del **ZelfProof**, el rostro funciona como una clave privada, lo que significa que es el elemento esencial requerido para desbloquear o descifrar los datos cifrados. Dado que la clave privada (es decir, el rostro) es única para cada persona y no puede ser fácilmente duplicada, asegura que solo el individuo que creó el ZelfProof pueda descifrar o acceder a los datos asociados.
 
-#### 2. **Liveness Detection: Ensuring Authenticity**
+#### 2. **Detección de Vitalidad: Asegurando Autenticidad**
 
-* **Protection Against Spoofing**: Liveness detection is a critical feature that ensures the face being presented during the **ZelfProof** creation or verification process is not just a static image or a video replay, but a live and authentic representation of the individual. This is crucial in preventing spoofing attacks where an attacker might use a photograph, mask, or video to trick the system.
-* **Real-Time Verification**: Liveness detection tests for subtle movements, such as blinking, facial expressions, and other micro-movements, to confirm that the face is real and belongs to a live person. This adds an extra layer of security, ensuring that only a legitimate, live individual can generate or verify a **ZelfProof**. This makes the system highly resilient against sophisticated attacks that attempt to bypass facial recognition.
+* **Protección Contra Suplantación**: La detección de vitalidad es una característica crítica que asegura que el rostro presentado durante el proceso de creación o verificación de **ZelfProof** no sea solo una imagen estática o una reproducción de video, sino una representación en vivo y auténtica del individuo. Esto es crucial para prevenir ataques de suplantación donde un atacante podría usar una fotografía, máscara o video para engañar al sistema.
+* **Verificación en Tiempo Real**: La detección de vitalidad prueba movimientos sutiles, como parpadear, expresiones faciales y otros micro-movimientos, para confirmar que el rostro es real y pertenece a una persona viva. Esto añade una capa extra de seguridad, asegurando que solo un individuo legítimo y vivo pueda generar o verificar un **ZelfProof**. Esto hace que el sistema sea altamente resistente contra ataques sofisticados que intentan eludir el reconocimiento facial.
 
-#### 3. **Immutable and Inalienable Security**
+#### 3. **Seguridad Inmutable e Inalienable**
 
-* **Cannot Be Stolen or Lost**: Unlike passwords or physical tokens, your face is always with you and cannot be forgotten, lost, or stolen. This immutability ensures that the encryption key is always secure, as it cannot be easily separated from its owner. Even if an attacker gains access to other data, without the specific facial biometric, they cannot recreate or access the **ZelfProof**.
-* **Inalienable Identity**: The face, being an integral part of one's identity, is inherently inalienable. It is not something that can be transferred or duplicated in the same way that a password or token could be. This ensures that the security provided by the facial biometric is deeply personal and tightly coupled to the individual’s identity.
+* **No Puede Ser Robado o Perdido**: A diferencia de las contraseñas o tokens físicos, tu rostro siempre está contigo y no puede ser olvidado, perdido o robado. Esta inmutabilidad asegura que la clave de cifrado siempre esté segura, ya que no puede ser fácilmente separada de su propietario. Incluso si un atacante obtiene acceso a otros datos, sin la biometría facial específica, no pueden recrear o acceder al **ZelfProof**.
+* **Identidad Inalienable**: El rostro, siendo una parte integral de la identidad de uno, es inherentemente inalienable. No es algo que pueda ser transferido o duplicado de la misma manera que una contraseña o token podría serlo. Esto asegura que la seguridad proporcionada por la biometría facial es profundamente personal y está estrechamente acoplada a la identidad del individuo.
 
-#### 4. **Highly Resistant to Brute Force Attacks**
+#### 4. **Altamente Resistente a Ataques de Fuerza Bruta**
 
-* **Complexity Beyond Conventional Methods**: Brute force attacks rely on systematically trying all possible combinations until the correct one is found. However, replicating a face with the necessary accuracy is virtually impossible, especially when combined with liveness detection. The sheer complexity of accurately mimicking the unique features of a face, in real-time, renders brute force attacks ineffective.
-* **Biometric Inviolability**: Because the face is biologically tied to the individual and cannot be easily reproduced by unauthorized parties, it offers a level of inviolability that passwords or tokens alone cannot. This inviolability is further enhanced by the liveness detection, which ensures that only a real, live face can be used for verification.
+* **Complejidad Más Allá de Métodos Convencionales**: Los ataques de fuerza bruta dependen de probar sistemáticamente todas las combinaciones posibles hasta encontrar la correcta. Sin embargo, replicar un rostro con la precisión necesaria es virtualmente imposible, especialmente cuando se combina con la detección de vitalidad. La pura complejidad de imitar con precisión las características únicas de un rostro, en tiempo real, hace que los ataques de fuerza bruta sean ineficaces.
+* **Inviolabilidad Biométrica**: Debido a que el rostro está biológicamente ligado al individuo y no puede ser fácilmente reproducido por partes no autorizadas, ofrece un nivel de inviolabilidad que las contraseñas o tokens solos no pueden. Esta inviolabilidad se ve aún más mejorada por la detección de vitalidad, que asegura que solo un rostro real y vivo pueda ser usado para la verificación.
 
-#### 5. **Privacy-Preserving Encryption**
+#### 5. **Cifrado que Preserva la Privacidad**
 
-* **No Storage of Biometric Data**: One of the **critical aspects** of the **ZelfProof** system is that it does **not store** the actual biometric data (i.e., the face). Instead, the face is used to generate a non-biometric, privacy-preserving binary representation that is used for encryption. This means that even if the ZelfProof is compromised, it does not expose the original biometric data, maintaining the user's privacy.
-* **Secure Data Transmission**: When the face is used as an encryption key, the data is encrypted in such a way that it can only be decrypted with the same biometric input. This ensures that the data remains secure both at rest and during transmission, providing end-to-end security that is tightly coupled with the user’s biometric identity.
+* **Sin Almacenamiento de Datos Biométricos**: Uno de los **aspectos críticos** del sistema **ZelfProof** es que **no almacena** los datos biométricos reales (es decir, el rostro). En su lugar, el rostro se usa para generar una representación binaria no biométrica que preserva la privacidad y se usa para el cifrado. Esto significa que incluso si el ZelfProof es comprometido, no expone los datos biométricos originales, manteniendo la privacidad del usuario.
+* **Transmisión Segura de Datos**: Cuando el rostro se usa como clave de cifrado, los datos se cifran de tal manera que solo pueden ser descifrados con la misma entrada biométrica. Esto asegura que los datos permanezcan seguros tanto en reposo como durante la transmisión, proporcionando seguridad de extremo a extremo que está estrechamente acoplada con la identidad biométrica del usuario.
 
-### Traditional password&#x20;
+### Contraseña tradicional&#x20;
 
 ![](https://1734807472-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpZcqM4Fiw6bW4Zvc28S3%2Fuploads%2FClwRmi1rv2MyacFhOFNX%2FImg%20KICKSTARTER-51.png?alt=media&#x26;token=ee3b865e-a6ee-4beb-9c12-33c0df3afc1b)
 
-Adding a password during the creation of a **ZelfProof** significantly enhances security, creating a multi-layered defense mechanism that makes unauthorized access exceedingly difficult for attackers. Here’s an in-depth explanation of why adding a password increases security:
+Agregar una contraseña durante la creación de un **ZelfProof** mejora significativamente la seguridad, creando un mecanismo de defensa multicapa que hace que el acceso no autorizado sea extremadamente difícil para los atacantes. Aquí tienes una explicación profunda de por qué agregar una contraseña aumenta la seguridad:
 
-#### 1. **Multi-Factor Security (Face + Password)**
+#### 1. **Seguridad Multi-Factor (Rostro + Contraseña)**
 
-* **Biometric Factor (Face)**: The first layer of security is the face itself, which is unique to each individual. This means that to recreate the ZelfProof, an attacker would need to have access to the exact facial image that was used during the ZelfProof creation. However, without the corresponding password, even having access to this face image wouldn’t be sufficient.
-* **Knowledge Factor (Password)**: The addition of a password introduces a second factor that is not inherent to the individual but is known only to them. This ensures that even if an attacker were somehow able to obtain a similar facial image, they would still need to know the exact password that was used during the creation of the ZelfProof. This knowledge is something that only the user possesses, making it extremely difficult for an attacker to breach the system.
+* **Factor Biométrico (Rostro)**: La primera capa de seguridad es el rostro mismo, que es único para cada individuo. Esto significa que para recrear el ZelfProof, un atacante necesitaría tener acceso a la imagen facial exacta que se usó durante la creación del ZelfProof. Sin embargo, sin la contraseña correspondiente, incluso teniendo acceso a esta imagen facial no sería suficiente.
+* **Factor de Conocimiento (Contraseña)**: La adición de una contraseña introduce un segundo factor que no es inherente al individuo pero es conocido solo por ellos. Esto asegura que incluso si un atacante fuera de alguna manera capaz de obtener una imagen facial similar, aún necesitarían conocer la contraseña exacta que se usó durante la creación del ZelfProof. Este conocimiento es algo que solo el usuario posee, haciendo extremadamente difícil para un atacante violar el sistema.
 
-#### 2. **Exponentially Increased Difficulty for Attackers**
+#### 2. **Dificultad Exponencialmente Aumentada para Atacantes**
 
-* **Unpredictable Combinations**: When a password is added, the ZelfProof is no longer just a product of the face image; it becomes a unique combination of both the face and the password. For an attacker to successfully recreate or break into the ZelfProof, they would not only need to replicate the exact facial features but also guess or know the correct password. The number of possible face-password combinations is virtually infinite, making brute-force attacks impractical and almost impossible to execute within a reasonable time frame.
-* **Dual Secrets Requirement**: Hackers would need to breach two distinct secrets: the facial image (biometric data) and the password (a knowledge-based secret). Obtaining one without the other is useless, and each secret is protected in different ways, which adds complexity and reduces the chance of both being compromised simultaneously.
+* **Combinaciones Impredecibles**: Cuando se agrega una contraseña, el ZelfProof ya no es solo un producto de la imagen facial; se convierte en una combinación única tanto del rostro como de la contraseña. Para que un atacante recrear exitosamente o irrumpir en el ZelfProof, no solo necesitarían replicar las características faciales exactas sino también adivinar o conocer la contraseña correcta. El número de combinaciones posibles de rostro-contraseña es virtualmente infinito, haciendo que los ataques de fuerza bruta sean imprácticos y casi imposibles de ejecutar dentro de un marco de tiempo razonable.
+* **Requisito de Secretos Duales**: Los hackers necesitarían violar dos secretos distintos: la imagen facial (datos biométricos) y la contraseña (un secreto basado en conocimiento). Obtener uno sin el otro es inútil, y cada secreto está protegido de diferentes maneras, lo que añade complejidad y reduce la posibilidad de que ambos sean comprometidos simultáneamente.
 
-#### 3. **Resilience Against Replay and Spoofing Attacks**
+#### 3. **Resistencia Contra Ataques de Reproducción y Suplantación**
 
-* **Password as an Anti-Spoofing Measure**: Even if an attacker attempts to use a replay attack with a captured image of the face, the lack of the corresponding password renders the attack futile. The ZelfProof algorithm would detect that the combination does not match the original and would reject any attempt to use it for authentication or decryption.
-* **Dynamic Security**: Passwords can be changed regularly or be unique to specific transactions or instances, adding a dynamic layer of security that facial images alone cannot provide. This means that even if an attacker somehow learns a previous password, it would not be useful for future ZelfProofs if the password has been updated.
+* **Contraseña como Medida Anti-Suplantación**: Incluso si un atacante intenta usar un ataque de reproducción con una imagen capturada del rostro, la falta de la contraseña correspondiente hace que el ataque sea inútil. El algoritmo ZelfProof detectaría que la combinación no coincide con la original y rechazaría cualquier intento de usarla para autenticación o descifrado.
+* **Seguridad Dinámica**: Las contraseñas pueden cambiarse regularmente o ser únicas para transacciones o instancias específicas, añadiendo una capa dinámica de seguridad que las imágenes faciales solas no pueden proporcionar. Esto significa que incluso si un atacante de alguna manera aprende una contraseña anterior, no sería útil para futuros ZelfProofs si la contraseña ha sido actualizada.
 
-#### 4. **Enhanced Privacy and Data Protection**
+#### 4. **Privacidad y Protección de Datos Mejoradas**
 
-* **Minimal Exposure of Sensitive Data**: The use of a password means that even if a database containing ZelfProofs is compromised, the attacker would still be unable to decrypt the data without the corresponding password. This greatly reduces the risk of sensitive information being exposed or misused.
-* **Layered Encryption**: The password can be used as an additional key in the encryption process, meaning that the **ZelfProof** is **not only** tied to the user’s face but also to their password. This creates a robust encryption framework where both components are necessary to decrypt and utilize the data.
+* **Exposición Mínima de Datos Sensibles**: El uso de una contraseña significa que incluso si una base de datos que contiene ZelfProofs es comprometida, el atacante aún sería incapaz de descifrar los datos sin la contraseña correspondiente. Esto reduce enormemente el riesgo de que la información sensible sea expuesta o mal utilizada.
+* **Cifrado en Capas**: La contraseña puede usarse como una clave adicional en el proceso de cifrado, lo que significa que el **ZelfProof** está **no solo** ligado al rostro del usuario sino también a su contraseña. Esto crea un marco de cifrado robusto donde ambos componentes son necesarios para descifrar y utilizar los datos.
 
-#### 5. **Mitigation of False Positives**
+#### 5. **Mitigación de Falsos Positivos**
 
-* **Reducing Risk of Misidentification**: In some rare cases, biometric systems can produce false positives, where an unauthorized person is incorrectly identified as the authorized user. **By requiring a password**, the system adds a safeguard against this by ensuring that only the person who knows the password can complete the authentication process, thereby reducing the chances of a false positive leading to a security breach.
+* **Reduciendo el Riesgo de Identificación Errónea**: En algunos casos raros, los sistemas biométricos pueden producir falsos positivos, donde una persona no autorizada es incorrectamente identificada como el usuario autorizado. **Al requerir una contraseña**, el sistema añade una salvaguarda contra esto asegurando que solo la persona que conoce la contraseña pueda completar el proceso de autenticación, reduciendo así las posibilidades de que un falso positivo lleve a una violación de seguridad.
 
-#### 6. **User-Controlled Security**
+#### 6. **Seguridad Controlada por el Usuario**
 
-* **Empowering Users**: By allowing users to add a password, the security of the ZelfProof is placed partly in their hands. Users can choose a password of appropriate complexity and are responsible for its confidentiality, empowering them to take an active role in protecting their sensitive information.
+* **Empoderando a los Usuarios**: Al permitir a los usuarios agregar una contraseña, la seguridad del ZelfProof se coloca parcialmente en sus manos. Los usuarios pueden elegir una contraseña de complejidad apropiada y son responsables de su confidencialidad, empoderándolos para tomar un papel activo en proteger su información sensible.

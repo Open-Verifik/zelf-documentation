@@ -1,22 +1,22 @@
-# Arweave Name System (ArNS)
+# Sistema de Nombres de Arweave (ArNS)
 
-When the end user creates a zelfName and purchases a subscription for 1 to N years, we create the record in Arweave because when you don't purchase it we just say the temporal zelfNames in IPFS since it's easier to just remove them after the trial period.
+Cuando el usuario final crea un zelfName y compra una suscripción por 1 a N años, creamos el registro en Arweave porque cuando no lo compras simplemente almacenamos los zelfNames temporales en IPFS ya que es más fácil removerlos después del período de prueba.
 
-When we store it in Arweave we also bring more benefits besides the permanent storage of the ZelfProof, one of those benefits is that we create a permanent website that we keep updating with the information that we store inside Arweave regarding the ZelfName registration.
+Cuando lo almacenamos en Arweave también obtenemos más beneficios además del almacenamiento permanente del ZelfProof, uno de esos beneficios es que creamos un sitio web permanente que mantenemos actualizado con la información que almacenamos dentro de Arweave con respecto al registro del ZelfName.
 
 ![](https://1734807472-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpZcqM4Fiw6bW4Zvc28S3%2Fuploads%2FZKVVvBf2MflqqBZN9ZzJ%2Fimage.png?alt=media&#x26;token=1f1ca00b-7eb4-47e1-acdd-57c24dbbe8e7)
 
-### Claim your Zelf Name Site
+### Reclama tu Sitio de Zelf Name
 
 ```
 https://api.zelf.world/api/ar-io-arns/:zelfName
 ```
 
-#### Request
+#### Solicitud
 
 Endpoint: `/api/ar-io-arns/:zelfName` \
 \
-Method: **POST**
+Método: **POST**
 
 Content-Type: `application/json` \\
 
@@ -73,7 +73,7 @@ print(data.decode("utf-8"))
 </TabItem>
 </Tabs>
 
-#### Response
+#### Respuesta
 
 <Tabs>
 <TabItem value="200" label="200">
@@ -92,7 +92,7 @@ print(data.decode("utf-8"))
 
 </TabItem>
 
-<TabItem value="Already registered" label="Already registered">
+<TabItem value="Already registered" label="Ya registrado">
 
 ```json
 {
@@ -124,17 +124,17 @@ print(data.decode("utf-8"))
 </TabItem>
 </Tabs>
 
-### Query your Zelf Name Site
+### Consulta tu Sitio de Zelf Name
 
 ```
 https://api.zelf.world/api/ar-io-arns/:zelfName
 ```
 
-#### Request
+#### Solicitud
 
 Endpoint: `/api/ar-io-arns/:zelfName` \
 \
-Method: **GET**
+Método: **GET**
 
 Content-Type: `application/json` \\
 
@@ -187,7 +187,7 @@ print(data.decode("utf-8"))
 </TabItem>
 </Tabs>
 
-#### Response
+#### Respuesta
 
 <Tabs>
 <TabItem value="200" label="200">

@@ -1,69 +1,69 @@
 # Zelf Proofs vs Otros
 
-In the last decade, many ZK-proof solutions have been born with applications in the blockchain industry. Some developers may ask, what's the difference between Zelf Proof and the conventional open-source ZK solutions? Here we present a breakdown for each technology, pointing out their differences, applications, and limits.&#x20;
+En la última década, muchas soluciones de pruebas ZK han nacido con aplicaciones en la industria blockchain. Algunos desarrolladores pueden preguntarse, ¿cuál es la diferencia entre Zelf Proof y las soluciones ZK convencionales de código abierto? Aquí presentamos un desglose para cada tecnología, señalando sus diferencias, aplicaciones y límites.
 
-### Breakdown
+### Desglose
 
 <details>
 
 <summary>Zelf Proof (ZK- Face Proofs™)</summary>
 
-**Definition**\
-Non-interactive, Highly scalable, small proof size, trusted setup through licensing mechanism.
+**Definición**\
+No interactivo, altamente escalable, tamaño de prueba pequeño, configuración confiable a través de mecanismo de licencias.
 
-**ZelfProof** (ZK- Face Proofs™) technology does not rely on conventional zero-knowledge proofs (ZKPs). Yet, it achieves the same objective: verifying the authenticity of a face without revealing any biometric information. By generating a unique ZelfProof, this enables someone to encrypt information with their face without disclousing the face to any third party. the **ZelfProof** does not disclose the face data in any moment. This ensures privacy-preserving and secure identity verification without the need to expose or store biometric data.
+La tecnología **ZelfProof** (ZK- Face Proofs™) no depende de pruebas de conocimiento cero convencionales (ZKPs). Sin embargo, logra el mismo objetivo: verificar la autenticidad de un rostro sin revelar ninguna información biométrica. Al generar un ZelfProof único, esto permite a alguien cifrar información con su rostro sin divulgar el rostro a ningún tercero. El **ZelfProof** no divulga los datos del rostro en ningún momento. Esto asegura verificación de identidad que preserva la privacidad y es segura sin necesidad de exponer o almacenar datos biométricos.
 
-**Trusted Setup**
+**Configuración Confiable**
 
-Trusted setup through a licensing mechanism
+Configuración confiable a través de un mecanismo de licencias
 
-**Interactivity**
+**Interactividad**
 
-Non-interactive, can be verified offline
+No interactivo, puede verificarse offline
 
-**Proof Size**
+**Tamaño de Prueba**
 
-\~ 2- 3kb and 60 kb in QR format
+\~ 2- 3kb y 60 kb en formato QR
 
-**Verification Time**
+**Tiempo de Verificación**
 
-Fast, runs on mobile as well
+Rápido, también funciona en móvil
 
-**Scalability**
+**Escalabilidad**
 
-Highly scalable as it can run on the mobile directly without any server computation
+Altamente escalable ya que puede ejecutarse en el móvil directamente sin ningún cómputo de servidor
 
-**Security Assumptions**
+**Suposiciones de Seguridad**
 
-ZelfQRs are based on Elliptic Curve cryptography. Face Certificates will soon be quantum-safe.
+Los ZelfQRs están basados en criptografía de Curva Elíptica. Los Certificados Faciales pronto serán cuántico-seguros.
 
-**Post-Quantum Security**
+**Seguridad Post-Cuántica**
 
-Face Certificates PQC version are quantum-safe.&#x20;
+La versión PQC de Certificados Faciales es cuántico-segura.
 
-**Complexity**
+**Complejidad**
 
-Simple SDK
+SDK simple
 
-**Transparency**
+**Transparencia**
 
-Trusted setup through a licensing mechanism (not fully transparent).
+Configuración confiable a través de un mecanismo de licencias (no completamente transparente).
 
-**Use Cases**
+**Casos de Uso**
 
-Verification of functional eID attributes (eKYC) \
-Proof of presence and unique humanness \
-Face-based transaction authentication \
-Face-based signup \
-Face-based login \
-Face-based document/file/disk encryption \
-Face-based document/file signing \
-National IDs/eID with Offline/Online \
-Verification Wallet Security
+Verificación de atributos eID funcionales (eKYC) \
+Prueba de presencia y humanidad única \
+Autenticación de transacciones basada en rostro \
+Registro basado en rostro \
+Inicio de sesión basado en rostro \
+Cifrado de documento/archivo/disco basado en rostro \
+Firma de documento/archivo basada en rostro \
+IDs Nacionales/eID con Verificación Offline/Online \
+Seguridad de Billetera
 
-**Suitability for Blockchain**
+**Idoneidad para Blockchain**
 
-**ZelfProofs** can be integrated into an identity blockchain, such as HyperLedger Indy, via the ZelfEncrypt Distributed Ledger Technology (DLT) protocol. This allows for secure, privacy-preserving identity verification on the blockchain without exposing or storing sensitive biometric data.
+Los **ZelfProofs** pueden integrarse en una blockchain de identidad, como HyperLedger Indy, vía el protocolo ZelfEncrypt de Tecnología de Libro Distribuido (DLT). Esto permite verificación de identidad segura y que preserva la privacidad en la blockchain sin exponer o almacenar datos biométricos sensibles.
 
 </details>
 
@@ -71,51 +71,51 @@ Verification Wallet Security
 
 <summary>zk Proof</summary>
 
-A general class of zero-knowledge proofs where one party proves the validity of a statement without revealing information.
+Una clase general de pruebas de conocimiento cero donde una parte prueba la validez de una declaración sin revelar información.
 
-**Trusted Setup**
+**Configuración Confiable**
 
-It depends on the specific protocol, typically interactive.
+Depende del protocolo específico, típicamente interactivo.
 
-**Interactivity**
+**Interactividad**
 
-Often interactive (multiple rounds of communication between prover and verifier).
+A menudo interactivo (múltiples rondas de comunicación entre probador y verificador).
 
-**Proof Size**
+**Tamaño de Prueba**
 
-It can be large depending on the complexity of the proof.
+Puede ser grande dependiendo de la complejidad de la prueba.
 
-**Verification Time**
+**Tiempo de Verificación**
 
-It can be slow and depends on the size of the proof and computation.
+Puede ser lento y depende del tamaño de la prueba y cómputo.
 
-**Scalability**
+**Escalabilidad**
 
-Limited, especially for large computations.
+Limitada, especialmente para cómputos grandes.
 
-**Security Assumptions**
+**Suposiciones de Seguridad**
 
-Varies, are often based on standard cryptographic assumptions.
+Varía, a menudo se basan en suposiciones criptográficas estándar.
 
-**Post-Quantum Security**
+**Seguridad Post-Cuántica**
 
-Depends on the cryptographic primitives used (most are not quantum-safe).
+Depende de las primitivas criptográficas utilizadas (la mayoría no son cuántico-seguras).
 
-**Complexity**
+**Complejidad**
 
-Generally simple, but requires multiple rounds of interaction.
+Generalmente simple, pero requiere múltiples rondas de interacción.
 
-**Transparency**
+**Transparencia**
 
-Varies based on the protocol.
+Varía según el protocolo.
 
-**Use Cases**
+**Casos de Uso**
 
-Privacy-preserving authentication, data sharing, etc.
+Autenticación que preserva la privacidad, intercambio de datos, etc.
 
-**Suitability for Blockchain**
+**Idoneidad para Blockchain**
 
-Limited; typically not used directly in blockchains due to larger proof sizes and interactivity.
+Limitada; típicamente no se usa directamente en blockchains debido a tamaños de prueba más grandes e interactividad.
 
 </details>
 
@@ -123,51 +123,51 @@ Limited; typically not used directly in blockchains due to larger proof sizes an
 
 <summary>zk SNARK</summary>
 
-Succinct, non-interactive zero-knowledge proofs with small proof sizes and fast verification.
+Pruebas de conocimiento cero sucintas y no interactivas con tamaños de prueba pequeños y verificación rápida.
 
-**Trusted Setup**
+**Configuración Confiable**
 
-Yes (requires trusted setup).
+Sí (requiere configuración confiable).
 
-**Interactivity**
+**Interactividad**
 
-Non-interactive (once the proof is generated, no further interaction is needed).
+No interactivo (una vez que se genera la prueba, no se necesita más interacción).
 
-**Proof Size**
+**Tamaño de Prueba**
 
-Small (a few hundred bytes).
+Pequeño (unos pocos cientos de bytes).
 
-**Verification Time**
+**Tiempo de Verificación**
 
-Very fast verification.
+Verificación muy rápida.
 
-**Scalability**
+**Escalabilidad**
 
-Less scalable for very large computations.
+Menos escalable para cómputos muy grandes.
 
-**Security Assumptions**
+**Suposiciones de Seguridad**
 
-Based on elliptic curve cryptography (ECDLP), not quantum-safe.
+Basado en criptografía de curva elíptica (ECDLP), no cuántico-seguro.
 
-**Post-Quantum Security**
+**Seguridad Post-Cuántica**
 
-No (vulnerable to quantum attacks due to reliance on elliptic curve cryptography).
+No (vulnerable a ataques cuánticos debido a la dependencia en criptografía de curva elíptica).
 
-**Complexity**
+**Complejidad**
 
-More complex due to elliptic curve math and trusted setup.
+Más complejo debido a matemáticas de curva elíptica y configuración confiable.
 
-**Transparency**
+**Transparencia**
 
-Requires trusted setup (not fully transparent).
+Requiere configuración confiable (no completamente transparente).
 
-**Use Cases**
+**Casos de Uso**
 
-Privacy-focused systems like Zcash, and identity proofs.
+Sistemas enfocados en privacidad como Zcash, y pruebas de identidad.
 
-**Suitability for Blockchain**
+**Idoneidad para Blockchain**
 
-Widely used for privacy in blockchain applications (e.g., Zcash).
+Ampliamente usado para privacidad en aplicaciones blockchain (ej., Zcash).
 
 </details>
 
@@ -175,50 +175,50 @@ Widely used for privacy in blockchain applications (e.g., Zcash).
 
 <summary>zk STARK</summary>
 
-Scalable, transparent zero-knowledge proofs designed for large computations, with no trusted setup.
+Pruebas de conocimiento cero escalables y transparentes diseñadas para cómputos grandes, sin configuración confiable.
 
-**Trusted Setup**&#x20;
+**Configuración Confiable**
 
-No (transparent, no trusted setup).
+No (transparente, sin configuración confiable).
 
-**Interactivity**
+**Interactividad**
 
-Non-interactive (like ZK-SNARKs).
+No interactivo (como ZK-SNARKs).
 
-**Proof Size**
+**Tamaño de Prueba**
 
-Large (kilobytes to megabytes).
+Grande (kilobytes a megabytes).
 
-**Verification Time**
+**Tiempo de Verificación**
 
-Fast verification, but slightly slower than SNARKs for small proofs.
+Verificación rápida, pero ligeramente más lenta que SNARKs para pruebas pequeñas.
 
-**Scalability**
+**Escalabilidad**
 
-Highly scalable, handles large computations efficiently.
+Altamente escalable, maneja cómputos grandes eficientemente.
 
-**Security Assumptions**
+**Suposiciones de Seguridad**
 
-Based on hash functions (quantum-safe).
+Basado en funciones hash (cuántico-seguro).
 
-**Post-Quantum Security**
+**Seguridad Post-Cuántica**
 
-Yes (resistant to quantum attacks).
+Sí (resistente a ataques cuánticos).
 
-**Complexity**
+**Complejidad**
 
-Simpler than SNARKs, no setup needed, uses basic hash functions.
+Más simple que SNARKs, no necesita configuración, usa funciones hash básicas.
 
-**Transparency**
+**Transparencia**
 
-Fully transparent (no trusted setup required).
+Completamente transparente (no requiere configuración confiable).
 
-**Use Cases**
+**Casos de Uso**
 
-Blockchain scaling, large-scale computations (e.g., StarkWare).
+Escalamiento de blockchain, cómputos a gran escala (ej., StarkWare).
 
-**Suitability for Blockchain**
+**Idoneidad para Blockchain**
 
-Best suited for blockchain scaling and high throughput DApps (e.g., layer-2 solutions).
+Mejor adaptado para escalamiento de blockchain y DApps de alto rendimiento (ej., soluciones de capa 2).
 
 </details>
