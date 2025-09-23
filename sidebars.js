@@ -74,6 +74,28 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "API Documentation",
+			collapsible: false,
+			items: [
+				{
+					type: "category",
+					label: "Tags API",
+					collapsible: true,
+					items: [
+						"api/tags/search-tag",
+						"api/tags/search-by-domain",
+						"api/tags/preview-tag",
+						"api/tags/lease-tag",
+						"api/tags/lease-recovery",
+						"api/tags/lease-offline",
+						"api/tags/preview-zelfproof",
+						"api/tags/decrypt-tag",
+					],
+				},
+			],
+		},
+		{
+			type: "category",
 			label: "Integrations",
 			collapsible: false,
 			items: [

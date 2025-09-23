@@ -67,6 +67,28 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "Documentación API",
+			collapsible: false,
+			items: [
+				{
+					type: "category",
+					label: "API de Etiquetas",
+					collapsible: true,
+					items: [
+						"api/etiquetas/buscar-etiqueta",
+						"api/etiquetas/buscar-por-dominio",
+						"api/etiquetas/vista-previa-etiqueta",
+						"api/etiquetas/alquilar-etiqueta",
+						"api/etiquetas/recuperacion-alquiler",
+						"api/etiquetas/alquiler-offline",
+						"api/etiquetas/vista-previa-zelfproof",
+						"api/etiquetas/descifrar-etiqueta",
+					],
+				},
+			],
+		},
+		{
+			type: "category",
 			label: "Integraciones",
 			collapsible: false,
 			items: [

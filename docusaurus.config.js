@@ -140,6 +140,14 @@ const config = {
 				theme: prismThemes.github,
 				darkTheme: prismThemes.dracula,
 			},
+			sidebar: {
+				hideable: true,
+			},
+			docs: {
+				sidebar: {
+					hideable: true,
+				},
+			},
 		}),
 };
 
