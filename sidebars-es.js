@@ -95,7 +95,7 @@ const sidebars = {
 			type: "category",
 			label: "Airdrop",
 			collapsible: false,
-			items: ["airdrop/reglas-airdrop", "airdrop/reglas-airdrop-es", "airdrop/precios-por-dominio"],
+			items: ["airdrop/reglas-airdrop", "airdrop/precios-por-dominio"],
 		},
 		"verificar-socios",
 		{
