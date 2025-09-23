@@ -1,111 +1,111 @@
 # Política de Privacidad
 
-**Last Updated: August 23, 2024**
+**Última actualización: 23 de agosto de 2024**
 
-This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
+Esta Política de Privacidad describe nuestras políticas y procedimientos sobre la recopilación, uso y divulgación de su información cuando utiliza el Servicio y le informa sobre sus derechos de privacidad y cómo la ley lo protege.
 
-We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.
+Utilizamos sus datos personales para proporcionar y mejorar el Servicio. Al utilizar el Servicio, usted acepta la recopilación y uso de información de acuerdo con esta Política de Privacidad.
 
-### **Interpretation and Definitions**
+### **Interpretación y Definiciones**
 
-### **Interpretation**
+### **Interpretación**
 
-The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+Las palabras cuya letra inicial está en mayúscula tienen significados definidos bajo las siguientes condiciones. Las siguientes definiciones tendrán el mismo significado independientemente de si aparecen en singular o en plural.
 
-### **Definitions**
+### **Definiciones**
 
-For the purposes of this Privacy Policy:
+Para los propósitos de esta Política de Privacidad:
 
-* **Account** means a unique account created for You to access our Service or parts of our Service.
-* **App or Application** refers to Zelf Name Service, the software program provided by the Company.
-* **Business** , for the purpose of CCPA/CPRA, refers to the Company as the legal entity that collects Consumers' personal information and determines the purposes and means of the processing of Consumers' personal information, or on behalf of which such information is collected and that alone, or jointly with others, determines the purposes and means of the processing of consumers' personal information, that does business in the State of California.
-* **CCPA** and/or **CPRA** refers to the California Consumer Privacy Act (the "CCPA") as amended by the California Privacy Rights Act of 2020 (the "CPRA").
-* **Company** (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to ZELF WORLD LLC, 701 Tillery Street Unit 12-2663, Austin, Texas 78702, United States. ZELF WORLD LLC is the leading blockchain and web3 software company which provides services to users, creators and developers under brands such as Zelf, Zelf World and Zelf Name Service.
-* **Consumer**, for the purpose of the CCPA/CPRA, means a natural person who is a California resident. A resident, as defined in the law, includes (1) every individual who is in the USA for other than a temporary or transitory purpose, and (2) every individual who is domiciled in the USA who is outside the USA for a temporary or transitory purpose.
-* **Country** refers to: Wyoming, United States.
-* **Database Free**, refers to the architecture throught which the Application is built on. It is an architecture which does not store information in a data base, so the Application can be decrypted offline.
-* **Data Controller**, for the purposes of the GDPR (General Data Protection Regulation), refers to the Company as the legal person which alone or jointly with others determines the purposes and means of the processing of Personal Data.
-* **Device** means any device that can access the Service such as a computer, a cellphone or a digital tablet.
-* **Do Not Track** (DNT) is a concept that has been promoted by US regulatory authorities, in particular the U.S. Federal Trade Commission (FTC), for the Internet industry to develop and implement a mechanism for allowing internet users to control the tracking of their online activities across websites.
-* **GDPR** refers to EU General Data Protection Regulation.
-* **Personal Data** is any information that relates to an identified or identifiable individual. For the purposes of GDPR, Personal Data means any information relating to You such as a name, an identification number, location data, online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity. For the purposes of the CCPA/CPRA, Personal Data means any information that identifies, relates to, describes or is capable of being associated with, or could reasonably be linked, directly or indirectly, with You.
-* **Service** refers to the Application or the Web extension or both.
-* **Service Provider** means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used. For the purpose of the GDPR, Service Providers are considered Data Processors.
-* **Usage Data** refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).
-* **Website** refers to Zelf World, accessible from [zelf.world.](https://zelf.world/)
-* **You** means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable. Under GDPR, You can be referred to as the Data Subject or as the User as you are the individual using the Service.
-* **ZelfEncrypt,** refers \*\*\*\*to an algorithm \*\*\*\*which \*\*\*\*utilizes face features, along with optional metadata and/or password, to generate an encrypted, high entropy, privacy-preserving, non-biometric, non-reversible, binary representation of Your private recovery keys in the form of Your ZelfProof (Zero Knowledge Face Proof). ZelfEncrypt is not considered Personal Data, since it does not collect or store any biometric data and is operated in a Database Free infrastructure.
-* **ZNS:** The Acronym for Zelf Name Service.
+* **Cuenta** significa una cuenta única creada para usted para acceder a nuestro Servicio o partes de nuestro Servicio.
+* **App o Aplicación** se refiere a Zelf Name Service, el programa de software proporcionado por la Compañía.
+* **Negocio**, para el propósito de CCPA/CPRA, se refiere a la Compañía como la entidad legal que recopila información personal de los Consumidores y determina los propósitos y medios del procesamiento de información personal de los Consumidores, o en nombre de la cual se recopila dicha información y que sola, o conjuntamente con otros, determina los propósitos y medios del procesamiento de información personal de los consumidores, que hace negocios en el Estado de California.
+* **CCPA** y/o **CPRA** se refiere a la Ley de Privacidad del Consumidor de California (la "CCPA") enmendada por la Ley de Derechos de Privacidad de California de 2020 (la "CPRA").
+* **Compañía** (referida como "la Compañía", "Nosotros", "Nos" o "Nuestro" en este Acuerdo) se refiere a ZELF WORLD LLC, 701 Tillery Street Unit 12-2663, Austin, Texas 78702, Estados Unidos. ZELF WORLD LLC es la empresa líder de software blockchain y web3 que proporciona servicios a usuarios, creadores y desarrolladores bajo marcas como Zelf, Zelf World y Zelf Name Service.
+* **Consumidor**, para el propósito de CCPA/CPRA, significa una persona natural que es residente de California. Un residente, según se define en la ley, incluye (1) cada individuo que está en los EE.UU. por un propósito que no sea temporal o transitorio, y (2) cada individuo que está domiciliado en los EE.UU. que está fuera de los EE.UU. por un propósito temporal o transitorio.
+* **País** se refiere a: Wyoming, Estados Unidos.
+* **Sin Base de Datos**, se refiere a la arquitectura sobre la cual se construye la Aplicación. Es una arquitectura que no almacena información en una base de datos, por lo que la Aplicación puede ser descifrada sin conexión.
+* **Controlador de Datos**, para los propósitos del GDPR (Reglamento General de Protección de Datos), se refiere a la Compañía como la persona legal que sola o conjuntamente con otros determina los propósitos y medios del procesamiento de Datos Personales.
+* **Dispositivo** significa cualquier dispositivo que puede acceder al Servicio como una computadora, un teléfono celular o una tableta digital.
+* **No Rastrear** (DNT) es un concepto que ha sido promovido por las autoridades regulatorias de EE.UU., en particular la Comisión Federal de Comercio de EE.UU. (FTC), para que la industria de Internet desarrolle e implemente un mecanismo que permita a los usuarios de internet controlar el rastreo de sus actividades en línea a través de sitios web.
+* **GDPR** se refiere al Reglamento General de Protección de Datos de la UE.
+* **Datos Personales** es cualquier información que se relaciona con un individuo identificado o identificable. Para los propósitos del GDPR, Datos Personales significa cualquier información relacionada con usted como un nombre, un número de identificación, datos de ubicación, identificador en línea o a uno o más factores específicos de la identidad física, fisiológica, genética, mental, económica, cultural o social. Para los propósitos de CCPA/CPRA, Datos Personales significa cualquier información que identifica, se relaciona, describe o es capaz de ser asociada con, o podría razonablemente estar vinculada, directa o indirectamente, con usted.
+* **Servicio** se refiere a la Aplicación o la extensión Web o ambas.
+* **Proveedor de Servicios** significa cualquier persona natural o legal que procesa los datos en nombre de la Compañía. Se refiere a empresas o individuos terceros empleados por la Compañía para facilitar el Servicio, proporcionar el Servicio en nombre de la Compañía, realizar servicios relacionados con el Servicio o asistir a la Compañía en analizar cómo se usa el Servicio. Para el propósito del GDPR, los Proveedores de Servicios son considerados Procesadores de Datos.
+* **Datos de Uso** se refiere a datos recopilados automáticamente, ya sea generados por el uso del Servicio o de la infraestructura del Servicio misma (por ejemplo, la duración de una visita a la página).
+* **Sitio Web** se refiere a Zelf World, accesible desde [zelf.world.](https://zelf.world/)
+* **Usted** significa el individuo que accede o usa el Servicio, o la compañía, u otra entidad legal en nombre de la cual dicho individuo está accediendo o usando el Servicio, según corresponda. Bajo GDPR, usted puede ser referido como el Sujeto de Datos o como el Usuario ya que es el individuo usando el Servicio.
+* **ZelfEncrypt**, se refiere a un algoritmo que utiliza características faciales, junto con metadatos opcionales y/o contraseña, para generar una representación binaria cifrada, de alta entropía, que preserva la privacidad, no biométrica, no reversible, de sus claves de recuperación privadas en la forma de su ZelfProof (Prueba Facial de Conocimiento Cero). ZelfEncrypt no se considera Datos Personales, ya que no recopila ni almacena datos biométricos y opera en una infraestructura Sin Base de Datos.
+* **ZNS:** El acrónimo para Zelf Name Service.
 
-### **Privacy Takeaways**
+### **Resumen de Privacidad**
 
-* ZNS utilizes **ZelfEncrypt,** an algorithm that does not store biometric or Personal Data and which is **Database free.**
-* ZNS **DOES NOT** collect nor store personal data, such as first name, last name, street address, date of birth **or biometric data.**
-* ZNS might have **your email if you provide** it inside the website to us for product updates subscriptions or while communicating with our Customer Support team. **We never cross-link your emails to your other personal data** that Zelf might collect.
-* ZNS collects non-identifiable public on-chain data, like transaction details, assets held in the account, and other information, to provide you services via the Zelf Application.
+* ZNS utiliza **ZelfEncrypt**, un algoritmo que no almacena datos biométricos o Datos Personales y que es **Sin base de datos**.
+* ZNS **NO** recopila ni almacena datos personales, como nombre, apellido, dirección, fecha de nacimiento **o datos biométricos**.
+* ZNS podría tener **su correo electrónico si lo proporciona** dentro del sitio web para suscripciones de actualizaciones de productos o mientras se comunica con nuestro equipo de Soporte al Cliente. **Nunca cruzamos sus correos electrónicos con sus otros datos personales** que Zelf podría recopilar.
+* ZNS recopila datos públicos no identificables en cadena, como detalles de transacciones, activos mantenidos en la cuenta, y otra información, para proporcionarle servicios a través de la Aplicación Zelf.
 
-#### **How To Preserve Your Privacy**
+#### **Cómo Preservar Su Privacidad**
 
-* **If you don’t want us to know your email**, please don’t subscribe for updates at the Zelf Blog; or early access to Zelf World product releases. We encourage you to access our Support team via app-embedded functionality but not through email or social networks;
+* **Si no quiere que sepamos su correo electrónico**, por favor no se suscriba para actualizaciones en el Blog de Zelf; o acceso temprano a lanzamientos de productos de Zelf World. Le animamos a acceder a nuestro equipo de Soporte a través de funcionalidad integrada en la aplicación pero no a través de correo electrónico o redes sociales;
 
-### **User Journey and Data Collection**
+### **Viaje del Usuario y Recopilación de Datos**
 
-#### **Automatically Collected Data**
+#### **Datos Recopilados Automáticamente**
 
-**Website**
+**Sitio Web**
 
-While using Our website, We don't collect Personal Data or Usage Data.
+Mientras usa nuestro sitio web, no recopilamos Datos Personales o Datos de Uso.
 
-**Application**
+**Aplicación**
 
-While using Our Application, **we don't collect Personal Data** but we may collect Usage Data, including, Your mobile operating system, mobile device You use, including the hardware model, operating system and version. In addition, we may collect data such as:
+Mientras usa nuestra Aplicación, **no recopilamos Datos Personales** pero podemos recopilar Datos de Uso, incluyendo, su sistema operativo móvil, dispositivo móvil que usa, incluyendo el modelo de hardware, sistema operativo y versión. Además, podemos recopilar datos como:
 
-* **Intended Transaction Information.** We generate the transaction before sending it for execution on the chain so you can see all available fees and choose the better option. The information contains data about the type of transaction, amount, assets, and other transaction metadata. We share this data with DEX aggregators and Private Money Makers for them to perform the transaction.
+* **Información de Transacción Intencionada.** Generamos la transacción antes de enviarla para ejecución en la cadena para que pueda ver todas las tarifas disponibles y elegir la mejor opción. La información contiene datos sobre el tipo de transacción, cantidad, activos, y otros metadatos de transacción. Compartimos estos datos con agregadores DEX y Private Money Makers para que realicen la transacción.
 
-#### Information You Provide Us
+#### Información que Nos Proporciona
 
-**Website**
+**Sitio Web**
 
-While using Our website, You can opt-in and share Personal Data such as:
+Mientras usa nuestro sitio web, puede optar por participar y compartir Datos Personales como:
 
-* **Contact Details.** Email address in case You want to receive updates, and early access to Zelf's new products at the page [https://zelf.world](https://zelf.world).
-* **Communications.** Information provided by you to our Customer Support team.
-* **Social network account names**: we can receive this information from you while you communicate with our Customer Support team via Discord or X (Twitter).
+* **Detalles de Contacto.** Dirección de correo electrónico en caso de que quiera recibir actualizaciones, y acceso temprano a los nuevos productos de Zelf en la página [https://zelf.world](https://zelf.world).
+* **Comunicaciones.** Información proporcionada por usted a nuestro equipo de Soporte al Cliente.
+* **Nombres de cuentas de redes sociales**: podemos recibir esta información de usted mientras se comunica con nuestro equipo de Soporte al Cliente a través de Discord o X (Twitter).
 
-**Application**
+**Aplicación**
 
-While using Our Application, to provide features of Our Application, You may provide us with Your prior permission, Usage Data, and Personal Data, such as:
+Mientras usa nuestra Aplicación, para proporcionar características de nuestra Aplicación, puede proporcionarnos con su permiso previo, Datos de Uso, y Datos Personales, como:
 
-* **Account Information.** Your public address (ZelfName) is provided while connecting ZNS to the Interface.
-* **Communications.** Information provided by you to our Customer Support team.
-* **Device's camera.** Liveness detection and/or the scanning of QR codes is needed to provide features for Our Application.
+* **Información de Cuenta.** Su dirección pública (ZelfName) se proporciona mientras conecta ZNS a la Interfaz.
+* **Comunicaciones.** Información proporcionada por usted a nuestro equipo de Soporte al Cliente.
+* **Cámara del dispositivo.** La detección de vida y/o el escaneo de códigos QR es necesario para proporcionar características para nuestra Aplicación.
 
-The information You provide us may be uploaded to the Company's servers and/or a Service Provider's server.
+La información que nos proporciona puede ser subida a los servidores de la Compañía y/o al servidor de un Proveedor de Servicios.
 
-#### **Information We Collect From Other Sources**
+#### **Información que Recopilamos de Otras Fuentes**
 
-**Application**
+**Aplicación**
 
-While using Our Application and to make proper use of it, we collect information such as:
+Mientras usa nuestra Aplicación y para hacer uso adecuado de ella, recopilamos información como:
 
-* **Publicly available Blockchain Data.** We collect your publicly available blockchain (transaction details, assets held in the account, and other information) to reflect at the interface actual data related to your portfolio.
+* **Datos Blockchain Públicamente Disponibles.** Recopilamos sus datos blockchain públicamente disponibles (detalles de transacciones, activos mantenidos en la cuenta, y otra información) para reflejar en la interfaz datos actuales relacionados con su portafolio.
 
-#### **Tracking Technologies**
+#### **Tecnologías de Rastreo**
 
-We use Web Beacons and similar tracking technologies to track the activity on Our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service. The technologies We use may include:
+Utilizamos Web Beacons y tecnologías de rastreo similares para rastrear la actividad en nuestro Servicio y almacenar cierta información. Las tecnologías de rastreo utilizadas son beacons, etiquetas, y scripts para recopilar y rastrear información y para mejorar y analizar nuestro Servicio. Las tecnologías que utilizamos pueden incluir:
 
-* **Web Beacons.** Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).
+* **Web Beacons.** Ciertas secciones de nuestro Servicio y nuestros correos electrónicos pueden contener pequeños archivos electrónicos conocidos como web beacons (también referidos como gifs claros, etiquetas de píxel, y gifs de píxel único) que permiten a la Compañía, por ejemplo, contar usuarios que han visitado esas páginas o abierto un correo electrónico y para otras estadísticas relacionadas del sitio web (por ejemplo, registrar la popularidad de una cierta sección y verificar la integridad del sistema y servidor).
 
-### **Use of Your Personal Data in the Website**
+### **Uso de Sus Datos Personales en el Sitio Web**
 
-The Company may use Personal Data that You have provided us for the following purposes:
+La Compañía puede usar Datos Personales que nos ha proporcionado para los siguientes propósitos:
 
-* **To provide and maintain our Service**, including to monitor the usage of our Service.
-* **To contact You:** To contact You by email regarding updates or informative communications related to the functionalities, products or services, including the security updates, when necessary or reasonable for their implementation.
-* **To provide You** with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.
-* **To manage Your requests:** To attend and manage Your requests to Us.
-* **To deliver targeted advertising to You:** We may use Your information to develop and display content and advertising (and work with third-party vendors who do so) tailored to Your interests and/or location and to measure its effectiveness.
-* **For other purposes:** We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.
+* **Para proporcionar y mantener nuestro Servicio**, incluyendo para monitorear el uso de nuestro Servicio.
+* **Para contactarlo:** Para contactarlo por correo electrónico respecto a actualizaciones o comunicaciones informativas relacionadas con las funcionalidades, productos o servicios, incluyendo las actualizaciones de seguridad, cuando sea necesario o razonable para su implementación.
+* **Para proporcionarle** noticias, ofertas especiales e información general sobre otros bienes, servicios y eventos que ofrecemos que son similares a aquellos que ya ha comprado o consultado a menos que haya optado por no recibir dicha información.
+* **Para gestionar sus solicitudes:** Para atender y gestionar sus solicitudes a nosotros.
+* **Para entregar publicidad dirigida a usted:** Podemos usar su información para desarrollar y mostrar contenido y publicidad (y trabajar con vendedores terceros que lo hacen) adaptados a sus intereses y/o ubicación y para medir su efectividad.
+* **Para otros propósitos:** Podemos usar su información para otros propósitos, como análisis de datos, identificar tendencias de uso, determinar la efectividad de nuestras campañas promocionales y para evaluar y mejorar nuestro Servicio, productos, servicios, marketing y su experiencia.
 
 We may share Your personal information in the following situations:
 

@@ -6,17 +6,17 @@
 https://api.zelf.world/api/zelf-proof/encrypt 
 ```
 
-This endpoint allows the creation of a new Zero Knowledge Face Proof "**ZelfProof"** as raw bytes encoded in base64. These are the same bytes used to generate the ZelfQR code.
+Este endpoint permite la creación de una nueva Prueba Facial de Conocimiento Cero "**ZelfProof**" como bytes en bruto codificados en base64. Estos son los mismos bytes utilizados para generar el código ZelfQR.
 
-### Request
+### Solicitud
 
 * **Endpoint**: `/api/zelf-proof/encrypt`
-* **Method**: POST
+* **Método**: POST
 * **Content-Type**: `application/json`
 
-#### **Body**
+#### **Cuerpo**
 
-The request body should be a JSON object containing the following fields:
+El cuerpo de la solicitud debe ser un objeto JSON que contenga los siguientes campos:
 
 ```json
 {
@@ -39,22 +39,22 @@ The request body should be a JSON object containing the following fields:
 }
 ```
 
-#### Fields:
+#### Campos:
 
-* **livenessDetectionPriorCreation**: `Boolean` (Optional) - If true, the face must be live to create the ZelfProof.
-* **publicData**: `object` (Optional) - Cleartext data associated with the record, such as `masked_id`.
-* **faceBase64**: `string` (Required) - Base64 encoded face image data.
-* **livenessLevel**: `string` (Optional) - Specifies the tolerance for face liveness checks. E.g., `"REGULAR"`.
-* **metadata**: `object` (Optional) - Additional metadata in JSON format associated with the ZelfProof.
-* **os**: `string` (Optional) - The operating system where the request originates, e.g., `"DESKTOP"`.
-* **password**: `string` (Optional) - A password for additional security.
-* **identifier**: `string` (Optional) - An ID associated with the record.
-* **referenceFaceBase64**: `string` (Optional) - Base64 encoded reference face image. Used for matching with the `faceBase64`.
-* **requireLiveness**: `Boolean` (Optional) - If true, the face must be live.
-* **tolerance**: `string` (Optional) - Specifies the tolerance for face matching. E.g., `"REGULAR"`.
-* **verifierKey**: `string` (Optional) - An authentication key required for decrypting the ZelfProof if specified.
+* **livenessDetectionPriorCreation**: `Boolean` (Opcional) - Si es verdadero, el rostro debe estar vivo para crear el ZelfProof.
+* **publicData**: `object` (Opcional) - Datos en texto claro asociados con el registro, como `masked_id`.
+* **faceBase64**: `string` (Requerido) - Datos de imagen facial codificados en Base64.
+* **livenessLevel**: `string` (Opcional) - Especifica la tolerancia para las verificaciones de vida facial. Ej., `"REGULAR"`.
+* **metadata**: `object` (Opcional) - Metadatos adicionales en formato JSON asociados con el ZelfProof.
+* **os**: `string` (Opcional) - El sistema operativo desde donde se origina la solicitud, ej., `"DESKTOP"`.
+* **password**: `string` (Opcional) - Una contraseña para seguridad adicional.
+* **identifier**: `string` (Opcional) - Un ID asociado con el registro.
+* **referenceFaceBase64**: `string` (Opcional) - Imagen facial de referencia codificada en Base64. Usada para coincidir con el `faceBase64`.
+* **requireLiveness**: `Boolean` (Opcional) - Si es verdadero, el rostro debe estar vivo.
+* **tolerance**: `string` (Opcional) - Especifica la tolerancia para la coincidencia facial. Ej., `"REGULAR"`.
+* **verifierKey**: `string` (Opcional) - Una clave de autenticación requerida para descifrar el ZelfProof si se especifica.
 
-### Request
+### Solicitud
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -267,7 +267,7 @@ print(response.text)
 </TabItem>
 </Tabs>
 
-### Responses
+### Respuestas
 
 <Tabs>
 <TabItem value="200" label="200">

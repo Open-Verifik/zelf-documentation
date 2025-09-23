@@ -1,50 +1,50 @@
 # Términos de Uso
 
-**Last Updated: August 23, 2024**
+**Última actualización: 23 de agosto de 2024**
 
-Welcome to Zelf! These Terms of Use govern your access to and use of Zelf Name Service (ZNS), a self-custodial (non-custodial) seed phrase manager service provided by ZELF WORLD LLC ("Company", "we", "us", or "our"), 701 Tillery Street Unit 12-2663, Austin, Texas 78702, United States. ZELF WORLD LLC is the leading blockchain and web3 software company that provides services to users, creators, and developers under brands such as Zelf, Zelf World and Zelf Name Service. By accessing or using Zelf Name Service you agree to be bound by these Terms and all applicable laws and regulations.
+¡Bienvenido a Zelf! Estos Términos de Uso rigen su acceso y uso de Zelf Name Service (ZNS), un servicio de gestión de frases semilla auto-custodial (no custodial) proporcionado por ZELF WORLD LLC ("Compañía", "nosotros", "nos" o "nuestro"), 701 Tillery Street Unit 12-2663, Austin, Texas 78702, Estados Unidos. ZELF WORLD LLC es la empresa líder de software blockchain y web3 que proporciona servicios a usuarios, creadores y desarrolladores bajo marcas como Zelf, Zelf World y Zelf Name Service. Al acceder o usar Zelf Name Service usted acepta estar sujeto a estos Términos y todas las leyes y regulaciones aplicables.
 
-### **Interpretation and Definitions**
+### **Interpretación y Definiciones**
 
-#### **Interpretation**
+#### **Interpretación**
 
-The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+Las palabras cuya letra inicial está en mayúscula tienen significados definidos bajo las siguientes condiciones. Las siguientes definiciones tendrán el mismo significado independientemente de si aparecen en singular o en plural.
 
-#### **Definitions**
+#### **Definiciones**
 
-For the purposes of this Terms of Use:
+Para los propósitos de estos Términos de Uso:
 
-* **Blockchain**: A digital ledger in which transactions made in cryptocurrencies are recorded chronologically and publicly.
-* **DApps (Decentralized Applications)**: Software applications that run on a distributed computing system, typically using blockchain technology.
-* **DEX (Decentralized Exchanges)**: Peer-to-peer marketplaces where transactions occur directly between crypto traders without the need for an intermediary or custodian.
-* **Digital Assets**: Includes cryptocurrencies, tokens, and other types of digital media that have value and can be stored and transacted digitally.
-* **Private Seed Phrase, Seed Phrase or Recovery Keys**: A secret 12 to 24 paraphrase that allows a user to access their digital assets. This key must be kept secure as its disclosure can lead to loss of assets.
-* **License**: The permission granted to users to access and use the software under specified terms and conditions.
-* **Open Source**: Software with source code that anyone can inspect, modify, and enhance.
-* **Service** refers to the Application or the Web extension or both.
-* **ZelfHash:** QR code generated through the ZelfEncrypt algorithm
-* **ZelfEncrypt:** Refers to an algorithm which utilizes face features, along with optional metadata and/or password, to generate an encrypted, high entropy, privacy-preserving, non-biometric, non-reversible, binary representation of your private seed phrase in the form of your ZelfHash. ZelfEncrypt is not considered Personal Data, since it does not collect or store any biometric data and is operated in a Database Free infrastructure.
-* **ZNS:** The Acronym for Zelf Name Service.
+* **Blockchain**: Un libro mayor digital en el que las transacciones realizadas en criptomonedas se registran cronológicamente y públicamente.
+* **DApps (Aplicaciones Descentralizadas)**: Aplicaciones de software que se ejecutan en un sistema de computación distribuido, típicamente usando tecnología blockchain.
+* **DEX (Intercambios Descentralizados)**: Mercados peer-to-peer donde las transacciones ocurren directamente entre comerciantes de cripto sin necesidad de un intermediario o custodio.
+* **Activos Digitales**: Incluye criptomonedas, tokens, y otros tipos de medios digitales que tienen valor y pueden ser almacenados y transaccionados digitalmente.
+* **Frase Semilla Privada, Frase Semilla o Claves de Recuperación**: Una frase secreta de 12 a 24 palabras que permite a un usuario acceder a sus activos digitales. Esta clave debe mantenerse segura ya que su divulgación puede llevar a pérdida de activos.
+* **Licencia**: El permiso otorgado a los usuarios para acceder y usar el software bajo términos y condiciones específicos.
+* **Código Abierto**: Software con código fuente que cualquiera puede inspeccionar, modificar y mejorar.
+* **Servicio** se refiere a la Aplicación o la extensión Web o ambas.
+* **ZelfHash:** Código QR generado a través del algoritmo ZelfEncrypt
+* **ZelfEncrypt:** Se refiere a un algoritmo que utiliza características faciales, junto con metadatos opcionales y/o contraseña, para generar una representación binaria cifrada, de alta entropía, que preserva la privacidad, no biométrica, no reversible, de su frase semilla privada en la forma de su ZelfHash. ZelfEncrypt no se considera Datos Personales, ya que no recopila ni almacena datos biométricos y opera en una infraestructura Sin Base de Datos.
+* **ZNS:** El acrónimo para Zelf Name Service.
 
-### Services Offered
+### Servicios Ofrecidos
 
-Zelf Name Service is a self-custodial (non-custodian) solution, for managing your private seed phrase meaning you are solely in control of and responsible for your private seed phrases, private recovery keys and/or ZelfHash, and accordingly you can authorize different functions by signing with your seed phrases. You expressly acknowledge and agree that as Zelf Name Service is a self-custodial seed phrase management solutions, you are solely responsible for your activity and any risk of loss at all times. Zelf Name Service allows you to:
+Zelf Name Service es una solución auto-custodial (no custodial), para gestionar su frase semilla privada, lo que significa que usted tiene el control exclusivo y es responsable de sus frases semilla privadas, claves de recuperación privadas y/o ZelfHash, y en consecuencia puede autorizar diferentes funciones firmando con sus frases semilla. Usted reconoce y acepta expresamente que como Zelf Name Service es una solución de gestión de frases semilla auto-custodial, usted es el único responsable de su actividad y cualquier riesgo de pérdida en todo momento. Zelf Name Service le permite:
 
-* View digital asset price information made available by third party service provider(s);
-* Generate protocol addresses and associated private keys that you may use to send and receive digital assets;
-* Browse and access third party decentralized application(s) (“DApp(s)”) and third party decentralized exchanges (“DEX”) through the mobile application’s web browser;
+* Ver información de precios de activos digitales puesta a disposición por proveedores de servicios terceros;
+* Generar direcciones de protocolo y claves privadas asociadas que puede usar para enviar y recibir activos digitales;
+* Navegar y acceder a aplicaciones descentralizadas terceras ("DApp(s)") e intercambios descentralizados terceros ("DEX") a través del navegador web de la aplicación móvil;
 
-**Zelf Name Service (ZNS).** Users can access ZNS a self-custodian (non-custodial) seed phrase manager solution to visualize and hold Digital Assets. You control the Digital Assets held in your ZNS in the form of the ZelfHash representing the recovery keys and ultimately the ownership of the digital asset. The recovery keys are NOT permanently stored on your device. At any time, WITHOUT INTERNET ACCESS, you can decrypt your ZelfHash and visualize the digital assets hosted in ZNS.
+**Zelf Name Service (ZNS).** Los usuarios pueden acceder a ZNS, una solución de gestión de frases semilla auto-custodial (no custodial) para visualizar y mantener Activos Digitales. Usted controla los Activos Digitales mantenidos en su ZNS en la forma del ZelfHash que representa las claves de recuperación y en última instancia la propiedad del activo digital. Las claves de recuperación NO se almacenan permanentemente en su dispositivo. En cualquier momento, SIN ACCESO A INTERNET, puede descifrar su ZelfHash y visualizar los activos digitales alojados en ZNS.
 
-Access real time data of transaction history, asset balance and tokens found on a given public address. Conduct transactions using digital assets within the supported networks. At any time, subject to having internet access and the congestion on the blockchain, you may withdraw your Digital Assets by sending them to a different blockchain address.
+Acceder a datos en tiempo real del historial de transacciones, saldo de activos y tokens encontrados en una dirección pública dada. Realizar transacciones usando activos digitales dentro de las redes soportadas. En cualquier momento, sujeto a tener acceso a internet y la congestión en el blockchain, puede retirar sus Activos Digitales enviándolos a una dirección blockchain diferente.
 
 **Recovery Key Management:** ZNS generates a 12 to 24-word recovery key, known as a ‘seed phrase', that you and only you have access to. This recovery key is then encrypted using the entropy obtained from a liveness detection of the end user. Zelf also allows you to import recovery keys, create and manage multiple accounts all encrypted with ZelfEncrypt. The result of the encryption is a ZelfHash in the form of a QR code, which replaces the need to memorize or safely stored the recovery keys. The ZelfHash must be scanned or uploaded to the ZNS app to get access to the digital assets contained in it.
 
 **Ownership and Control.** When holding your digital assets in ZNS, Zelf does not maintain control over your account, ZelfHash or recovery keys. You own and control Digital Assets held in your account. As the owner of the Digital Assets in your ZNS, you shall bear all risk of losing such Digital Assets. Users are responsible for the risk of loss of their ZelfHash and/or recovery keys, and Zelf will not recover such keys. Please remember that Zelf will never have access to the ZelfHash or recovery key so we cannot move funds on your behalf, nor can we help you access digital assets in your ZNS should you lose the ZelfHash and/or recovery key.
 
-### **Account Creation**
+### **Creación de Cuenta**
 
-In order to use ZNS you must either import or create an account. When you create an account, you will be assigned a recovery key which we convert into a ZelfHash in the form of a QR code. YOU DO NOT NEED TO STORE THE RECOVERY KEY, INSTEAD WE RECOMMEND TO SAVE THE ZELFHASH IN YOUR PHONE OR IN ANY PLACE ACCESSIBLE FOR SCAN OR UPLOAD ON YOUR DEVICE. After scanning or uploading your ZelfHash code through the ZNS, you will be prompted to do a liveness authentication to be able to access your funds. The liveness detection will deter any Man-in-the-middle (MITM) attacks or any type of video injection. Notwithstanding the foregoing, you acknowledge and agree that you shall assume all risks related to the use of the Services and you shall be solely responsible for maintaining the confidentiality and security of your ZelfHash code.
+Para usar ZNS debe importar o crear una cuenta. Cuando crea una cuenta, se le asignará una clave de recuperación que convertimos en un ZelfHash en la forma de un código QR. NO NECESITA ALMACENAR LA CLAVE DE RECUPERACIÓN, EN SU LUGAR RECOMENDAMOS GUARDAR EL ZELFHASH EN SU TELÉFONO O EN CUALQUIER LUGAR ACCESIBLE PARA ESCANEAR O SUBIR EN SU DISPOSITIVO. Después de escanear o subir su código ZelfHash a través de ZNS, se le pedirá hacer una autenticación de vida para poder acceder a sus fondos. La detección de vida disuadirá cualquier ataque Man-in-the-middle (MITM) o cualquier tipo de inyección de video. No obstante lo anterior, usted reconoce y acepta que asumirá todos los riesgos relacionados con el uso de los Servicios y será el único responsable de mantener la confidencialidad y seguridad de su código ZelfHash.
 
 When you create an account, you are strongly advised to take precautions in order to avoid loss of access to and/or control over your account. Suggested measures include, but are not limited to, the following: (a) utilize the two layers of encryption presented in the app; (b) do not store the recovery key in plain text online or in an unsecured physical location, instead save the ZelfHash code in an accessible place.
 
@@ -66,39 +66,39 @@ There may be transaction fees (e.g. mining fees) associated with your virtual cu
 
 It is your responsibility to determine what, if any, taxes apply to the transactions that you have submitted transaction details for via the Services, and it is your responsibility to report and remit the correct tax to the appropriate tax authority. You agree that we are not responsible for determining whether taxes apply to your transactions or for collecting, reporting, withholding, or remitting any taxes arising from any Digital Asset-related transactions.
 
-### Acceptance of Terms
+### Aceptación de Términos
 
-By using ZNS, you confirm that you have read, understood, and agreed to these Terms. If you do not agree with any part of these Terms, you must not use ZNS.
+Al usar ZNS, confirma que ha leído, entendido y aceptado estos Términos. Si no está de acuerdo con alguna parte de estos Términos, no debe usar ZNS.
 
-#### **Premium Terms**
+#### **Términos Premium**
 
-The Zelf Premium Services are valid for 12 months from the purchase date.
+Los Servicios Premium de Zelf son válidos por 12 meses desde la fecha de compra.
 
-#### **Termination Policy**
+#### **Política de Terminación**
 
-Non-adherence to Zelf's Terms of Service and abuse of Zelf Premium Services may trigger a temporary or permanent exclusion from Zelf Premium Services without compensation or denial of a full refund in case the Customer requests subscription cancellation.
+El incumplimiento de los Términos de Servicio de Zelf y el abuso de los Servicios Premium de Zelf pueden desencadenar una exclusión temporal o permanente de los Servicios Premium de Zelf sin compensación o denegación de un reembolso completo en caso de que el Cliente solicite la cancelación de suscripción.
 
-Zelf reserves the right to discontinue subscriptions at any time due to external circumstances beyond its control or legal obligations.
+Zelf se reserva el derecho de discontinuar suscripciones en cualquier momento debido a circunstancias externas fuera de su control u obligaciones legales.
 
-#### Changes of Terms
+#### Cambios de Términos
 
-We reserve the right to modify these Terms at any time. You are encouraged to review the Terms periodically for any changes. Your continued use of ZNS following the posting of changes will mean that you accept and agree to the changes.
+Nos reservamos el derecho de modificar estos Términos en cualquier momento. Se le anima a revisar los Términos periódicamente para cualquier cambio. Su uso continuado de ZNS después de la publicación de cambios significará que acepta y está de acuerdo con los cambios.
 
-#### Termination
+#### Terminación
 
-We may terminate or suspend your access to ZNS without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.
+Podemos terminar o suspender su acceso a ZNS sin previo aviso o responsabilidad, por cualquier razón, incluyendo sin limitación si viola los Términos.
 
-### **Eligibility of Services**
+### **Elegibilidad de Servicios**
 
-To be eligible to use ZNS: (i) you must be at least eighteen (18) years old and legally competent to enter into these Terms; (ii) you must not be a resident of sanctioned jurisdictions according to any trade embargoes, UN Security Council Resolutions (“UNSCR”) or HM Treasury’s financial sanctions regime; and (iii) you must not be currently the subject of or subject to economic sanctions such as the United Nations Security Council Sanctions List, the list of specially designated nationals maintained by OFAC, the denied persons or entity list of the U.S. Department of Commerce or any similar list maintained by any other relevant sanctions authority. If you are using our Services on behalf of a legal entity, you further represent and warrant that: (iv) the legal entity is duly organized and validly existing under the applicable laws of the jurisdiction of its organization; and (v) you are duly authorized by such legal entity to act on its behalf. You can only use our Services if permitted under the laws of your jurisdiction. For the avoidance of doubt, you may not use our Services if you are located in, or a citizen or resident of any state, country, territory or other jurisdiction where your use of our Services would be illegal or otherwise violate any applicable laws. Please make sure that these Terms are in compliance with all laws, rules, and regulations that apply to you. You agree that you are only using our Services with legally-obtained funds that rightfully belong to you. By using ZNS, you represent and warrant that you meet all eligibility requirements that we outline in these Terms. We may still refuse to let certain people access or use ZNS, however, and we reserve the right to change our eligibility criteria at any time.
+Para ser elegible para usar ZNS: (i) debe tener al menos dieciocho (18) años de edad y ser legalmente competente para celebrar estos Términos; (ii) no debe ser residente de jurisdicciones sancionadas según cualquier embargo comercial, Resoluciones del Consejo de Seguridad de la ONU ("UNSCR") o el régimen de sanciones financieras del HM Treasury; y (iii) no debe estar actualmente sujeto o ser sujeto de sanciones económicas como la Lista de Sanciones del Consejo de Seguridad de las Naciones Unidas, la lista de nacionales especialmente designados mantenida por OFAC, la lista de personas o entidades denegadas del Departamento de Comercio de EE.UU. o cualquier lista similar mantenida por cualquier otra autoridad de sanciones relevante. If you are using our Services on behalf of a legal entity, you further represent and warrant that: (iv) the legal entity is duly organized and validly existing under the applicable laws of the jurisdiction of its organization; and (v) you are duly authorized by such legal entity to act on its behalf. You can only use our Services if permitted under the laws of your jurisdiction. For the avoidance of doubt, you may not use our Services if you are located in, or a citizen or resident of any state, country, territory or other jurisdiction where your use of our Services would be illegal or otherwise violate any applicable laws. Please make sure that these Terms are in compliance with all laws, rules, and regulations that apply to you. You agree that you are only using our Services with legally-obtained funds that rightfully belong to you. By using ZNS, you represent and warrant that you meet all eligibility requirements that we outline in these Terms. We may still refuse to let certain people access or use ZNS, however, and we reserve the right to change our eligibility criteria at any time.
 
-### Availability ad Accuracy
+### Disponibilidad y Precisión
 
-While we strive to provide a reliable and error-free service, ZNS depends on various factors such as third-party services and network availability, which may affect the availability and accuracy of our services. We do not guarantee that the services will always be available or uninterrupted.
+Aunque nos esforzamos por proporcionar un servicio confiable y libre de errores, ZNS depende de varios factores como servicios terceros y disponibilidad de red, que pueden afectar la disponibilidad y precisión de nuestros servicios. No garantizamos que los servicios estarán siempre disponibles o sin interrupciones.
 
-### Your Responsibilities
+### Sus Responsabilidades
 
-As a user of a non-custodial software solution, you are entirely responsible for managing your private keys, which are necessary to access your digital assets. You must keep your ZNS information, including your seed phrases, secure from loss or theft. Failure to do so may result in the irreversible loss of your assets.
+Como usuario de una solución de software no custodial, usted es completamente responsable de gestionar sus claves privadas, que son necesarias para acceder a sus activos digitales. Debe mantener su información de ZNS, incluyendo sus frases semilla, segura de pérdida o robo. El incumplimiento de esto puede resultar en la pérdida irreversible de sus activos.
 
 ### **Intellectual Properties**
 
@@ -142,10 +142,10 @@ YOU UNDERSTAND AND ACCEPT THAT ZELF WORLD DOES NOT CONTROL ANY BLOCKCHAIN PROTOC
 
 ZNS IS PROVIDED "AS IS" AND “AS AVAILABLE”, AND WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE DISCLAIM ALL REPRESENTATIONS AND WARRANTIES, EXPRESS OR IMPLIED, RELATING TO THE SERVICES AND UNDERLYING SOFTWARE OR ANY ASPECT OF THE INFORMATION, CONTENT, OR THE SERVICES, WHETHER PROVIDED OR OWNED BY US, OR BY ANY THIRD PARTY OR CONTAINED IN ANY THIRD PARTY MATERIALS OR ON ANY THIRD PARTY WEBSITES ACCESSIBLE OR LINKED TO OUR WEBSITE OR THE SERVICES, INCLUDING WITHOUT LIMITATION, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, FREEDOM FROM COMPUTER VIRUS, AND ANY IMPLIED WARRANTIES ARISING FROM COURSE OF DEALING, COURSE OF PERFORMANCE, OR USAGE IN TRADE, ALL OF WHICH ARE EXPRESSLY DISCLAIMED. IN ADDITION, WE DO NOT REPRESENT OR WARRANT THAT THE CONTENT ACCESSIBLE VIA THE SERVICES IS ACCURATE, COMPLETE, AVAILABLE, CURRENT, FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS, OR THAT THE RESULTS OF USING THE SERVICES WILL MEET YOUR REQUIREMENTS. WE DO NOT MAKE ANY REPRESENTATIONS OR GIVE WARRANTIES THAT THE ACCESS TO ZNS OR USE OF THE SERVICES AND THE FUNCTIONALITY THEREOF WILL BE CONTINUOUS, UNINTERRUPTED, TIMELY OR ERROR-FREE. SOME STATES DO NOT ALLOW THE DISCLAIMER OF IMPLIED WARRANTIES, SO THE FOREGOING DISCLAIMERS MAY NOT APPLY TO YOU.
 
-### Governing Law
+### Ley Aplicable
 
-These Terms shall be governed by and construed by the laws of Wyoming, United States, without regard to its conflict of law provisions.
+Estos Términos serán gobernados y construidos por las leyes de Wyoming, Estados Unidos, sin consideración a sus disposiciones de conflicto de leyes.
 
-### Contact Information
+### Información de Contacto
 
-If you have any questions about these Terms, please get in touch with us at the following email **[zns@zelf.world](mailto:zns@zelf.world)**
+Si tiene alguna pregunta sobre estos Términos, por favor póngase en contacto con nosotros en el siguiente correo electrónico **[zns@zelf.world](mailto:zns@zelf.world)**

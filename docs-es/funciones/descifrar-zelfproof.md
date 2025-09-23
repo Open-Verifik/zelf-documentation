@@ -6,19 +6,19 @@
 https://api.zelf.world/api/zelf-proof/decrypt
 ```
 
-#### This endpoint is used to verify the raw hash bytes against a face, thereby decrypting the associated metadata.
+#### Este endpoint se usa para verificar los bytes de hash en bruto contra un rostro, descifrando así los metadatos asociados.
 
-[Watch the video: Decrypt ZelfProof](https://youtu.be/WPTtR7Jtung)
+[Ver el video: Descifrar ZelfProof](https://youtu.be/WPTtR7Jtung)
 
-#### Request
+#### Solicitud
 
 * **Endpoint**: `/api/zelf-proof/decrypt`
-* **Method**: POST
+* **Método**: POST
 * **Content-Type**: `application/json`
 
-### **Body**
+### **Cuerpo**
 
-The request body should be a JSON object containing the following fields:
+El cuerpo de la solicitud debe ser un objeto JSON que contenga los siguientes campos:
 
 ```json
 {
@@ -31,14 +31,14 @@ The request body should be a JSON object containing the following fields:
 }
 ```
 
-#### Fields:
+#### Campos:
 
-* **faceBase64**: `string` (Required) - Base64 encoded face image data that will be compared against the **ZelfProof**.
-* **livenessLevel**: `string` (Optional) - Specifies the tolerance for face liveness checks. E.g., `"REGULAR"`.
-* **os**: `string` (Optional) - The operating system from where the request originates, e.g., `"DESKTOP"`.
-* **password**: `string` (Optional) - A password if required to decrypt the ZelfProof.
-* **zelfProof**: `string` (Required) - The **ZelfProof** in base64 format that needs to be verified and decrypted.
-* **verifierKey**: `string` (Optional) - An authentication key required for decrypting the ZelfProof if specified.
+* **faceBase64**: `string` (Requerido) - Datos de imagen facial codificados en Base64 que serán comparados contra el **ZelfProof**.
+* **livenessLevel**: `string` (Opcional) - Especifica la tolerancia para las verificaciones de vida facial. Ej., `"REGULAR"`.
+* **os**: `string` (Opcional) - El sistema operativo desde donde se origina la solicitud, ej., `"DESKTOP"`.
+* **password**: `string` (Opcional) - Una contraseña si se requiere para descifrar el ZelfProof.
+* **zelfProof**: `string` (Requerido) - El **ZelfProof** en formato base64 que necesita ser verificado y descifrado.
+* **verifierKey**: `string` (Opcional) - Una clave de autenticación requerida para descifrar el ZelfProof si se especifica.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -211,7 +211,7 @@ func main() {
 </TabItem>
 </Tabs>
 
-### Responses
+### Respuestas
 
 <Tabs>
 <TabItem value="200" label="200">
@@ -249,7 +249,7 @@ func main() {
 </TabItem>
 </Tabs>
 
-* **200 OK**: The request was successful, and the decrypted data from the **ZelfProof** is returned in JSON format.
+* **200 OK**: La solicitud fue exitosa, y los datos descifrados del **ZelfProof** se devuelven en formato JSON.
 
   ```json
   {
@@ -268,7 +268,7 @@ func main() {
     "identifier": "string"
   }
   ```
-* **400 Bad Request**: There was an error with the request. Possible error codes include:
+* **400 Solicitud Incorrecta**: Hubo un error con la solicitud. Los códigos de error posibles incluyen:
 
   ```json
   {
@@ -276,7 +276,7 @@ func main() {
     "message": "Invalid base64 string for the face image."
   }
   ```
-* **401 Unauthorized**: The API Key is not present in the `X-api-key` header.
+* **401 No Autorizado**: La Clave API no está presente en el encabezado `X-api-key`.
 
   ```json
   {
@@ -284,13 +284,13 @@ func main() {
     "message": "API Key must be present in the x-api-key header."
   }
   ```
-* **403 Forbidden**: The API Key is incorrect or there is an issue with licensing. Possible error codes include:
+* **403 Prohibido**: La Clave API es incorrecta o hay un problema con la licencia. Los códigos de error posibles incluyen:
   * `ERR_API_KEY_NOT_VALID`: The provided API Key is not valid.
   * `ERR_LICENSE_EXPIRED`: The Zelf SDK license has expired.
   * `ERR_CANNOT_CONNECT_TO_TIME_SERVER`: Cannot connect to the time server to verify license expiry.
   * `ERR_CANNOT_CONNECT_TO_HOME_SERVER`: Cannot connect to the home server to verify license expiry.
   * `ERR_NUMBER_OF_AVAILABLE_INSTANCES_EXCEEDED`: The number of available instances for this license has been exceeded.
-* **413 Payload Too Large**: The request sent is too large. Reduce the size of the image or data.
+* **413 Carga Útil Demasiado Grande**: La solicitud enviada es demasiado grande. Reduzca el tamaño de la imagen o datos.
 
   ```json
   {
@@ -298,7 +298,7 @@ func main() {
     "message": "The request sent is too big. Please try reducing the size of image(s)/data."
   }
   ```
-* **422 Unprocessable Entity**: The request is invalid due to a specific error related to its content.
+* **422 Entidad No Procesable**: La solicitud es inválida debido a un error específico relacionado con su contenido.
 
   ```json
   {
@@ -307,26 +307,26 @@ func main() {
   }
   ```
 
-#### Error Codes
+#### Códigos de Error
 
-Here are some specific error codes that might be returned during verification:
+Aquí están algunos códigos de error específicos que podrían devolverse durante la verificación:
 
-* **ERR\_INVALID\_IMAGE**: Invalid base64 string for the face image.
-* **ERR\_NO\_FACE\_DETECTED**: No face detected in the image.
-* **ERR\_MULTIPLE\_FACES\_DETECTED**: Multiple faces detected in the image.
-* **ERR\_INVALID\_ZELFPROOF\_BYTES**: The provided hash bytes could not be interpreted as a valid base64 string.
-* **ERR\_PARSE\_FAILED**: The hash could not be interpreted as a valid hash.
-* **ERR\_PASSWORD\_REQUIRED**: A password is required to decrypt the hash but was not provided.
-* **ERR\_INVALID\_PASSWORD**: The provided password is invalid.
-* **ERR\_LIVENESS\_FAILED**: The user's face image in `face_base_64` is determined to not be live and `require_live_face` was set to true during hash creation.
-* **ERR\_VERIFICATION\_FAILED**: Decryption failed due to the `face_base_64` not matching the face used to create the hash.
+* **ERR\_INVALID\_IMAGE**: Cadena base64 inválida para la imagen facial.
+* **ERR\_NO\_FACE\_DETECTED**: No se detectó rostro en la imagen.
+* **ERR\_MULTIPLE\_FACES\_DETECTED**: Múltiples rostros detectados en la imagen.
+* **ERR\_INVALID\_ZELFPROOF\_BYTES**: Los bytes de hash proporcionados no pudieron interpretarse como una cadena base64 válida.
+* **ERR\_PARSE\_FAILED**: El hash no pudo interpretarse como un hash válido.
+* **ERR\_PASSWORD\_REQUIRED**: Se requiere una contraseña para descifrar el hash pero no se proporcionó.
+* **ERR\_INVALID\_PASSWORD**: La contraseña proporcionada es inválida.
+* **ERR\_LIVENESS\_FAILED**: La imagen facial del usuario en `face_base_64` se determinó que no está viva y `require_live_face` se estableció como verdadero durante la creación del hash.
+* **ERR\_VERIFICATION\_FAILED**: El descifrado falló debido a que `face_base_64` no coincide con el rostro usado para crear el hash.
 
-**Additional Liveness Error Codes:**
+**Códigos de Error de Vida Adicionales:**
 
-If the `face_base_64` is determined to be not suitable for liveness, the following error codes may be returned:
+Si se determina que `face_base_64` no es adecuado para vida, se pueden devolver los siguientes códigos de error:
 
-* **ERR\_LIVENESS\_FACE\_ANGLE\_TOO\_LARGE**: The face angle is too large (the user is not facing the camera).
-* **ERR\_LIVENESS\_FACE\_IS\_OCCLUDED**: The face is occluded (e.g., by a mask).
-* **ERR\_LIVENESS\_FACE\_CLOSE\_TO\_BORDER**: The face is too close to the border of the image.
-* **ERR\_LIVENESS\_FACE\_TOO\_SMALL**: The face is too small in the image.
-* **ERR\_LIVENESS\_EYES\_CLOSED**: The eyes are closed in the image.
+* **ERR\_LIVENESS\_FACE\_ANGLE\_TOO\_LARGE**: El ángulo facial es demasiado grande (el usuario no está mirando la cámara).
+* **ERR\_LIVENESS\_FACE\_IS\_OCCLUDED**: El rostro está ocluido (ej., por una máscara).
+* **ERR\_LIVENESS\_FACE\_CLOSE\_TO\_BORDER**: El rostro está demasiado cerca del borde de la imagen.
+* **ERR\_LIVENESS\_FACE\_TOO\_SMALL**: El rostro es demasiado pequeño en la imagen.
+* **ERR\_LIVENESS\_EYES\_CLOSED**: Los ojos están cerrados en la imagen.

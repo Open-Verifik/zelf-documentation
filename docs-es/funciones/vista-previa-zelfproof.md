@@ -6,19 +6,19 @@
 https://api.zelf.world/api/zelf-proof/preview
 ```
 
-This endpoint allows you to retrieve information about a **ZelfProof** without decrypting the metadata with a face and perform the liveness test. This can be useful for obtaining **basic details** about the **ZelfProof** when decryption is not necessary or possible.
+Este endpoint le permite recuperar información sobre un **ZelfProof** sin descifrar los metadatos con un rostro y realizar la prueba de vida. Esto puede ser útil para obtener **detalles básicos** sobre el **ZelfProof** cuando el descifrado no es necesario o posible.
 
-[Watch the video](https://youtu.be/WPTtR7Jtung)
+[Ver el video](https://youtu.be/WPTtR7Jtung)
 
-### Request
+### Solicitud
 
 * **Endpoint**: `/api/zelf-proof/preview`
-* **Method**: POST
+* **Método**: POST
 * **Content-Type**: `application/json`
 
-**Request Body**
+**Cuerpo de la Solicitud**
 
-The request body should be a JSON object containing the following fields:
+El cuerpo de la solicitud debe ser un objeto JSON que contenga los siguientes campos:
 
 ```json
 {
@@ -27,10 +27,10 @@ The request body should be a JSON object containing the following fields:
 }
 ```
 
-#### Fields:
+#### Campos:
 
-* **zelfProof**: `string` (*Required*) - The **ZelfProof** in base64 format that needs to be parsed.
-* **verifierKey**: `string` (*Optional*) - An authentication key required if specified for the **ZelfProof**. This key may be necessary for obtaining certain information from the ZelfProof.
+* **zelfProof**: `string` (*Requerido*) - El **ZelfProof** en formato base64 que necesita ser analizado.
+* **verifierKey**: `string` (*Opcional*) - Una clave de autenticación requerida si se especifica para el **ZelfProof**. Esta clave puede ser necesaria para obtener cierta información del ZelfProof.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -154,7 +154,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 </TabItem>
 </Tabs>
 
-### Responses
+### Respuestas
 
 <Tabs>
 <TabItem value="200" label="200">

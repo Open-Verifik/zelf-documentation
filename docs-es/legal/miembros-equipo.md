@@ -2,8 +2,8 @@
 
 Johan Castellanos - CEO
 
-[Watch the video](https://www.linkedin.com/in/johancastellanos/)
+[Ver perfil de LinkedIn](https://www.linkedin.com/in/johancastellanos/)
 
 Juan Miguel Treviño Morales - CTO
 
-[Watch the video](https://www.linkedin.com/in/migueltrevinom/)
+[Ver perfil de LinkedIn](https://www.linkedin.com/in/migueltrevinom/)
