@@ -1,9 +1,12 @@
 # Preview ZelfProof
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ### Endpoint
 
 ```
-https://api.zelf.world/api/zelf-proof/preview
+https://api.zelf.world/api/tags/preview-zelfproof
 ```
 
 This endpoint allows you to retrieve information about a **ZelfProof** without decrypting the metadata with a face and perform the liveness test. This can be useful for obtaining **basic details** about the **ZelfProof** when decryption is not necessary or possible.
@@ -12,7 +15,7 @@ This endpoint allows you to retrieve information about a **ZelfProof** without d
 
 ### Request
 
-* **Endpoint**: `/api/zelf-proof/preview`
+* **Endpoint**: `/api/tags/preview-zelfproof`
 * **Method**: POST
 * **Content-Type**: `application/json`
 
@@ -22,7 +25,7 @@ The request body should be a JSON object containing the following fields:
 
 ```json
 {
-  "zelfProof": "<your_zelf_proof>",
+  "zelfProof": "[ZELFPROOF_BASE64_DATA]",
   "verifierKey": "(optional) key_here"
 }
 ```
@@ -32,22 +35,19 @@ The request body should be a JSON object containing the following fields:
 * **zelfProof**: `string` (*Required*) - The **ZelfProof** in base64 format that needs to be parsed.
 * **verifierKey**: `string` (*Optional*) - An authentication key required if specified for the **ZelfProof**. This key may be necessary for obtaining certain information from the ZelfProof.
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 <Tabs>
 <TabItem value="Node.js" label="Node.js">
 
 ```javascript
 const axios = require('axios');
 let data = JSON.stringify({
-  "zelfProof": "A14THLzLTzI+57Nb52+PGXvcekz9u9OdYlvvWNFErGr2Ljh8/LNBaxbDlPXbJyVqzyXho2SHDGl9ZTGDV+x1uEbwZG7DsenIL/33HcydSCswYao/LQ2E9l7efGu/7lTYkdMAiENpZrQRobSit8m3lnLL/M9mWIyDiIXjkhZM/W0plGG1tBuhKYBwYtq7cyj5C4TwLkTdy6zVt8dok1WCYMoYMDrUutGjr/nhFImsjeoEvegPv4darhgp3XIGmfmOSFvuwW6/4aEj6mn7q0sbyKiKbtcHqa8+BVSAbdWdY1V0SixkRFt/5I9rvGzhxi1SX0sPj2iwOZFqow/goUxKnBwEinhO9pLngx+6+fd5HYY/MN4LoS18iRp2oL/BZP6wafo8MiA3ZFSLgyJDsGNIBmUAbQ0aPQCEeo18GO0IXqYogbZUFWyDTlj89XyFTpML/ExvNfGifYFt/6HXPlRto4IN8d+NoCb6LWIHLOABeT9jiWEgV97rRhkfyvNRYkQRO8EsR6UjHNlDLZLAhuOy80n7HG7L9tyCAl4mrR9LfGTU/QhiyoWnsRycmgsSyk+TnBeS1oWaqZ47b+vDgRRe+pSo"
+  "zelfProof": "[ZELFPROOF_BASE64_DATA]"
 });
 
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://api.zelf.world/api/zelf-proof/preview',
+  url: 'https://api.zelf.world/api/tags/preview-zelfproof',
   headers: { 
     'x-api-key': 'b8vG/ZwC+OmsM0g1yIiOin7nKdow0re5ka7Ex+M4C8U=', 
     'Authorization': 'Bearer eyJhbGciOiJ5cCI6IkpXVCJ9.eyJjbGllb....aSTrcoSI', 
@@ -82,12 +82,12 @@ import (
 
 func main() {
 
-  url := "https://api.zelf.world/api/zelf-proof/preview"
+  url := "https://api.zelf.world/api/tags/preview-zelfproof"
   method := "POST"
 
   payload := strings.NewReader(`{
-    "zelfProof": "A14THLzLTzI+57Nb52+PGXvcekz9u9OdYlvvWNFErGr2Ljh8/LNBaxbDlPXbJyVqzyXho2SHDGl9ZTGDV+x1uEbwZG7DsenIL/33HcydSCswYao/LQ2E9l7efGu/7lTYkdMAiENpZrQRobSit8m3lnLL/M9mWIyDiIXjkhZM/W0plGG1tBuhKYBwYtq7cyj5C4TwLkTdy6zVt8dok1WCYMoYMDrUutGjr/nhFImsjeoEvegPv4darhgp3XIGmfmOSFvuwW6/4aEj6mn7q0sbyKiKbtcHqa8+BVSAbdWdY1V0SixkRFt/5I9rvGzhxi1SX0sPj2iwOZFqow/goUxKnBwEinhO9pLngx+6+fd5HYY/MN4LoS18iRp2oL/BZP6wafo8MiA3ZFSLgyJDsGNIBmUAbQ0aPQCEeo18GO0IXqYogbZUFWyDTlj89XyFTpML/ExvNfGifYFt/6HXPlRto4IN8d+NoCb6LWIHLOABeT9jiWEgV97rRhkfyvNRYkQRO8EsR6UjHNlDLZLAhuOy80n7HG7L9tyCAl4mrR9LfGTU/QhiyoWnsRycmgsSyk+TnBeS1oWaqZ47b+vDgRRe+pSo"
-}`)
+    "zelfProof": "[ZELFPROOF_BASE64_DATA]"
+  }`)
 
   client := &http.Client {
   }
@@ -133,12 +133,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     headers.insert("Content-Type", "application/json".parse()?);
 
     let data = r#"{
-    "zelfProof": "A14THLzLTzI+57Nb52+PGXvcekz9u9OdYlvvWNFErGr2Ljh8/LNBaxbDlPXbJyVqzyXho2SHDGl9ZTGDV+x1uEbwZG7DsenIL/33HcydSCswYao/LQ2E9l7efGu/7lTYkdMAiENpZrQRobSit8m3lnLL/M9mWIyDiIXjkhZM/W0plGG1tBuhKYBwYtq7cyj5C4TwLkTdy6zVt8dok1WCYMoYMDrUutGjr/nhFImsjeoEvegPv4darhgp3XIGmfmOSFvuwW6/4aEj6mn7q0sbyKiKbtcHqa8+BVSAbdWdY1V0SixkRFt/5I9rvGzhxi1SX0sPj2iwOZFqow/goUxKnBwEinhO9pLngx+6+fd5HYY/MN4LoS18iRp2oL/BZP6wafo8MiA3ZFSLgyJDsGNIBmUAbQ0aPQCEeo18GO0IXqYogbZUFWyDTlj89XyFTpML/ExvNfGifYFt/6HXPlRto4IN8d+NoCb6LWIHLOABeT9jiWEgV97rRhkfyvNRYkQRO8EsR6UjHNlDLZLAhuOy80n7HG7L9tyCAl4mrR9LfGTU/QhiyoWnsRycmgsSyk+TnBeS1oWaqZ47b+vDgRRe+pSo"
+    "zelfProof": "[ZELFPROOF_BASE64_DATA]"
 }"#;
 
     let json: serde_json::Value = serde_json::from_str(&data)?;
 
-    let request = client.request(reqwest::Method::POST, "https://api.zelf.world/api/zelf-proof/preview")
+    let request = client.request(reqwest::Method::POST, "https://api.zelf.world/api/tags/preview-zelfproof")
         .headers(headers)
         .json(&json);
 
@@ -163,7 +163,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 {
     "passwordLayer": "WithPassword",
     "publicData": {
-        "seat": "E1"
+        "ethAddress": "0x1234567890123456789012345678901234567890",
+        "btcAddress": "bc1qtest123456789012345678901234567890",
+        "solanaAddress": "Test1234567890123456789012345678901234567890",
+        "suiAddress": "0xtest1234567890123456789012345678901234567890"
     },
     "requireLiveness": true
 }
