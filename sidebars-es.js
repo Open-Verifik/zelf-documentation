@@ -30,6 +30,39 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "Documentación API",
+			collapsible: false,
+			items: [
+				{
+					type: "category",
+					label: "Etiquetas (Tags)",
+					collapsible: true,
+					items: [
+						"api/etiquetas/buscar-etiqueta",
+						"api/etiquetas/buscar-etiqueta-por-dominio",
+						"api/etiquetas/vista-previa-etiqueta",
+						"api/etiquetas/alquilar-etiqueta",
+						"api/etiquetas/recuperar-etiqueta",
+						"api/etiquetas/alquiler-etiqueta-offline",
+						"api/etiquetas/vista-previa-zelfproof",
+						"api/etiquetas/descifrar-etiqueta",
+					],
+				},
+				{
+					type: "category",
+					label: "API de Licencias",
+					collapsible: true,
+					items: [
+						"api/licencias/obtener-licencias",
+						"api/licencias/obtener-mi-licencia",
+						"api/licencias/crear-licencia",
+						"api/licencias/eliminar-licencia",
+					],
+				},
+			],
+		},
+		{
+			type: "category",
 			label: "Versión Offline",
 			collapsible: false,
 			items: ["zns/offline/descifrado"],
@@ -63,39 +96,6 @@ const sidebars = {
 				"funciones/crear-qr-zelfproof",
 				"funciones/descifrar-zelfproof",
 				"funciones/vista-previa-zelfproof",
-			],
-		},
-		{
-			type: "category",
-			label: "Documentación API",
-			collapsible: false,
-			items: [
-				{
-					type: "category",
-					label: "Etiquetas (Tags)",
-					collapsible: true,
-					items: [
-						"api/etiquetas/buscar-etiqueta",
-						"api/etiquetas/buscar-etiqueta-por-dominio",
-						"api/etiquetas/vista-previa-etiqueta",
-						"api/etiquetas/alquilar-etiqueta",
-						"api/etiquetas/recuperar-etiqueta",
-						"api/etiquetas/alquiler-etiqueta-offline",
-						"api/etiquetas/vista-previa-zelfproof",
-						"api/etiquetas/descifrar-etiqueta",
-					],
-				},
-				{
-					type: "category",
-					label: "API de Licencias",
-					collapsible: true,
-					items: [
-						"api/licencias/obtener-licencias",
-						"api/licencias/obtener-mi-licencia",
-						"api/licencias/crear-licencia",
-						"api/licencias/eliminar-licencia",
-					],
-				},
 			],
 		},
 		{

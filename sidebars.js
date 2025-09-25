@@ -37,6 +37,34 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "API Documentation",
+			collapsible: false,
+			items: [
+				{
+					type: "category",
+					label: "Tags API",
+					collapsible: true,
+					items: [
+						"api/tags/search-tag",
+						"api/tags/search-by-domain",
+						"api/tags/preview-tag",
+						"api/tags/lease-tag",
+						"api/tags/lease-recovery",
+						"api/tags/lease-offline",
+						"api/tags/preview-zelfproof",
+						"api/tags/decrypt-tag",
+					],
+				},
+				{
+					type: "category",
+					label: "Licenses API",
+					collapsible: true,
+					items: ["api/licenses/get-licenses", "api/licenses/get-my-license", "api/licenses/create-license", "api/licenses/delete-license"],
+				},
+			],
+		},
+		{
+			type: "category",
 			label: "Offline Version",
 			collapsible: false,
 			items: ["zns/offline/decryption"],
@@ -70,34 +98,6 @@ const sidebars = {
 				"functions/create-qr-zelfproof",
 				"functions/decrypt-zelfproof",
 				"functions/preview-zelfproof",
-			],
-		},
-		{
-			type: "category",
-			label: "API Documentation",
-			collapsible: false,
-			items: [
-				{
-					type: "category",
-					label: "Tags API",
-					collapsible: true,
-					items: [
-						"api/tags/search-tag",
-						"api/tags/search-by-domain",
-						"api/tags/preview-tag",
-						"api/tags/lease-tag",
-						"api/tags/lease-recovery",
-						"api/tags/lease-offline",
-						"api/tags/preview-zelfproof",
-						"api/tags/decrypt-tag",
-					],
-				},
-				{
-					type: "category",
-					label: "Licenses API",
-					collapsible: true,
-					items: ["api/licenses/get-licenses", "api/licenses/get-my-license", "api/licenses/create-license", "api/licenses/delete-license"],
-				},
 			],
 		},
 		{
