@@ -34,18 +34,18 @@ const sidebars = {
 			collapsible: false,
 			items: ["zns/offline/descifrado"],
 		},
-		{
-			type: "category",
-			label: "Versión Online",
-			collapsible: false,
-			items: [
-				"zns/online/obtener-clave-publica",
-				"zns/online/crear-sesion",
-				"zns/online/alquilar-nombre-zelf",
-				"zns/online/vista-previa-zelfname",
-				"zns/online/descifrar-zelfname",
-			],
-		},
+		// {
+		// 	type: "category",
+		// 	label: "Versión Online",
+		// 	collapsible: false,
+		// 	items: [
+		// 		"zns/online/obtener-clave-publica",
+		// 		"zns/online/crear-sesion",
+		// 		"zns/online/alquilar-nombre-zelf",
+		// 		"zns/online/vista-previa-zelfname",
+		// 		"zns/online/descifrar-zelfname",
+		// 	],
+		// },
 		{
 			type: "category",
 			label: "Arweave - AR.IO",
@@ -72,17 +72,28 @@ const sidebars = {
 			items: [
 				{
 					type: "category",
-					label: "API de Etiquetas",
+					label: "Etiquetas (Tags)",
 					collapsible: true,
 					items: [
 						"api/etiquetas/buscar-etiqueta",
-						"api/etiquetas/buscar-por-dominio",
+						"api/etiquetas/buscar-etiqueta-por-dominio",
 						"api/etiquetas/vista-previa-etiqueta",
 						"api/etiquetas/alquilar-etiqueta",
-						"api/etiquetas/recuperacion-alquiler",
-						"api/etiquetas/alquiler-offline",
+						"api/etiquetas/recuperar-etiqueta",
+						"api/etiquetas/alquiler-etiqueta-offline",
 						"api/etiquetas/vista-previa-zelfproof",
 						"api/etiquetas/descifrar-etiqueta",
+					],
+				},
+				{
+					type: "category",
+					label: "API de Licencias",
+					collapsible: true,
+					items: [
+						"api/licencias/obtener-licencias",
+						"api/licencias/obtener-mi-licencia",
+						"api/licencias/crear-licencia",
+						"api/licencias/eliminar-licencia",
 					],
 				},
 			],

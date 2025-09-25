@@ -1,6 +1,6 @@
-# Lease Recovery
+# Recuperación de una Etiqueta
 
-Recover a tag using an existing ZelfProof from a previously leased tag. This endpoint allows you to create a new tag with the same wallet data from a previous tag.
+Recuperar una etiqueta usando un ZelfProof existente de una etiqueta previamente alquilada. Este endpoint te permite crear una nueva etiqueta con los mismos datos de wallet de una etiqueta anterior.
 
 ## Endpoint
 
@@ -8,30 +8,30 @@ Recover a tag using an existing ZelfProof from a previously leased tag. This end
 POST /api/tags/lease-recovery
 ```
 
-## Description
+## Descripción
 
-This endpoint allows you to recover a tag using an existing ZelfProof from a previously leased tag. This is useful when you want to create a new tag with the same wallet data from a previous tag. The system supports multiple domains including Zelf, Avax, BDAG, and other licensed domains.
+Este endpoint te permite recuperar una etiqueta usando un ZelfProof existente de una etiqueta previamente alquilada. Esto es útil cuando quieres crear una nueva etiqueta con los mismos datos de wallet de una etiqueta anterior. El sistema soporta múltiples dominios incluyendo Zelf, Avax, BDAG, y otros dominios licenciados.
 
-**Note:** The terms "ZelfProof", "ZK Face Proof", and "ZelfProofQRCode" are trademarked and should be used appropriately.
+**Nota:** Los términos "ZelfProof", "ZK Face Proof", y "ZelfProofQRCode" están registrados como marca y deben usarse apropiadamente.
 
-## Authentication
+## Autenticación
 
-This endpoint requires authentication via JWT token. You must first create a session using the `/api/sessions` endpoint to obtain a JWT token.
+Este endpoint requiere autenticación mediante token JWT. Primero debes crear una sesión usando el endpoint `/api/sessions` para obtener un token JWT.
 
-## Parameters
+## Parámetros
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `zelfProof` | string | Yes | ZelfProof data from a previously leased tag |
-| `tagName` | string | Yes | Name for the new tag (supports multiple domains) |
-| `domain` | string | Yes | Domain for the new tag (e.g., "zelf", "avax", "bdag") |
-| `faceBase64` | string | Yes | Base64 encoded face image for biometric verification |
-| `password` | string | Yes | Password used to encrypt the original ZelfProof |
-| `os` | string | Yes | Operating system ("DESKTOP", "ANDROID", "IOS") |
-| `removePGP` | boolean | No | Whether to skip PGP encryption (default: false) |
-| `captchaToken` | string | No | CAPTCHA token for bot protection (optional) |
+| Parámetro | Tipo | Requerido | Descripción |
+|-----------|------|-----------|-------------|
+| `zelfProof` | string | Sí | Datos ZelfProof de una etiqueta previamente alquilada |
+| `tagName` | string | Sí | Nombre para la nueva etiqueta (soporta múltiples dominios) |
+| `domain` | string | Sí | Dominio para la nueva etiqueta (ej., "zelf", "avax", "bdag") |
+| `faceBase64` | string | Sí | Imagen facial codificada en base64 para verificación biométrica |
+| `password` | string | Sí | Contraseña utilizada para encriptar el ZelfProof original |
+| `os` | string | Sí | Sistema operativo ("DESKTOP", "ANDROID", "IOS") |
+| `removePGP` | boolean | No | Si omitir el cifrado PGP (por defecto: false) |
+| `captchaToken` | string | No | Token CAPTCHA para protección contra bots (opcional) |
 
-## Response
+## Respuesta
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -127,38 +127,38 @@ import TabItem from '@theme/TabItem';
 </TabItem>
 </Tabs>
 
-### Response Fields
+### Campos de Respuesta
 
-| Field | Type | Description |
+| Campo | Tipo | Descripción |
 |-------|------|-------------|
-| `ethAddress` | string | Generated Ethereum wallet address |
-| `solanaAddress` | string | Generated Solana wallet address |
-| `btcAddress` | string | Generated Bitcoin wallet address |
-| `zelfName` | string | Generated Zelf domain name |
-| `domain` | string | The domain type used |
-| `duration` | number | Lease duration in years |
-| `price` | number | Lease price in USD |
-| `reward` | number | Reward amount in USD |
-| `discount` | number | Discount amount applied |
-| `discountType` | string | Type of discount (e.g., "percentage") |
-| `suiAddress` | string | Generated Sui wallet address |
-| `hasPassword` | string | Whether the tag has a password ("true"/"false") |
-| `zelfProof` | string | Encrypted ZelfProof data (trademarked term) |
-| `zelfProofQRCode` | string | Base64 encoded QR code for ZelfProof (trademarked term) |
-| `ipfs` | object | IPFS storage information |
-| `ipfs.url` | string | IPFS gateway URL |
-| `ipfs.ipfs_pin_hash` | string | IPFS pin hash |
-| `ipfs.ipfsHash` | string | IPFS hash |
-| `ipfs.cid` | string | Content identifier |
-| `ipfs.publicData` | object | Public data stored on IPFS |
+| `ethAddress` | string | Dirección de wallet Ethereum generada |
+| `solanaAddress` | string | Dirección de wallet Solana generada |
+| `btcAddress` | string | Dirección de wallet Bitcoin generada |
+| `zelfName` | string | Nombre de dominio Zelf generado |
+| `domain` | string | El tipo de dominio utilizado |
+| `duration` | number | Duración del alquiler en años |
+| `price` | number | Precio de alquiler en USD |
+| `reward` | number | Cantidad de recompensa en USD |
+| `discount` | number | Cantidad de descuento aplicado |
+| `discountType` | string | Tipo de descuento (ej., "percentage") |
+| `suiAddress` | string | Dirección de wallet Sui generada |
+| `hasPassword` | string | Si la etiqueta tiene una contraseña ("true"/"false") |
+| `zelfProof` | string | Datos ZelfProof encriptados (término registrado) |
+| `zelfProofQRCode` | string | Código QR codificado en base64 para ZelfProof (término registrado) |
+| `ipfs` | object | Información de almacenamiento IPFS |
+| `ipfs.url` | string | URL del gateway IPFS |
+| `ipfs.ipfs_pin_hash` | string | Hash de pin IPFS |
+| `ipfs.ipfsHash` | string | Hash IPFS |
+| `ipfs.cid` | string | Identificador de contenido |
+| `ipfs.publicData` | object | Datos públicos almacenados en IPFS |
 
-## Examples
+## Ejemplos
 
 <Tabs>
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-# First, create a session to get JWT token
+# Primero, crear una sesión para obtener el token JWT
 curl -X POST "https://api.zelf.world/api/sessions" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
@@ -168,7 +168,7 @@ curl -X POST "https://api.zelf.world/api/sessions" \
     "isWebExtension": false
   }'
 
-# Then use the token to recover a tag
+# Luego usar el token para recuperar una etiqueta
 curl -X POST "https://api.zelf.world/api/tags/lease-recovery" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
@@ -193,7 +193,7 @@ const axios = require('axios');
 
 async function recoverTag() {
   try {
-    // First, create a session
+    // Primero, crear una sesión
     const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
       identifier: 'test_session_123',
       type: 'createWallet',
@@ -207,7 +207,7 @@ async function recoverTag() {
 
     const token = sessionResponse.data.data.token;
 
-    // Then recover the tag
+    // Luego recuperar la etiqueta
     const recoveryResponse = await axios.post('https://api.zelf.world/api/tags/lease-recovery', {
       zelfProof: 'your_existing_zelfproof_data',
       tagName: 'mynewtag',
@@ -225,7 +225,7 @@ async function recoverTag() {
       }
     });
 
-    console.log('Recovery successful:', recoveryResponse.data);
+    console.log('Recuperación exitosa:', recoveryResponse.data);
   } catch (error) {
     console.error('Error:', error.response?.data || error.message);
   }
@@ -241,7 +241,7 @@ recoverTag();
 import requests
 
 def recover_tag():
-    # First, create a session
+    # Primero, crear una sesión
     session_url = "https://api.zelf.world/api/sessions"
     session_data = {
         "identifier": "test_session_123",
@@ -256,7 +256,7 @@ def recover_tag():
     session_response = requests.post(session_url, json=session_data, headers=session_headers)
     token = session_response.json()["data"]["token"]
     
-    # Then recover the tag
+    # Luego recuperar la etiqueta
     recovery_url = "https://api.zelf.world/api/tags/lease-recovery"
     recovery_data = {
         "zelfProof": "your_existing_zelfproof_data",
@@ -275,7 +275,7 @@ def recover_tag():
     }
     
     recovery_response = requests.post(recovery_url, json=recovery_data, headers=recovery_headers)
-    print("Recovery successful:", recovery_response.json())
+    print("Recuperación exitosa:", recovery_response.json())
 
 if __name__ == "__main__":
     recover_tag()
@@ -287,7 +287,7 @@ if __name__ == "__main__":
 ```php
 <?php
 function recoverTag() {
-    // First, create a session
+    // Primero, crear una sesión
     $sessionUrl = 'https://api.zelf.world/api/sessions';
     $sessionData = [
         'identifier' => 'test_session_123',
@@ -308,7 +308,7 @@ function recoverTag() {
     $sessionResult = json_decode($sessionResponse, true);
     $token = $sessionResult['data']['token'];
     
-    // Then recover the tag
+    // Luego recuperar la etiqueta
     $recoveryUrl = 'https://api.zelf.world/api/tags/lease-recovery';
     $recoveryData = [
         'zelfProof' => 'your_existing_zelfproof_data',
@@ -333,7 +333,7 @@ function recoverTag() {
     $recoveryResponse = file_get_contents($recoveryUrl, false, $recoveryContext);
     $recoveryResult = json_decode($recoveryResponse, true);
     
-    echo "Recovery successful: " . json_encode($recoveryResult, JSON_PRETTY_PRINT);
+    echo "Recuperación exitosa: " . json_encode($recoveryResult, JSON_PRETTY_PRINT);
 }
 
 recoverTag();
@@ -351,7 +351,7 @@ use serde_json::{json, Value};
 async fn recover_tag() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
-    // First, create a session
+    // Primero, crear una sesión
     let session_url = "https://api.zelf.world/api/sessions";
     let session_data = json!({
         "identifier": "test_session_123",
@@ -370,7 +370,7 @@ async fn recover_tag() -> Result<(), Box<dyn std::error::Error>> {
     let session_result: Value = session_response.json().await?;
     let token = session_result["data"]["token"].as_str().unwrap();
     
-    // Then recover the tag
+    // Luego recuperar la etiqueta
     let recovery_url = "https://api.zelf.world/api/tags/lease-recovery";
     let recovery_data = json!({
         "zelfProof": "your_existing_zelfproof_data",
@@ -393,7 +393,7 @@ async fn recover_tag() -> Result<(), Box<dyn std::error::Error>> {
         .await?;
     
     let recovery_result: Value = recovery_response.json().await?;
-    println!("Recovery successful: {}", serde_json::to_string_pretty(&recovery_result)?);
+    println!("Recuperación exitosa: {}", serde_json::to_string_pretty(&recovery_result)?);
     
     Ok(())
 }

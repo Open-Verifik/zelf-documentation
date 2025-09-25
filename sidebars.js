@@ -41,18 +41,18 @@ const sidebars = {
 			collapsible: false,
 			items: ["zns/offline/decryption"],
 		},
-		{
-			type: "category",
-			label: "Online Version",
-			collapsible: false,
-			items: [
-				"zns/online/retrieve-public-key",
-				"zns/online/create-session",
-				"zns/online/lease-a-zelf-name",
-				"zns/online/preview-zelfname",
-				"zns/online/decrypt-zelfname",
-			],
-		},
+		// {
+		// 	type: "category",
+		// 	label: "Online Version",
+		// 	collapsible: false,
+		// 	items: [
+		// 		"zns/online/retrieve-public-key",
+		// 		"zns/online/create-session",
+		// 		"zns/online/lease-a-zelf-name",
+		// 		"zns/online/preview-zelfname",
+		// 		"zns/online/decrypt-zelfname",
+		// 	],
+		// },
 		{
 			type: "category",
 			label: "Arweave - AR.IO",
@@ -91,6 +91,12 @@ const sidebars = {
 						"api/tags/preview-zelfproof",
 						"api/tags/decrypt-tag",
 					],
+				},
+				{
+					type: "category",
+					label: "Licenses API",
+					collapsible: true,
+					items: ["api/licenses/get-licenses", "api/licenses/get-my-license", "api/licenses/create-license", "api/licenses/delete-license"],
 				},
 			],
 		},
