@@ -30,6 +30,19 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "Cuentas Zelf",
+			collapsible: false,
+			items: [
+				"api/cuentas/verificar-cuenta",
+				"api/cuentas/crear-cuenta",
+				"api/cuentas/autenticar",
+				"api/cuentas/actualizar-cuenta",
+				"api/cuentas/cambiar-contrasena",
+				"api/cuentas/eliminar-cuenta",
+			],
+		},
+		{
+			type: "category",
 			label: "Documentación API",
 			collapsible: false,
 			items: [

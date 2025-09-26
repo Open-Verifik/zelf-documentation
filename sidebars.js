@@ -37,6 +37,19 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "Zelf Accounts",
+			collapsible: false,
+			items: [
+				"api/accounts/verify-account",
+				"api/accounts/create-account",
+				"api/accounts/authenticate",
+				"api/accounts/update-account",
+				"api/accounts/change-password",
+				"api/accounts/delete-account",
+			],
+		},
+		{
+			type: "category",
 			label: "API Documentation",
 			collapsible: false,
 			items: [
