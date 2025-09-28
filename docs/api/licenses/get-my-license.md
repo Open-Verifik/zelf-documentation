@@ -1,27 +1,24 @@
 # Get My License
 
-Retrieve the current user's license information and status.
+Retrieve the current user's license information and account details.
 
 ## Endpoint
 
 ```
-GET /api/licenses/my-license
+GET /api/license/my-license
 ```
 
 ## Description
 
-This endpoint allows authenticated users to retrieve their own license information, including license details, expiration date, usage statistics, and current status. This is useful for checking license validity, remaining features, and renewal information.
+This endpoint allows authenticated users to retrieve their own license information and account details. It returns both the user's license data (if they have one) and their account information. If the user doesn't have a license yet, the `myLicense` field will be `null`.
 
 ## Authentication
 
-This endpoint requires authentication via JWT token. You must first create a session using the `/api/sessions` endpoint to obtain a JWT token.
+This endpoint requires authentication via JWT token. You must first authenticate using the `/api/clients/auth` endpoint to obtain a JWT token.
 
 ## Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `includeUsage` | boolean | No | Include usage statistics in response (default: false) |
-| `includeHistory` | boolean | No | Include license history and changes (default: false) |
+This endpoint does not require any parameters.
 
 ## Response
 
@@ -34,50 +31,123 @@ import TabItem from '@theme/TabItem';
 ```json
 {
   "data": {
-    "license": {
-      "id": "user_license_id",
-      "userId": "user_id_example",
-      "licenseType": "personal",
-      "domain": "zelf",
-      "status": "active",
-      "expiresAt": "2025-12-31T23:59:59Z",
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z",
-      "features": ["basic_wallet", "face_auth", "qr_generation"],
-      "usage": {
-        "tagsCreated": 5,
-        "tagsRemaining": 95,
-        "lastUsed": "2025-01-15T10:30:00Z"
-      },
-      "history": [
-        {
-          "action": "license_created",
-          "timestamp": "2025-01-01T00:00:00Z",
-          "details": "Personal license activated"
-        }
-      ]
+    "myLicense": null,
+    "zelfAccount": {
+      "id": "01998c0c-9310-7b84-8369-97015053fd5a",
+      "name": "cameron.jackson@business.org.account",
+      "cid": "bafkreibeipyirz5hktcdlqp5qsa5pqdmivpyydntovhoyvyryryie5nzxi",
+      "size": 1511,
+      "number_of_files": 1,
+      "mime_type": "text/plain; charset=UTF-8",
+      "group_id": null,
+      "created_at": "2025-09-27T16:40:58.684Z",
+      "url": "https://blush-selective-earwig-920.mypinata.cloud/ipfs/bafkreibeipyirz5hktcdlqp5qsa5pqdmivpyydntovhoyvyryryie5nzxi",
+      "publicData": {
+        "accountCompany": "Decentralized Systems",
+        "accountCountryCode": "+590",
+        "accountEmail": "cameron.jackson@business.org",
+        "accountPhone": "6206506032",
+        "accountSubscriptionId": "free",
+        "accountType": "client_account"
+      }
     }
   }
 }
 ```
 
 </TabItem>
-<TabItem value="404" label="404 Not Found">
+<TabItem value="200" label="200 OK (With License)">
 
 ```json
 {
-  "error": "license_not_found",
-  "message": "No license found for this user"
-}
-```
-
-</TabItem>
-<TabItem value="400" label="400 Bad Request">
-
-```json
-{
-  "error": "validation_error",
-  "message": "Invalid request parameters"
+  "data": {
+    "myLicense": {
+      "id": "license_id_example",
+      "name": "mydomain.account",
+      "cid": "bafkreic6je22ypwrat7xlso7igw4gfvnkoyf7lhdztwu3hxojyrsi72v6e",
+      "size": 1511,
+      "number_of_files": 1,
+      "mime_type": "text/plain; charset=UTF-8",
+      "group_id": null,
+      "created_at": "2025-09-27T16:40:58.684Z",
+      "url": "https://blush-selective-earwig-920.mypinata.cloud/ipfs/bafkreic6je22ypwrat7xlso7igw4gfvnkoyf7lhdztwu3hxojyrsi72v6e",
+      "publicData": {
+        "name": "mydomain",
+        "holdSuffix": ".hold",
+        "status": "active",
+        "description": "My custom domain",
+        "limits": {
+          "tags": 1000,
+          "zelfkeys": 5000
+        },
+        "features": [
+          {
+            "name": "Zelf Name System",
+            "code": "zns",
+            "description": "Encryptions, Decryptions, previews of ZelfProofs",
+            "enabled": true
+          }
+        ],
+        "validation": {
+          "minLength": 3,
+          "maxLength": 50,
+          "allowedChars": {},
+          "reserved": ["www", "api", "admin"],
+          "customRules": []
+        },
+        "storage": {
+          "keyPrefix": "mydomain",
+          "ipfsEnabled": true,
+          "arweaveEnabled": false,
+          "walrusEnabled": false
+        },
+        "tagPaymentSettings": {
+          "methods": ["coinbase", "crypto"],
+          "currencies": ["BTC", "ETH"],
+          "whitelist": {},
+          "pricingTable": {
+            "1": {
+              "1": 240,
+              "2": 432,
+              "3": 612,
+              "4": 768,
+              "5": 900,
+              "lifetime": 3600
+            }
+          }
+        },
+        "metadata": {
+          "version": "1.0.0",
+          "support": "standard"
+        },
+        "subscriptionId": "free",
+        "previousDomain": "",
+        "domain": "mydomain",
+        "owner": "cameron.jackson@business.org",
+        "zelfProof": "encrypted_zelfproof_data",
+        "expiresAt": "2026-09-27T16:40:58.684Z"
+      }
+    },
+    "zelfAccount": {
+      "id": "01998c0c-9310-7b84-8369-97015053fd5a",
+      "name": "cameron.jackson@business.org.account",
+      "cid": "bafkreibeipyirz5hktcdlqp5qsa5pqdmivpyydntovhoyvyryryie5nzxi",
+      "size": 1511,
+      "number_of_files": 1,
+      "mime_type": "text/plain; charset=UTF-8",
+      "group_id": null,
+      "created_at": "2025-09-27T16:40:58.684Z",
+      "url": "https://blush-selective-earwig-920.mypinata.cloud/ipfs/bafkreibeipyirz5hktcdlqp5qsa5pqdmivpyydntovhoyvyryryie5nzxi",
+      "publicData": {
+        "accountCompany": "Decentralized Systems",
+        "accountCountryCode": "+590",
+        "accountEmail": "cameron.jackson@business.org",
+        "accountPhone": "6206506032",
+        "accountSubscriptionId": "free",
+        "accountType": "client_account"
+      }
+    }
+  }
 }
 ```
 
@@ -91,12 +161,12 @@ import TabItem from '@theme/TabItem';
 ```
 
 </TabItem>
-<TabItem value="500" label="500 Internal Server Error">
+<TabItem value="404" label="404 Not Found">
 
 ```json
 {
-  "error": "internal_error",
-  "message": "An unexpected error occurred"
+  "code": "NotFound",
+  "message": "client_not_found"
 }
 ```
 
@@ -107,24 +177,36 @@ import TabItem from '@theme/TabItem';
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `license` | object | User's license information |
-| `license.id` | string | Unique identifier for the user's license |
-| `license.userId` | string | User ID associated with this license |
-| `license.licenseType` | string | Type of license ("personal", "business", "enterprise") |
-| `license.domain` | string | Primary domain for this license |
-| `license.status` | string | License status ("active", "expired", "suspended") |
-| `license.expiresAt` | string | ISO timestamp when license expires |
-| `license.createdAt` | string | ISO timestamp when license was created |
-| `license.updatedAt` | string | ISO timestamp when license was last updated |
-| `license.features` | array | Array of features available with this license |
-| `license.usage` | object | Usage statistics (only if includeUsage=true) |
-| `license.usage.tagsCreated` | number | Number of tags created with this license |
-| `license.usage.tagsRemaining` | number | Number of tags remaining |
-| `license.usage.lastUsed` | string | ISO timestamp of last license usage |
-| `license.history` | array | License history (only if includeHistory=true) |
-| `license.history[].action` | string | Action performed on the license |
-| `license.history[].timestamp` | string | ISO timestamp when action occurred |
-| `license.history[].details` | string | Additional details about the action |
+| `data` | object | Response data object |
+| `data.myLicense` | object\|null | User's license information (null if no license exists) |
+| `data.myLicense.id` | string | Unique identifier for the license |
+| `data.myLicense.name` | string | License file name |
+| `data.myLicense.cid` | string | IPFS content identifier |
+| `data.myLicense.url` | string | IPFS URL for accessing license data |
+| `data.myLicense.publicData` | object | License configuration data |
+| `data.myLicense.publicData.name` | string | Domain display name |
+| `data.myLicense.publicData.domain` | string | Domain name |
+| `data.myLicense.publicData.owner` | string | Email of the license owner |
+| `data.myLicense.publicData.subscriptionId` | string | Subscription type (always "free") |
+| `data.myLicense.publicData.expiresAt` | string | ISO timestamp when license expires |
+| `data.myLicense.publicData.limits` | object | Resource limits configuration |
+| `data.myLicense.publicData.features` | array | Array of enabled features |
+| `data.myLicense.publicData.validation` | object | Domain validation rules |
+| `data.myLicense.publicData.storage` | object | Storage configuration |
+| `data.myLicense.publicData.tagPaymentSettings` | object | Payment settings for tags |
+| `data.myLicense.publicData.metadata` | object | Additional metadata |
+| `data.zelfAccount` | object | User's account information |
+| `data.zelfAccount.id` | string | Unique identifier for the account |
+| `data.zelfAccount.name` | string | Account file name |
+| `data.zelfAccount.cid` | string | IPFS content identifier |
+| `data.zelfAccount.url` | string | IPFS URL for accessing account data |
+| `data.zelfAccount.publicData` | object | Account public data |
+| `data.zelfAccount.publicData.accountEmail` | string | User's email address |
+| `data.zelfAccount.publicData.accountPhone` | string | User's phone number |
+| `data.zelfAccount.publicData.accountCompany` | string | User's company name |
+| `data.zelfAccount.publicData.accountCountryCode` | string | User's country code |
+| `data.zelfAccount.publicData.accountType` | string | Account type (always "client_account") |
+| `data.zelfAccount.publicData.accountSubscriptionId` | string | Subscription type (always "free") |
 
 ## Examples
 
@@ -132,18 +214,18 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-# First, create a session to get JWT token
-curl -X POST "https://api.zelf.world/api/sessions" \
+# First, authenticate to get JWT token
+curl -X POST "https://api.zelf.world/api/clients/auth" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
-    "identifier": "test_session_123",
-    "type": "createWallet",
-    "isWebExtension": false
+    "email": "user@example.com",
+    "password": "your_password",
+    "faceBase64": "your_face_base64_data"
   }'
 
 # Then get my license
-curl -X GET "https://api.zelf.world/api/licenses/my-license?includeUsage=true&includeHistory=true" \
+curl -X GET "https://api.zelf.world/api/license/my-license" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
@@ -157,11 +239,11 @@ const axios = require('axios');
 
 async function getMyLicense() {
   try {
-    // First, create a session
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
-      identifier: 'test_session_123',
-      type: 'createWallet',
-      isWebExtension: false
+    // First, authenticate
+    const authResponse = await axios.post('https://api.zelf.world/api/clients/auth', {
+      email: 'user@example.com',
+      password: 'your_password',
+      faceBase64: 'your_face_base64_data'
     }, {
       headers: {
         'Content-Type': 'application/json',
@@ -169,14 +251,10 @@ async function getMyLicense() {
       }
     });
 
-    const token = sessionResponse.data.data.token;
+    const token = authResponse.data.data.token;
 
     // Then get my license
-    const licenseResponse = await axios.get('https://api.zelf.world/api/licenses/my-license', {
-      params: {
-        includeUsage: true,
-        includeHistory: true
-      },
+    const licenseResponse = await axios.get('https://api.zelf.world/api/license/my-license', {
       headers: {
         'Content-Type': 'application/json',
         'Origin': 'https://test.example.com',
@@ -185,6 +263,12 @@ async function getMyLicense() {
     });
 
     console.log('My License:', licenseResponse.data);
+    
+    if (licenseResponse.data.data.myLicense) {
+      console.log('License found:', licenseResponse.data.data.myLicense.publicData.name);
+    } else {
+      console.log('No license found for this user');
+    }
   } catch (error) {
     console.error('Error:', error.response?.data || error.message);
   }
@@ -200,35 +284,38 @@ getMyLicense();
 import requests
 
 def get_my_license():
-    # First, create a session
-    session_url = "https://api.zelf.world/api/sessions"
-    session_data = {
-        "identifier": "test_session_123",
-        "type": "createWallet",
-        "isWebExtension": False
+    # First, authenticate
+    auth_url = "https://api.zelf.world/api/clients/auth"
+    auth_data = {
+        "email": "user@example.com",
+        "password": "your_password",
+        "faceBase64": "your_face_base64_data"
     }
-    session_headers = {
+    auth_headers = {
         "Content-Type": "application/json",
         "Origin": "https://test.example.com"
     }
     
-    session_response = requests.post(session_url, json=session_data, headers=session_headers)
-    token = session_response.json()["data"]["token"]
+    auth_response = requests.post(auth_url, json=auth_data, headers=auth_headers)
+    token = auth_response.json()["data"]["token"]
     
     # Then get my license
-    license_url = "https://api.zelf.world/api/licenses/my-license"
-    params = {
-        "includeUsage": True,
-        "includeHistory": True
-    }
+    license_url = "https://api.zelf.world/api/license/my-license"
     license_headers = {
         "Content-Type": "application/json",
         "Origin": "https://test.example.com",
         "Authorization": f"Bearer {token}"
     }
     
-    license_response = requests.get(license_url, params=params, headers=license_headers)
-    print("My License:", license_response.json())
+    license_response = requests.get(license_url, headers=license_headers)
+    result = license_response.json()
+    
+    print("My License:", result)
+    
+    if result["data"]["myLicense"]:
+        print("License found:", result["data"]["myLicense"]["publicData"]["name"])
+    else:
+        print("No license found for this user")
 
 if __name__ == "__main__":
     get_my_license()
@@ -240,32 +327,29 @@ if __name__ == "__main__":
 ```php
 <?php
 function getMyLicense() {
-    // First, create a session
-    $sessionUrl = 'https://api.zelf.world/api/sessions';
-    $sessionData = [
-        'identifier' => 'test_session_123',
-        'type' => 'createWallet',
-        'isWebExtension' => false
+    // First, authenticate
+    $authUrl = 'https://api.zelf.world/api/clients/auth';
+    $authData = [
+        'email' => 'user@example.com',
+        'password' => 'your_password',
+        'faceBase64' => 'your_face_base64_data'
     ];
     
-    $sessionOptions = [
+    $authOptions = [
         'http' => [
             'header' => "Content-Type: application/json\r\nOrigin: https://test.example.com\r\n",
             'method' => 'POST',
-            'content' => json_encode($sessionData)
+            'content' => json_encode($authData)
         ]
     ];
     
-    $sessionContext = stream_context_create($sessionOptions);
-    $sessionResponse = file_get_contents($sessionUrl, false, $sessionContext);
-    $sessionResult = json_decode($sessionResponse, true);
-    $token = $sessionResult['data']['token'];
+    $authContext = stream_context_create($authOptions);
+    $authResponse = file_get_contents($authUrl, false, $authContext);
+    $authResult = json_decode($authResponse, true);
+    $token = $authResult['data']['token'];
     
     // Then get my license
-    $licenseUrl = 'https://api.zelf.world/api/licenses/my-license?' . http_build_query([
-        'includeUsage' => true,
-        'includeHistory' => true
-    ]);
+    $licenseUrl = 'https://api.zelf.world/api/license/my-license';
     
     $licenseOptions = [
         'http' => [
@@ -279,6 +363,12 @@ function getMyLicense() {
     $licenseResult = json_decode($licenseResponse, true);
     
     echo "My License: " . json_encode($licenseResult, JSON_PRETTY_PRINT);
+    
+    if ($licenseResult['data']['myLicense']) {
+        echo "License found: " . $licenseResult['data']['myLicense']['publicData']['name'];
+    } else {
+        echo "No license found for this user";
+    }
 }
 
 getMyLicense();
@@ -296,35 +386,30 @@ use serde_json::{json, Value};
 async fn get_my_license() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
-    // First, create a session
-    let session_url = "https://api.zelf.world/api/sessions";
-    let session_data = json!({
-        "identifier": "test_session_123",
-        "type": "createWallet",
-        "isWebExtension": false
+    // First, authenticate
+    let auth_url = "https://api.zelf.world/api/clients/auth";
+    let auth_data = json!({
+        "email": "user@example.com",
+        "password": "your_password",
+        "faceBase64": "your_face_base64_data"
     });
     
-    let session_response = client
-        .post(session_url)
+    let auth_response = client
+        .post(auth_url)
         .header("Content-Type", "application/json")
         .header("Origin", "https://test.example.com")
-        .json(&session_data)
+        .json(&auth_data)
         .send()
         .await?;
     
-    let session_result: Value = session_response.json().await?;
-    let token = session_result["data"]["token"].as_str().unwrap();
+    let auth_result: Value = auth_response.json().await?;
+    let token = auth_result["data"]["token"].as_str().unwrap();
     
     // Then get my license
-    let license_url = "https://api.zelf.world/api/licenses/my-license";
-    let params = [
-        ("includeUsage", "true"),
-        ("includeHistory", "true")
-    ];
+    let license_url = "https://api.zelf.world/api/license/my-license";
     
     let license_response = client
         .get(license_url)
-        .query(&params)
         .header("Content-Type", "application/json")
         .header("Origin", "https://test.example.com")
         .header("Authorization", format!("Bearer {}", token))
@@ -334,9 +419,25 @@ async fn get_my_license() -> Result<(), Box<dyn std::error::Error>> {
     let license_result: Value = license_response.json().await?;
     println!("My License: {}", serde_json::to_string_pretty(&license_result)?);
     
+    if license_result["data"]["myLicense"].is_null() {
+        println!("No license found for this user");
+    } else {
+        let license_name = license_result["data"]["myLicense"]["publicData"]["name"].as_str().unwrap();
+        println!("License found: {}", license_name);
+    }
+    
     Ok(())
 }
 ```
 
 </TabItem>
 </Tabs>
+
+## Notes
+
+- **No Parameters Required**: This endpoint doesn't require any query parameters
+- **License Status**: The `myLicense` field will be `null` if the user doesn't have a license yet
+- **Account Information**: Always returns the user's account information in `zelfAccount`
+- **IPFS Integration**: Both license and account data are stored in IPFS
+- **Authentication Required**: Must be authenticated with a valid JWT token
+- **No Biometric Verification**: This endpoint doesn't require biometric verification (unlike create/delete operations)

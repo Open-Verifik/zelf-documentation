@@ -1,28 +1,27 @@
 # Delete License
 
-Delete an existing license from the system.
+Delete an existing license with biometric verification.
 
 ## Endpoint
 
 ```
-DELETE /api/licenses/{licenseId}
+DELETE /api/license
 ```
 
 ## Description
 
-This endpoint allows administrators or authorized users to delete an existing license from the system. This action will permanently remove the license and revoke all associated permissions and features for the user. This operation is irreversible and should be used with caution.
+This endpoint allows authenticated users to delete their existing license. The operation requires biometric verification using face data and master password. Once deleted, the license data is unpinned from IPFS and all associated permissions are revoked. This operation is irreversible and should be used with caution.
 
 ## Authentication
 
-This endpoint requires authentication via JWT token with administrative privileges. You must first create a session using the `/api/sessions` endpoint to obtain a JWT token.
+This endpoint requires authentication via JWT token. You must first authenticate using the `/api/clients/auth` endpoint to obtain a JWT token.
 
 ## Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `licenseId` | string | Yes | ID of the license to delete (path parameter) |
-| `reason` | string | No | Reason for license deletion (for audit purposes) |
-| `notifyUser` | boolean | No | Whether to notify the user about license deletion (default: true) |
+| `faceBase64` | string | Yes | Base64-encoded face biometric data for authentication |
+| `masterPassword` | string | No | Master password for additional security (can be empty string) |
 
 ## Response
 
@@ -35,11 +34,14 @@ import TabItem from '@theme/TabItem';
 ```json
 {
   "data": {
+    "success": true,
     "message": "License deleted successfully",
-    "licenseId": "license_id_example",
-    "userId": "user_id_example",
-    "deletedAt": "2025-01-15T10:30:00Z",
-    "reason": "User requested cancellation"
+    "deletedFiles": [
+      {
+        "IpfsHash": "bafkreic6je22ypwrat7xlso7igw4gfvnkoyf7lhdztwu3hxojyrsi72v6e",
+        "Status": "unpinned"
+      }
+    ]
   }
 }
 ```
@@ -49,18 +51,8 @@ import TabItem from '@theme/TabItem';
 
 ```json
 {
-  "error": "license_not_found",
-  "message": "License with the specified ID does not exist"
-}
-```
-
-</TabItem>
-<TabItem value="400" label="400 Bad Request">
-
-```json
-{
-  "error": "validation_error",
-  "message": "Invalid request parameters"
+  "code": "NotFound",
+  "message": "license_not_found"
 }
 ```
 
@@ -74,22 +66,11 @@ import TabItem from '@theme/TabItem';
 ```
 
 </TabItem>
-<TabItem value="403" label="403 Forbidden">
-
-```json
-{
-  "error": "insufficient_permissions",
-  "message": "Administrative privileges required"
-}
-```
-
-</TabItem>
 <TabItem value="409" label="409 Conflict">
 
 ```json
 {
-  "error": "license_in_use",
-  "message": "Cannot delete license that is currently in use"
+  "validationError": "Format incorrect: faceBase64"
 }
 ```
 
@@ -98,8 +79,8 @@ import TabItem from '@theme/TabItem';
 
 ```json
 {
-  "error": "internal_error",
-  "message": "An unexpected error occurred"
+  "code": "InternalServerError",
+  "message": "THE PROVIDED PASSWORD IS INVALID."
 }
 ```
 
@@ -110,11 +91,12 @@ import TabItem from '@theme/TabItem';
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `message` | string | Success message confirming license deletion |
-| `licenseId` | string | ID of the deleted license |
-| `userId` | string | ID of the user whose license was deleted |
-| `deletedAt` | string | ISO timestamp when license was deleted |
-| `reason` | string | Reason provided for license deletion |
+| `data` | object | Response data object |
+| `data.success` | boolean | Whether the deletion was successful |
+| `data.message` | string | Success message confirming license deletion |
+| `data.deletedFiles` | array | Array of files that were unpinned from IPFS |
+| `data.deletedFiles[].IpfsHash` | string | IPFS hash of the deleted file |
+| `data.deletedFiles[].Status` | string | Status of the unpinning operation |
 
 ## Examples
 
@@ -122,21 +104,25 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-# First, create a session to get JWT token
-curl -X POST "https://api.zelf.world/api/sessions" \
+# First, authenticate to get JWT token
+curl -X POST "https://api.zelf.world/api/clients/auth" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
-    "identifier": "test_session_123",
-    "type": "createWallet",
-    "isWebExtension": false
+    "email": "user@example.com",
+    "password": "your_password",
+    "faceBase64": "your_face_base64_data"
   }'
 
-# Then delete a license
-curl -X DELETE "https://api.zelf.world/api/licenses/license_123?reason=User%20requested%20cancellation&notifyUser=true" \
+# Then delete the license
+curl -X DELETE "https://api.zelf.world/api/license" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
+  -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE" \
+  -d '{
+    "faceBase64": "your_face_base64_data",
+    "masterPassword": "your_master_password"
+  }'
 ```
 
 </TabItem>
@@ -147,11 +133,11 @@ const axios = require('axios');
 
 async function deleteLicense() {
   try {
-    // First, create a session
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
-      identifier: 'test_session_123',
-      type: 'createWallet',
-      isWebExtension: false
+    // First, authenticate
+    const authResponse = await axios.post('https://api.zelf.world/api/clients/auth', {
+      email: 'user@example.com',
+      password: 'your_password',
+      faceBase64: 'your_face_base64_data'
     }, {
       headers: {
         'Content-Type': 'application/json',
@@ -159,13 +145,13 @@ async function deleteLicense() {
       }
     });
 
-    const token = sessionResponse.data.data.token;
+    const token = authResponse.data.data.token;
 
-    // Then delete a license
-    const licenseResponse = await axios.delete('https://api.zelf.world/api/licenses/license_123', {
-      params: {
-        reason: 'User requested cancellation',
-        notifyUser: true
+    // Then delete the license
+    const deleteResponse = await axios.delete('https://api.zelf.world/api/license', {
+      data: {
+        faceBase64: 'your_face_base64_data',
+        masterPassword: 'your_master_password'
       },
       headers: {
         'Content-Type': 'application/json',
@@ -174,7 +160,7 @@ async function deleteLicense() {
       }
     });
 
-    console.log('License deleted:', licenseResponse.data);
+    console.log('License deleted:', deleteResponse.data);
   } catch (error) {
     console.error('Error:', error.response?.data || error.message);
   }
@@ -190,35 +176,35 @@ deleteLicense();
 import requests
 
 def delete_license():
-    # First, create a session
-    session_url = "https://api.zelf.world/api/sessions"
-    session_data = {
-        "identifier": "test_session_123",
-        "type": "createWallet",
-        "isWebExtension": False
+    # First, authenticate
+    auth_url = "https://api.zelf.world/api/clients/auth"
+    auth_data = {
+        "email": "user@example.com",
+        "password": "your_password",
+        "faceBase64": "your_face_base64_data"
     }
-    session_headers = {
+    auth_headers = {
         "Content-Type": "application/json",
         "Origin": "https://test.example.com"
     }
     
-    session_response = requests.post(session_url, json=session_data, headers=session_headers)
-    token = session_response.json()["data"]["token"]
+    auth_response = requests.post(auth_url, json=auth_data, headers=auth_headers)
+    token = auth_response.json()["data"]["token"]
     
-    # Then delete a license
-    license_url = "https://api.zelf.world/api/licenses/license_123"
-    params = {
-        "reason": "User requested cancellation",
-        "notifyUser": True
+    # Then delete the license
+    delete_url = "https://api.zelf.world/api/license"
+    delete_data = {
+        "faceBase64": "your_face_base64_data",
+        "masterPassword": "your_master_password"
     }
-    license_headers = {
+    delete_headers = {
         "Content-Type": "application/json",
         "Origin": "https://test.example.com",
         "Authorization": f"Bearer {token}"
     }
     
-    license_response = requests.delete(license_url, params=params, headers=license_headers)
-    print("License deleted:", license_response.json())
+    delete_response = requests.delete(delete_url, json=delete_data, headers=delete_headers)
+    print("License deleted:", delete_response.json())
 
 if __name__ == "__main__":
     delete_license()
@@ -230,45 +216,47 @@ if __name__ == "__main__":
 ```php
 <?php
 function deleteLicense() {
-    // First, create a session
-    $sessionUrl = 'https://api.zelf.world/api/sessions';
-    $sessionData = [
-        'identifier' => 'test_session_123',
-        'type' => 'createWallet',
-        'isWebExtension' => false
+    // First, authenticate
+    $authUrl = 'https://api.zelf.world/api/clients/auth';
+    $authData = [
+        'email' => 'user@example.com',
+        'password' => 'your_password',
+        'faceBase64' => 'your_face_base64_data'
     ];
     
-    $sessionOptions = [
+    $authOptions = [
         'http' => [
             'header' => "Content-Type: application/json\r\nOrigin: https://test.example.com\r\n",
             'method' => 'POST',
-            'content' => json_encode($sessionData)
+            'content' => json_encode($authData)
         ]
     ];
     
-    $sessionContext = stream_context_create($sessionOptions);
-    $sessionResponse = file_get_contents($sessionUrl, false, $sessionContext);
-    $sessionResult = json_decode($sessionResponse, true);
-    $token = $sessionResult['data']['token'];
+    $authContext = stream_context_create($authOptions);
+    $authResponse = file_get_contents($authUrl, false, $authContext);
+    $authResult = json_decode($authResponse, true);
+    $token = $authResult['data']['token'];
     
-    // Then delete a license
-    $licenseUrl = 'https://api.zelf.world/api/licenses/license_123?' . http_build_query([
-        'reason' => 'User requested cancellation',
-        'notifyUser' => true
-    ]);
+    // Then delete the license
+    $deleteUrl = 'https://api.zelf.world/api/license';
+    $deleteData = [
+        'faceBase64' => 'your_face_base64_data',
+        'masterPassword' => 'your_master_password'
+    ];
     
-    $licenseOptions = [
+    $deleteOptions = [
         'http' => [
             'header' => "Content-Type: application/json\r\nOrigin: https://test.example.com\r\nAuthorization: Bearer $token\r\n",
-            'method' => 'DELETE'
+            'method' => 'DELETE',
+            'content' => json_encode($deleteData)
         ]
     ];
     
-    $licenseContext = stream_context_create($licenseOptions);
-    $licenseResponse = file_get_contents($licenseUrl, false, $licenseContext);
-    $licenseResult = json_decode($licenseResponse, true);
+    $deleteContext = stream_context_create($deleteOptions);
+    $deleteResponse = file_get_contents($deleteUrl, false, $deleteContext);
+    $deleteResult = json_decode($deleteResponse, true);
     
-    echo "License deleted: " . json_encode($licenseResult, JSON_PRETTY_PRINT);
+    echo "License deleted: " . json_encode($deleteResult, JSON_PRETTY_PRINT);
 }
 
 deleteLicense();
@@ -286,43 +274,43 @@ use serde_json::{json, Value};
 async fn delete_license() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
-    // First, create a session
-    let session_url = "https://api.zelf.world/api/sessions";
-    let session_data = json!({
-        "identifier": "test_session_123",
-        "type": "createWallet",
-        "isWebExtension": false
+    // First, authenticate
+    let auth_url = "https://api.zelf.world/api/clients/auth";
+    let auth_data = json!({
+        "email": "user@example.com",
+        "password": "your_password",
+        "faceBase64": "your_face_base64_data"
     });
     
-    let session_response = client
-        .post(session_url)
+    let auth_response = client
+        .post(auth_url)
         .header("Content-Type", "application/json")
         .header("Origin", "https://test.example.com")
-        .json(&session_data)
+        .json(&auth_data)
         .send()
         .await?;
     
-    let session_result: Value = session_response.json().await?;
-    let token = session_result["data"]["token"].as_str().unwrap();
+    let auth_result: Value = auth_response.json().await?;
+    let token = auth_result["data"]["token"].as_str().unwrap();
     
-    // Then delete a license
-    let license_url = "https://api.zelf.world/api/licenses/license_123";
-    let params = [
-        ("reason", "User requested cancellation"),
-        ("notifyUser", "true")
-    ];
+    // Then delete the license
+    let delete_url = "https://api.zelf.world/api/license";
+    let delete_data = json!({
+        "faceBase64": "your_face_base64_data",
+        "masterPassword": "your_master_password"
+    });
     
-    let license_response = client
-        .delete(license_url)
-        .query(&params)
+    let delete_response = client
+        .delete(delete_url)
         .header("Content-Type", "application/json")
         .header("Origin", "https://test.example.com")
         .header("Authorization", format!("Bearer {}", token))
+        .json(&delete_data)
         .send()
         .await?;
     
-    let license_result: Value = license_response.json().await?;
-    println!("License deleted: {}", serde_json::to_string_pretty(&license_result)?);
+    let delete_result: Value = delete_response.json().await?;
+    println!("License deleted: {}", serde_json::to_string_pretty(&delete_result)?);
     
     Ok(())
 }
@@ -330,3 +318,27 @@ async fn delete_license() -> Result<(), Box<dyn std::error::Error>> {
 
 </TabItem>
 </Tabs>
+
+## Error Handling
+
+### Common Error Scenarios
+
+1. **No License Found (404)**: The user doesn't have an existing license to delete
+2. **Invalid Credentials (500)**: The provided master password is incorrect
+3. **Missing Authentication (401)**: No valid JWT token provided
+4. **Validation Error (409)**: Invalid faceBase64 format or missing required fields
+
+### Best Practices
+
+- Always verify the user has an existing license before attempting deletion
+- Ensure biometric data (`faceBase64`) is properly encoded
+- Handle the irreversible nature of license deletion in your UI
+- Consider implementing confirmation dialogs for license deletion
+
+## Notes
+
+- **Biometric Verification**: License deletion requires biometric verification using `faceBase64` data
+- **IPFS Cleanup**: Deleted license data is automatically unpinned from IPFS
+- **Irreversible Operation**: Once deleted, the license cannot be recovered
+- **Owner Verification**: Only the license owner can delete their own license
+- **Master Password**: Required for additional security verification
