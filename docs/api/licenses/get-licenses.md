@@ -1,30 +1,26 @@
-# Get Licenses
+# Search Licenses
 
-Retrieve a list of all available licenses in the system.
+Search and retrieve licenses from the system.
 
 ## Endpoint
 
 ```
-GET /api/licenses
+GET /api/license
 ```
 
 ## Description
 
-This endpoint allows you to retrieve a comprehensive list of all licenses available in the Zelf system. This includes information about license types, pricing, features, and availability status for different domains and services.
+This endpoint allows authenticated users to search for licenses in the system. It can return all licenses or filter by specific domain. The response includes detailed license information stored in IPFS, including configuration data, ownership details, and metadata.
 
 ## Authentication
 
-This endpoint requires authentication via JWT token. You must first create a session using the `/api/sessions` endpoint to obtain a JWT token.
+This endpoint requires authentication via JWT token. You must first authenticate using the `/api/clients/auth` endpoint to obtain a JWT token.
 
 ## Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `page` | number | No | Page number for pagination (default: 1) |
-| `limit` | number | No | Number of items per page (default: 10, max: 100) |
-| `domain` | string | No | Filter licenses by domain type (e.g., "zelf", "avax", "bdag") |
-| `status` | string | No | Filter licenses by status ("active", "inactive", "pending") |
-| `type` | string | No | Filter licenses by type ("personal", "business", "enterprise") |
+| `domain` | string | No | Filter licenses by specific domain name (must match pattern: `^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$`) |
 
 ## Response
 
@@ -36,28 +32,52 @@ import TabItem from '@theme/TabItem';
 
 ```json
 {
-  "data": {
-    "licenses": [
-      {
-        "id": "license_id_example",
-        "name": "Personal License",
-        "domain": "zelf",
-        "type": "personal",
-        "price": 24,
-        "duration": 1,
-        "features": ["basic_wallet", "face_auth"],
-        "status": "active",
-        "createdAt": "2025-01-01T00:00:00Z",
-        "updatedAt": "2025-01-01T00:00:00Z"
+  "data": [
+    {
+      "id": "01998e08-f623-797e-bbd5-55870070b2b8",
+      "name": "testdomain1759024572176-updated.license",
+      "cid": "bafkreiewzujw2522ppmsm6oqlftjkpcqwxeg7yuhmyk75u3vrjirms6t3q",
+      "size": 3287,
+      "number_of_files": 1,
+      "mime_type": "application/json",
+      "group_id": null,
+      "created_at": "2025-09-28T01:56:16.247Z",
+      "url": "https://blush-selective-earwig-920.mypinata.cloud/ipfs/bafkreiewzujw2522ppmsm6oqlftjkpcqwxeg7yuhmyk75u3vrjirms6t3q",
+      "publicData": {
+        "licenseDomain": "testdomain1759024572176-updated",
+        "licenseOwner": "testclient_1759024569820_q6pokd@example.com",
+        "licenseSubscriptionId": "free",
+        "type": "license"
       }
-    ],
-    "pagination": {
-      "page": 1,
-      "limit": 10,
-      "total": 1,
-      "totalPages": 1
+    },
+    {
+      "id": "01998778-469b-7bb1-8d96-a2bced86503c",
+      "name": "zelf.license",
+      "cid": "bafkreiebbvapfj246fv6hirfwv6g4z5z7p6op7jfsyj65gdfxabm6kq55a",
+      "size": 5021,
+      "number_of_files": 1,
+      "mime_type": "text/plain; charset=UTF-8",
+      "group_id": null,
+      "created_at": "2025-09-26T19:20:30.854Z",
+      "url": "https://blush-selective-earwig-920.mypinata.cloud/ipfs/bafkreiebbvapfj246fv6hirfwv6g4z5z7p6op7jfsyj65gdfxabm6kq55a",
+      "publicData": {
+        "licenseDomain": "zelf",
+        "licenseOwner": "miguel@zelf.world",
+        "licenseSubscriptionId": "free",
+        "type": "license"
+      }
     }
-  }
+  ]
+}
+```
+
+</TabItem>
+<TabItem value="404" label="404 Not Found">
+
+```json
+{
+  "code": "NotFound",
+  "message": "license_not_found"
 }
 ```
 
@@ -66,17 +86,7 @@ import TabItem from '@theme/TabItem';
 
 ```json
 {
-  "validationError": "Invalid pagination parameters\n"
-}
-```
-
-</TabItem>
-<TabItem value="400" label="400 Bad Request">
-
-```json
-{
-  "error": "validation_error",
-  "message": "Invalid request parameters"
+  "validationError": "Format incorrect: domain"
 }
 ```
 
@@ -90,38 +100,27 @@ import TabItem from '@theme/TabItem';
 ```
 
 </TabItem>
-<TabItem value="500" label="500 Internal Server Error">
-
-```json
-{
-  "error": "internal_error",
-  "message": "An unexpected error occurred"
-}
-```
-
-</TabItem>
 </Tabs>
 
 ### Response Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `licenses` | array | Array of license objects |
-| `licenses[].id` | string | Unique identifier for the license |
-| `licenses[].name` | string | Human-readable name of the license |
-| `licenses[].domain` | string | Domain type this license applies to |
-| `licenses[].type` | string | License type ("personal", "business", "enterprise") |
-| `licenses[].price` | number | License price in USD |
-| `licenses[].duration` | number | License duration in years |
-| `licenses[].features` | array | Array of features included in this license |
-| `licenses[].status` | string | License status ("active", "inactive", "pending") |
-| `licenses[].createdAt` | string | ISO timestamp when license was created |
-| `licenses[].updatedAt` | string | ISO timestamp when license was last updated |
-| `pagination` | object | Pagination information |
-| `pagination.page` | number | Current page number |
-| `pagination.limit` | number | Items per page |
-| `pagination.total` | number | Total number of licenses |
-| `pagination.totalPages` | number | Total number of pages |
+| `data` | array | Array of license objects |
+| `data[].id` | string | Unique identifier for the license |
+| `data[].name` | string | License file name |
+| `data[].cid` | string | IPFS content identifier |
+| `data[].size` | number | Size of the license data in bytes |
+| `data[].number_of_files` | number | Number of files in the IPFS storage |
+| `data[].mime_type` | string | MIME type of the license data |
+| `data[].group_id` | string\|null | Group identifier (usually null) |
+| `data[].created_at` | string | ISO timestamp when license was created |
+| `data[].url` | string | IPFS URL for accessing license data |
+| `data[].publicData` | object | License public data |
+| `data[].publicData.licenseDomain` | string | Domain name for the license |
+| `data[].publicData.licenseOwner` | string | Email of the license owner |
+| `data[].publicData.licenseSubscriptionId` | string | Subscription type (always "free") |
+| `data[].publicData.type` | string | License type (always "license") |
 
 ## Examples
 
@@ -129,18 +128,24 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-# First, create a session to get JWT token
-curl -X POST "https://api.zelf.world/api/sessions" \
+# First, authenticate to get JWT token
+curl -X POST "https://api.zelf.world/api/clients/auth" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
-    "identifier": "test_session_123",
-    "type": "createWallet",
-    "isWebExtension": false
+    "email": "user@example.com",
+    "password": "your_password",
+    "faceBase64": "your_face_base64_data"
   }'
 
-# Then get licenses
-curl -X GET "https://api.zelf.world/api/licenses?page=1&limit=10&domain=zelf" \
+# Then search for licenses
+curl -X GET "https://api.zelf.world/api/license" \
+  -H "Content-Type: application/json" \
+  -H "Origin: https://test.example.com" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
+
+# Search for specific domain
+curl -X GET "https://api.zelf.world/api/license?domain=mydomain" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
@@ -152,13 +157,13 @@ curl -X GET "https://api.zelf.world/api/licenses?page=1&limit=10&domain=zelf" \
 ```javascript
 const axios = require('axios');
 
-async function getLicenses() {
+async function searchLicenses() {
   try {
-    // First, create a session
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
-      identifier: 'test_session_123',
-      type: 'createWallet',
-      isWebExtension: false
+    // First, authenticate
+    const authResponse = await axios.post('https://api.zelf.world/api/clients/auth', {
+      email: 'user@example.com',
+      password: 'your_password',
+      faceBase64: 'your_face_base64_data'
     }, {
       headers: {
         'Content-Type': 'application/json',
@@ -166,15 +171,23 @@ async function getLicenses() {
       }
     });
 
-    const token = sessionResponse.data.data.token;
+    const token = authResponse.data.data.token;
 
-    // Then get licenses
-    const licensesResponse = await axios.get('https://api.zelf.world/api/licenses', {
+    // Then search for licenses
+    const licensesResponse = await axios.get('https://api.zelf.world/api/license', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Origin': 'https://test.example.com',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    console.log('All Licenses:', licensesResponse.data);
+
+    // Search for specific domain
+    const domainResponse = await axios.get('https://api.zelf.world/api/license', {
       params: {
-        page: 1,
-        limit: 10,
-        domain: 'zelf',
-        status: 'active'
+        domain: 'mydomain'
       },
       headers: {
         'Content-Type': 'application/json',
@@ -183,13 +196,13 @@ async function getLicenses() {
       }
     });
 
-    console.log('Licenses:', licensesResponse.data);
+    console.log('Domain Licenses:', domainResponse.data);
   } catch (error) {
     console.error('Error:', error.response?.data || error.message);
   }
 }
 
-getLicenses();
+searchLicenses();
 ```
 
 </TabItem>
@@ -198,41 +211,40 @@ getLicenses();
 ```python
 import requests
 
-def get_licenses():
-    # First, create a session
-    session_url = "https://api.zelf.world/api/sessions"
-    session_data = {
-        "identifier": "test_session_123",
-        "type": "createWallet",
-        "isWebExtension": False
+def search_licenses():
+    # First, authenticate
+    auth_url = "https://api.zelf.world/api/clients/auth"
+    auth_data = {
+        "email": "user@example.com",
+        "password": "your_password",
+        "faceBase64": "your_face_base64_data"
     }
-    session_headers = {
+    auth_headers = {
         "Content-Type": "application/json",
         "Origin": "https://test.example.com"
     }
     
-    session_response = requests.post(session_url, json=session_data, headers=session_headers)
-    token = session_response.json()["data"]["token"]
+    auth_response = requests.post(auth_url, json=auth_data, headers=auth_headers)
+    token = auth_response.json()["data"]["token"]
     
-    # Then get licenses
-    licenses_url = "https://api.zelf.world/api/licenses"
-    params = {
-        "page": 1,
-        "limit": 10,
-        "domain": "zelf",
-        "status": "active"
-    }
+    # Then search for licenses
+    licenses_url = "https://api.zelf.world/api/license"
     licenses_headers = {
         "Content-Type": "application/json",
         "Origin": "https://test.example.com",
         "Authorization": f"Bearer {token}"
     }
     
-    licenses_response = requests.get(licenses_url, params=params, headers=licenses_headers)
-    print("Licenses:", licenses_response.json())
+    licenses_response = requests.get(licenses_url, headers=licenses_headers)
+    print("All Licenses:", licenses_response.json())
+    
+    # Search for specific domain
+    domain_params = {"domain": "mydomain"}
+    domain_response = requests.get(licenses_url, params=domain_params, headers=licenses_headers)
+    print("Domain Licenses:", domain_response.json())
 
 if __name__ == "__main__":
-    get_licenses()
+    search_licenses()
 ```
 
 </TabItem>
@@ -240,35 +252,30 @@ if __name__ == "__main__":
 
 ```php
 <?php
-function getLicenses() {
-    // First, create a session
-    $sessionUrl = 'https://api.zelf.world/api/sessions';
-    $sessionData = [
-        'identifier' => 'test_session_123',
-        'type' => 'createWallet',
-        'isWebExtension' => false
+function searchLicenses() {
+    // First, authenticate
+    $authUrl = 'https://api.zelf.world/api/clients/auth';
+    $authData = [
+        'email' => 'user@example.com',
+        'password' => 'your_password',
+        'faceBase64' => 'your_face_base64_data'
     ];
     
-    $sessionOptions = [
+    $authOptions = [
         'http' => [
             'header' => "Content-Type: application/json\r\nOrigin: https://test.example.com\r\n",
             'method' => 'POST',
-            'content' => json_encode($sessionData)
+            'content' => json_encode($authData)
         ]
     ];
     
-    $sessionContext = stream_context_create($sessionOptions);
-    $sessionResponse = file_get_contents($sessionUrl, false, $sessionContext);
-    $sessionResult = json_decode($sessionResponse, true);
-    $token = $sessionResult['data']['token'];
+    $authContext = stream_context_create($authOptions);
+    $authResponse = file_get_contents($authUrl, false, $authContext);
+    $authResult = json_decode($authResponse, true);
+    $token = $authResult['data']['token'];
     
-    // Then get licenses
-    $licensesUrl = 'https://api.zelf.world/api/licenses?' . http_build_query([
-        'page' => 1,
-        'limit' => 10,
-        'domain' => 'zelf',
-        'status' => 'active'
-    ]);
+    // Then search for licenses
+    $licensesUrl = 'https://api.zelf.world/api/license';
     
     $licensesOptions = [
         'http' => [
@@ -281,10 +288,17 @@ function getLicenses() {
     $licensesResponse = file_get_contents($licensesUrl, false, $licensesContext);
     $licensesResult = json_decode($licensesResponse, true);
     
-    echo "Licenses: " . json_encode($licensesResult, JSON_PRETTY_PRINT);
+    echo "All Licenses: " . json_encode($licensesResult, JSON_PRETTY_PRINT);
+    
+    // Search for specific domain
+    $domainUrl = 'https://api.zelf.world/api/license?domain=mydomain';
+    $domainResponse = file_get_contents($domainUrl, false, $licensesContext);
+    $domainResult = json_decode($domainResponse, true);
+    
+    echo "Domain Licenses: " . json_encode($domainResult, JSON_PRETTY_PRINT);
 }
 
-getLicenses();
+searchLicenses();
 ?>
 ```
 
@@ -296,40 +310,33 @@ use reqwest;
 use serde_json::{json, Value};
 
 #[tokio::main]
-async fn get_licenses() -> Result<(), Box<dyn std::error::Error>> {
+async fn search_licenses() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
-    // First, create a session
-    let session_url = "https://api.zelf.world/api/sessions";
-    let session_data = json!({
-        "identifier": "test_session_123",
-        "type": "createWallet",
-        "isWebExtension": false
+    // First, authenticate
+    let auth_url = "https://api.zelf.world/api/clients/auth";
+    let auth_data = json!({
+        "email": "user@example.com",
+        "password": "your_password",
+        "faceBase64": "your_face_base64_data"
     });
     
-    let session_response = client
-        .post(session_url)
+    let auth_response = client
+        .post(auth_url)
         .header("Content-Type", "application/json")
         .header("Origin", "https://test.example.com")
-        .json(&session_data)
+        .json(&auth_data)
         .send()
         .await?;
     
-    let session_result: Value = session_response.json().await?;
-    let token = session_result["data"]["token"].as_str().unwrap();
+    let auth_result: Value = auth_response.json().await?;
+    let token = auth_result["data"]["token"].as_str().unwrap();
     
-    // Then get licenses
-    let licenses_url = "https://api.zelf.world/api/licenses";
-    let params = [
-        ("page", "1"),
-        ("limit", "10"),
-        ("domain", "zelf"),
-        ("status", "active")
-    ];
+    // Then search for licenses
+    let licenses_url = "https://api.zelf.world/api/license";
     
     let licenses_response = client
         .get(licenses_url)
-        .query(&params)
         .header("Content-Type", "application/json")
         .header("Origin", "https://test.example.com")
         .header("Authorization", format!("Bearer {}", token))
@@ -337,7 +344,20 @@ async fn get_licenses() -> Result<(), Box<dyn std::error::Error>> {
         .await?;
     
     let licenses_result: Value = licenses_response.json().await?;
-    println!("Licenses: {}", serde_json::to_string_pretty(&licenses_result)?);
+    println!("All Licenses: {}", serde_json::to_string_pretty(&licenses_result)?);
+    
+    // Search for specific domain
+    let domain_url = "https://api.zelf.world/api/license?domain=mydomain";
+    let domain_response = client
+        .get(domain_url)
+        .header("Content-Type", "application/json")
+        .header("Origin", "https://test.example.com")
+        .header("Authorization", format!("Bearer {}", token))
+        .send()
+        .await?;
+    
+    let domain_result: Value = domain_response.json().await?;
+    println!("Domain Licenses: {}", serde_json::to_string_pretty(&domain_result)?);
     
     Ok(())
 }
@@ -345,3 +365,12 @@ async fn get_licenses() -> Result<(), Box<dyn std::error::Error>> {
 
 </TabItem>
 </Tabs>
+
+## Notes
+
+- **No Pagination**: This endpoint returns all licenses directly in an array, without pagination
+- **IPFS Integration**: License data is stored in IPFS and accessible via the `url` field
+- **Domain Filtering**: Use the `domain` parameter to search for licenses by specific domain name
+- **Simplified Response**: The response contains only basic license information (`publicData`), not the full `domainConfig` structure
+- **Authentication Required**: Must be authenticated with a valid JWT token from `/api/clients/auth`
+- **Domain Validation**: Domain parameter must match pattern `^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$`
