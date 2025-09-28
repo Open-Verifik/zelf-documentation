@@ -56,7 +56,7 @@ import TabItem from '@theme/TabItem';
 ```
 
 </TabItem>
-<TabItem value="200" label="200 OK (With License)">
+<TabItem value="200-license" label="200 OK (With License)">
 
 ```json
 {

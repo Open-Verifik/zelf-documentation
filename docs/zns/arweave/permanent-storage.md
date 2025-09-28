@@ -84,7 +84,7 @@ Each transaction is represented as a node containing the following key fields:
 * **`id`**: The unique transaction ID. This can be used to fetch the transaction data directly from Arweave using the URL format:\
   `https://arweave.net/{id}`.\
   Example:\
-  [https://arweave.net](pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
+  [https://arweave.net/pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4](https://arweave.net/pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
 * **`owner.address`**: The wallet address of the transaction creator. This is the address that uploaded the data to Arweave.
 * **`data.size`**: The size of the stored data (in bytes). In this case, it’s `18369` bytes.
 
@@ -137,7 +137,7 @@ To access the backup data for a specific `zelfName`:
      ```
 2. Use the returned `id` to access the transaction:
    * URL: `https://arweave.net/{id}`
-   * Example: [https://arweave.net](pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
+   * Example: [https://arweave.net/pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4](https://arweave.net/pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
 
 This implementation establishes Arweave as the backbone of Zelf’s decentralized backup system, enabling users to securely store and retrieve their `zelfProofs,`and access to their wallets. This approach ensures a robust, reliable, and permanent solution giving users seamless access to their cryptographic assets and identities.
 

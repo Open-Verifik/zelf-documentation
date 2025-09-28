@@ -57,5 +57,5 @@ Zelf cumple con las regulaciones de privacidad de datos más estrictas, como GDP
 ## ¿Qué sigue?
 
 - Aprende [Cómo funciona](./empezar/como-funciona)
-- Lee el [Lite Paper](./empezar/lite-paper)
-- Explora [Casos de uso](./empezar/casos-de-uso)
+- Lee el [Documento Técnico](./empezar/documento-tecnico)
+- Explora [Casos de uso](./empezar/casos-uso)

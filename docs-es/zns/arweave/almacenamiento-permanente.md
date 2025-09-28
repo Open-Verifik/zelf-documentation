@@ -84,7 +84,7 @@ Cada transacción se representa como un nodo que contiene los siguientes campos 
 * **`id`**: El ID de transacción único. Esto puede usarse para obtener los datos de transacción directamente de Arweave usando el formato de URL:\
   `https://arweave.net/{id}`.\
   Ejemplo:\
-  [https://arweave.net](pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
+  [https://arweave.net/pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4](https://arweave.net/pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
 * **`owner.address`**: La dirección de billetera del creador de la transacción. Esta es la dirección que subió los datos a Arweave.
 * **`data.size`**: El tamaño de los datos almacenados (en bytes). En este caso, son `18369` bytes.
 
@@ -137,7 +137,7 @@ Para acceder a los datos de respaldo para un `zelfName` específico:
      ```
 2. Usar el `id` devuelto para acceder a la transacción:
    * URL: `https://arweave.net/{id}`
-   * Ejemplo: [https://arweave.net](pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
+   * Ejemplo: [https://arweave.net/pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4](https://arweave.net/pgjhRRZ8tz6BGajDbk9CQY1eJlHuFZ9pisPphDcint4)
 
 Esta implementación establece a Arweave como la columna vertebral del sistema de respaldo descentralizado de Zelf, permitiendo a los usuarios almacenar y recuperar de forma segura sus `zelfProofs` y acceso a sus billeteras. Este enfoque asegura una solución robusta, confiable y permanente que proporciona a los usuarios acceso sin problemas a sus activos criptográficos e identidades.
 
