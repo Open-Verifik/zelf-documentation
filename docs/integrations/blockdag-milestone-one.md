@@ -28,8 +28,8 @@ This milestone establishes the fundamental technical foundation for the BlockDAG
 - [x] Research BlockDAG address format and generation methods
 - [x] Implement BlockDAG-compatible wallet generation in Zelf SDK
 - [x] Create BlockDAG address validation functions
-- [x] Test wallet generation across different BlockDAG network configurations
-- [ ] Document wallet generation API endpoints
+- [x] Test tag generation across different BlockDAG network configurations
+- [x] Document tag creation API endpoints
 
 **Acceptance Criteria**:
 - Successfully generate valid BlockDAG addresses
@@ -46,16 +46,16 @@ This milestone establishes the fundamental technical foundation for the BlockDAG
 **Objective**: Build essential API endpoints for name service operations with multi domain support (.blockdag | .bdag)
 
 **Tasks**:
-- [ ] Design API architecture for BlockDAG name service
-- [ ] Implement Lease endpoint
-- [ ] Implement Lease Offline endpoint
-- [ ] Implement Search by specific .blockdag TAG endpoint
-- [ ] Implement Search all the .blockdag tag registrations endpoint
-- [ ] Implement the Decryption endpoint
-- [ ] Implement the Preview ZelfProof endpoint
-- [ ] Implement the Preview .blockdag tag endpoint
-- [ ] Implement the purchase of tag domains with crypto > first with Coinbase commerce
-- [ ] Create API documentation and examples with open source Docusaurus (markdown files)
+- [x] Design API architecture for BlockDAG name service
+- [x] Implement Lease endpoint
+- [x] Implement Lease Offline endpoint
+- [x] Implement Search by specific .blockdag TAG endpoint
+- [x] Implement Search all the .blockdag tag registrations endpoint
+- [x] Implement the Decryption endpoint
+- [x] Implement the Preview ZelfProof endpoint
+- [x] Implement the Preview .blockdag tag endpoint
+- [x] Implement the purchase of tag domains with crypto > first with Coinbase commerce
+- [x] Create API documentation and examples with open source Docusaurus (markdown files)
 
 **Acceptance Criteria**:
 - All three core endpoints functional
@@ -68,17 +68,16 @@ This milestone establishes the fundamental technical foundation for the BlockDAG
 
 ---
 
-### 3. ZK Face Proof Adaptation
+### 3. Payment Configuration
 
-**Objective**: Optimize ZK Face Proof technology for BlockDAG ecosystem
+**Objective**: Optimize Multi Domain payment settings. To accept payments with Blockchain wallets
 
 **Tasks**:
-- [ ] Analyze BlockDAG-specific requirements for ZK proofs
-- [ ] Adapt existing ZK Face Proof algorithms for BlockDAG
-- [ ] Optimize proof generation for BlockDAG transaction compatibility
-- [ ] Test proof verification with BlockDAG addresses
-- [ ] Benchmark performance improvements
-- [ ] Update ZK proof documentation
+- [x] Create the pay ZelfProof
+- [x] Generate and calculate the payment address with prices for the crypto payments allowed and it's networks
+- [x] Optimize payments with ETH, SOL, BTC, BDAG
+- [x] Write tests for payments with crypto
+- [x] Update License payment details with the crypto payment options allowed
 
 **Technical Requirements**:
 - Proof size optimization for BlockDAG transactions
@@ -102,12 +101,12 @@ This milestone establishes the fundamental technical foundation for the BlockDAG
 **Objective**: Configure distributed storage for BlockDAG name metadata
 
 **Tasks**:
-- [ ] Set up IPFS node for BlockDAG integration
-- [ ] Design metadata schema for BlockDAG names
-- [ ] Implement IPFS storage client for ZelfProofs
-- [ ] Create metadata indexing system
-- [ ] Test storage and retrieval performance
-- [ ] Implement backup and redundancy systems
+- [x] Set up IPFS node for BlockDAG integration
+- [x] Design metadata schema for BlockDAG names
+- [x] Implement IPFS storage client for ZelfProofs
+- [x] Create metadata indexing system
+- [x] Test storage and retrieval performance
+- [x] Implement backup and redundancy systems (Arweave)
 
 
 **Acceptance Criteria**:

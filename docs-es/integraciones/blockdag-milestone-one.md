@@ -8,7 +8,7 @@ sidebar_position: 3
 
 **Duración**: Semanas 1-4
 
-**Fecha límite**: 30 de septiembre de 2025  
+**Fecha límite**: 30 de septiembre de 2025
 
 **Fase**: Fundación  
 
@@ -28,8 +28,8 @@ Este hito establece la base técnica fundamental para la integración BlockDAG x
 - [x] Investigar formato de direcciones BlockDAG y métodos de generación
 - [x] Implementar generación de billeteras compatibles con BlockDAG en SDK Zelf
 - [x] Crear funciones de validación de direcciones BlockDAG
-- [x] Probar generación de billeteras en diferentes configuraciones de red BlockDAG
-- [ ] Documentar endpoints de API para generación de billeteras
+- [x] Probar generación de etiquetas en diferentes configuraciones de red BlockDAG
+- [x] Documentar endpoints de API para creación de etiquetas
 
 **Criterios de Aceptación**:
 - Generar exitosamente direcciones válidas de BlockDAG
@@ -46,46 +46,19 @@ Este hito establece la base técnica fundamental para la integración BlockDAG x
 **Objetivo**: Construir endpoints esenciales de API para operaciones del servicio de nombres con soporte multi-dominio (.blockdag | .bdag)
 
 **Tareas**:
-- [ ] Diseñar arquitectura de API para servicio de nombres BlockDAG
-- [ ] Implementar endpoint Lease
-- [ ] Implementar endpoint Lease Offline
-- [ ] Implementar endpoint Search por TAG específico .blockdag
-- [ ] Implementar endpoint Search todas las registraciones de tag .blockdag
-- [ ] Implementar endpoint Decryption
-- [ ] Implementar endpoint Preview ZelfProof
-- [ ] Implementar endpoint Preview tag .blockdag
-- [ ] Implementar compra de dominios tag con crypto > primero con Coinbase commerce
-- [ ] Crear documentación de API y ejemplos con Docusaurus open source (archivos markdown)
-
-**Endpoints de API**:
-
-```javascript
-// Buscar nombres disponibles
-POST /blockdag-name-service/search
-{
-  "name": "john.blockdag",
-  "duration": "1" // años
-}
-
-// Registrar nombre con recuperación biométrica
-POST /blockdag-name-service/lease-offline
-{
-  "name": "john.blockdag",
-  "zelfProof": "prueba_biometrica_encriptada",
-  "blockdagAddress": "bdag1234...5678"
-}
-
-// Recuperar billetera usando biometría
-POST /blockdag-name-service/decrypt
-{
-  "name": "john.blockdag", 
-  "faceBase64": "imagen_cara_usuario",
-  "password": "contraseña_opcional"
-}
-```
+- [x] Diseñar arquitectura de API para servicio de nombres BlockDAG
+- [x] Implementar endpoint Lease
+- [x] Implementar endpoint Lease Offline
+- [x] Implementar endpoint Search por TAG específico .blockdag
+- [x] Implementar endpoint Search todas las registraciones de tag .blockdag
+- [x] Implementar endpoint Decryption
+- [x] Implementar endpoint Preview ZelfProof
+- [x] Implementar endpoint Preview tag .blockdag
+- [x] Implementar compra de dominios tag con crypto > primero con Coinbase commerce
+- [x] Crear documentación de API y ejemplos con Docusaurus open source (archivos markdown)
 
 **Criterios de Aceptación**:
-- Todos los endpoints centrales funcionales
+- Todos los tres endpoints centrales funcionales
 - Manejo adecuado de errores y validación
 - Límites de velocidad implementados
 - Documentación de API completa
@@ -95,17 +68,16 @@ POST /blockdag-name-service/decrypt
 
 ---
 
-### 3. Adaptación ZK Face Proof
+### 3. Configuración de Pagos
 
-**Objetivo**: Optimizar tecnología ZK Face Proof para ecosistema BlockDAG
+**Objetivo**: Optimizar configuraciones de pagos Multi Dominio. Para aceptar pagos con billeteras Blockchain
 
 **Tareas**:
-- [ ] Analizar requisitos específicos de BlockDAG para pruebas ZK
-- [ ] Adaptar algoritmos existentes de ZK Face Proof para BlockDAG
-- [ ] Optimizar generación de pruebas para compatibilidad con transacciones BlockDAG
-- [ ] Probar verificación de pruebas con direcciones BlockDAG
-- [ ] Evaluar mejoras de rendimiento
-- [ ] Actualizar documentación de pruebas ZK
+- [x] Crear el ZelfProof de pago
+- [x] Generar y calcular la dirección de pago con precios para los pagos crypto permitidos y sus redes
+- [x] Optimizar pagos con ETH, SOL, BTC, BDAG
+- [x] Escribir pruebas para pagos con crypto
+- [x] Actualizar detalles de pago de Licencia con las opciones de pago crypto permitidas
 
 **Requisitos Técnicos**:
 - Optimización de tamaño de pruebas para transacciones BlockDAG
@@ -115,12 +87,12 @@ POST /blockdag-name-service/decrypt
 
 **Criterios de Aceptación**:
 - ZK Face Proofs generan correctamente para direcciones BlockDAG
-- Tiempo de verificación de pruebas &lt;200ms
+- Tiempo de verificación de pruebas <200ms
 - Tamaño de pruebas optimizado para transacciones BlockDAG
 - Auditoría de seguridad completada
 - Evaluaciones de rendimiento documentadas
 
-**Esfuerzo Estimado**: 1 semana
+**Esfuerzo Estimado**: 1.5 semanas
 
 ---
 
@@ -129,29 +101,12 @@ POST /blockdag-name-service/decrypt
 **Objetivo**: Configurar almacenamiento distribuido para metadatos de nombres BlockDAG
 
 **Tareas**:
-- [ ] Configurar nodo IPFS para integración BlockDAG
-- [ ] Diseñar esquema de metadatos para nombres BlockDAG
-- [ ] Implementar cliente de almacenamiento IPFS para ZelfProofs
-- [ ] Crear sistema de indexación de metadatos
-- [ ] Probar rendimiento de almacenamiento y recuperación
-- [ ] Implementar sistemas de respaldo y redundancia
-
-**Esquema de Metadatos**:
-
-```json
-{
-  "name": "john.blockdag",
-  "blockdagAddress": "bdag1234...5678",
-  "zelfProofHash": "hash_ipfs_de_prueba_encriptada",
-  "registrationDate": "2024-01-15T10:30:00Z",
-  "expirationDate": "2025-01-15T10:30:00Z",
-  "metadata": {
-    "version": "1.0",
-    "encryptionType": "zk_face_proof",
-    "storageProviders": ["ipfs", "arweave"]
-  }
-}
-```
+- [x] Configurar nodo IPFS para integración BlockDAG
+- [x] Diseñar esquema de metadatos para nombres BlockDAG
+- [x] Implementar cliente de almacenamiento IPFS para ZelfProofs
+- [x] Crear sistema de indexación de metadatos
+- [x] Probar rendimiento de almacenamiento y recuperación
+- [x] Implementar sistemas de respaldo y redundancia (Arweave)
 
 **Criterios de Aceptación**:
 - Nodo IPFS operacional y accesible
@@ -210,24 +165,6 @@ POST /blockdag-name-service/decrypt
 
 ---
 
-## Métricas de Éxito
-
-### Métricas Técnicas
-
-- **Generación de Billeteras**: Generar exitosamente 1000+ direcciones BlockDAG
-- **Tiempo de Respuesta API**: &lt;200ms tiempo promedio de respuesta para todos los endpoints
-- **Rendimiento Pruebas ZK**: Generación de pruebas &lt;5 segundos, verificación &lt;200ms
-- **Confiabilidad Almacenamiento**: 99.9% tiempo de actividad para operaciones de almacenamiento IPFS
-
-### Métricas de Desarrollo
-
-- **Cobertura de Código**: &gt;90% cobertura de pruebas para todos los componentes nuevos
-- **Documentación**: 100% endpoints de API documentados con ejemplos
-- **Seguridad**: Pasar auditoría de seguridad para generación de billeteras y pruebas ZK
-- **Rendimiento**: Cumplir todos los objetivos de evaluación
-
----
-
 ## Mitigación de Riesgos
 
 Nada aún en este Hito
@@ -246,7 +183,7 @@ Nada aún en este Hito
 |------------|----------|----------|-----------|
 | Integración Billetera BlockDAG | 2 semanas | Alto | Crítico |
 | Desarrollo API Central | 2 semanas | Alto | Crítico |
-| Adaptación ZK Face Proof | 1 semana | Medio | Alto |
+| Configuración de Pagos | 1.5 semanas | Medio | Alto |
 | Configuración Almacenamiento IPFS | 1 semana | Medio | Alto |
 
 **Duración Total Estimada**: 4 semanas  
