@@ -30,6 +30,12 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "TUTORIALES",
+			collapsible: false,
+			items: ["tutorials/como-crear-tu-cuenta"],
+		},
+		{
+			type: "category",
 			label: "Cuentas Zelf",
 			collapsible: false,
 			items: [

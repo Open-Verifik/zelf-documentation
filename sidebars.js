@@ -37,6 +37,12 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "TUTORIALS",
+			collapsible: false,
+			items: ["tutorials/how-to-create-an-account"],
+		},
+		{
+			type: "category",
 			label: "Zelf Accounts",
 			collapsible: false,
 			items: [
