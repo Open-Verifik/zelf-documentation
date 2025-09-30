@@ -87,7 +87,7 @@ Este hito establece la base técnica fundamental para la integración BlockDAG x
 
 **Criterios de Aceptación**:
 - ZK Face Proofs generan correctamente para direcciones BlockDAG
-- Tiempo de verificación de pruebas <200ms
+- Tiempo de verificación de pruebas &lt;200ms
 - Tamaño de pruebas optimizado para transacciones BlockDAG
 - Auditoría de seguridad completada
 - Evaluaciones de rendimiento documentadas

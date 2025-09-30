@@ -16,39 +16,38 @@ This milestone builds upon the foundation established in Milestone 1 to create a
 
 ## Deliverables
 
-### 1. Name Resolution System
+### 1. Dashboard for Licensing and Domain Analytics
 
-**Objective**: Implement `*.blockdag` domain support with full resolution capabilities
+**Objective**: Implement a dashboard with all the capabilities required to push the whole license agreement properly and analytics for the tags registered & zelfKeys registered.
 
 **Tasks**:
-- [ ] Design domain resolution architecture
-- [ ] Implement DNS-like resolution for BlockDAG names
-- [ ] Create name validation and formatting rules
-- [ ] Build resolution caching system
-- [ ] Implement subdomain support
-- [ ] Create resolution API endpoints
 
-**API Endpoints**:
+General taks
 
-```javascript
-// Resolve name to BlockDAG address
-GET /blockdag-name-service/resolve/{name}
-Response: {
-  "name": "john.blockdag",
-  "address": "bdag1234...5678",
-  "expires": "2025-01-15T10:30:00Z",
-  "status": "active"
-}
+- [x] Implement user registration/login system with face/liveness verification
+- [x] Add password reset and account recovery workflows
+- [x] Build user profile management with syncing to IPFS storage
+- [x] Implement session management and security tokens
+- [ ] Design domain|license screens in the dashboard
+- [ ] Implement the Analytics screen with real data
+- [ ] Build search functionality across all modules (Analytics, Tags, ZelfKeys)
+- [ ] Create notification center with real-time alerts
+- [ ] Finish the tags screen with real functionality > including adding years of lease
+- [ ] Implement data export functionality (CSV, PDF, Excel)
+- [ ] Build payment system for the license and individual tag payments with crypto, coinbase commerce and Stripe
 
-// Batch resolve multiple names
-POST /blockdag-name-service/resolve/batch
-{
-  "names": ["john.blockdag", "alice.blockdag", "bob.blockdag"]
-}
+For ZelfKeys Dashboard
 
-// Get name history and metadata
-GET /blockdag-name-service/metadata/{name}
-```
+- [ ] Design ZelfKeys management interface
+- [ ] Design subscriptions screens for Zelf Key members
+
+Settings & Billing
+
+- [ ] Build Plan & Billing management with upgrade/downgrade flows
+- [ ] Implement notification preferences and channel management
+- [ ] Create team management with invitation workflows
+- [x] Add API key management 
+
 
 **Domain Rules**:
 - Names must be 3-63 characters long
@@ -57,27 +56,35 @@ GET /blockdag-name-service/metadata/{name}
 - Reserved names list (admin, www, api, etc.)
 
 **Acceptance Criteria**:
-- Domain resolution working for all valid names
-- Subdomain resolution functional
-- Caching system improves performance by 80%
-- Batch resolution supports up to 100 names
-- Resolution time &lt;100ms average
+- Dashboard loads in &lt;2 seconds with all modules functional
+- User authentication system working with face/liveness verification
+- Analytics screen displays real-time data with &lt;500ms refresh time
+- Tags management screen supports CRUD operations and lease management
+- Search functionality works across all modules with &lt;300ms response time
+- Notification center delivers real-time alerts with &lt;1 second latency
+- Data export functionality supports CSV, PDF, and Excel formats
+- Payment system processes crypto, Coinbase Commerce, and Stripe payments
+- ZelfKeys management interface allows creation, editing, and subscription management
+- Settings screens (Plan & Billing, Notifications, Team) are fully functional
+- Team management supports role-based permissions (Admin, Write, Read)
+- API key management system operational with proper security
+- Dashboard responsive design works on desktop, tablet, and mobile devices
 
 **Estimated Effort**: 2 weeks
 
 ---
 
-### 2. Registration Workflows
+### 2. Multi domain support in Zelf Name Service app in Extension, Android & iOS
 
-**Objective**: Create seamless online and offline name registration processes
+**Objective**: Extend Zelf Name Service functionality across all platforms with multi-domain support
 
 **Tasks**:
-- [ ] Design registration workflow UI/UX
-- [ ] Implement online registration with biometric recovery
-- [ ] Implement offline registration with QR code generation
-- [ ] Create name availability checking system
-- [ ] Build registration confirmation and receipt system
-- [ ] Implement name renewal workflows
+- [ ] Implement multi-domain resolution in browser extension
+- [ ] Add Android app support for multiple domains
+- [ ] Add iOS app support for multiple domains
+- [ ] Create cross-platform domain synchronization
+- [ ] Build unified domain management interface
+- [ ] Implement platform-specific domain caching
 
 **Registration Flow**:
 
@@ -110,13 +117,14 @@ GET /blockdag-name-service/metadata/{name}
 ```
 
 **Acceptance Criteria**:
-- Online registration completes in &lt;2 minutes
-- Offline registration generates valid QR codes
-- Name availability checking &lt;500ms response time
-- Registration success rate &gt;95%
-- Payment processing integration functional
+- Browser extension resolves multiple domains with &lt;300ms response time
+- Android app supports multi-domain functionality with offline caching
+- iOS app supports multi-domain functionality with offline caching
+- Cross-platform synchronization works seamlessly across all devices
+- Unified domain management interface consistent across platforms
+- Platform-specific caching improves performance by 70%
 
-**Estimated Effort**: 2.5 weeks
+**Estimated Effort**: 2 weeks (mobile developer)
 
 ---
 
@@ -125,36 +133,15 @@ GET /blockdag-name-service/metadata/{name}
 **Objective**: Integrate BDAG token payments and detailed chain support
 
 **Tasks**:
-- [ ] Research BlockDAG payment mechanisms
+- [ ] Research how to accept BlockDAG payments
 - [ ] Implement BDAG token payment processing
 - [ ] Create dynamic pricing system based on name length and popularity
 - [ ] Build payment confirmation and receipt system
-- [ ] Implement refund mechanisms for failed registrations
-- [ ] Create payment analytics and reporting
 
-**Pricing Structure**:
-
-```javascript
-// Dynamic pricing based on name characteristics
-const calculatePrice = (name, duration) => {
-  const basePrice = 12; // $12 base price
-  const lengthMultiplier = Math.max(1, (10 - name.length) * 0.5);
-  const durationMultiplier = duration; // 1 year = 1x, 2 years = 2x
-  const popularityMultiplier = getPopularityMultiplier(name);
-  
-  return basePrice * lengthMultiplier * durationMultiplier * popularityMultiplier;
-};
-
-// Example pricing
-"john.blockdag" (4 chars, popular) = $48/year
-"alice.blockdag" (5 chars, medium) = $36/year
-"verylongname.blockdag" (12 chars, rare) = $12/year
-```
 
 **Payment Features**:
 - BDAG token payment processing
 - Multi-year registration discounts
-- Premium name auction system
 - Payment confirmation emails
 - Transaction history tracking
 
@@ -278,7 +265,7 @@ const calculatePrice = (name, duration) => {
 
 ### Technical Metrics
 
-- **Name Resolution**: &lt;100ms average resolution time
+- **Name Resolution**: &lt; 250ms average resolution time
 - **Registration Success**: &gt;95% successful registration rate
 - **Payment Processing**: &lt;30 seconds payment confirmation
 - **UI Performance**: &lt;2 seconds page load time
@@ -319,13 +306,12 @@ const calculatePrice = (name, duration) => {
 
 | Deliverable | Duration | Effort | Priority |
 |-------------|----------|--------|----------|
-| Name Resolution System | 2 weeks | High | Critical |
-| Registration Workflows | 2.5 weeks | High | Critical |
+| Dashboard for Licensing and Domain Analytics | 2 weeks | High | Critical |
+| Multi domain support in Zelf Name Service app in Extension, Android & iOS | 2 weeks | High | Critical |
 | Payment Integration | 1.5 weeks | Medium | High |
-| Demo Application UI | 2 weeks | Medium | High |
 
 **Total Estimated Duration**: 4 weeks  
-**Total Team Effort**: 8 person-weeks
+**Total Team Effort**: 3 person-weeks
 
 ---
 

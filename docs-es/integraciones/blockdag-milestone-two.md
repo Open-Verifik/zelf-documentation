@@ -8,47 +8,45 @@ sidebar_position: 4
 
 **Duración**: Semanas 5-8  
 **Fase**: Implementación del Servicio de Nombres  
-**Enfoque**: Sistema de resolución de dominios y flujos de trabajo de registro
+**Enfoque**: Dashboard de licencias y analíticas de dominios
 
-Este hito construye sobre la fundación establecida en el Hito 1 para crear un sistema completo de servicio de nombres para BlockDAG, incluyendo resolución de dominios, flujos de trabajo de registro, e integración de pagos.
+Este hito construye sobre la fundación establecida en el Hito 1 para crear un dashboard completo con capacidades de gestión de licencias y analíticas para las etiquetas registradas y ZelfKeys registradas.
 
 ---
 
 ## Entregables
 
-### 1. Sistema de Resolución de Nombres
+### 1. Dashboard para Licencias y Analíticas de Dominios
 
-**Objetivo**: Implementar soporte de dominio `*.blockdag` con capacidades completas de resolución
+**Objetivo**: Implementar un dashboard con todas las capacidades requeridas para impulsar el acuerdo de licencia completo y analíticas para las etiquetas registradas y ZelfKeys registradas.
 
 **Tareas**:
-- [ ] Diseñar arquitectura de resolución de dominios
-- [ ] Implementar resolución tipo DNS para nombres BlockDAG
-- [ ] Crear reglas de validación y formato de nombres
-- [ ] Construir sistema de caché de resolución
-- [ ] Implementar soporte de subdominios
-- [ ] Crear endpoints de API de resolución
 
-**Endpoints de API**:
+Tareas generales
 
-```javascript
-// Resolver nombre a dirección BlockDAG
-GET /blockdag-name-service/resolve/{name}
-Respuesta: {
-  "name": "john.blockdag",
-  "address": "bdag1234...5678",
-  "expires": "2025-01-15T10:30:00Z",
-  "status": "active"
-}
+- [x] Implementar sistema de registro/inicio de sesión de usuarios con verificación facial/vitalidad
+- [x] Agregar flujos de trabajo de recuperación de contraseña y cuenta
+- [x] Construir gestión de perfil de usuario con sincronización a almacenamiento IPFS
+- [x] Implementar gestión de sesiones y tokens de seguridad
+- [ ] Diseñar pantallas de dominio|licencia en el dashboard
+- [ ] Implementar la pantalla de Analíticas con datos reales
+- [ ] Construir funcionalidad de búsqueda en todos los módulos (Analíticas, Etiquetas, ZelfKeys)
+- [ ] Crear centro de notificaciones con alertas en tiempo real
+- [ ] Terminar la pantalla de etiquetas con funcionalidad real > incluyendo agregar años de arrendamiento
+- [ ] Implementar funcionalidad de exportación de datos (CSV, PDF, Excel)
+- [ ] Construir sistema de pagos para la licencia y pagos individuales de etiquetas con crypto, coinbase commerce y Stripe
 
-// Resolución por lotes de múltiples nombres
-POST /blockdag-name-service/resolve/batch
-{
-  "names": ["john.blockdag", "alice.blockdag", "bob.blockdag"]
-}
+Para Dashboard ZelfKeys
 
-// Obtener historial y metadatos del nombre
-GET /blockdag-name-service/metadata/{name}
-```
+- [ ] Diseñar interfaz de gestión de ZelfKeys
+- [ ] Diseñar pantallas de suscripciones para miembros de Zelf Key
+
+Configuración y Facturación
+
+- [ ] Construir gestión de Plan y Facturación con flujos de actualización/degradación
+- [ ] Implementar preferencias de notificación y gestión de canales
+- [ ] Crear gestión de equipo con flujos de trabajo de invitación
+- [x] Agregar gestión de claves API
 
 **Reglas de Dominio**:
 - Los nombres deben tener entre 3-63 caracteres
@@ -57,27 +55,35 @@ GET /blockdag-name-service/metadata/{name}
 - Lista de nombres reservados (admin, www, api, etc.)
 
 **Criterios de Aceptación**:
-- Resolución de dominios funcionando para todos los nombres válidos
-- Resolución de subdominios funcional
-- Sistema de caché mejora rendimiento en 80%
-- Resolución por lotes soporta hasta 100 nombres
-- Tiempo de resolución &lt;100ms promedio
+- Dashboard carga en &lt;2 segundos con todos los módulos funcionales
+- Sistema de autenticación de usuarios funcionando con verificación facial/vitalidad
+- Pantalla de Analíticas muestra datos en tiempo real con &lt;500ms tiempo de actualización
+- Pantalla de gestión de etiquetas soporta operaciones CRUD y gestión de arrendamiento
+- Funcionalidad de búsqueda funciona en todos los módulos con &lt;300ms tiempo de respuesta
+- Centro de notificaciones entrega alertas en tiempo real con &lt;1 segundo latencia
+- Funcionalidad de exportación de datos soporta formatos CSV, PDF y Excel
+- Sistema de pagos procesa pagos crypto, Coinbase Commerce y Stripe
+- Interfaz de gestión de ZelfKeys permite creación, edición y gestión de suscripciones
+- Pantallas de configuración (Plan y Facturación, Notificaciones, Equipo) son completamente funcionales
+- Gestión de equipo soporta permisos basados en roles (Admin, Escritura, Lectura)
+- Sistema de gestión de claves API operacional con seguridad adecuada
+- Diseño responsivo del dashboard funciona en escritorio, tablet y dispositivos móviles
 
 **Esfuerzo Estimado**: 2 semanas
 
 ---
 
-### 2. Flujos de Trabajo de Registro
+### 2. Soporte multi-dominio en la aplicación Zelf Name Service en Extensión, Android e iOS
 
-**Objetivo**: Crear procesos fluidos de registro de nombres online y offline
+**Objetivo**: Extender la funcionalidad del Servicio de Nombres Zelf en todas las plataformas con soporte multi-dominio
 
 **Tareas**:
-- [ ] Diseñar flujo de trabajo UI/UX de registro
-- [ ] Implementar registro online con recuperación biométrica
-- [ ] Implementar registro offline con generación de código QR
-- [ ] Crear sistema de verificación de disponibilidad de nombres
-- [ ] Construir sistema de confirmación y recibo de registro
-- [ ] Implementar flujos de trabajo de renovación de nombres
+- [ ] Implementar resolución multi-dominio en extensión de navegador
+- [ ] Agregar soporte de aplicación Android para múltiples dominios
+- [ ] Agregar soporte de aplicación iOS para múltiples dominios
+- [ ] Crear sincronización de dominios multiplataforma
+- [ ] Construir interfaz de gestión de dominios unificada
+- [ ] Implementar caché de dominios específico por plataforma
 
 **Flujo de Registro**:
 
@@ -113,13 +119,14 @@ GET /blockdag-name-service/metadata/{name}
 ```
 
 **Criterios de Aceptación**:
-- Registro online completa en &lt;2 minutos
-- Registro offline genera códigos QR válidos
-- Verificación de disponibilidad de nombres &lt;500ms tiempo de respuesta
-- Tasa de éxito de registro &gt;95%
-- Integración de procesamiento de pagos funcional
+- Extensión de navegador resuelve múltiples dominios con &lt;300ms tiempo de respuesta
+- Aplicación Android soporta funcionalidad multi-dominio con caché offline
+- Aplicación iOS soporta funcionalidad multi-dominio con caché offline
+- Sincronización multiplataforma funciona perfectamente en todos los dispositivos
+- Interfaz de gestión de dominios unificada consistente entre plataformas
+- Caché específico por plataforma mejora rendimiento en 70%
 
-**Esfuerzo Estimado**: 2.5 semanas
+**Esfuerzo Estimado**: 2 semanas (desarrollador móvil)
 
 ---
 
@@ -128,36 +135,14 @@ GET /blockdag-name-service/metadata/{name}
 **Objetivo**: Integrar pagos de tokens BDAG y soporte detallado de la cadena
 
 **Tareas**:
-- [ ] Investigar mecanismos de pago de BlockDAG
+- [ ] Investigar cómo aceptar pagos de BlockDAG
 - [ ] Implementar procesamiento de pagos de tokens BDAG
 - [ ] Crear sistema de precios dinámicos basado en longitud y popularidad del nombre
 - [ ] Construir sistema de confirmación y recibo de pagos
-- [ ] Implementar mecanismos de reembolso para registros fallidos
-- [ ] Crear analíticas y reportes de pagos
-
-**Estructura de Precios**:
-
-```javascript
-// Precios dinámicos basados en características del nombre
-const calcularPrecio = (name, duration) => {
-  const precioBase = 12; // $12 precio base
-  const multiplicadorLongitud = Math.max(1, (10 - name.length) * 0.5);
-  const multiplicadorDuracion = duration; // 1 año = 1x, 2 años = 2x
-  const multiplicadorPopularidad = obtenerMultiplicadorPopularidad(name);
-  
-  return precioBase * multiplicadorLongitud * multiplicadorDuracion * multiplicadorPopularidad;
-};
-
-// Ejemplo de precios
-"john.blockdag" (4 chars, popular) = $48/año
-"alice.blockdag" (5 chars, medio) = $36/año
-"verylongname.blockdag" (12 chars, raro) = $12/año
-```
 
 **Características de Pago**:
 - Procesamiento de pagos de tokens BDAG
 - Descuentos de registro multi-año
-- Sistema de subasta de nombres premium
 - Emails de confirmación de pago
 - Seguimiento de historial de transacciones
 
@@ -284,7 +269,7 @@ const calcularPrecio = (name, duration) => {
 
 ### Métricas Técnicas
 
-- **Resolución de Nombres**: &lt;100ms tiempo promedio de resolución
+- **Resolución de Nombres**: &lt; 250ms tiempo promedio de resolución
 - **Éxito de Registro**: &gt;95% tasa de registro exitoso
 - **Procesamiento de Pagos**: &lt;30 segundos confirmación de pago
 - **Rendimiento UI**: &lt;2 segundos tiempo de carga de página
@@ -325,13 +310,13 @@ const calcularPrecio = (name, duration) => {
 
 | Entregable | Duración | Esfuerzo | Prioridad |
 |------------|----------|----------|-----------|
-| Sistema Resolución Nombres | 2 semanas | Alto | Crítico |
-| Flujos Trabajo Registro | 2.5 semanas | Alto | Crítico |
+| Dashboard para Licencias y Analíticas de Dominios | 2 semanas | Alto | Crítico |
+| Soporte multi-dominio en la aplicación Zelf Name Service en Extensión, Android e iOS | 2.5 semanas | Alto | Crítico |
 | Integración Pagos | 1.5 semanas | Medio | Alto |
 | UI Aplicación Demo | 2 semanas | Medio | Alto |
 
 **Duración Total Estimada**: 4 semanas  
-**Esfuerzo Total del Equipo**: 8 semanas-persona
+**Esfuerzo Total del Equipo**: 3 personas
 
 ---
 
