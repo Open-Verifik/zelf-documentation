@@ -356,8 +356,8 @@ body {
 /* GitBook-style Section headers (GETTING STARTED, OFFLINE VERSION, etc.) */
 .menu__list-item-collapsible > .menu__link {
   font-weight: 700;
-  color: #000000;
-  font-size: 11px;
+  color: #1b1b1b;
+  font-size: 14px; /* Significantly increased from 13px to make section headers much more prominent */
   text-transform: uppercase;
   letter-spacing: 0.8px;
   margin: 12px 0 6px 0;
@@ -375,6 +375,7 @@ body {
   color: #000000;
   transform: none;
 }
+
 
 /* Remove active styling from section headers */
 .menu__list-item-collapsible > .menu__link--active {
@@ -485,12 +486,20 @@ body {
   margin: 1px 0;
 }
 
-/* Make BlockDAG milestones category label same size as other categories */
-.menu__list-item-collapsible .menu__list-item-collapsible .menu__link {
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  color: #2c3e50 !important;
-  padding-left: 20px !important;
+/* Nested category labels (Projects, Project Flows, etc.) - smaller than main sections */
+.menu__list-item-collapsible .menu__list-item-collapsible > .menu__link {
+  font-size: 12px !important; /* Reduced from 14px to make them smaller */
+  font-weight: 600 !important;
+  color: #495057 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  margin: 8px 0 4px 0 !important;
+  padding: 6px 20px !important;
+  background-color: transparent !important;
+  position: relative !important;
+  top: auto !important;
+  z-index: auto !important;
+  backdrop-filter: none !important;
 }
 
 /* Ensure dropdown doesn't overflow */
@@ -537,7 +546,7 @@ body {
 /* Sub-items indentation */
 .menu__list-item .menu__list-item .menu__link {
   padding-left: 18px;
-  font-size: 13px;
+  font-size: 13px; /* Reverted back to 13px for individual menu items */
   color: #495057;
   margin: 6px 3px;
 }

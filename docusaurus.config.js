@@ -12,8 +12,8 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-	title: "ZELF",
-	tagline: "YOUR FACE IS YOUR KEY",
+	title: "Verifik",
+	tagline: "Everything you need to verify & authenticate users faster and easier",
 	favicon: "img/favicon.ico",
 
 	// Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -30,11 +30,10 @@ const config = {
 
 	// GitHub pages deployment config.
 	// If you aren't using GitHub pages, you don't need these.
-	organizationName: "zelf", // Usually your GitHub org/user name.
-	projectName: "zelf-documentation", // Usually your repo name.
+	organizationName: "verifik", // Usually your GitHub org/user name.
+	projectName: "verifik-documentation", // Usually your repo name.
 
-	onBrokenLinks: "throw",
-	onBrokenMarkdownLinks: "warn",
+	onBrokenLinks: "warn",
 
 	// Internationalization configuration
 	i18n: {
@@ -94,10 +93,10 @@ const config = {
 			// Replace with your project's social card
 			image: "img/docusaurus-social-card.jpg",
 			navbar: {
-				title: "ZELF",
+				title: "Verifik",
 				logo: {
-					alt: "ZELF Logo",
-					src: "img/zelflogo.png",
+					alt: "Verifik Logo",
+					src: "img/verifik-logo.png",
 				},
 				items: [
 					{
@@ -123,7 +122,7 @@ const config = {
 						position: "right",
 					},
 					{
-						to: "https://github.com/zelf/zelf-documentation",
+						to: "https://github.com/verifik/verifik-documentation",
 						label: "GitHub",
 						position: "right",
 					},
@@ -134,7 +133,7 @@ const config = {
 			footer: {
 				style: "light",
 				links: [],
-				copyright: `Copyright © ${new Date().getFullYear()} ZELF. All rights reserved.`,
+				copyright: `Copyright © ${new Date().getFullYear()} Verifik. All rights reserved.`,
 			},
 			prism: {
 				theme: prismThemes.github,
