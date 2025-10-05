@@ -24,25 +24,18 @@ const sidebars = {
 		},
 		{
 			type: "category",
-			label: "ACCOUNTS",
+			label: "AUTHENTICATION",
 			collapsible: false,
 			items: [
-				{
-					type: "category",
-					label: "Authentication",
-					collapsible: true,
-					items: [
-						"authentication/api-key-access-via-email",
-						"authentication/api-key-access-via-phone",
-						"authentication/renew-your-token-jwt",
-						"authentication/create-new-token-and-revoke-previous-tokens",
-					],
-				},
+				"authentication/api-key-access-via-email",
+				"authentication/api-key-access-via-phone",
+				"authentication/renew-your-token-jwt",
+				"authentication/create-new-token-and-revoke-previous-tokens",
 			],
 		},
 		{
 			type: "category",
-			label: "Clients",
+			label: "CLIENTS",
 			collapsible: false,
 			items: ["clients/account-information"],
 		},

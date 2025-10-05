@@ -4,29 +4,544 @@ title: SmartCheck
 description: A comprehensive API solution designed to facilitate a wide range of verification processes
 ---
 
+import { Card } from '@site/src/components/Card';
+
 # SmartCheck
 
-## Overview
+<img src="/img/smartcheck/overview.png" alt="SmartCheck Overview" width="375" />
+
+### **Overview**
 
 **SmartCheck** is a comprehensive API solution designed to facilitate a wide range of verification processes. With a focus on data from Latin America, this platform allows businesses to validate identities, conduct background checks, verify vehicle information, validate professional licenses and certificates, check business details, and much more. SmartCheck aggregates multiple sources, providing reliable and accurate information to help businesses make informed decisions.
 
-## Key Features
+### **Key Features**
 
-### 1. Extensive API Coverage
+#### **1. Extensive API Coverage**
 
 SmartCheck offers a vast range of APIs that cater to different verification needs:
 
 * **Identity Verification:** Validate the identity of individuals across multiple Latin American countries using government-issued IDs, such as national identity cards or driver's licenses.
 
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Argentina citizen"
+      description=""
+      image="/img/smartcheck/argentina-citizen.png"
+      link="/docs/identity/argentina"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Bolivian citizen"
+      description=""
+      image="/img/smartcheck/bolivia-citizen.png"
+      link="/docs/identity/bolivia"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Brazilian citizen"
+      description=""
+      image="/img/smartcheck/brazil-citizen.png"
+      link="/docs/identity/brazil"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Chilean citizen"
+      description=""
+      image="/img/smartcheck/chile-citizen.png"
+      link="/docs/identity/chile"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Colombian citizen"
+      description=""
+      image="/img/smartcheck/colombia-citizen.png"
+      link="/docs/identity/colombia"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Costa Rican citizen"
+      description=""
+      image="/img/smartcheck/costa-rica-citizen.png"
+      link="/docs/identity/costa-rica"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Ecuadorian citizen"
+      description=""
+      image="/img/smartcheck/ecuador-citizen.png"
+      link="/docs/identity/ecuador"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="El Salvador citizen"
+      description=""
+      image="/img/smartcheck/el-salvador-citizen.png"
+      link="/docs/identity/el-salvador"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Spanish citizen"
+      description=""
+      image="/img/smartcheck/spain-citizen.png"
+      link="/docs/identity/spain-citizen"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="United States Citizen"
+      description=""
+      image="/img/smartcheck/us-citizen.png"
+      link="/docs/identity/united-states"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Guatemalan citizen"
+      description=""
+      image="/img/smartcheck/guatemala-citizen.png"
+      link="/docs/identity/guatemala"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Honduran citizen"
+      description=""
+      image="/img/smartcheck/honduras-citizen.png"
+      link="/docs/identity/honduras"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Mexican citizen"
+      description=""
+      image="/img/smartcheck/mexico-citizen.png"
+      link="/docs/identity/mexico"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Panamanian citizen"
+      description=""
+      image="/img/smartcheck/panama-citizen.png"
+      link="/docs/identity/panama"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Paraguayan citizen"
+      description=""
+      image="/img/smartcheck/paraguay-citizen.png"
+      link="/docs/identity/paraguay"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Peruvian citizen"
+      description=""
+      image="/img/smartcheck/peru-citizen.png"
+      link="/docs/identity/peru"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Dominican Republic citizen"
+      description=""
+      image="/img/smartcheck/dominican-republic-citizen.png"
+      link="/docs/identity/dominican-republic"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Uruguayan citizen"
+      description=""
+      image="/img/smartcheck/uruguay-citizen.png"
+      link="/docs/identity/uruguay"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Venezuelan citizen"
+      description=""
+      image="/img/smartcheck/venezuela-citizen.png"
+      link="/docs/identity/venezuela"
+    />
+  </div>
+</div>
+
 * **Background Checks:** Conduct comprehensive background checks, including criminal records, DEA watchlists, and police records.
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Brazilian background check"
+      description=""
+      image="/img/smartcheck/brazil-background.png"
+      link="/docs/background-check/brazil"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Colombian background check"
+      description=""
+      image="/img/smartcheck/colombia-background.png"
+      link="/docs/background-check/colombia"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="International background check"
+      description=""
+      image="/img/smartcheck/international-background.png"
+      link="/docs/background-check/international"
+    />
+  </div>
+</div>
 
 * **Vehicle Information:** Retrieve detailed information about vehicles, including ownership, registration status, and any associated legal issues.
 
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Argentinian vehicle validation"
+      description=""
+      image="/img/smartcheck/argentina-vehicle.png"
+      link="/docs/vehicle-validation/argentina"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Bolivian vehicle validation"
+      description=""
+      image="/img/smartcheck/bolivia-vehicle.png"
+      link="/docs/vehicle-validation/bolivia"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Brazilian vehicle validation"
+      description=""
+      image="/img/smartcheck/brazil-vehicle.png"
+      link="/docs/vehicle-validation/brazil"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Chilean vehicle validation"
+      description=""
+      image="/img/smartcheck/chile-vehicle.png"
+      link="/docs/vehicle-validation/chile"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Colombian vehicle validation"
+      description=""
+      image="/img/smartcheck/colombia-vehicle.png"
+      link="/docs/vehicle-validation/colombia"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Costa Rica vehicle validation"
+      description=""
+      image="/img/smartcheck/costa-rica-vehicle.png"
+      link="/docs/vehicle-validation/costa-rica"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Ecuadorian vehicle validation"
+      description=""
+      image="/img/smartcheck/ecuador-vehicle.png"
+      link="/docs/vehicle-validation/ecuador"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Mexican vehicle validation"
+      description=""
+      image="/img/smartcheck/mexico-vehicle.png"
+      link="/docs/vehicle-validation/mexico"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Paraguayan vehicle validation"
+      description=""
+      image="/img/smartcheck/paraguay-vehicle.png"
+      link="/docs/vehicle-validation/paraguay"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Peruvian vehicle validation"
+      description=""
+      image="/img/smartcheck/peru-vehicle.png"
+      link="/docs/vehicle-validation/peru"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="United States vehicle validation"
+      description=""
+      image="/img/smartcheck/us-vehicle.png"
+      link="/docs/vehicle-validation/united-states"
+    />
+  </div>
+</div>
+
 * **Driver Licenses and Certificates:** Verify the validity of professional licenses, educational certificates, and other important documents.
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Canadian Driver License validation"
+      description=""
+      image="/img/smartcheck/canada-driver.png"
+      link="/docs/driver-validation/british-columbia-driver-license"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Colombian Driver License validation"
+      description=""
+      image="/img/smartcheck/colombia-citizen.png"
+      link="/docs/driver-validation/colombia-runt-drivers-license"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Florida Driver License validation"
+      description=""
+      image="/img/smartcheck/us-citizen.png"
+      link="/docs/driver-validation/florida-driver-license"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Kansas Driver License validation"
+      description=""
+      image="/img/smartcheck/us-citizen.png"
+      link="/docs/driver-validation/kansas-driver-license"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Ontario Driver License validation"
+      description=""
+      image="/img/smartcheck/canada-citizen.png"
+      link="/docs/driver-validation/ontario-driver-license"
+    />
+  </div>
+</div>
 
 * **Business Verification:** Validate business registration details, ownership, and operational status.
 
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Argentinian company validation"
+      description=""
+      image="/img/smartcheck/argentina-citizen.png"
+      link="/docs/business-validation/argentina"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Bolivian company validation"
+      description=""
+      image="/img/smartcheck/bolivia-citizen.png"
+      link="/docs/business-validation/bolivia"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Brazilian company validation"
+      description=""
+      image="/img/smartcheck/brazil-citizen.png"
+      link="/docs/business-validation/brazil"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Canadian company validation"
+      description=""
+      image="/img/smartcheck/canada-business.png"
+      link="/docs/business-validation/canada"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Chilean company validation"
+      description=""
+      image="/img/smartcheck/chile-citizen.png"
+      link="/docs/business-validation/chilean"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Colombian company validation"
+      description=""
+      image="/img/smartcheck/colombia-citizen.png"
+      link="/docs/business-validation/colombia"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Costa Rica company validation"
+      description=""
+      image="/img/smartcheck/costa-rica-citizen.png"
+      link="/docs/business-validation/costa-rica"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Mexican company validation"
+      description=""
+      image="/img/smartcheck/mexico-citizen.png"
+      link="/docs/business-validation/mexico"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Panamanian company validation"
+      description=""
+      image="/img/smartcheck/panama-citizen.png"
+      link="/docs/business-validation/panama"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Paraguayan company validation"
+      description=""
+      image="/img/smartcheck/paraguay-citizen.png"
+      link="/docs/business-validation/paraguay"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Peruvian company validation"
+      description=""
+      image="/img/smartcheck/peru-citizen.png"
+      link="/docs/business-validation/peru"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Spanish company validation"
+      description=""
+      image="/img/smartcheck/spain-citizen.png"
+      link="/docs/business-validation/spain"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="United States company validation"
+      description=""
+      image="/img/smartcheck/us-citizen.png"
+      link="/docs/business-validation/united-states"
+    />
+  </div>
+</div>
+
 * **Legal Verification:** Validate Lawyers, Legal processes, Details of a legal process, Court cases, Certificates of Validity for Legal professionals, etc.
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Colombian Lawyer Verification"
+      description=""
+      image="/img/smartcheck/colombia-citizen.png"
+      link="/docs/legal/lawyer-verification"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Colombian legal processes"
+      description=""
+      image="/img/smartcheck/colombia-citizen.png"
+      link="/docs/legal/colombian-legal-processes"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Colombian Legal process details"
+      description=""
+      image="/img/smartcheck/colombia-citizen.png"
+      link="/docs/legal/retrieve-details-of-a-legal-process-by-number"
+    />
+  </div>
+</div>
+
+<div className="row">
+  <div className="col col--4">
+    <Card
+      title="Colombian Court cases records"
+      description=""
+      image="/img/smartcheck/colombia-citizen.png"
+      link="/docs/legal/court-case-records-lookup"
+    />
+  </div>
+  <div className="col col--4">
+    <Card
+      title="Colombian certificates of validity for legal professionals"
+      description=""
+      image="/img/smartcheck/colombia-citizen.png"
+      link="/docs/legal/certificate-of-validity-for-legal-professionals"
+    />
+  </div>
+</div>
 
 ### 2. Unified Interface for Easy Access
 
