@@ -1,0 +1,101 @@
+---
+id: brazil
+title: Brazil
+description: Verify Brazilian citizen identities using CPF
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/br/cedula
+```
+
+Verify CPF and return key identity details.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Allowed: `CPF`. |
+| `documentNumber` | string | Yes | CPF value (with or without separators). |
+| `dateOfBirth` | string | Yes | `DD/MM/YYYY`. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/br/cedula", {
+  params: { documentType: "CPF", documentNumber: "012.345.678-01", dateOfBirth: "17/02/2002" },
+  headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/br/cedula"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CPF", "documentNumber": "012.345.678-01", "dateOfBirth": "17/02/2002"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "documentType": "CPF",
+    "documentNumber": "012.345.678-01",
+    "firstName": "João",
+    "lastName": "Silva",
+    "fullName": "João Silva",
+    "dateOfBirth": "2002-02-17",
+    "status": "valid"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
+  "id": "BR001"
+}
+```
+
+  </TabItem>
+  <TabItem value="400" label="400">
+
+```json
+{
+  "message": "Invalid CPF number",
+  "code": "INVALID_CPF"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- CPF must be valid; date of birth required and must match.
+

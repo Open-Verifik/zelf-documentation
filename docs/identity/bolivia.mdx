@@ -1,0 +1,101 @@
+---
+id: bolivia
+title: Bolivia
+description: Verify Bolivian citizen identities using CI
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/bo/cedula
+```
+
+Verify CI with date of birth.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Allowed: `CI`. |
+| `documentNumber` | string | Yes | CI value. |
+| `dateOfBirth` | string | Yes | `DD/MM/YYYY`. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/bo/cedula", {
+  params: { documentType: "CI", documentNumber: "123456789", dateOfBirth: "15/03/1990" },
+  headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/bo/cedula"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CI", "documentNumber": "123456789", "dateOfBirth": "15/03/1990"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "documentType": "CI",
+    "documentNumber": "123456789",
+    "firstName": "María",
+    "lastName": "González",
+    "fullName": "María González",
+    "dateOfBirth": "1990-03-15",
+    "status": "valid"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
+  "id": "BO001"
+}
+```
+
+  </TabItem>
+  <TabItem value="400" label="400">
+
+```json
+{
+  "message": "Invalid document number",
+  "code": "INVALID_DOCUMENT"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- Date of birth required and must match DI record.
+

@@ -1,0 +1,104 @@
+---
+id: united-states
+title: United States
+description: Verify US companies using business name search
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/usa/company
+```
+
+Returns information for a US-based company by business name.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `business` | string | Yes | Full or partial company name. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.post(
+  "https://api.verifik.co/v2/usa/company",
+  { business: "APPLE INC" },
+  { headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` } }
+);
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/usa/company"
+headers = {"Content-Type": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+payload = {"business": "APPLE INC"}
+r = requests.post(url, json=payload, headers=headers)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "companyName": "Apple Inc.",
+    "ticker": "AAPL",
+    "exchange": "NASDAQ",
+    "address": {
+      "street": "One Apple Park Way",
+      "city": "Cupertino",
+      "state": "CA",
+      "zipCode": "95014",
+      "country": "United States"
+    },
+    "status": "active"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
+  "id": "USCO1"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "message": "Company not found",
+  "code": "COMPANY_NOT_FOUND"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- Use precise names for better match quality; partial names are accepted but may return multiple results.
+

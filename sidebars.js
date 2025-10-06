@@ -56,7 +56,21 @@ const sidebars = {
 			type: "category",
 			label: "BIOMETRICS API'S",
 			collapsible: false,
-			items: ["biometrics/liveness", "biometrics/compare", "biometrics/search"],
+			items: [
+				"biometrics/liveness",
+				{
+					type: "category",
+					label: "Face Comparison",
+					collapsible: true,
+					items: ["biometrics/compare", "biometrics/compare-live", "biometrics/compare-with-liveness"],
+				},
+				{
+					type: "category",
+					label: "Face Search",
+					collapsible: true,
+					items: ["biometrics/search", "biometrics/search-live-face", "biometrics/search-active-user", "biometrics/search-crops"],
+				},
+			],
 		},
 		{
 			type: "category",

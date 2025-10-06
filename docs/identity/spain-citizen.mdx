@@ -1,0 +1,99 @@
+---
+id: spain-citizen
+title: Spain Citizen
+description: Spanish resident information for DNI or NIE
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/es/cedula
+```
+
+Verify DNI/NIE validity by document and expiry date.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | One of `DNIES`, `NIE`. |
+| `documentNumber` | string | Yes | Document number without spaces. |
+| `date` | string | Yes | Expiry date in `DD/MM/YYYY`. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/es/cedula", {
+  params: { documentType: "DNIES", documentNumber: "123456789", date: "17/07/2024" },
+  headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/es/cedula"
+headers = {"Content-Type": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "DNIES", "documentNumber": "123456789", "date": "17/07/2024"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "documentType": "DNIES",
+    "documentNumber": "123456789",
+    "fullName": "Juan Pérez",
+    "names": ["Juan", "Pérez"],
+    "status": "valid"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
+  "id": "ES001"
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "message": "\"date\" is required",
+  "code": "MissingParameter"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- `date` must follow `DD/MM/YYYY` format.
+

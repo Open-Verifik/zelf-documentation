@@ -1,0 +1,232 @@
+---
+id: compare-live
+title: Face Comparison (Live)
+description: 1:1 comparison with live probe and liveness threshold
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+POST https://api.verifik.co/v2/face-recognition/compare-live
+```
+
+Compares a live probe image against a gallery and performs liveness validation on the probe. Both comparison and liveness thresholds are configurable.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `probe` | string | Yes | Base64 image string for the live capture. |
+| `gallery` | string[] | Yes | Array of base64 image strings to compare against. |
+| `os` | string | Yes | Origin of capture. Suggested: `DESKTOP`, `IOS`, `ANDROID`. |
+| `search_mode` | string | Yes | One of `FAST` or `ACCURATE`. |
+| `liveness_min_score` | number | Yes | Liveness threshold (0.52–1.0). |
+| `compare_min_score` | number | No | Optional comparison threshold (0.67–0.95). |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+const fetch = require("node-fetch");
+
+async function run() {
+  const res = await fetch("https://api.verifik.co/v2/face-recognition/compare-live", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+    },
+    body: JSON.stringify({
+      probe: "<base64>",
+      gallery: ["<base64>"],
+      os: "DESKTOP",
+      search_mode: "ACCURATE",
+      liveness_min_score: 0.65,
+      compare_min_score: 0.8
+    }),
+  });
+  console.log(await res.json());
+}
+
+run();
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+$ch = curl_init("https://api.verifik.co/v2/face-recognition/compare-live");
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/json",
+    "Authorization: Bearer " . getenv("VERIFIK_TOKEN")
+]);
+$body = json_encode([
+    "probe" => "<base64>",
+    "gallery" => ["<base64>"],
+    "os" => "DESKTOP",
+    "search_mode" => "FAST",
+    "liveness_min_score" => 0.65,
+    "compare_min_score" => 0.8
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/face-recognition/compare-live"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"
+}
+payload = {
+    "probe": "<base64>",
+    "gallery": ["<base64>"],
+    "os": "DESKTOP",
+    "search_mode": "FAST",
+    "liveness_min_score": 0.65,
+    "compare_min_score": 0.8
+}
+r = requests.post(url, json=payload, headers=headers)
+print(r.json())
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    payload := map[string]interface{}{
+        "probe": "<base64>",
+        "gallery": []string{"<base64>"},
+        "os": "DESKTOP",
+        "search_mode": "ACCURATE",
+        "liveness_min_score": 0.65,
+        "compare_min_score": 0.8,
+    }
+    b, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("POST", "https://api.verifik.co/v2/face-recognition/compare-live", bytes.NewBuffer(b))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer "+os.Getenv("VERIFIK_TOKEN"))
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    var out map[string]interface{}
+    json.NewDecoder(resp.Body).Decode(&out)
+    fmt.Println(out)
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "id": "XYZ12",
+  "data": {
+    "score": 0.89,
+    "liveness": {
+      "liveness_score": 0.92,
+      "min_score": 0.65,
+      "passed": true
+    }
+  },
+  "signature": {
+    "message": "Certified by Verifik.co",
+    "dateTime": "January 16, 2024 3:44 PM"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="401-403" label="401/403">
+
+```json
+{
+  "message": "Authentication required",
+  "code": "UNAUTHORIZED"
+}
+```
+
+or
+
+```json
+{
+  "message": "token_expired",
+  "code": "FORBIDDEN"
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "message": "\"liveness_min_score\" must be greater than or equal to 0.52",
+  "code": "MissingParameter"
+}
+```
+
+  </TabItem>
+  <TabItem value="412" label="412">
+
+```json
+{
+  "message": "only_images_in_base64",
+  "code": "ERROR"
+}
+```
+
+  </TabItem>
+  <TabItem value="500" label="500">
+
+```json
+{
+  "message": "internal_error",
+  "code": "ERROR"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- `probe` must be a single base64 string; `gallery` is an array of base64 strings.
+- `liveness_min_score` required range: 0.52–1.0. Optional `compare_min_score`: 0.67–0.95.
+- Response includes comparison score and liveness result; wrapped with `id`, `data`, `signature`.
+

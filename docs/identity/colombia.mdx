@@ -1,0 +1,125 @@
+---
+id: colombia
+title: Colombian Citizen
+description: Verify Colombian citizen identities using government-issued ID
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/cedula
+```
+
+Validate a Colombian Cédula de Ciudadanía and retrieve core identity attributes.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | One of `CC`, `PPT`. |
+| `documentNumber` | string | Yes | Document number (no spaces or dots). |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const options = {
+  method: "GET",
+  url: "https://api.verifik.co/v2/co/cedula",
+  params: { documentType: "CC", documentNumber: "123456789" },
+  headers: {
+    Accept: "application/json",
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+  },
+};
+
+const { data } = await axios.request(options);
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/cedula"
+headers = {
+    "Accept": "application/json",
+    "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"
+}
+params = {
+    "documentType": "CC",
+    "documentNumber": "123456789"
+}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "documentType": "CC",
+    "documentNumber": "123456789",
+    "firstName": "Juan",
+    "lastName": "Pérez",
+    "fullName": "Juan Pérez",
+    "status": "valid"
+  },
+  "signature": {
+    "message": "Certified by Verifik.co",
+    "dateTime": "January 16, 2024 3:44 PM"
+  },
+  "id": "AB123"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "message": "Document not found",
+  "code": "DOCUMENT_NOT_FOUND"
+}
+```
+
+  </TabItem>
+  <TabItem value="401" label="401">
+
+```json
+{
+  "message": "Authentication required",
+  "code": "UNAUTHORIZED"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- Use `documentType=CC` for cédula; `PPT` for Permiso por Protección Temporal.
+

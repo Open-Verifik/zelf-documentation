@@ -1,0 +1,97 @@
+---
+id: argentina
+title: Argentina
+description: Verify Argentine companies using CUIT (Código Único de Identificación Tributaria)
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/ar/company
+```
+
+Retrieve company data by CUIT.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Allowed: `CUIT`. |
+| `documentNumber` | string | Yes | 11-digit CUIT without separators. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/ar/company", {
+  params: { documentType: "CUIT", documentNumber: "33516727409" },
+  headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/ar/company"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CUIT", "documentNumber": "33516727409"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "documentType": "CUIT",
+    "documentNumber": "33516727409",
+    "tradeName": "Empresa Ejemplo S.A.",
+    "status": "active"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
+  "id": "ARCO1"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "message": "Company not found",
+  "code": "COMPANY_NOT_FOUND"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- `documentNumber` must be 11 digits without hyphens.
+

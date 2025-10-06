@@ -1,0 +1,99 @@
+---
+id: mexico
+title: Mexico
+description: Verify Mexican companies using FME (Folio Mercantil Electrónico)
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/mx/company
+```
+
+Retrieve company data by FME.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Allowed: `FME`. |
+| `documentNumber` | string | Yes | FME identifier (e.g., `N-2021007300`). |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/mx/company", {
+  params: { documentType: "FME", documentNumber: "N-2021007300" },
+  headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/mx/company"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "FME", "documentNumber": "N-2021007300"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "documentType": "FME",
+    "documentNumber": "N-2021007300",
+    "companyName": "Empresa Ejemplo S.A. de C.V.",
+    "city": "Ciudad de México",
+    "state": "CDMX",
+    "status": "active"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
+  "id": "MXCO1"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "message": "Company not found",
+  "code": "COMPANY_NOT_FOUND"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- `documentNumber` must match an existing FME record.
+

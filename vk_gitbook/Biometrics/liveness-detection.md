@@ -3,12 +3,10 @@
 ### Endpoint \[POST]
 
 ```
-https://api.verifik.co/v2/face-recognition/liveness 
+https://api.verifik.co/v2/face-recognition/liveness
 ```
 
-The Liveness Detection API allows you to perform a Face scan of an image, determining whether the image belongs to a live person or not. This API is useful for verifying the authenticity of a face and ensuring that the provided image comes from a real person.
-
-You can use the liveness score to determine whether the provided selfie belongs to a live face or not. This API is valuable for various applications, including identity verification, fraud prevention, and ensuring that only live faces are used for authentication and access control.
+Detects whether a submitted face image comes from a live person or a spoof (photo, screen replay, printed copy). Returns a liveness score and pass/fail based on a minimum score threshold.
 
 ### **Headers**
 
@@ -19,17 +17,124 @@ You can use the liveness score to determine whether the provided selfie belongs 
 
 ### **Params**
 
-| Name    | Type   | Description      |
-| ------- | ------ | ---------------- |
-| `image` | string | Name of the user |
-| `os`    | number | Age of the user  |
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `os` | string | Yes | Origin of capture. Suggested: `DESKTOP`, `IOS`, `ANDROID`. |
+| `image` | string | Yes | Base64 image data (data URI or raw base64). If an `https` URL is provided, it will be downloaded and converted internally. |
+| `collection_id` | string | No | Optional collection to associate with the liveness attempt. |
+| `liveness_min_score` | number | No | Threshold for pass/fail. Default: `0.6`. |
 
 ```json
 {
-    "os": "DESKTOP", 
-    "image": "base64_encoded_string"
+	"os": "DESKTOP",
+	"image": "<base64 or https url>",
+	"liveness_min_score": 0.6
 }
 ```
+
+### **Request**
+
+{% tabs %}
+{% tab title="Node.js" %}
+
+```javascript
+const fetch = require("node-fetch");
+
+async function run() {
+	const res = await fetch("https://api.verifik.co/v2/face-recognition/liveness", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+		},
+		body: JSON.stringify({
+			os: "DESKTOP",
+			image: "<base64 or https url>",
+			liveness_min_score: 0.6,
+		}),
+	});
+	console.log(await res.json());
+}
+
+run();
+```
+
+{% endtab %}
+{% tab title="PHP" %}
+
+```php
+<?php
+$ch = curl_init("https://api.verifik.co/v2/face-recognition/liveness");
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+	"Content-Type: application/json",
+	"Authorization: Bearer " . getenv("VERIFIK_TOKEN")
+]);
+$body = json_encode([
+	"os" => "DESKTOP",
+	"image" => "<base64 or https url>",
+	"liveness_min_score" => 0.6
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+```
+
+{% endtab %}
+{% tab title="Python" %}
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/face-recognition/liveness"
+headers = {
+	"Content-Type": "application/json",
+	"Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"
+}
+payload = {
+	"os": "DESKTOP",
+	"image": "<base64 or https url>",
+	"liveness_min_score": 0.6
+}
+r = requests.post(url, json=payload, headers=headers)
+print(r.json())
+```
+
+{% endtab %}
+{% tab title="Go" %}
+
+```go
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"os"
+)
+
+func main() {
+	payload := map[string]interface{}{
+		"os": "DESKTOP",
+		"image": "<base64 or https url>",
+		"liveness_min_score": 0.6,
+	}
+	b, _ := json.Marshal(payload)
+	req, _ := http.NewRequest("POST", "https://api.verifik.co/v2/face-recognition/liveness", bytes.NewBuffer(b))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+os.Getenv("VERIFIK_TOKEN"))
+	resp, _ := http.DefaultClient.Do(req)
+	defer resp.Body.Close()
+	var out map[string]interface{}
+	json.NewDecoder(resp.Body).Decode(&out)
+	fmt.Println(out)
+}
+```
+
+{% endtab %}
+{% endtabs %}
 
 ### **Response**
 
@@ -53,13 +158,52 @@ You can use the liveness score to determine whether the provided selfie belongs 
 
 {% endtab %}
 
-{% tab title="400" %}
+{% tab title="401/403" %}
 
 ```json
 {
-  "error": "Invalid request"
+  "message": "Authentication required",
+  "code": "UNAUTHORIZED"
+}
+```
+
+or
+
+```json
+{
+  "message": "token_expired",
+  "code": "FORBIDDEN"
+}
+```
+
+{% endtab %}
+
+{% tab title="409" %}
+
+```json
+{
+  "message": "\"os\" is required",
+  "code": "MissingParameter"
+}
+```
+
+{% endtab %}
+
+{% tab title="500" %}
+
+```json
+{
+  "message": "internal_error",
+  "code": "ERROR"
 }
 ```
 
 {% endtab %}
 {% endtabs %}
+
+### **Notes**
+
+- Ensure `Authorization: Bearer <token>` is present; otherwise you will receive 401/403.
+- `image` may be base64 or an `https` URL. If URL, the service fetches and converts it internally.
+- Pass/fail is determined by `liveness_score > min_score` (default `min_score` is 0.6, configurable via `liveness_min_score`).
+- Optional `collection_id` is validated for the authenticated client.
