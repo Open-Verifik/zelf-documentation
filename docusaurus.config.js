@@ -96,7 +96,7 @@ const config = {
 				title: "Verifik",
 				logo: {
 					alt: "Verifik Logo",
-					src: "img/verifik-logo.png",
+					src: "img/logo.svg",
 				},
 				items: [
 					{
