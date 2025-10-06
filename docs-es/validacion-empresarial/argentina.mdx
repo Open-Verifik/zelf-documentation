@@ -1,0 +1,98 @@
+---
+title: Argentina
+description: Verifica empresas argentinas usando CUIT (Código Único de Identificación Tributaria)
+slug: /validacion-empresarial/argentina
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/ar/company
+```
+
+Obtén datos de una empresa por CUIT.
+
+### Encabezados
+
+| Nombre | Valor |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parámetros
+
+| Nombre | Tipo | Requerido | Descripción |
+| --- | --- | --- | --- |
+| `documentType` | string | Sí | Permitido: `CUIT`. |
+| `documentNumber` | string | Sí | CUIT de 11 dígitos, sin separadores. |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/ar/company", {
+  params: { documentType: "CUIT", documentNumber: "33516727409" },
+  headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/ar/company"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CUIT", "documentNumber": "33516727409"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "documentType": "CUIT",
+    "documentNumber": "33516727409",
+    "tradeName": "Empresa Ejemplo S.A.",
+    "status": "active"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
+  "id": "ARCO1"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "message": "Company not found",
+  "code": "COMPANY_NOT_FOUND"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notas
+
+- `documentNumber` debe tener 11 dígitos sin guiones.
+
+

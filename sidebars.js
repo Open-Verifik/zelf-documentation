@@ -237,6 +237,11 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "business-validation/rues-complete-v3",
+					label: "🇨🇴 RUES Business validation",
+				},
+				{
+					type: "doc",
 					id: "business-validation/costa-rica",
 					label: "🇨🇷 Costa Rica",
 				},
