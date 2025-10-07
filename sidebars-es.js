@@ -13,7 +13,7 @@ const sidebars = {
 		{
 			type: "doc",
 			id: "intro",
-			label: "Bienvenido a Zelf World",
+			label: "Bienvenido a Verifik",
 		},
 		{
 			type: "category",
