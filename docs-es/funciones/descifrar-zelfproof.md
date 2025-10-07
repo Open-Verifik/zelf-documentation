@@ -1,50 +1,45 @@
+---
+sidebar_position: 4
+---
+
 # Descifrar un ZelfProof
-
-### Endpoint
-
-```
-https://api.zelf.world/api/zelf-proof/decrypt
-```
-
-#### Este endpoint se usa para verificar los bytes de hash en bruto contra un rostro, descifrando así los metadatos asociados.
-
-[Ver el video: Descifrar ZelfProof](https://youtu.be/WPTtR7Jtung)
-
-#### Solicitud
-
-* **Endpoint**: `/api/zelf-proof/decrypt`
-* **Método**: POST
-* **Content-Type**: `application/json`
-
-### **Cuerpo**
-
-El cuerpo de la solicitud debe ser un objeto JSON que contenga los siguientes campos:
-
-```json
-{
-  "faceBase64": "face_base_64_photo",
-  "livenessLevel": "REGULAR",
-  "os": "DESKTOP",
-  "password": "(optional) password",
-  "zelfProof": "<your_zelf_proof>",
-  "verifierKey": "(optional) verifiers_auth_key"
-}
-```
-
-#### Campos:
-
-* **faceBase64**: `string` (Requerido) - Datos de imagen facial codificados en Base64 que serán comparados contra el **ZelfProof**.
-* **livenessLevel**: `string` (Opcional) - Especifica la tolerancia para las verificaciones de vida facial. Ej., `"REGULAR"`.
-* **os**: `string` (Opcional) - El sistema operativo desde donde se origina la solicitud, ej., `"DESKTOP"`.
-* **password**: `string` (Opcional) - Una contraseña si se requiere para descifrar el ZelfProof.
-* **zelfProof**: `string` (Requerido) - El **ZelfProof** en formato base64 que necesita ser verificado y descifrado.
-* **verifierKey**: `string` (Opcional) - Una clave de autenticación requerida para descifrar el ZelfProof si se especifica.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+## Endpoint
+
+```
+POST /api/zelf-proof/decrypt
+```
+
+## Descripción
+
+Descifrar un ZelfProof verificando contra una imagen facial en vivo. Opcionalmente proporcionar una contraseña o verifierKey si es requerida por la prueba. Devuelve el `publicData` claro, `metadata`, y detalles adicionales.
+
+## Parámetros
+
+| Parámetro | Tipo | Requerido | Descripción |
+|-----------|------|-----------|-------------|
+| `faceBase64` | string | Sí | Imagen facial codificada en base64 |
+| `livenessLevel` | string | Sí | "HIGH" | "MEDIUM" | "REGULAR" |
+| `os` | string | Sí | "DESKTOP" | "ANDROID" | "IOS" |
+| `password` | string | No | Contraseña si la prueba estaba protegida por contraseña |
+| `zelfProof` | string | Sí | ZelfProof en base64 para descifrar |
+| `verifierKey` | string | No | Clave de verificación si es requerida |
+
+## Encabezados
+
+| Encabezado | Requerido | Descripción |
+|-----------|-----------|-------------|
+| `Origin` | Sí | Validación CORS |
+| `Authorization` | Sí | Bearer JWT de autenticación del cliente |
+| `Content-Type` | Sí | `application/json` |
+
+## Ejemplos de petición
+
 <Tabs>
-<TabItem value="Python" label="Python">
+<TabItem value="python" label="Python" default>
 
 ```python
 import requests
@@ -53,98 +48,77 @@ import json
 url = "https://api.zelf.world/api/zelf-proof/decrypt"
 
 payload = json.dumps({
-  "faceBase64": "{{sampleFaceInBase64}}",
+  "faceBase64": "[FACE_BASE64]",
   "livenessLevel": "REGULAR",
   "os": "DESKTOP",
-  "password": "123456",
-  "identifier": "133445",
-  "requireLiveness": True,
-  "tolerance": "REGULAR",
-  "zelfProof": "A14THLzLTzI+57Nb52+PGXvcekz9u9OdYlvvWNFErGr2Ljh8/LNBaxbDlPXbJyVqzyXho2SHDGl9ZTGDV+x1uEbwZG7DsenIL/33HcydSCswYao/LQ2E9l7efGu/7lTYkdMAiENpZrQRobSit8m3lnLL/M9mWIyDiIXjkhZM/W0plGG1tBuhKYBwYtq7cyj5C4TwLkTdy6zVt8dok1WCYMoYMDrUutGjr/nhFImsjeoEvegPv4darhgp3XIGmfmOSFvuwW6/4aEj6mn7q0sbyKiKbtcHqa8+BVSAbdWdY1V0SixkRFt/5I9rvGzhxi1SX0sPj2iwOZFqow/goUxKnBwEinhO9pLngx+6+fd5HYY/MN4LoS18iRp2oL/BZP6wafo8MiA3ZFSLgyJDsGNIBmUAbQ0aPQCEeo18GO0IXqYogbZUFWyDTlj89XyFTpML/ExvNfGifYFt/6HXPlRto4IN8d+NoCb6LWIHLOABeT9jiWEgV97rRhkfyvNRYkQRO8EsR6UjHNlDLZLAhuOy80n7HG7L9tyCAl4mrR9LfGTU/QhiyoWnsRycmgsSyk+TnBeS1oWaqZ47b+vDgRRe+pSo"
+  "password": "optional_password",
+  "zelfProof": "[ZELFPROOF_BASE64]"
 })
 headers = {
-  'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...do_A06aSTrcoSI ',
+  'Origin': 'https://tudominio.com',
+  'Authorization': 'Bearer <JWT>',
   'Content-Type': 'application/json'
 }
 
 response = requests.request("POST", url, headers=headers, data=payload)
-
-print(response.text)
-
+print(response.json())
 ```
 
 </TabItem>
-
-<TabItem value="NodeJS" label="NodeJS">
+<TabItem value="nodejs" label="Node.js">
 
 ```javascript
 const axios = require('axios');
-let data = JSON.stringify({
-  "faceBase64": "{{sampleFaceInBase64}}",
-  "livenessLevel": "REGULAR",
-  "os": "DESKTOP",
-  "password": "123456",
-  "identifier": "133445",
-  "requireLiveness": true,
-  "tolerance": "REGULAR",
-  "zelfProof": "A14THLzLTzI+57Nb52+PGXvcekz9u9OdYlvvWNFErGr2Ljh8/LNBaxbDlPXbJyVqzyXho2SHDGl9ZTGDV+x1uEbwZG7DsenIL/33HcydSCswYao/LQ2E9l7efGu/7lTYkdMAiENpZrQRobSit8m3lnLL/M9mWIyDiIXjkhZM/W0plGG1tBuhKYBwYtq7cyj5C4TwLkTdy6zVt8dok1WCYMoYMDrUutGjr/nhFImsjeoEvegPv4darhgp3XIGmfmOSFvuwW6/4aEj6mn7q0sbyKiKbtcHqa8+BVSAbdWdY1V0SixkRFt/5I9rvGzhxi1SX0sPj2iwOZFqow/goUxKnBwEinhO9pLngx+6+fd5HYY/MN4LoS18iRp2oL/BZP6wafo8MiA3ZFSLgyJDsGNIBmUAbQ0aPQCEeo18GO0IXqYogbZUFWyDTlj89XyFTpML/ExvNfGifYFt/6HXPlRto4IN8d+NoCb6LWIHLOABeT9jiWEgV97rRhkfyvNRYkQRO8EsR6UjHNlDLZLAhuOy80n7HG7L9tyCAl4mrR9LfGTU/QhiyoWnsRycmgsSyk+TnBeS1oWaqZ47b+vDgRRe+pSo"
-});
 
-let config = {
-  method: 'post',
-  maxBodyLength: Infinity,
-  url: 'https://api.zelf.world/api/zelf-proof/decrypt',
-  headers: { 
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...i1do_A06aSTrcoSI ', 
-    'Content-Type': 'application/json'
-  },
-  data : data
+const data = {
+  faceBase64: '[FACE_BASE64]',
+  livenessLevel: 'REGULAR',
+  os: 'DESKTOP',
+  password: 'optional_password',
+  zelfProof: '[ZELFPROOF_BASE64]'
 };
 
-axios.request(config)
-.then((response) => {
-  console.log(JSON.stringify(response.data));
-})
-.catch((error) => {
-  console.log(error);
+const res = await axios.post('https://api.zelf.world/api/zelf-proof/decrypt', data, {
+  headers: {
+    Origin: 'https://tudominio.com',
+    Authorization: `Bearer <JWT>`,
+    'Content-Type': 'application/json'
+  }
 });
-
+console.log(res.data);
 ```
 
 </TabItem>
+<TabItem value="rust" label="Rust">
 
-<TabItem value="Rust" label="Rust">
-
-```javascript
+```rust
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = reqwest::Client::builder()
-        .build()?;
+    let client = reqwest::Client::builder().build()?;
 
     let mut headers = reqwest::header::HeaderMap::new();
-    headers.insert("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZC...8n31YEfi1do_A06aSTrcoSI ".parse()?);
+    headers.insert("Origin", "https://tudominio.com".parse()?);
+    headers.insert("Authorization", "Bearer <JWT>".parse()?);
     headers.insert("Content-Type", "application/json".parse()?);
 
     let data = r#"{
-    "faceBase64": "{{sampleFaceInBase64}}",
-    "livenessLevel": "REGULAR",
-    "os": "DESKTOP",
-    "password": "123456",
-    "identifier": "133445",
-    "requireLiveness": true,
-    "tolerance": "REGULAR",
-    "zelfProof": "A14THLzLTzI+57Nb52+PGXvcekz9u9OdYlvvWNFErGr2Ljh8/LNBaxbDlPXbJyVqzyXho2SHDGl9ZTGDV+x1uEbwZG7DsenIL/33HcydSCswYao/LQ2E9l7efGu/7lTYkdMAiENpZrQRobSit8m3lnLL/M9mWIyDiIXjkhZM/W0plGG1tBuhKYBwYtq7cyj5C4TwLkTdy6zVt8dok1WCYMoYMDrUutGjr/nhFImsjeoEvegPv4darhgp3XIGmfmOSFvuwW6/4aEj6mn7q0sbyKiKbtcHqa8+BVSAbdWdY1V0SixkRFt/5I9rvGzhxi1SX0sPj2iwOZFqow/goUxKnBwEinhO9pLngx+6+fd5HYY/MN4LoS18iRp2oL/BZP6wafo8MiA3ZFSLgyJDsGNIBmUAbQ0aPQCEeo18GO0IXqYogbZUFWyDTlj89XyFTpML/ExvNfGifYFt/6HXPlRto4IN8d+NoCb6LWIHLOABeT9jiWEgV97rRhkfyvNRYkQRO8EsR6UjHNlDLZLAhuOy80n7HG7L9tyCAl4mrR9LfGTU/QhiyoWnsRycmgsSyk+TnBeS1oWaqZ47b+vDgRRe+pSo"
-}"#;
+      "faceBase64": "[FACE_BASE64]",
+      "livenessLevel": "REGULAR",
+      "os": "DESKTOP",
+      "password": "optional_password",
+      "zelfProof": "[ZELFPROOF_BASE64]"
+    }"#;
 
     let json: serde_json::Value = serde_json::from_str(&data)?;
 
-    let request = client.request(reqwest::Method::POST, "https://api.zelf.world/api/zelf-proof/decrypt")
+    let response = client
+        .post("https://api.zelf.world/api/zelf-proof/decrypt")
         .headers(headers)
-        .json(&json);
+        .json(&json)
+        .send()
+        .await?;
 
-    let response = request.send().await?;
     let body = response.text().await?;
-
     println!("{}", body);
 
     Ok(())
@@ -152,181 +126,48 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 ```
 
 </TabItem>
-
-<TabItem value="Go" label="Go">
-
-```go
-package main
-
-import (
-  "fmt"
-  "strings"
-  "net/http"
-  "io"
-)
-
-func main() {
-
-  url := "https://api.zelf.world/api/zelf-proof/decrypt"
-  method := "POST"
-
-  payload := strings.NewReader(`{
-  "faceBase64": "{{sampleFaceInBase64}}",
-  "livenessLevel": "REGULAR",
-  "os": "DESKTOP",
-  "password": "123456",
-  "identifier": "133445",
-  "requireLiveness": true,
-  "tolerance": "REGULAR",
-  "zelfProof": "A14THLzLTzI+57Nb52+PGXvcekz9u9OdYlvvWNFErGr2Ljh8/LNBaxbDlPXbJyVqzyXho2SHDGl9ZTGDV+x1uEbwZG7DsenIL/33HcydSCswYao/LQ2E9l7efGu/7lTYkdMAiENpZrQRobSit8m3lnLL/M9mWIyDiIXjkhZM/W0plGG1tBuhKYBwYtq7cyj5C4TwLkTdy6zVt8dok1WCYMoYMDrUutGjr/nhFImsjeoEvegPv4darhgp3XIGmfmOSFvuwW6/4aEj6mn7q0sbyKiKbtcHqa8+BVSAbdWdY1V0SixkRFt/5I9rvGzhxi1SX0sPj2iwOZFqow/goUxKnBwEinhO9pLngx+6+fd5HYY/MN4LoS18iRp2oL/BZP6wafo8MiA3ZFSLgyJDsGNIBmUAbQ0aPQCEeo18GO0IXqYogbZUFWyDTlj89XyFTpML/ExvNfGifYFt/6HXPlRto4IN8d+NoCb6LWIHLOABeT9jiWEgV97rRhkfyvNRYkQRO8EsR6UjHNlDLZLAhuOy80n7HG7L9tyCAl4mrR9LfGTU/QhiyoWnsRycmgsSyk+TnBeS1oWaqZ47b+vDgRRe+pSo"
-}`)
-
-  client := &http.Client {
-  }
-  req, err := http.NewRequest(method, url, payload)
-
-  if err != nil {
-    fmt.Println(err)
-    return
-  }
-  req.Header.Add("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5c...31YEfi1do_A06aSTrcoSI ")
-  req.Header.Add("Content-Type", "application/json")
-
-  res, err := client.Do(req)
-  if err != nil {
-    fmt.Println(err)
-    return
-  }
-  defer res.Body.Close()
-
-  body, err := io.ReadAll(res.Body)
-  if err != nil {
-    fmt.Println(err)
-    return
-  }
-  fmt.Println(string(body))
-}
-```
-
-</TabItem>
 </Tabs>
 
-### Respuestas
+## Ejemplos de respuesta
 
 <Tabs>
-<TabItem value="200" label="200">
+<TabItem value="200" label="200 OK">
 
 ```json
 {
-    "identifier": "133445",
-    "metadata": {
-        "secret": "238289372983",
-        "email": "miguel@verifik.co",
-        "zelfName": "randomtext982.zelf",
-        "name": "Miguel"
-    },
-    "publicData": {
-        "test": "ABC",
-        "instruction2": "efjidjfidjf",
-        "instruction": "123939",
-        "name": "Miguel"
-    },
-    "faceCropBase64": "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",
-    "difficulty": "EASY"
+  "identifier": "ABC-123",
+  "publicData": { "name": "John" },
+  "metadata": { "appVersion": "2.1.0" },
+  "faceCropBase64": "[BASE64]",
+  "difficulty": "EASY"
 }
 ```
 
 </TabItem>
-
-<TabItem value="409" label="409">
+<TabItem value="409" label="409 Conflicto - Error de validación">
 
 ```json
 {
-    "validationError": "missing zelfProof\n"
+  "validationError": "missing zelfProof\n"
 }
 ```
 
 </TabItem>
 </Tabs>
 
-* **200 OK**: La solicitud fue exitosa, y los datos descifrados del **ZelfProof** se devuelven en formato JSON.
+## Códigos de error
 
-  ```json
-  {
-    "publicData": {
-      "variable1": "string",
-      "variable2": "string",
-      "variable3": "string"
-    },
-    "difficulty": "EASY",
-    "faceCropBase64": "string",
-    "metadata": {
-      "mnemonic": "string",
-      "variable2": "string",
-      "variable3": "string"
-    },
-    "identifier": "string"
-  }
-  ```
-* **400 Solicitud Incorrecta**: Hubo un error con la solicitud. Los códigos de error posibles incluyen:
+- `ERR_INVALID_IMAGE`
+- `ERR_NO_FACE_DETECTED`
+- `ERR_MULTIPLE_FACES_DETECTED`
+- `ERR_INVALID_ZELFPROOF_BYTES`
+- `ERR_PARSE_FAILED`
+- `ERR_PASSWORD_REQUIRED`
+- `ERR_INVALID_PASSWORD`
+- `ERR_LIVENESS_FAILED`
+- `ERR_VERIFICATION_FAILED`
 
-  ```json
-  {
-    "code": "ERR_INVALID_IMAGE",
-    "message": "Invalid base64 string for the face image."
-  }
-  ```
-* **401 No Autorizado**: La Clave API no está presente en el encabezado `X-api-key`.
+## Notas
 
-  ```json
-  {
-    "code": "ERR_API_KEY_NOT_PRESENT",
-    "message": "API Key must be present in the x-api-key header."
-  }
-  ```
-* **403 Prohibido**: La Clave API es incorrecta o hay un problema con la licencia. Los códigos de error posibles incluyen:
-  * `ERR_API_KEY_NOT_VALID`: The provided API Key is not valid.
-  * `ERR_LICENSE_EXPIRED`: The Zelf SDK license has expired.
-  * `ERR_CANNOT_CONNECT_TO_TIME_SERVER`: Cannot connect to the time server to verify license expiry.
-  * `ERR_CANNOT_CONNECT_TO_HOME_SERVER`: Cannot connect to the home server to verify license expiry.
-  * `ERR_NUMBER_OF_AVAILABLE_INSTANCES_EXCEEDED`: The number of available instances for this license has been exceeded.
-* **413 Carga Útil Demasiado Grande**: La solicitud enviada es demasiado grande. Reduzca el tamaño de la imagen o datos.
-
-  ```json
-  {
-    "code": "ERR_PAYLOAD_IS_TOO_LARGE",
-    "message": "The request sent is too big. Please try reducing the size of image(s)/data."
-  }
-  ```
-* **422 Entidad No Procesable**: La solicitud es inválida debido a un error específico relacionado con su contenido.
-
-  ```json
-  {
-    "code": "ERR_UNPROCESSABLE_CONTENT",
-    "message": "Invalid request: <specific message related to error>"
-  }
-  ```
-
-#### Códigos de Error
-
-Aquí están algunos códigos de error específicos que podrían devolverse durante la verificación:
-
-* **ERR\_INVALID\_IMAGE**: Cadena base64 inválida para la imagen facial.
-* **ERR\_NO\_FACE\_DETECTED**: No se detectó rostro en la imagen.
-* **ERR\_MULTIPLE\_FACES\_DETECTED**: Múltiples rostros detectados en la imagen.
-* **ERR\_INVALID\_ZELFPROOF\_BYTES**: Los bytes de hash proporcionados no pudieron interpretarse como una cadena base64 válida.
-* **ERR\_PARSE\_FAILED**: El hash no pudo interpretarse como un hash válido.
-* **ERR\_PASSWORD\_REQUIRED**: Se requiere una contraseña para descifrar el hash pero no se proporcionó.
-* **ERR\_INVALID\_PASSWORD**: La contraseña proporcionada es inválida.
-* **ERR\_LIVENESS\_FAILED**: La imagen facial del usuario en `face_base_64` se determinó que no está viva y `require_live_face` se estableció como verdadero durante la creación del hash.
-* **ERR\_VERIFICATION\_FAILED**: El descifrado falló debido a que `face_base_64` no coincide con el rostro usado para crear el hash.
-
-**Códigos de Error de Vida Adicionales:**
-
-Si se determina que `face_base_64` no es adecuado para vida, se pueden devolver los siguientes códigos de error:
-
-* **ERR\_LIVENESS\_FACE\_ANGLE\_TOO\_LARGE**: El ángulo facial es demasiado grande (el usuario no está mirando la cámara).
-* **ERR\_LIVENESS\_FACE\_IS\_OCCLUDED**: El rostro está ocluido (ej., por una máscara).
-* **ERR\_LIVENESS\_FACE\_CLOSE\_TO\_BORDER**: El rostro está demasiado cerca del borde de la imagen.
-* **ERR\_LIVENESS\_FACE\_TOO\_SMALL**: El rostro es demasiado pequeño en la imagen.
-* **ERR\_LIVENESS\_EYES\_CLOSED**: Los ojos están cerrados en la imagen.
+- `publicData` y `metadata` devueltos son objetos planos de clave-valor con strings.
+- Asegúrate de que el `faceBase64` proporcionado sea la misma persona usada durante el cifrado (o la contraseña/verifierKey si aplica).

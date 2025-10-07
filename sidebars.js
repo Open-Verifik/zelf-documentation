@@ -4,15 +4,15 @@
 
 /**
  * Creating a sidebar enables you to:
- - create an ordered group of docs
- - render a sidebar for each doc of that group
- - provide next/previous navigation
-
- The sidebars can be generated from the filesystem, or explicitly defined here.
-
- Create as many sidebars as you want.
-
- @type {import('@docusaurus/plugin-content-docs').SidebarsConfig}
+ * - create an ordered group of docs
+ * - render a sidebar for each doc of that group
+ * - provide next/previous navigation
+ *
+ * The sidebars can be generated from the filesystem, or explicitly defined here.
+ *
+ * Create as many sidebars as you want.
+ *
+ * @type {import('@docusaurus/plugin-content-docs').SidebarsConfig}
  */
 const sidebars = {
 	// Complete sidebar structure matching GitBook organization
@@ -111,32 +111,27 @@ const sidebars = {
 			type: "category",
 			label: "Functions",
 			collapsible: false,
-			items: [
-				"functions/authentication",
-				"functions/create-zelfproof",
-				"functions/create-qr-zelfproof",
-				"functions/decrypt-zelfproof",
-				"functions/preview-zelfproof",
-			],
+			items: ["functions/create-zelfproof", "functions/create-qr-zelfproof", "functions/decrypt-zelfproof", "functions/preview-zelfproof"],
 		},
+		// Spanish docs are served under the docs-es plugin; not listed here
 		{
 			type: "category",
 			label: "Integrations",
 			collapsible: false,
 			items: [
 				"integrations/avalanche",
-				"integrations/blockdag",
-				{
-					type: "category",
-					label: "BlockDAG Milestones",
-					collapsible: true,
-					items: [
-						"integrations/blockdag-milestone-one",
-						"integrations/blockdag-milestone-two",
-						"integrations/blockdag-milestone-three",
-						"integrations/blockdag-milestone-four",
-					],
-				},
+				// "integrations/blockdag", // hidden from sidebar
+				// {
+				// 	type: "category",
+				// 	label: "BlockDAG Milestones",
+				// 	collapsible: true,
+				// 	items: [
+				// 		"integrations/blockdag-milestone-one",
+				// 		"integrations/blockdag-milestone-two",
+				// 		"integrations/blockdag-milestone-three",
+				// 		"integrations/blockdag-milestone-four",
+				// 	],
+				// },
 			],
 		},
 		{

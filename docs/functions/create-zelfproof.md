@@ -1,236 +1,145 @@
----
-sidebar_position: 2
----
+# Create ZelfProof
 
-# Create a ZelfProof
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Learn how to create ZelfProofs for your applications.
+## Endpoint
 
-## Overview
-
-Creating a ZelfProof involves capturing facial data, processing it through our privacy-preserving algorithms, and generating a cryptographic proof that can be used for authentication.
-
-## Basic Implementation
-
-### JavaScript/TypeScript
-
-```javascript
-import { ZelfSDK } from '@zelf/sdk';
-
-const zelf = new ZelfSDK({
-  apiKey: 'your-api-key',
-  environment: 'production' // or 'sandbox'
-});
-
-// Create a new ZelfProof
-const createZelfProof = async () => {
-  try {
-    const result = await zelf.createProof({
-      userId: 'unique-user-id',
-      metadata: {
-        // Optional metadata
-        application: 'my-app',
-        purpose: 'authentication'
-      },
-      options: {
-        livenessDetection: true,
-        qualityThreshold: 0.8
-      }
-    });
-    
-    console.log('ZelfProof created:', result.proofId);
-    return result;
-  } catch (error) {
-    console.error('Error creating ZelfProof:', error);
-  }
-};
+```
+POST /api/zelf-proof/encrypt
 ```
 
-### React Component
+## Description
 
-```jsx
-import React, { useState } from 'react';
-import { ZelfProofCreator } from '@zelf/react-sdk';
+Create a new ZelfProof (zero-knowledge biometric proof) using a live face image. The request can include flat string key-value `publicData` and `metadata`. The response returns a base64 ZelfProof.
 
-function CreateProofComponent() {
-  const [proof, setProof] = useState(null);
-  const [loading, setLoading] = useState(false);
+## Parameters
 
-  const handleCreateProof = async (result) => {
-    if (result.success) {
-      setProof(result.proof);
-      console.log('ZelfProof created successfully');
-    } else {
-      console.error('Failed to create ZelfProof:', result.error);
-    }
-  };
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `livenessDetectionPriorCreation` | boolean | No | If true, requires live face prior to creation |
+| `publicData` | object | No | Flat object with string values to store in cleartext |
+| `faceBase64` | string | Yes | Base64-encoded face image |
+| `livenessLevel` | string | Yes | Liveness level: "HIGH" | "MEDIUM" | "REGULAR" |
+| `metadata` | object | Yes | Flat object with string values (no nesting) |
+| `os` | string | Yes | "DESKTOP" | "ANDROID" | "IOS" |
+| `password` | string | No | Optional password layer |
+| `identifier` | string | Yes | Application-defined identifier |
+| `referenceFaceBase64` | string | No | Reference face for matching |
+| `requireLiveness` | boolean | No | If true, enforce liveness during creation |
+| `tolerance` | string | No | "REGULAR" | "SOFT" | "HARDENED" |
+| `verifierKey` | string | No | Optional verifier key used later for preview/decrypt |
 
-  return (
-    <div>
-      <ZelfProofCreator
-        onComplete={handleCreateProof}
-        onError={(error) => console.error(error)}
-        options={{
-          livenessDetection: true,
-          qualityThreshold: 0.8
-        }}
-      />
-      {proof && (
-        <div>
-          <h3>ZelfProof Created!</h3>
-          <p>Proof ID: {proof.id}</p>
-        </div>
-      )}
-    </div>
-  );
+## Headers
+
+| Header | Required | Description |
+|--------|----------|-------------|
+| `Origin` | Yes | CORS origin validation |
+| `Authorization` | Yes | Bearer JWT from client authentication |
+| `Content-Type` | Yes | `application/json` |
+
+## Request Examples
+
+<Tabs>
+<TabItem value="curl" label="cURL" default>
+
+```bash
+curl -X POST "https://api.zelf.world/api/zelf-proof/encrypt" \
+  -H "Origin: https://yourdomain.com" \
+  -H "Authorization: Bearer <JWT>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "publicData": { "email": "john.doe@example.com" },
+    "metadata": { "appVersion": "2.1.0" },
+    "faceBase64": "[FACE_BASE64]",
+    "livenessLevel": "HIGH",
+    "os": "DESKTOP",
+    "identifier": "ABC-123",
+    "requireLiveness": true,
+    "tolerance": "REGULAR"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+const axios = require('axios');
+
+const data = {
+  publicData: { email: 'john.doe@example.com' },
+  metadata: { appVersion: '2.1.0' },
+  faceBase64: '[FACE_BASE64]',
+  livenessLevel: 'HIGH',
+  os: 'DESKTOP',
+  identifier: 'ABC-123',
+  requireLiveness: true,
+  tolerance: 'REGULAR'
+};
+
+const res = await axios.post('https://api.zelf.world/api/zelf-proof/encrypt', data, {
+  headers: {
+    Origin: 'https://yourdomain.com',
+    Authorization: `Bearer <JWT>`,
+    'Content-Type': 'application/json'
+  }
+});
+console.log(res.data);
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+payload = {
+  "publicData": {"email": "john.doe@example.com"},
+  "metadata": {"appVersion": "2.1.0"},
+  "faceBase64": "[FACE_BASE64]",
+  "livenessLevel": "HIGH",
+  "os": "DESKTOP",
+  "identifier": "ABC-123",
+  "requireLiveness": True,
+  "tolerance": "REGULAR"
+}
+headers = {"Origin": "https://yourdomain.com", "Authorization": "Bearer <JWT>", "Content-Type": "application/json"}
+print(requests.post("https://api.zelf.world/api/zelf-proof/encrypt", json=payload, headers=headers).json())
+```
+
+</TabItem>
+</Tabs>
+
+## Response Examples
+
+<Tabs>
+<TabItem value="200" label="200 OK" default>
+
+```json
+{
+  "zelfProof": "BASE64_STRING"
 }
 ```
 
-## Advanced Configuration
+</TabItem>
+<TabItem value="409" label="409 Conflict - Validation Error">
 
-### Custom Options
-
-```javascript
-const advancedOptions = {
-  livenessDetection: {
-    enabled: true,
-    threshold: 0.8,
-    timeout: 30000
-  },
-  quality: {
-    minResolution: { width: 640, height: 480 },
-    maxBlur: 0.3,
-    minBrightness: 0.4
-  },
-  security: {
-    encryptionLevel: 'high',
-    keyDerivation: 'pbkdf2',
-    iterations: 100000
-  }
-};
-
-const result = await zelf.createProof({
-  userId: 'user-123',
-  options: advancedOptions
-});
-```
-
-### Metadata Handling
-
-```javascript
-const metadata = {
-  // User information
-  userId: 'user-123',
-  email: 'user@example.com',
-  
-  // Application context
-  application: 'my-wallet-app',
-  version: '1.0.0',
-  
-  // Security context
-  purpose: 'wallet-access',
-  permissions: ['read', 'write'],
-  
-  // Custom data
-  custom: {
-    department: 'engineering',
-    role: 'developer'
-  }
-};
-
-const result = await zelf.createProof({
-  userId: 'user-123',
-  metadata: metadata
-});
-```
-
-## Error Handling
-
-### Common Error Scenarios
-
-```javascript
-try {
-  const result = await zelf.createProof({
-    userId: 'user-123'
-  });
-} catch (error) {
-  switch (error.code) {
-    case 'CAMERA_ACCESS_DENIED':
-      console.log('Camera access is required');
-      break;
-    case 'LIVENESS_DETECTION_FAILED':
-      console.log('Please ensure you are a real person');
-      break;
-    case 'QUALITY_THRESHOLD_NOT_MET':
-      console.log('Please improve lighting and camera position');
-      break;
-    case 'NETWORK_ERROR':
-      console.log('Network connection failed');
-      break;
-    case 'INVALID_USER_ID':
-      console.log('User ID is required and must be unique');
-      break;
-    default:
-      console.log('Unexpected error:', error.message);
-  }
+```json
+{
+  "validationError": "missing metadata\n. missing publicData\n. ..."
 }
 ```
 
-## Best Practices
+</TabItem>
+</Tabs>
 
-### 1. User Experience
-- Provide clear instructions to users
-- Show progress indicators during processing
-- Handle errors gracefully with helpful messages
-- Test in various lighting conditions
+## Response Fields
 
-### 2. Security
-- Always enable liveness detection for production
-- Use appropriate quality thresholds
-- Store proofs securely
-- Implement proper error handling
+| Field | Type | Description |
+|-------|------|-------------|
+| `zelfProof` | string | Base64 ZelfProof bytes |
 
-### 3. Performance
-- Optimize camera settings for your use case
-- Consider offline capabilities
-- Implement proper loading states
-- Cache proofs when appropriate
+## Notes
 
-## Testing
-
-### Sandbox Environment
-
-```javascript
-const zelf = new ZelfSDK({
-  apiKey: 'sandbox-api-key',
-  environment: 'sandbox'
-});
-
-// Test with mock data
-const testResult = await zelf.createProof({
-  userId: 'test-user',
-  testMode: true
-});
-```
-
-### Quality Assurance
-
-```javascript
-// Test different scenarios
-const testScenarios = [
-  { lighting: 'low', quality: 'poor' },
-  { lighting: 'normal', quality: 'good' },
-  { lighting: 'bright', quality: 'excellent' }
-];
-
-for (const scenario of testScenarios) {
-  const result = await zelf.createProof({
-    userId: `test-${scenario.lighting}`,
-    options: {
-      quality: scenario.quality
-    }
-  });
-  
-  console.log(`Test ${scenario.lighting}:`, result.success);
-}
-```
+- `publicData` and `metadata` must be flat objects with string values only.
+- JWT must include client email per authentication middleware.

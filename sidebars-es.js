@@ -109,13 +109,7 @@ const sidebars = {
 			type: "category",
 			label: "Funciones",
 			collapsible: false,
-			items: [
-				"funciones/autenticacion",
-				"funciones/crear-zelfproof",
-				"funciones/crear-qr-zelfproof",
-				"funciones/descifrar-zelfproof",
-				"funciones/vista-previa-zelfproof",
-			],
+			items: ["funciones/crear-zelfproof", "funciones/crear-qr-zelfproof", "funciones/descifrar-zelfproof", "funciones/vista-previa-zelfproof"],
 		},
 		{
 			type: "category",
@@ -123,18 +117,18 @@ const sidebars = {
 			collapsible: false,
 			items: [
 				"integraciones/avalanche",
-				"integraciones/blockdag",
-				{
-					type: "category",
-					label: "Hitos BlockDAG",
-					collapsible: true,
-					items: [
-						"integraciones/blockdag-milestone-one",
-						"integraciones/blockdag-milestone-two",
-						"integraciones/blockdag-milestone-three",
-						"integraciones/blockdag-milestone-four",
-					],
-				},
+				// "integraciones/blockdag", // oculto del sidebar
+				// {
+				// 	type: "category",
+				// 	label: "Hitos BlockDAG",
+				// 	collapsible: true,
+				// 	items: [
+				// 		"integraciones/blockdag-milestone-one",
+				// 		"integraciones/blockdag-milestone-two",
+				// 		"integraciones/blockdag-milestone-three",
+				// 		"integraciones/blockdag-milestone-four",
+				// 	],
+				// },
 			],
 		},
 		{
