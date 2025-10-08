@@ -2,7 +2,7 @@
 id: vehicle-validation-colombia-simit-general-query-by-document
 title: SIMIT - General query by identification document
 description: Comprehensive SIMIT data by document
-sidebar_label: General query by identification document
+sidebar_label: SIMIT - General query by identification document
 ---
 
 import Tabs from '@theme/Tabs';

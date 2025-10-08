@@ -2,7 +2,7 @@
 id: vehicle-validation-colombia-simit-agreements
 title: SIMIT - Agreements
 description: Payment agreements for traffic violations
-sidebar_label: Agreements
+sidebar_label: SIMIT - Agreements
 ---
 
 import Tabs from '@theme/Tabs';

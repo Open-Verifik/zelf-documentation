@@ -1,0 +1,14 @@
+
+> verifik-documentation@0.0.0 start
+> docusaurus start
+
+[INFO] Starting the development server...
+
+[ERROR] [Error: EACCES: permission denied, open '/Users/miguel/verifik-documentation/.docusaurus/docusaurus-plugin-content-docs/default/__mdx-loader-dependency.json'] {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'open',
+  path: '/Users/miguel/verifik-documentation/.docusaurus/docusaurus-plugin-content-docs/default/__mdx-loader-dependency.json'
+}
+[INFO] Docusaurus version: 3.9.1
+Node version: v22.19.0

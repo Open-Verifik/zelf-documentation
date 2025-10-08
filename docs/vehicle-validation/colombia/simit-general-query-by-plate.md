@@ -2,7 +2,7 @@
 id: vehicle-validation-colombia-simit-general-query-by-plate
 title: SIMIT - General query by plate number
 description: Agreements, suspensions, resolutions, and fines by plate
-sidebar_label: General query by plate number
+sidebar_label: SIMIT - General query by plate number
 ---
 
 import Tabs from '@theme/Tabs';

@@ -2,7 +2,7 @@
 id: vehicle-validation-colombia-simit-resolutions
 title: SIMIT - Resolutions
 description: Traffic violation resolutions
-sidebar_label: Resolutions
+sidebar_label: SIMIT - Resolutions
 ---
 
 import Tabs from '@theme/Tabs';

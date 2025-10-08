@@ -303,9 +303,101 @@ const sidebars = {
 					label: "🇨🇱 Chile",
 				},
 				{
-					type: "doc",
-					id: "vehicle-validation/colombia",
+					type: "category",
 					label: "🇨🇴 Colombia",
+					collapsible: true,
+					items: [
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia",
+							label: "Overview",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-bogota-taxes",
+							label: "Taxes in Bogotá",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-bogota-vehicle-fines",
+							label: "Vehicle Fines Check",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-bogota-vehicle-accidentality",
+							label: "Vehicle Accidentality",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-bogota-pico-y-placa",
+							label: "Pico y Placa",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-fasecolda-values-by-plate",
+							label: "Vehicle Values by Plate",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-fasecolda-vehicle-by-code",
+							label: "Vehicle by Code",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-fasecolda-sinister-verification",
+							label: "Sinister Verification",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-runt-drivers-license",
+							label: "Driver's License",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-runt-vehicle-by-plate",
+							label: "Vehicle records by plate number",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-runt-vehicle-by-plate-simplified",
+							label: "Vehicle records by plate number (simplified)",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-runt-vehicle-by-vin",
+							label: "Vehicle records by VIN",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-simit-fines",
+							label: "SIMIT - Fines",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-simit-agreements",
+							label: "SIMIT - Agreements",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-simit-resolutions",
+							label: "SIMIT - Resolutions",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-simit-general-query-by-document",
+							label: "General query by identification document",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-simit-general-query-by-plate",
+							label: "General query by plate number",
+						},
+						{
+							type: "doc",
+							id: "vehicle-validation/colombia/vehicle-validation-colombia-sisconmp-trainings",
+							label: "SISCONMP Training Records",
+						},
+					],
 				},
 				{
 					type: "doc",

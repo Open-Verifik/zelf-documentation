@@ -2,7 +2,7 @@
 id: vehicle-validation-colombia-simit-fines
 title: SIMIT - Fines
 description: Traffic citations and fines
-sidebar_label: Fines
+sidebar_label: SIMIT - Fines
 ---
 
 import Tabs from '@theme/Tabs';
