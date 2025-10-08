@@ -16,6 +16,34 @@ const config = {
 	tagline: "Everything you need to verify & authenticate users faster and easier",
 	favicon: "img/favicon.ico",
 
+	// Additional favicon links for better browser support
+	headTags: [
+		{
+			tagName: "link",
+			attributes: {
+				rel: "icon",
+				type: "image/x-icon",
+				href: "/img/favicon.ico",
+			},
+		},
+		{
+			tagName: "link",
+			attributes: {
+				rel: "shortcut icon",
+				type: "image/x-icon",
+				href: "/img/favicon.ico",
+			},
+		},
+		{
+			tagName: "link",
+			attributes: {
+				rel: "apple-touch-icon",
+				sizes: "180x180",
+				href: "/img/favicon.ico",
+			},
+		},
+	],
+
 	// Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
 	future: {
 		v4: true, // Improve compatibility with the upcoming Docusaurus v4
