@@ -1,0 +1,227 @@
+---
+id: api-key-access-via-email
+title: API Key Access via Email
+description: Request and confirm an email OTP to obtain your JWT access token
+slug: /accounts/authentication/api-key-access-via-email
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/projects/email-login
+```
+
+Request an OTP to be sent to a registered client email.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `email` | string | Yes | Client email to receive the OTP. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.post("https://api.verifik.co/v2/projects/email-login", null, {
+  params: { email: "user@example.com" },
+  headers: { Accept: "application/json" },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+$ch = curl_init("https://api.verifik.co/v2/projects/email-login?email=user@example.com");
+curl_setopt($ch, CURLOPT_HTTPHEADER, ["Accept: application/json"]);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import requests
+
+r = requests.post("https://api.verifik.co/v2/projects/email-login", params={"email": "user@example.com"}, headers={"Accept": "application/json"})
+print(r.json())
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import ("net/http"; "fmt")
+
+func main() {
+    url := "https://api.verifik.co/v2/projects/email-login?email=user@example.com"
+    req, _ := http.NewRequest("POST", url, nil)
+    req.Header.Set("Accept", "application/json")
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    fmt.Println(resp.Status)
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "status": "sent",
+    "email": "user@example.com",
+    "expiresAt": "2025-06-13T17:24:58.000Z"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
+  "id": "EML01"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "invalid_email"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/projects/email-login/confirm
+```
+
+Confirm the OTP and obtain a JWT access token.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `email` | string | Yes | Email used in the OTP request. |
+| `otp` | string | Yes | OTP received by email. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.post("https://api.verifik.co/v2/projects/email-login/confirm", { email: "user@example.com", otp: "123456" }, { headers: { Accept: "application/json" } });
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+$ch = curl_init("https://api.verifik.co/v2/projects/email-login/confirm");
+curl_setopt($ch, CURLOPT_HTTPHEADER, ["Accept: application/json", "Content-Type: application/json"]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(["email"=>"user@example.com", "otp"=>"123456"]));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import requests
+
+r = requests.post("https://api.verifik.co/v2/projects/email-login/confirm", json={"email": "user@example.com", "otp": "123456"}, headers={"Accept": "application/json"})
+print(r.json())
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import ("bytes"; "net/http"; "fmt")
+
+func main() {
+    body := bytes.NewBufferString(`{"email":"user@example.com","otp":"123456"}`)
+    req, _ := http.NewRequest("POST", "https://api.verifik.co/v2/projects/email-login/confirm", body)
+    req.Header.Set("Accept", "application/json")
+    req.Header.Set("Content-Type", "application/json")
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    fmt.Println(resp.Status)
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "accessToken": "<jwt>",
+    "tokenType": "bearer"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="400" label="400">
+
+```json
+{
+  "message": "invalid_otp",
+  "code": "ERROR"
+}
+```
+
+  </TabItem>
+</Tabs>
