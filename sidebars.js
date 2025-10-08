@@ -601,12 +601,8 @@ const sidebars = {
 			collapsible: false,
 			items: [
 				"legal/privacy-policy",
-				"legal/politicas-de-privacidad",
-				"legal/terminos-y-condiciones",
 				"legal/terms-and-conditions",
-				"legal/acuerdo-de-niveles-de-servicio",
 				"legal/service-level-agreement",
-				"legal/verifik-for-enterprises-hub-esp",
 				"legal/verifik-for-enterprises-hub-eng",
 				"legal/smartcheck-terms-and-conditions-of-use",
 			],

@@ -108,6 +108,18 @@ const sidebars = {
 				{ type: "doc", id: "validacion-empresarial/brazil", label: "🇧🇷 Brasil" },
 			],
 		},
+		{
+			type: "category",
+			label: "VERIFIK LLC",
+			collapsible: false,
+			items: [
+				"legal/politica-privacidad",
+				"legal/terminos-y-condiciones",
+				"legal/acuerdo-de-niveles-de-servicio",
+				"legal/verifik-for-enterprises-hub-esp",
+				"legal/smartcheck-terminos-y-condiciones-de-uso",
+			],
+		},
 		// Secciones restantes se añadirán conforme se migren desde EN a ES
 	],
 };
