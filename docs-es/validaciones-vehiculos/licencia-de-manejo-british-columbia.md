@@ -1,14 +1,14 @@
 ---
-id: british-columbia-driver-license
-title: British Columbia Driver License
-description: British Columbia driver license verification service
-slug: /driver-validation/british-columbia-driver-license
+id: licencia-de-manejo-british-columbia
+title: Licencia de Manejo British Columbia
+description: Servicio de verificación de licencia de manejo de British Columbia
+slug: /validaciones-vehiculos/licencia-de-manejo-british-columbia
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# British Columbia Driver License
+# Licencia de Manejo British Columbia
 
 ## Endpoint
 
@@ -16,21 +16,21 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/ca/british-columbia/driver-license 
 ```
 
-The British Columbia Driver License Verification service offers a straightforward method to verify the authenticity and validity of a driver's license in the province of British Columbia, Canada. By utilizing this service, you can quickly validate a driver's license based on the provided document number and last name.
+El servicio de verificación de licencia de manejo de British Columbia ofrece un método directo para verificar la autenticidad y validez de una licencia de manejo en la provincia de British Columbia, Canadá. Al utilizar este servicio, puede validar rápidamente una licencia de manejo basándose en el número de documento proporcionado y el apellido.
 
 ### Headers
 
-| Name          | Value              |
+| Nombre        | Valor              |
 | ------------- | ------------------ |
 | Content-Type  | `application/json` |
 | Authorization | `Bearer <token>`   |
 
-### Parameters
+### Parámetros
 
-| Name           | Type   | Required | Description                                                                                    | Example      |
-| -------------- | ------ | -------- | ---------------------------------------------------------------------------------------------- | ------------ |
-| documentNumber | String | Yes      | Driver's license to consult, all data must be entered exactly as found in this document. | `1123456`    |
-| lastName       | String | Yes      | Last name that appears in the Driver License.                                                | `HELLO`      |
+| Nombre           | Tipo   | Requerido | Descripción                                                                                    | Ejemplo      |
+| ---------------- | ------ | -------- | ---------------------------------------------------------------------------------------------- | ------------ |
+| documentNumber   | String | Sí       | Licencia de manejo a consultar, todos los datos deben ingresarse exactamente como aparecen en este documento. | `1123456`    |
+| lastName         | String | Sí       | Apellido que aparece en la Licencia de Manejo.                                                | `HELLO`      |
 
 ### Request
 
@@ -166,7 +166,7 @@ catch(HTTP_Request2_Exception $e) {
 ```
 
   </TabItem>
-  <TabItem value="409-2" label="409 (Length Error)">
+  <TabItem value="409-2" label="409 (Error de Longitud)">
 
 ```json
 {
@@ -178,10 +178,10 @@ catch(HTTP_Request2_Exception $e) {
   </TabItem>
 </Tabs>
 
-### Features
+### Características
 
--   **License Verification**: Verify the authenticity and validity of British Columbia driver licenses
--   **Simple Parameters**: Only requires document number and last name
--   **Multiple Programming Languages**: Support for JavaScript, Python, Swift, and PHP
--   **Comprehensive Error Handling**: Detailed error responses for various scenarios
--   **Real-time Validation**: Quick validation based on official records
+-   **Verificación de Licencia**: Verificar la autenticidad y validez de las licencias de manejo de British Columbia
+-   **Parámetros Simples**: Solo requiere número de documento y apellido
+-   **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, Swift y PHP
+-   **Manejo Completo de Errores**: Respuestas de error detalladas para varios escenarios
+-   **Validación en Tiempo Real**: Validación rápida basada en registros oficiales

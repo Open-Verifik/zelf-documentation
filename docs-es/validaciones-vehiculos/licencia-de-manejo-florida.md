@@ -1,14 +1,14 @@
 ---
-id: florida-driver-license
-title: Florida Driver License
-description: Florida driver license validation service
-slug: /driver-validation/florida-driver-license
+id: licencia-de-manejo-florida
+title: Licencia de Manejo Florida
+description: Servicio de validación de licencia de manejo de Florida
+slug: /validaciones-vehiculos/licencia-de-manejo-florida
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Florida Driver License Validation
+# Validación de Licencia de Manejo Florida
 
 ## Endpoint
 
@@ -16,20 +16,20 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/usa/florida/driver-license
 ```
 
-This service allows developers to validate the status, restrictions, endorsements, and designations of Florida driver licenses. By providing a valid Florida driver license number, the service response with the license status, expiration date, restrictions, endorsements, and designations.
+Este servicio permite a los desarrolladores validar el estado, restricciones, endosos y designaciones de las licencias de manejo de Florida. Al proporcionar un número válido de licencia de manejo de Florida, el servicio responde con el estado de la licencia, fecha de vencimiento, restricciones, endosos y designaciones.
 
 ### Headers
 
-| Name          | Value              |
+| Nombre        | Valor              |
 | ------------- | ------------------ |
 | Content-Type  | `application/json` |
 | Authorization | `Bearer <token>`   |
 
-### Parameters
+### Parámetros
 
-| Name           | Type   | Required | Description                                    | Example           |
-| -------------- | ------ | -------- | ---------------------------------------------- | ----------------- |
-| documentNumber | String | Yes      | Document number of the person to be queried. | `B123-456-78-910-0` |
+| Nombre           | Tipo   | Requerido | Descripción                                    | Ejemplo           |
+| ---------------- | ------ | -------- | ---------------------------------------------- | ----------------- |
+| documentNumber   | String | Sí       | Número de documento de la persona a consultar. | `B123-456-78-910-0` |
 
 ### Request
 
@@ -167,7 +167,7 @@ catch(HTTP_Request2_Exception $e) {
 ```
 
   </TabItem>
-  <TabItem value="409-2" label="409 (Invalid Type)">
+  <TabItem value="409-2" label="409 (Tipo Inválido)">
 
 ```json
 {
@@ -179,10 +179,10 @@ catch(HTTP_Request2_Exception $e) {
   </TabItem>
 </Tabs>
 
-### Features
+### Características
 
--   **License Status Validation**: Validate the current status of Florida driver licenses
--   **Comprehensive Information**: Get restrictions, endorsements, and designations
--   **Expiration Date**: Retrieve license expiration information
--   **Multiple Programming Languages**: Support for JavaScript, Python, Swift, and PHP
--   **Real-time Data**: Access to current license information from official records
+-   **Validación de Estado de Licencia**: Validar el estado actual de las licencias de manejo de Florida
+-   **Información Completa**: Obtener restricciones, endosos y designaciones
+-   **Fecha de Vencimiento**: Recuperar información de vencimiento de la licencia
+-   **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, Swift y PHP
+-   **Datos en Tiempo Real**: Acceso a información actual de la licencia desde registros oficiales

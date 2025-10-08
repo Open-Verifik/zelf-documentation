@@ -192,6 +192,33 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "VALIDACIÓN DE LICENCIAS DE MANEJO",
+			collapsible: false,
+			items: [
+				{
+					type: "doc",
+					id: "validaciones-vehiculos/licencia-de-manejo-british-columbia",
+					label: "🇨🇦 Licencia de Manejo British Columbia",
+				},
+				{
+					type: "doc",
+					id: "validaciones-vehiculos/licencia-de-manejo-florida",
+					label: "🇺🇸 Licencia de Manejo Florida",
+				},
+				{
+					type: "doc",
+					id: "validaciones-vehiculos/licencia-de-manejo-kansas",
+					label: "🇺🇸 Licencia de Manejo Kansas",
+				},
+				{
+					type: "doc",
+					id: "validaciones-vehiculos/licencia-de-manejo-ontario",
+					label: "🇨🇦 Licencia de Manejo Ontario",
+				},
+			],
+		},
+		{
+			type: "category",
 			label: "VALIDACIÓN DE VEHÍCULOS",
 			collapsible: false,
 			items: [
