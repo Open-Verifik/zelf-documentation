@@ -130,32 +130,32 @@ const sidebars = {
 				},
 				{
 					type: "doc",
-					id: "validacion-empresarial/informacion-empresarial-rues",
+					id: "validacion-empresarial/colombia-informacion-empresarial-rues",
 					label: "🇨🇴 Colombia - Información Empresarial RUES",
 				},
 				{
 					type: "doc",
-					id: "validacion-empresarial/registro-empresarial-rues",
+					id: "validacion-empresarial/colombia-registro-empresarial-rues",
 					label: "🇨🇴 Colombia - Registro Empresarial RUES",
 				},
 				{
 					type: "doc",
-					id: "validacion-empresarial/verificacion-dian",
+					id: "validacion-empresarial/colombia-verificacion-dian",
 					label: "🇨🇴 Colombia - Verificación DIAN",
 				},
 				{
 					type: "doc",
-					id: "validacion-empresarial/verificacion-facturador-legal",
+					id: "validacion-empresarial/colombia-verificacion-facturador-legal",
 					label: "🇨🇴 Colombia - Verificación Facturador Legal",
 				},
 				{
 					type: "doc",
-					id: "validacion-empresarial/validacion-empresarial-rues-completa-v3",
+					id: "validacion-empresarial/colombia-validacion-empresarial-rues-completa-v3",
 					label: "🇨🇴 Validación Empresarial RUES",
 				},
 				{
 					type: "doc",
-					id: "validacion-empresarial/costa-rica",
+					id: "validacion-empresarial/costa-rica-empresarial",
 					label: "🇨🇷 Costa Rica",
 				},
 				{
