@@ -93,12 +93,70 @@ print(r.json())
 ```
 
   </TabItem>
-  <TabItem value="400" label="400">
+  <TabItem value="401" label="401">
 
 ```json
 {
-  "message": "Invalid CPF number",
-  "code": "INVALID_CPF"
+  "message": "Authentication required",
+  "code": "UNAUTHORIZED"
+}
+```
+
+  </TabItem>
+  <TabItem value="403" label="403">
+
+```json
+{
+  "message": "Access forbidden",
+  "code": "FORBIDDEN"
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentType\n"
+}
+```
+
+```json
+{
+  "code": "MissingParameter", 
+  "message": "missing documentNumber\n"
+}
+```
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing dateOfBirth\n"
+}
+```
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "documentType must be one of: [CPF]"
+}
+```
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "dateOfBirth format required: DD/MM/YYYY\n"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found."
 }
 ```
 
