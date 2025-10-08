@@ -1,7 +1,7 @@
 ---
+id: bolivia
 title: Bolivia
-description: Servicio de validación empresarial en Bolivia
-slug: /validacion-empresarial/bolivia
+description: Servicio de validación empresarial boliviano
 ---
 
 ### Endpoint
@@ -10,20 +10,20 @@ slug: /validacion-empresarial/bolivia
 https://api.verifik.co/v2/bo/company
 ```
 
-Obtén datos de empresas bolivianas por identificador tributario.
+Recuperar datos de empresa boliviana por identificador tributario.
 
-### Encabezados
+### Headers
 
-| Nombre | Valor |
+| Name | Value |
 | --- | --- |
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
 ### Parámetros
 
-| Nombre | Tipo | Requerido | Descripción |
+| Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentNumber` | string | Sí | Identificador de la empresa. |
+| `documentNumber` | string | Yes | Identificador de empresa. |
 
 ### Solicitud
 
@@ -153,6 +153,4 @@ func main() {
 
 ### Notas
 
-- Contacta a soporte para el conjunto completo de campos.
-
-
+- Contacta al soporte para campos completos del dataset.

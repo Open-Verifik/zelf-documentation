@@ -103,9 +103,91 @@ const sidebars = {
 			label: "VALIDACIÓN EMPRESARIAL",
 			collapsible: false,
 			items: [
-				{ type: "doc", id: "validacion-empresarial/argentina", label: "🇦🇷 Argentina" },
-				{ type: "doc", id: "validacion-empresarial/bolivia", label: "🇧🇴 Bolivia" },
-				{ type: "doc", id: "validacion-empresarial/brazil", label: "🇧🇷 Brasil" },
+				{
+					type: "doc",
+					id: "validacion-empresarial/argentina",
+					label: "🇦🇷 Argentina",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/bolivia",
+					label: "🇧🇴 Bolivia",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/brazil",
+					label: "🇧🇷 Brasil",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/canada",
+					label: "🇨🇦 Canadá",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/chilean",
+					label: "🇨🇱 Chile",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/informacion-empresarial-rues",
+					label: "🇨🇴 Colombia - Información Empresarial RUES",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/registro-empresarial-rues",
+					label: "🇨🇴 Colombia - Registro Empresarial RUES",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/verificacion-dian",
+					label: "🇨🇴 Colombia - Verificación DIAN",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/verificacion-facturador-legal",
+					label: "🇨🇴 Colombia - Verificación Facturador Legal",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/validacion-empresarial-rues-completa-v3",
+					label: "🇨🇴 Validación Empresarial RUES",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/costa-rica",
+					label: "🇨🇷 Costa Rica",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/mexico",
+					label: "🇲🇽 México",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/panama",
+					label: "🇵🇦 Panamá",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/paraguay",
+					label: "🇵🇾 Paraguay",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/peru",
+					label: "🇵🇪 Perú",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/spain",
+					label: "🇪🇸 España",
+				},
+				{
+					type: "doc",
+					id: "validacion-empresarial/united-states",
+					label: "🇺🇸 Estados Unidos",
+				},
 			],
 		},
 		{

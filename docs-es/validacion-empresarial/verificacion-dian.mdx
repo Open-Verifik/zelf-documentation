@@ -1,7 +1,7 @@
 ---
-id: argentina
-title: Argentina
-description: Verificar empresas argentinas usando CUIT (Código Único de Identificación Tributaria)
+id: verificacion-dian
+title: Colombia - Verificación DIAN
+description: Verificar estado DIAN para empresas colombianas
 ---
 
 import Tabs from '@theme/Tabs';
@@ -10,10 +10,10 @@ import TabItem from '@theme/TabItem';
 ### Endpoint
 
 ```
-https://api.verifik.co/v2/ar/company
+https://api.verifik.co/v2/co/dian/verification
 ```
 
-Recuperar datos de empresa por CUIT.
+Valida el estado DIAN (autoridad tributaria de Colombia) de una empresa.
 
 ### Headers
 
@@ -26,8 +26,7 @@ Recuperar datos de empresa por CUIT.
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | Permitido: `CUIT`. |
-| `documentNumber` | string | Yes | CUIT de 11 dígitos sin separadores. |
+| `nit` | string | Yes | NIT (con o sin dígito de verificación). |
 
 ### Solicitud
 
@@ -37,8 +36,8 @@ Recuperar datos de empresa por CUIT.
 ```javascript
 import axios from "axios";
 
-const { data } = await axios.get("https://api.verifik.co/v2/ar/company", {
-  params: { documentType: "CUIT", documentNumber: "33516727409" },
+const { data } = await axios.get("https://api.verifik.co/v2/co/dian/verification", {
+  params: { nit: "900123456" },
   headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
 });
 console.log(data);
@@ -50,9 +49,9 @@ console.log(data);
 ```python
 import os, requests
 
-url = "https://api.verifik.co/v2/ar/company"
+url = "https://api.verifik.co/v2/co/dian/verification"
 headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "CUIT", "documentNumber": "33516727409"}
+params = {"nit": "900123456"}
 r = requests.get(url, headers=headers, params=params)
 print(r.json())
 ```
@@ -68,13 +67,14 @@ print(r.json())
 ```json
 {
   "data": {
-    "documentType": "CUIT",
-    "documentNumber": "33516727409",
-    "tradeName": "Empresa Ejemplo S.A.",
-    "status": "active"
+    "nit": "900123456",
+    "dian": {
+      "status": "active",
+      "obligations": ["IVA", "Renta"]
+    }
   },
   "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "ARCO1"
+  "id": "DIAN01"
 }
 ```
 
@@ -84,7 +84,7 @@ print(r.json())
 ```json
 {
   "message": "Company not found",
-  "code": "COMPANY_NOT_FOUND"
+  "code": "NOT_FOUND"
 }
 ```
 
@@ -93,4 +93,4 @@ print(r.json())
 
 ### Notas
 
-- `documentNumber` debe ser de 11 dígitos sin guiones.
+- Usa entrada de NIT limpia; el servicio considera el dígito de verificación.

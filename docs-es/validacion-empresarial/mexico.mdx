@@ -1,7 +1,7 @@
 ---
-id: argentina
-title: Argentina
-description: Verificar empresas argentinas usando CUIT (Código Único de Identificación Tributaria)
+id: mexico
+title: México
+description: Verificar empresas mexicanas usando FME (Folio Mercantil Electrónico)
 ---
 
 import Tabs from '@theme/Tabs';
@@ -10,10 +10,10 @@ import TabItem from '@theme/TabItem';
 ### Endpoint
 
 ```
-https://api.verifik.co/v2/ar/company
+https://api.verifik.co/v2/mx/company
 ```
 
-Recuperar datos de empresa por CUIT.
+Recuperar datos de empresa por FME.
 
 ### Headers
 
@@ -26,8 +26,8 @@ Recuperar datos de empresa por CUIT.
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | Permitido: `CUIT`. |
-| `documentNumber` | string | Yes | CUIT de 11 dígitos sin separadores. |
+| `documentType` | string | Yes | Permitido: `FME`. |
+| `documentNumber` | string | Yes | Identificador FME (ej: `N-2021007300`). |
 
 ### Solicitud
 
@@ -37,8 +37,8 @@ Recuperar datos de empresa por CUIT.
 ```javascript
 import axios from "axios";
 
-const { data } = await axios.get("https://api.verifik.co/v2/ar/company", {
-  params: { documentType: "CUIT", documentNumber: "33516727409" },
+const { data } = await axios.get("https://api.verifik.co/v2/mx/company", {
+  params: { documentType: "FME", documentNumber: "N-2021007300" },
   headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
 });
 console.log(data);
@@ -50,9 +50,9 @@ console.log(data);
 ```python
 import os, requests
 
-url = "https://api.verifik.co/v2/ar/company"
+url = "https://api.verifik.co/v2/mx/company"
 headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "CUIT", "documentNumber": "33516727409"}
+params = {"documentType": "FME", "documentNumber": "N-2021007300"}
 r = requests.get(url, headers=headers, params=params)
 print(r.json())
 ```
@@ -68,13 +68,15 @@ print(r.json())
 ```json
 {
   "data": {
-    "documentType": "CUIT",
-    "documentNumber": "33516727409",
-    "tradeName": "Empresa Ejemplo S.A.",
+    "documentType": "FME",
+    "documentNumber": "N-2021007300",
+    "companyName": "Empresa Ejemplo S.A. de C.V.",
+    "city": "Ciudad de México",
+    "state": "CDMX",
     "status": "active"
   },
   "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "ARCO1"
+  "id": "MXCO1"
 }
 ```
 
@@ -93,4 +95,4 @@ print(r.json())
 
 ### Notas
 
-- `documentNumber` debe ser de 11 dígitos sin guiones.
+- `documentNumber` debe coincidir con un registro FME existente.

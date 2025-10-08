@@ -1,7 +1,7 @@
 ---
-id: argentina
-title: Argentina
-description: Verificar empresas argentinas usando CUIT (Código Único de Identificación Tributaria)
+id: registro-empresarial-rues
+title: Colombia - Registro Empresarial RUES
+description: Validación completa del registro empresarial colombiano RUES
 ---
 
 import Tabs from '@theme/Tabs';
@@ -10,10 +10,10 @@ import TabItem from '@theme/TabItem';
 ### Endpoint
 
 ```
-https://api.verifik.co/v2/ar/company
+https://api.verifik.co/v2/co/rues/business-registry
 ```
 
-Recuperar datos de empresa por CUIT.
+Recupera detalles completos del registro desde RUES.
 
 ### Headers
 
@@ -26,8 +26,7 @@ Recuperar datos de empresa por CUIT.
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | Permitido: `CUIT`. |
-| `documentNumber` | string | Yes | CUIT de 11 dígitos sin separadores. |
+| `nit` | string | Yes | NIT (con o sin dígito de verificación). |
 
 ### Solicitud
 
@@ -37,10 +36,10 @@ Recuperar datos de empresa por CUIT.
 ```javascript
 import axios from "axios";
 
-const { data } = await axios.get("https://api.verifik.co/v2/ar/company", {
-  params: { documentType: "CUIT", documentNumber: "33516727409" },
-  headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
-});
+const { data } = await axios.get(
+  "https://api.verifik.co/v2/co/rues/business-registry",
+  { params: { nit: "900123456" }, headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` } }
+);
 console.log(data);
 ```
 
@@ -50,9 +49,9 @@ console.log(data);
 ```python
 import os, requests
 
-url = "https://api.verifik.co/v2/ar/company"
+url = "https://api.verifik.co/v2/co/rues/business-registry"
 headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "CUIT", "documentNumber": "33516727409"}
+params = {"nit": "900123456"}
 r = requests.get(url, headers=headers, params=params)
 print(r.json())
 ```
@@ -68,13 +67,15 @@ print(r.json())
 ```json
 {
   "data": {
-    "documentType": "CUIT",
-    "documentNumber": "33516727409",
-    "tradeName": "Empresa Ejemplo S.A.",
-    "status": "active"
+    "nit": "900123456",
+    "registry": {
+      "chamber": "Bogotá",
+      "status": "active",
+      "activities": ["6201", "6202"]
+    }
   },
   "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "ARCO1"
+  "id": "RBR01"
 }
 ```
 
@@ -83,8 +84,8 @@ print(r.json())
 
 ```json
 {
-  "message": "Company not found",
-  "code": "COMPANY_NOT_FOUND"
+  "message": "Business not found",
+  "code": "NOT_FOUND"
 }
 ```
 
@@ -93,4 +94,4 @@ print(r.json())
 
 ### Notas
 
-- `documentNumber` debe ser de 11 dígitos sin guiones.
+- Prefiere NIT sin separadores; el servicio normaliza la entrada.

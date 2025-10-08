@@ -1,19 +1,16 @@
 ---
-id: brazil
-title: Brasil
-description: Verificar empresas brasileñas usando CNPJ (Cadastro Nacional da Pessoa Jurídica)
+id: costa-rica
+title: Costa Rica
+description: Servicio de validación empresarial costarricense
 ---
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 ### Endpoint
 
 ```
-https://api.verifik.co/v2/br/company
+https://api.verifik.co/v2/cr/company
 ```
 
-Recuperar información de empresa brasileña por CNPJ.
+Recuperar datos de empresa costarricense por identificador.
 
 ### Headers
 
@@ -26,10 +23,12 @@ Recuperar información de empresa brasileña por CNPJ.
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | Permitido: `CNPJ`. |
-| `documentNumber` | string | Yes | CNPJ de 14 dígitos, sin separadores. |
+| `documentNumber` | string | Yes | Identificador de empresa. |
 
 ### Solicitud
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -37,8 +36,8 @@ Recuperar información de empresa brasileña por CNPJ.
 ```javascript
 import axios from "axios";
 
-const { data } = await axios.get("https://api.verifik.co/v2/br/company", {
-  params: { documentType: "CNPJ", documentNumber: "09159197000180" },
+const { data } = await axios.get("https://api.verifik.co/v2/cr/company", {
+  params: { documentNumber: "123456789" },
   headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
 });
 console.log(data);
@@ -49,16 +48,15 @@ console.log(data);
 
 ```php
 <?php
-$ch = curl_init("https://api.verifik.co/v2/br/company");
+$ch = curl_init("https://api.verifik.co/v2/cr/company");
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     "Accept: application/json",
     "Authorization: Bearer " . getenv("VERIFIK_TOKEN")
 ]);
 $query = http_build_query([
-    "documentType" => "CNPJ",
-    "documentNumber" => "09159197000180"
+    "documentNumber" => "123456789"
 ]);
-curl_setopt($ch, CURLOPT_URL, "https://api.verifik.co/v2/br/company?".$query);
+curl_setopt($ch, CURLOPT_URL, "https://api.verifik.co/v2/cr/company?".$query);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
 curl_close($ch);
@@ -71,9 +69,9 @@ echo $response;
 ```python
 import os, requests
 
-url = "https://api.verifik.co/v2/br/company"
+url = "https://api.verifik.co/v2/cr/company"
 headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "CNPJ", "documentNumber": "09159197000180"}
+params = {"documentNumber": "123456789"}
 r = requests.get(url, headers=headers, params=params)
 print(r.json())
 ```
@@ -90,7 +88,7 @@ import (
 )
 
 func main() {
-    url := "https://api.verifik.co/v2/br/company?documentType=CNPJ&documentNumber=09159197000180"
+    url := "https://api.verifik.co/v2/cr/company?documentNumber=123456789"
     req, _ := http.NewRequest("GET", url, nil)
     req.Header.Set("Accept", "application/json")
     req.Header.Set("Authorization", "Bearer "+getenv("VERIFIK_TOKEN"))
@@ -111,13 +109,12 @@ func main() {
 ```json
 {
   "data": {
-    "documentType": "CNPJ",
-    "documentNumber": "09159197000180",
-    "companyName": "Empresa Exemplo Ltda",
+    "documentNumber": "123456789",
+    "companyName": "Empresa CR S.A.",
     "status": "active"
   },
   "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "BRCO1"
+  "id": "CRCO1"
 }
 ```
 
@@ -156,4 +153,4 @@ func main() {
 
 ### Notas
 
-- `documentNumber` debe ser de 14 dígitos sin separadores.
+- Contacta al soporte para campos completos del dataset.
