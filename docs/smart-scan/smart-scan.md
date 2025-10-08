@@ -139,7 +139,7 @@ OCR technology has become an essential tool for digitizing large volumes of prin
       </div>
       <div className="card__body">
         <p>Test our <strong>ScanPrompt</strong> API with any document you have. Perfect for flexible, prompt-based text extraction.</p>
-        <a href="/docs/ocr-engines/scan-prompt" className="button button--primary">Learn More</a>
+        <a href="/ocr-engines/scan-prompt" className="button button--primary">Learn More</a>
       </div>
     </div>
   </div>
@@ -150,7 +150,7 @@ OCR technology has become an essential tool for digitizing large volumes of prin
       </div>
       <div className="card__body">
         <p>Test our ScanStudio API with the trained models we have. Ideal for high-accuracy, specialized document processing.</p>
-        <a href="/docs/ocr-engines/scan-studio" className="button button--primary">Learn More</a>
+        <a href="/ocr-engines/scan-studio" className="button button--primary">Learn More</a>
       </div>
     </div>
   </div>
@@ -425,5 +425,5 @@ For technical support and API documentation, contact our support team or visit o
 ---
 
 :::tip Getting Started
-Ready to start using Smart Scan? Check out our [API documentation](/docs/api) and [integration guides](/docs/integrations) to get started quickly.
+Ready to start using Smart Scan? Check out our [API documentation](/api) and [integration guides](/integrations) to get started quickly.
 :::
