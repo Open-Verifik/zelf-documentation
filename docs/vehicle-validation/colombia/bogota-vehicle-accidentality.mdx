@@ -1,0 +1,129 @@
+---
+id: vehicle-validation-colombia-bogota-vehicle-accidentality
+title: Vehicle Accidentality
+description: Bogotá vehicle accident history service
+sidebar_label: Bogota - Vehicle Accidentality
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/bogota/vehicle/accidentality
+```
+
+This service provides detailed information about the accident history of a vehicle registered in Bogotá, Colombia. The response includes an array of accidents with dates, form numbers, and severity levels.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `plate` | string | Yes | Plate to consult, without spaces or points. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/bogota/vehicle/accidentality", {
+  params: { plate: "ABC123" },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/bogota/vehicle/accidentality"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"plate": "ABC123"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "accident": [
+      {
+        "date": "VIERNES, 20 FEBRERO 2015 00:00",
+        "form": "A1689",
+        "seriousness": "SOLO DAÑOS"
+      },
+      {
+        "date": "LUNES, 10 FEBRERO 2014 00:00",
+        "form": "A1428611",
+        "seriousness": "SOLO DAÑOS"
+      },
+      {
+        "date": "SÁBADO, 9 MARZO 2013 00:00",
+        "form": "A1247163",
+        "seriousness": "SOLO DAÑOS"
+      }
+    ],
+    "plate": "TSP331"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "July 3, 2024 3:58 PM"},
+  "id": "3C9YY"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing plate"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- Accident severity "SOLO DAÑOS" indicates property damage only (no injuries).
+- The `form` field contains the official accident report number for reference.
+- Dates are provided in Spanish format with day of the week and full date.

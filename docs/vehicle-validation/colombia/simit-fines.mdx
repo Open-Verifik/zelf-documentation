@@ -1,0 +1,134 @@
+---
+id: vehicle-validation-colombia-simit-fines
+title: SIMIT - Fines
+description: SIMIT traffic citations and fines service
+sidebar_label: SIMIT - Fines
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/simit/comparendos
+```
+
+The Traffic Citations Service provides detailed information about traffic citations associated with a specific vehicle in Colombia. By inputting the vehicle's license plate number, users can access comprehensive details about each citation, including its status, date, location, and the type of traffic violation.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Document type. Valid parameters: `CC`, `PA`, `CE`, `TI`, `RC`. |
+| `documentNumber` | string | Yes | Document number to consult, without spaces or points. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/simit/comparendos", {
+  params: { 
+    documentType: "CC", 
+    documentNumber: "123456789" 
+  },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/simit/comparendos"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CC", "documentNumber": "123456789"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "comparendos": [
+      {
+        "tipovehiculo": "AUTOMOVIL",
+        "estadoComparendo": "Pendiente",
+        "fechaComparendo": "2016/02/23",
+        "fotodeteccion": false,
+        "NúmeroComparendo": "2561200100015264662173",
+        "placavehiculo": "AAA123",
+        "secretariaComparendo": "Ricaurte",
+        "total": 344730,
+        "idOrganismoTransito": "25612123",
+        "codigoInfraccion": "C35",
+        "descripcionInfraccion": "No realizar la revisión técnico-mecánica en el plazo legal establecido o cuando el vehiculo no se encuentre en adecuadas condiciones técnico-mecánicas o de emisión de gases, aun cuando porte los certificados correspondientes.",
+        "direccionComparendo": "CARRERA 9 CON CALLE 10 AGUA DE DIOS",
+        "infractorComparendo": "CAR BER",
+        "serviciovehiculo": "Particular"
+      }
+    ]
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "February 13, 2023 6:17 AM"}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentType. missing documentNumber"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- SIMIT is Colombia's Integrated Traffic Violations System.
+- "Comparendo" is the Spanish term for traffic citation.
+- Fines are provided in Colombian Pesos (COP).
+- Status "Pendiente" indicates the citation is pending payment.
+- Photo detection violations are flagged with `fotodeteccion: true`.

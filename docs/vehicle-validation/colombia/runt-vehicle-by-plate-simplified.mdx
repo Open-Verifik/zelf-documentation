@@ -1,0 +1,139 @@
+---
+id: vehicle-validation-colombia-runt-vehicle-by-plate-simplified
+title: Vehicle records by plate number (simplified)
+description: RUNT simplified vehicle information service
+sidebar_label: RUNT - Vehicle records by plate number (simplified)
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/runt/vehicle-by-plate-simplified
+```
+
+The Vehicle Information Lookup API allows you to retrieve essential details about a vehicle registered in Colombia using its license plate. By providing the license plate number along with the document type and number of the owner, you can access basic information about the vehicle including its make, model, year, color, and fuel type.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Document type. Allowed values: `CC`, `CE`, `PA`, `RC`, `NIT`. |
+| `documentNumber` | string | Yes | Document number of the owner of the vehicle, without spaces or periods. |
+| `plate` | string | Yes | Vehicle plate to consult. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/runt/vehicle-by-plate-simplified", {
+  params: { 
+    documentType: "CC", 
+    documentNumber: "123456789", 
+    plate: "ABC123" 
+  },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/runt/vehicle-by-plate-simplified"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CC", "documentNumber": "123456789", "plate": "ABC123"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "vehicle": {
+      "claseVehiculo": "AUTOMOVIL",
+      "color": "ROJO COBRE",
+      "estadoDelVehiculo": "ACTIVO",
+      "homologaciones": [],
+      "linea": "3 ALL NEW",
+      "marca": "MAZDA",
+      "modelo": "2014",
+      "noChasis": "9FCBL86L2E1123424",
+      "noMotor": "LF11517487",
+      "noPlaca": "HSY802",
+      "noVin": "9FCBL86L2E11022344",
+      "organismoTransito": "SDM - BOGOTA D.C.",
+      "tipoCarroceria": "SEDAN",
+      "tipoCombustible": "GASOLINA",
+      "tipoServicio": "Particular",
+      "toneladas": "0.00"
+    },
+    "plate": "ABC123",
+    "documentNumber": "123456789",
+    "documentType": "CC"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "March 14, 2024 2:11 PM"},
+  "id": "9S7J6"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentType. missing documentNumber. missing plate"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- This simplified version provides essential vehicle information without detailed insurance and technical inspection data.
+- Vehicle status "ACTIVO" means the vehicle is currently registered and operational.
+- VIN (Vehicle Identification Number) and chassis numbers are provided for vehicle identification.
+- This service is ideal for basic vehicle verification needs.

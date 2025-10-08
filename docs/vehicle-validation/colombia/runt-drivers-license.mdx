@@ -1,0 +1,149 @@
+---
+id: vehicle-validation-colombia-runt-drivers-license
+title: Driver's License
+description: RUNT driver's license verification service
+sidebar_label: RUNT - Driver's License
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/runt/conductor
+```
+
+The Driver License Information service provides comprehensive details about driver's license holders in Colombia. You can access information such as document type and number, full name, expiration date, status, and category of the license. It also allows you to verify whether the license is active, suspended, or canceled.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Document Type. Allowed values: `CC`, `CE`, `PPT`, `PA`, `NIT`. |
+| `documentNumber` | string | Yes | Driver's document number, without spaces or periods. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/runt/conductor", {
+  params: { 
+    documentType: "CC", 
+    documentNumber: "123456789" 
+  },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/runt/conductor"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CC", "documentNumber": "123456789"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "citizenStatus": "ACTIVA",
+    "consultationDateTime": "2024-04-16T19:15:42.893Z",
+    "documentNumber": "1234345456",
+    "documentType": "CC",
+    "driverStatus": "ACTIVO",
+    "fullName": "MATEO VERIFIK",
+    "inscriptionDate": "18/12/2009",
+    "inscriptionNumber": "5597541",
+    "licenses": [
+      {
+        "category": "B1",
+        "dueDate": "04/11/2033",
+        "expeditionDate": "04/11/2023",
+        "licenceNumber": "1234345456",
+        "status": "ACTIVA",
+        "substratum": "LC03006724131"
+      },
+      {
+        "category": "A2",
+        "dueDate": "20/09/2024",
+        "expeditionDate": "20/09/2014",
+        "licenceNumber": "1234345456",
+        "status": "ACTIVA",
+        "substratum": "LC03006724131"
+      }
+    ],
+    "totalLicenses": "2",
+    "transitTaxes": {
+      "paceAndSafe": "NO"
+    },
+    "firstName": "MATEO",
+    "lastName": "VERIFIK",
+    "arrayName": ["MATEO", "VERIFIK"]
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "September 16, 2024 4:50 PM"},
+  "id": "UIQ26"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentType. missing documentNumber"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- RUNT is Colombia's National Traffic Registry system.
+- License categories include B1 (cars), A2 (motorcycles), C1 (trucks), etc.
+- Status "ACTIVA" indicates the license is currently valid.
+- Multiple license categories can be associated with one driver.

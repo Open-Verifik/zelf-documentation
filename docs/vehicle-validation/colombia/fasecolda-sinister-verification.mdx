@@ -1,0 +1,130 @@
+---
+id: vehicle-validation-colombia-fasecolda-sinister-verification
+title: Sinister Verification
+description: Fasecolda accident history verification service
+sidebar_label: Fasecolda - Sinister Verification
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/fasecolda/sinister
+```
+
+The Fasecolda Sinister Verification service provides a detailed digital platform for checking the insurance claim history of vehicles in Colombia. By entering a vehicle's license plate, you can access comprehensive information about any registered insurance claims associated with that vehicle.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `plate` | string | Yes | Plate of the vehicle to consult, without spaces or periods. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/fasecolda/sinister", {
+  params: { plate: "ABC123" },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/fasecolda/sinister"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"plate": "ABC123"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "plate": "KDK605",
+    "sinister": [
+      {
+        "id": "1",
+        "accidentDate": "20/01/2015",
+        "protection": "Pérdida Menor Cuantía"
+      },
+      {
+        "id": "2",
+        "accidentDate": "17/08/2012",
+        "protection": "Pérdida Menor Cuantía"
+      },
+      {
+        "id": "3",
+        "accidentDate": "16/01/2017",
+        "protection": "Pérdida Menor Cuantía"
+      }
+    ]
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "February 9, 2024 7:43 PM"},
+  "id": "PFDB2"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing plate"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- "Sinister" refers to insurance claims or accidents in Colombian insurance terminology.
+- "Pérdida Menor Cuantía" indicates minor loss claims.
+- This service is essential for assessing a vehicle's insurance history and potential risks.
+- Each claim record includes a unique ID, accident date, and protection type.
