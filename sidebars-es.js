@@ -36,6 +36,12 @@ const sidebars = {
 				{ type: "doc", id: "validacion-empresarial/brazil", label: "🇧🇷 Brasil" },
 			],
 		},
+		{
+			type: "category",
+			label: "CLIENTES",
+			collapsible: false,
+			items: ["clients/informacion-cuenta"],
+		},
 		// Secciones restantes se añadirán conforme se migren desde EN a ES
 	],
 };
