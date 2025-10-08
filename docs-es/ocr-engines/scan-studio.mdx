@@ -1,137 +1,306 @@
 ---
 id: escaneo-estudio
 title: Escaneo Estudio
-description: API OCR con modelos entrenados para extracción de texto de alta precisión
-slug: /escaneo-estudio
+description: El Escaneo Estudio ofrece una solución fluida y eficiente para extraer información crítica de documentos escaneados a través de tecnología de Reconocimiento Óptico de Caracteres (OCR) de última generación. Impulsado por tecnología OCR avanzada, el Escaneo Estudio extrae e interpreta con precisión datos de una amplia variedad de documentos escaneados, entregando la información extraída como texto OCR estructurado acompañado de etiquetas correspondientes para fácil integración y uso.
+slug: /ocr-engines/escaneo-estudio
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-### Endpoint
+# Escaneo Estudio
+
+## Endpoint
 
 ```
 https://api.verifik.co/v2/ocr/scan-studio
 ```
 
-Escaneo Estudio es nuestra API OCR avanzada que utiliza modelos entrenados para lograr una extracción de texto de alta precisión desde varios tipos de documentos. Este servicio proporciona capacidades OCR especializadas con modelos pre-entrenados para tipos de documentos específicos, asegurando alta precisión y extracción de texto confiable.
+El Escaneo Estudio ofrece una solución fluida y eficiente para extraer información crítica de documentos escaneados a través de tecnología de Reconocimiento Óptico de Caracteres (OCR) de última generación. Para usar este servicio, simplemente proporcione la imagen del documento en formato Base64 codificado o una URL donde esté alojada la imagen, y deje que nuestro sistema se encargue del resto.
+
+Impulsado por tecnología OCR avanzada, el Escaneo Estudio extrae e interpreta con precisión datos de una amplia variedad de documentos escaneados, entregando la información extraída como texto OCR estructurado acompañado de etiquetas correspondientes para fácil integración y uso. Esto asegura que los usuarios puedan acceder y utilizar rápidamente los datos en un formato que se adapte a sus necesidades.
+
+Para garantizar los más altos niveles de precisión y confiabilidad de los datos, toda la información extraída pasa por un riguroso proceso de validación y verificación. Cada campo es evaluado, con un indicador de estado claro que muestra si la predicción OCR fue precisa, dando a los usuarios confianza en la calidad de los resultados.
+
+**Nota: El Escaneo Estudio aprovecha modelos pre-entrenados desarrollados por Verifik, que han sido ajustados para un rendimiento excepcional. Esto resulta en tiempos de respuesta más rápidos y una precisión superior en la extracción de datos, estableciendo un nuevo estándar de confiabilidad en el procesamiento de documentos.**
+
+### Ejemplos de ID's
+
+* [Cédula Colombiana](https://cdn.verifik.co/ocr/64404b1f9856cc8cebd762e7/1690232072151-image.jpeg)
+* [INE México](https://cdn.verifik.co/ocr/64404b1f9856cc8cebd762e7/1690301869522-image.png)
 
 ### Headers
 
-| Name | Value |
-| --- | --- |
-| Content-Type | `application/json` |
-| Authorization | `Bearer <token>` |
+| Nombre        | Valor              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
 
 ### Parámetros
 
-| Name | Type | Required | Description |
-| --- | --- | --- | --- |
-| `image` | string | Yes | Imagen en formato Base64 codificado o una URL donde está alojada la imagen. |
-| `model` | string | Yes | Modelo entrenado a usar para la extracción. |
-| `cropFace` | boolean | No | Si quieres recortar la cara del documento, pasa esto como `true`. |
+| Parámetro      | Tipo   | Requerido | Descripción                                    |
+| -------------- | ------ | -------- | ---------------------------------------------- |
+| `image`        | string | Sí       | Imagen en formato Base64 codificado o una URL donde la imagen está alojada. |
+| `documentType` | string | Sí       | El tipo de documento del que necesita escanear información. La lista de tipos de documentos soportados está en el siguiente [enlace](scan-studio/documents-supported). |
 
-### Solicitud
+### Request
 
 <Tabs>
   <TabItem value="node" label="Node.js">
 
 ```javascript
-import axios from "axios";
-
-const { data } = await axios.post("https://api.verifik.co/v2/ocr/scan-studio", {
-  image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...",
-  model: "id_documents",
-  cropFace: true
-}, {
-  headers: { 
-    "Content-Type": "application/json", 
-    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
-  },
+const axios = require('axios');
+let data = JSON.stringify({
+  "image": "/9j/4AAQSkZJRgABAQEASA....AAD/4gIoS=",
+  "documentType": "CC"
 });
-console.log(data);
+
+let config = {
+  method: 'post',
+  maxBodyLength: Infinity,
+  url: 'https://api.verifik.co/v2/ocr/scan-studio',
+  headers: { 
+    'Content-Type': 'application/json', 
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJ0w1splt4Cw'
+  },
+  data : data
+};
+
+axios.request(config)
+.then((response) => {
+  console.log(JSON.stringify(response.data));
+})
+.catch((error) => {
+  console.log(error);
+});
 ```
 
   </TabItem>
-  <TabItem value="python" label="Python">
+  <TabItem value="php" label="PHP">
 
-```python
-import os, requests
-
-url = "https://api.verifik.co/v2/ocr/scan-studio"
-headers = {"Content-Type": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-payload = {
-    "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...",
-    "model": "id_documents",
-    "cropFace": True
-}
-r = requests.post(url, json=payload, headers=headers)
-print(r.json())
+```php
+<?php
+$client = new Client();
+$headers = [
+  'Content-Type' => 'application/json',
+  'Authorization' => '••••••'
+];
+$body = '{
+  "image": "/9j/4AAQSkZJRgABAQEA...xbjqiSXFqrqWSutTpCVOELMoqFhH/2Q==",
+  "documentType": "CC"
+}';
+$request = new Request('POST', 'https://api.verifik.co/v2/ocr/scan-studio', $headers, $body);
+$res = $client->sendAsync($request)->wait();
+echo $res->getBody();
 ```
 
   </TabItem>
 </Tabs>
 
-### Respuesta
+### Response
 
 <Tabs>
   <TabItem value="200" label="200">
 
 ```json
 {
-  "id": "studio001",
+  "id": "urw2r",
   "data": {
-    "extractedText": "Contenido de texto extraído completo",
-    "confidence": 0.95,
-    "fields": {
-      "fullName": "Juan Miguel Rodríguez López",
-      "lastName": "Rodríguez López",
-      "firstName": "Juan Miguel",
-      "documentNumber": "12345678",
-      "dateOfBirth": "1990-01-15",
-      "documentType": "DNI"
+    "__v": 0,
+    "_id": "64f8ba3b06f66f85b1ac9381",
+    "url": "https://cdn.verifik.co/ocr/64404b1f9856cc8cebd762e7/1690232072151-image.jpeg",
+    "type": "ocr",
+    "client": "623b6317fe5fd1774be9f566",
+    "status": "ACTIVE_BUT_UNVERIFIED",
+    "deleted": false,
+    "createdAt": "2023-09-06T17:43:23.775Z",
+    "updatedAt": "2023-09-06T17:43:23.775Z",
+    "requires2FA": false,
+    "documentType": "CC",
+    "OCRExtraction": {
+      "details": {
+        "spans": [
+          {
+            "length": 168,
+            "offset": 0
+          }
+        ],
+        "fields": {
+          "lastName": {
+            "kind": "string",
+            "spans": [
+              {
+                "length": 15,
+                "offset": 71
+              }
+            ],
+            "value": "RODRÍGUEZ LÓPEZ",
+            "content": "RODRÍGUEZ LÓPEZ",
+            "confidence": 0.851,
+            "boundingRegions": [
+              {
+                "polygon": [
+                  {
+                    "x": 76,
+                    "y": 226
+                  },
+                  {
+                    "x": 476,
+                    "y": 224
+                  },
+                  {
+                    "x": 476,
+                    "y": 270
+                  },
+                  {
+                    "x": 76,
+                    "y": 272
+                  }
+                ],
+                "pageNumber": 1
+              }
+            ]
+          },
+          "firstName": {
+            "kind": "string",
+            "spans": [
+              {
+                "length": 16,
+                "offset": 104
+              }
+            ],
+            "value": "MARTÍN FRANCISCO",
+            "content": "MARTÍN FRANCISCO",
+            "confidence": 0.851,
+            "boundingRegions": [
+              {
+                "polygon": [
+                  {
+                    "x": 71,
+                    "y": 324
+                  },
+                  {
+                    "x": 486,
+                    "y": 331
+                  },
+                  {
+                    "x": 485,
+                    "y": 379
+                  },
+                  {
+                    "x": 70,
+                    "y": 372
+                  }
+                ],
+                "pageNumber": 1
+              }
+            ]
+          },
+          "documentNumber": {
+            "kind": "string",
+            "spans": [
+              {
+                "length": 17,
+                "offset": 53
+              }
+            ],
+            "value": "01101101 01100001",
+            "content": "01101101 01100001",
+            "confidence": 0.861,
+            "boundingRegions": [
+              {
+                "polygon": [
+                  {
+                    "x": 159,
+                    "y": 172
+                  },
+                  {
+                    "x": 561,
+                    "y": 172
+                  },
+                  {
+                    "x": 561,
+                    "y": 216
+                  },
+                  {
+                    "x": 159,
+                    "y": 216
+                  }
+                ],
+                "pageNumber": 1
+              }
+            ]
+          }
+        },
+        "docType": "CC",
+        "confidence": 0.964,
+        "boundingRegions": [
+          {
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 1000,
+                "y": 0
+              },
+              {
+                "x": 1000,
+                "y": 614
+              },
+              {
+                "x": 0,
+                "y": 614
+              }
+            ],
+            "pageNumber": 1
+          }
+        ]
+      },
+      "fullName": "MARTÍN FRANCISCO RODRÍGUEZ LÓPEZ",
+      "lastName": "RODRÍGUEZ LÓPEZ",
+      "firstName": "MARTÍN FRANCISCO",
+      "documentNumber": "01101101 01100001"
     },
-    "model": "id_documents",
-    "processingTime": "2.3s"
+    "documentNumber": "01101101 01100001",
+    "imageValidated": false,
+    "validationMethod": "SCAN_STUDIO"
   },
   "signature": {
     "message": "Certified by Verifik.co",
-    "dateTime": "January 16, 2024 3:44 PM"
+    "dateTime": "September 6, 2023 5:43 PM"
   }
 }
 ```
 
   </TabItem>
-  <TabItem value="404" label="404">
+  <TabItem value="400" label="400">
 
 ```json
 {
-  "message": "Model not found",
-  "code": "MODEL_NOT_FOUND"
+  "error": "Invalid request"
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "documentType must be one of: [CC,RUT,PA,ENSAPA,DNI,CCVE,RIFVE,TLCC]"
 }
 ```
 
   </TabItem>
 </Tabs>
 
-### Modelos Disponibles
-
-- **`id_documents`**: Tarjetas de identificación emitidas por el gobierno
-- **`drivers_licenses`**: Licencias de conducir de varios países
-- **`passports`**: Documentos de pasaporte internacionales
-- **`business_documents`**: Facturas, contratos y formularios comerciales
-- **`custom`**: Modelos entrenados personalizados disponibles bajo solicitud
-
 ### Características
 
-- **Alta Precisión**: Los modelos entrenados proporcionan precisión superior (95%+)
-- **Datos Estructurados**: Devuelve datos de campos organizados
-- **Múltiples Idiomas**: Soporte para varios idiomas
-- **Procesamiento Rápido**: Modelos optimizados para extracción rápida
-- **Modelos Personalizados**: Disponibles bajo solicitud para casos de uso específicos
-
-### Notas
-
-- Usa imágenes codificadas en Base64 o URLs directas para el parámetro `image`.
-- Especifica el `model` apropiado para mejores resultados.
+-   **Modelos Pre-entrenados**: Aprovecha modelos pre-entrenados desarrollados por Verifik para un rendimiento excepcional
+-   **Alta Precisión**: Precisión superior en la extracción de datos con puntuaciones de confianza para cada campo
+-   **Datos Estructurados**: Devuelve datos de campo organizados con regiones delimitadoras y niveles de confianza
+-   **Múltiples Tipos de Documentos**: Soporte para varias identificaciones emitidas por el gobierno y documentos
+-   **Proceso de Validación**: Toda la información extraída pasa por un riguroso proceso de validación y verificación
 - El parámetro `cropFace` ayuda a mejorar la precisión enfocándose en el contenido del documento.
