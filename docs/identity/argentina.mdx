@@ -1,7 +1,8 @@
 ---
 id: argentina
 title: Argentina
-description: Verify Argentine citizen identities using DNI (Documento Nacional de Identidad)
+description: Verificar identidades de ciudadanos argentinos usando DNI (Documento Nacional de Identidad)
+slug: /argentina
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/ar/cedula
 ```
 
-Verify Argentine DNI and retrieve core identity fields.
+Verificar DNI argentino y recuperar campos de identidad principales.
 
 ### Headers
 
@@ -22,14 +23,14 @@ Verify Argentine DNI and retrieve core identity fields.
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Params
+### Parámetros
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | Allowed: `DNIAR`. |
-| `documentNumber` | string | Yes | DNI without spaces/dots. |
+| `documentType` | string | Sí | Permitido: `DNIAR`. |
+| `documentNumber` | string | Sí | DNI sin espacios/puntos. |
 
-### Request
+### Solicitud
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -60,7 +61,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Response
+### Respuesta
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -93,7 +94,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Notes
+### Notas
 
-- Use `DNIAR` as `documentType` for Argentine DNI queries.
+- Usa `DNIAR` como `documentType` para consultas de DNI argentino.
 

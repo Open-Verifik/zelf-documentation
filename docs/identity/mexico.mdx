@@ -1,7 +1,8 @@
 ---
 id: mexico
-title: Mexico
-description: Verify Mexican citizen identities using CURP
+title: México
+description: Verificar identidades de ciudadanos mexicanos usando CURP
+slug: /mexico
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/mx/curp
 ```
 
-Verify CURP and return key identity details.
+Verificar CURP y retornar detalles clave de identidad.
 
 ### Headers
 
@@ -22,14 +23,14 @@ Verify CURP and return key identity details.
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Params
+### Parámetros
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | Allowed: `CURP`. |
-| `documentNumber` | string | Yes | CURP value. |
+| `documentType` | string | Sí | Permitido: `CURP`. |
+| `documentNumber` | string | Sí | Valor CURP. |
 
-### Request
+### Solicitud
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -60,7 +61,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Response
+### Respuesta
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -95,7 +96,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Notes
+### Notas
 
-- Ensure `documentNumber` strictly matches CURP format.
+- Asegúrate de que `documentNumber` coincida estrictamente con el formato CURP.
 

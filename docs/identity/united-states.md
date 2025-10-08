@@ -1,17 +1,18 @@
 ---
 id: united-states
-title: United States
-description: United States identity validation services
+title: Estados Unidos
+description: Servicios de validación de identidad de Estados Unidos
+slug: /estados-unidos
 ---
 
-# United States
+# Estados Unidos
 
-United States identity validation services including SSN verification and driver's license validation.
+Servicios de validación de identidad de Estados Unidos incluyendo verificación de SSN y validación de licencia de conducir.
 
-## Available Services
+## Servicios Disponibles
 
-- **SSN Verification (Social Security Number)**
-- **Florida Driver's License Validation**
-- **Kansas Driver's License Verification**
+- **Verificación SSN (Número de Seguridad Social)**
+- **Validación de Licencia de Conducir de Florida**
+- **Verificación de Licencia de Conducir de Kansas**
 
-For detailed API documentation, please contact Verifik support.
+Para documentación detallada de la API, por favor contacta al soporte de Verifik.

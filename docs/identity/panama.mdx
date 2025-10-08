@@ -1,7 +1,8 @@
 ---
 id: panama
-title: Panama
-description: Verify Panamanian citizen identities using CCPA (Cédula de Identidad Personal)
+title: Panamá
+description: Verificar identidades de ciudadanos panameños usando CCPA (Cédula de Identidad Personal)
+slug: /panama
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/pa/cedula
 ```
 
-Validate identity for Panamanian citizens and permanent residents via Cédula de Identidad Personal.
+Validar identidad para ciudadanos panameños y residentes permanentes vía Cédula de Identidad Personal.
 
 ### Headers
 
@@ -22,15 +23,15 @@ Validate identity for Panamanian citizens and permanent residents via Cédula de
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Params
+### Parámetros
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | Allowed: `CCPA`. |
-| `documentNumber` | string | Yes | Cédula number. |
-| `dateOfBirth` | string | Yes | `DD/MM/YYYY`. |
+| `documentType` | string | Sí | Permitido: `CCPA`. |
+| `documentNumber` | string | Sí | Número de cédula. |
+| `dateOfBirth` | string | Sí | `DD/MM/YYYY`. |
 
-### Request
+### Solicitud
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -105,7 +106,7 @@ func main() {
   </TabItem>
  </Tabs>
 
-### Response
+### Respuesta
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -169,7 +170,7 @@ func main() {
   </TabItem>
  </Tabs>
 
-### Notes
+### Notas
 
-- Date of birth required and must match the ID holder.
+- La fecha de nacimiento es requerida y debe coincidir con el titular de la identificación.
 

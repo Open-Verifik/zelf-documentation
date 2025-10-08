@@ -1,7 +1,8 @@
 ---
 id: bolivia
 title: Bolivia
-description: Verify Bolivian citizen identities using CI
+description: Verificar identidades de ciudadanos bolivianos usando CI
+slug: /bolivia
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/bo/cedula
 ```
 
-Verify CI with date of birth.
+Verificar CI con fecha de nacimiento.
 
 ### Headers
 
@@ -22,15 +23,15 @@ Verify CI with date of birth.
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Params
+### Parámetros
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | Allowed: `CI`. |
-| `documentNumber` | string | Yes | CI value. |
-| `dateOfBirth` | string | Yes | `DD/MM/YYYY`. |
+| `documentType` | string | Sí | Permitido: `CI`. |
+| `documentNumber` | string | Sí | Valor del CI. |
+| `dateOfBirth` | string | Sí | `DD/MM/YYYY`. |
 
-### Request
+### Solicitud
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -61,7 +62,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Response
+### Respuesta
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -95,7 +96,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Notes
+### Notas
 
-- Date of birth required and must match DI record.
+- Fecha de nacimiento requerida y debe coincidir con el registro DI.
 

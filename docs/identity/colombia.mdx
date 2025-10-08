@@ -1,7 +1,8 @@
 ---
 id: colombia
-title: Colombian Citizen
-description: Verify Colombian citizen identities using government-issued ID
+title: Ciudadano Colombiano
+description: Verificar identidades de ciudadanos colombianos usando identificación emitida por el gobierno
+slug: /colombia
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/co/cedula
 ```
 
-Validate a Colombian Cédula de Ciudadanía and retrieve core identity attributes.
+Validar una Cédula de Ciudadanía colombiana y recuperar atributos de identidad principales.
 
 ### Headers
 
@@ -22,14 +23,14 @@ Validate a Colombian Cédula de Ciudadanía and retrieve core identity attribute
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Params
+### Parámetros
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| `documentType` | string | Yes | One of `CC`, `PPT`. |
-| `documentNumber` | string | Yes | Document number (no spaces or dots). |
+| `documentType` | string | Sí | Uno de `CC`, `PPT`. |
+| `documentNumber` | string | Sí | Número de documento (sin espacios o puntos). |
 
-### Request
+### Solicitud
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -73,7 +74,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Response
+### Respuesta
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -119,7 +120,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Notes
+### Notas
 
-- Use `documentType=CC` for cédula; `PPT` for Permiso por Protección Temporal.
+- Usa `documentType=CC` para cédula; `PPT` para Permiso por Protección Temporal.
 
