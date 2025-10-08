@@ -28,6 +28,51 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "CLIENTES",
+			collapsible: false,
+			items: ["clients/informacion-cuenta"],
+		},
+		{
+			type: "category",
+			label: "SERVICIOS",
+			collapsible: false,
+			items: [
+				"smartcheck/verificacion-inteligente",
+				"smartaccess/acceso-inteligente",
+				"access/acceso",
+				"smartenroll/inscripcion-inteligente",
+				"enroll/inscripcion",
+				"smart-scan/escaneo-inteligente",
+			],
+		},
+		{
+			type: "category",
+			label: "BIOMETRICS API'S",
+			collapsible: false,
+			items: [
+				"biometrics/deteccion-vitalidad",
+				{
+					type: "category",
+					label: "Comparación Facial",
+					collapsible: true,
+					items: ["biometrics/comparar", "biometrics/comparar-en-vivo", "biometrics/comparar-con-deteccion-vitalidad"],
+				},
+				{
+					type: "category",
+					label: "Búsqueda Facial",
+					collapsible: true,
+					items: ["biometrics/buscar", "biometrics/buscar-cara-en-vivo", "biometrics/buscar-usuario-activo", "biometrics/buscar-recortes"],
+				},
+			],
+		},
+		{
+			type: "category",
+			label: "SCAN DOCS API'S",
+			collapsible: false,
+			items: ["scandocs/escaneo-estudio", "scandocs/escaneo-prompt"],
+		},
+		{
+			type: "category",
 			label: "VALIDACIÓN EMPRESARIAL",
 			collapsible: false,
 			items: [
@@ -35,12 +80,6 @@ const sidebars = {
 				{ type: "doc", id: "validacion-empresarial/bolivia", label: "🇧🇴 Bolivia" },
 				{ type: "doc", id: "validacion-empresarial/brazil", label: "🇧🇷 Brasil" },
 			],
-		},
-		{
-			type: "category",
-			label: "CLIENTES",
-			collapsible: false,
-			items: ["clients/informacion-cuenta"],
 		},
 		// Secciones restantes se añadirán conforme se migren desde EN a ES
 	],
