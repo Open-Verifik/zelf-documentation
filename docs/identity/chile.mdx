@@ -1,8 +1,8 @@
 ---
 id: chile
 title: Chile
-description: Verificar identidades de ciudadanos chilenos usando RUN (Rol Único Nacional)
-slug: /chile
+description: Verify identities of Chilean citizens using RUN (Unique National Role)
+slug: /identity/chile
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/cl/cedula
 ```
 
-Verificar RUN y retornar detalles clave de identidad.
+Verify RUN and return key identity details.
 
 ### Headers
 
@@ -23,14 +23,14 @@ Verificar RUN y retornar detalles clave de identidad.
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Parámetros
+### Parameters
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
 | `documentType` | string | Sí | Permitido: `RUN`. |
 | `documentNumber` | string | Sí | RUN sin espacios. |
 
-### Solicitud
+### Request
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -61,7 +61,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Respuesta
+### Response
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -94,7 +94,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Notas
+### Notes
 
 - Proporciona RUN sin espacios o separadores.
 

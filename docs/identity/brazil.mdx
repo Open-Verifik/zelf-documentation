@@ -1,8 +1,8 @@
 ---
 id: brazil
-title: Brasil
-description: Verificar identidades de ciudadanos brasileños usando CPF
-slug: /brasil
+title: Brazil
+description: Verify identities of Brazilian citizens using CPF
+slug: /identity/brazil
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/br/cedula
 ```
 
-Verificar CPF y retornar detalles clave de identidad.
+Verify CPF and return key identity details.
 
 ### Headers
 
@@ -23,7 +23,7 @@ Verificar CPF y retornar detalles clave de identidad.
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Parámetros
+### Parameters
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -31,7 +31,7 @@ Verificar CPF y retornar detalles clave de identidad.
 | `documentNumber` | string | Sí | Valor del CPF (con o sin separadores). |
 | `dateOfBirth` | string | Sí | `DD/MM/YYYY`. |
 
-### Solicitud
+### Request
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -62,7 +62,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Respuesta
+### Response
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -96,7 +96,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Notas
+### Notes
 
 - CPF debe ser válido; fecha de nacimiento requerida y debe coincidir.
 

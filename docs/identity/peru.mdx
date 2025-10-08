@@ -1,8 +1,8 @@
 ---
 id: peru
-title: Perú
-description: Verificar identidades de ciudadanos peruanos usando DNI
-slug: /peru
+title: Peru
+description: Verify identities of Peruvian citizens using DNI
+slug: /identity/peru
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/pe/cedula
 ```
 
-Verificar DNI y retornar detalles clave de identidad.
+Verify DNI and return key identity details.
 
 ### Headers
 
@@ -23,14 +23,14 @@ Verificar DNI y retornar detalles clave de identidad.
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Parámetros
+### Parameters
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
 | `documentType` | string | Sí | Permitido: `DNI`. |
 | `documentNumber` | string | Sí | Valor DNI. |
 
-### Solicitud
+### Request
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -61,7 +61,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Respuesta
+### Response
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -95,7 +95,7 @@ print(r.json())
   </TabItem>
 </Tabs>
 
-### Notas
+### Notes
 
 - Proporciona DNI sin separadores.
 

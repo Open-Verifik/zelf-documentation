@@ -1,8 +1,8 @@
 ---
 id: el-salvador
 title: El Salvador
-description: Consulta de información DUI de El Salvador (requiere fecha de nacimiento)
-slug: /el-salvador
+description: El Salvador DUI information query (requires birth date)
+slug: /identity/el-salvador
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/sv/dui
 ```
 
-Buscar detalles DUI por número de documento y fecha de nacimiento.
+Search DUI details by document number and birth date.
 
 ### Headers
 
@@ -23,14 +23,14 @@ Buscar detalles DUI por número de documento y fecha de nacimiento.
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Parámetros
+### Parameters
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
 | `documentNumber` | string | Sí | Número DUI sin espacios. |
 | `dateOfBirth` | string | Sí | `DD/MM/YYYY`. |
 
-### Solicitud
+### Request
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -104,7 +104,7 @@ func main() {
   </TabItem>
 </Tabs>
 
-### Respuesta
+### Response
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -154,7 +154,7 @@ func main() {
   </TabItem>
 </Tabs>
 
-### Notas
+### Notes
 
 - La fecha de nacimiento es obligatoria y debe estar en formato `DD/MM/YYYY`.
 

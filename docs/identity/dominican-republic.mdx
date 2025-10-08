@@ -1,8 +1,8 @@
 ---
 id: dominican-republic
-title: República Dominicana
-description: Verificar identidades dominicanas usando CIE
-slug: /republica-dominicana
+title: Dominican Republic
+description: Verify Dominican identities using CIE
+slug: /identity/dominican-republic
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 https://api.verifik.co/v2/do/cedula
 ```
 
-Verificar identificación dominicana por `documentType=CIE` y `documentNumber`.
+Verify Dominican identification by `documentType=CIE` and `documentNumber`.
 
 ### Headers
 
@@ -23,14 +23,14 @@ Verificar identificación dominicana por `documentType=CIE` y `documentNumber`.
 | Accept | `application/json` |
 | Authorization | `Bearer <token>` |
 
-### Parámetros
+### Parameters
 
 | Name | Type | Required | Description |
 | --- | --- | --- | --- |
 | `documentType` | string | Sí | Permitido: `CIE`. |
 | `documentNumber` | string | Sí | Número de documento. |
 
-### Solicitud
+### Request
 
 <Tabs>
   <TabItem value="node" label="Node.js">
@@ -104,7 +104,7 @@ func main() {
   </TabItem>
 </Tabs>
 
-### Respuesta
+### Response
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -167,7 +167,7 @@ func main() {
   </TabItem>
 </Tabs>
 
-### Notas
+### Notes
 
 - `documentType` debe ser `CIE`.
 
