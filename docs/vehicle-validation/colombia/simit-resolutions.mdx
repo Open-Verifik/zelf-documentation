@@ -1,0 +1,127 @@
+---
+id: vehicle-validation-colombia-simit-resolutions
+title: SIMIT - Resolutions
+description: SIMIT traffic violation resolutions service
+sidebar_label: SIMIT - Resolutions
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/simit/resoluciones
+```
+
+The SIMIT Resolutions Service provides access to detailed information about traffic violation resolutions for a specific person or company in Colombia. This service returns data including the name of the infractor, the resolution status, the date of the resolution, and the amount owed.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Document type. Valid parameters: `CC`, `PA`, `CE`, `TI`, `RC`. |
+| `documentNumber` | string | Yes | Document number to consult, without spaces or points. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/simit/resoluciones", {
+  params: { 
+    documentType: "CC", 
+    documentNumber: "123456789" 
+  },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/simit/resoluciones"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CC", "documentNumber": "123456789"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "resoluciones": [
+      {
+        "estadosResoluciones": "Pendiente de pago",
+        "fechaComparendo": "20190503",
+        "fechaResolucion": "20191001",
+        "nombresInfractores": "PEPE SALGADO",
+        "NúmeroComparendo": "99999999000000000936",
+        "resoluciones": "S709332197",
+        "secretarias": "Barrancabermeja",
+        "total": "146770.0"
+      }
+    ]
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "March 3, 2022 4:09 PM"}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentType. missing documentNumber"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- SIMIT Resolutions are official decisions regarding traffic violations.
+- "Pendiente de pago" status indicates the resolution is pending payment.
+- Resolution numbers are used to track specific administrative decisions.
+- Amounts are provided in Colombian Pesos (COP).
