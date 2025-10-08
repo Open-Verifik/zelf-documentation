@@ -1,67 +1,138 @@
 ---
 id: argentina
 title: Argentina
-description: Verificar identidades de ciudadanos argentinos usando DNI (Documento Nacional de Identidad)
-slug: /argentina
+description: El servicio de información de ciudadanos argentinos permite a los desarrolladores verificar la autenticidad de una tarjeta de identificación argentina (Documento Nacional de Identidad, o DNI) proporcionando el número de DNI. El servicio devuelve información como el nombre completo de la persona, el nombre y apellido por separado, y el número de DNI.
+slug: /identity/argentina
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-### Endpoint
+# Argentina
+
+## Endpoint
 
 ```
 https://api.verifik.co/v2/ar/cedula
 ```
 
-Verificar DNI argentino y recuperar campos de identidad principales.
+El servicio de información de ciudadanos argentinos permite a los desarrolladores verificar la autenticidad de una tarjeta de identificación argentina (Documento Nacional de Identidad, o DNI) proporcionando el número de DNI. El servicio devuelve información como el nombre completo de la persona, el nombre y apellido por separado, y el número de DNI.
+
+Esta información puede ser utilizada para una variedad de propósitos, como verificar la identidad de un cliente o validar la información proporcionada por un usuario.
 
 ### Headers
 
-| Name | Value |
-| --- | --- |
-| Accept | `application/json` |
-| Authorization | `Bearer <token>` |
+| Nombre        | Valor              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
 
 ### Parámetros
 
-| Name | Type | Required | Description |
-| --- | --- | --- | --- |
-| `documentType` | string | Sí | Permitido: `DNIAR`. |
-| `documentNumber` | string | Sí | DNI sin espacios/puntos. |
+| Parámetro        | Tipo   | Requerido | Descripción                                    |
+| ---------------- | ------ | -------- | ---------------------------------------------- |
+| `documentType`   | string | Sí       | Tipo de documento. Parámetro permitido: DNIAR. |
+| `documentNumber` | string | Sí       | Número de documento de la persona a consultar sin espacios. |
 
-### Solicitud
+### Request
 
 <Tabs>
-  <TabItem value="node" label="Node.js">
+  <TabItem value="javascript" label="JavaScript">
 
 ```javascript
-import axios from "axios";
+import axios from 'axios';
 
-const { data } = await axios.get("https://api.verifik.co/v2/ar/cedula", {
-  params: { documentType: "DNIAR", documentNumber: "123456789" },
-  headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
-});
-console.log(data);
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/ar/cedula',
+  params: {documentType: 'DNIAR', documentNumber: '123456789'},
+  headers: {
+    Accept: 'application/json',
+    Authorization: 'jwt <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
 ```
 
   </TabItem>
   <TabItem value="python" label="Python">
 
 ```python
-import os, requests
+import http.client
 
-url = "https://api.verifik.co/v2/ar/cedula"
-headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "DNIAR", "documentNumber": "123456789"}
-r = requests.get(url, headers=headers, params=params)
-print(r.json())
+conn = http.client.HTTPSConnection("api.verifik.co")
+
+headers = {
+    'Accept': "application/json",
+    'Authorization': "JWT token"
+}
+
+conn.request("GET", "/v2/ar/cedula?documentType=DNIAR&documentNumber=123456789", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('GET', 'https://api.verifik.co/v2/ar/cedula?documentType=DNIAR&documentNumber=123456789', [
+  'headers' => [
+    'Accept' => 'application/json',
+    'Authorization' => 'JWT token',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+import Foundation
+
+let headers = [
+  "Accept": "application/json",
+  "Authorization": "JWT token"
+]
+
+let request = NSMutableURLRequest(url: NSURL(string: "https://api.verifik.co/v2/ar/cedula?documentType=DNIAR&documentNumber=123456789")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "GET"
+request.allHTTPHeaderFields = headers
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error as Any)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
 ```
 
   </TabItem>
 </Tabs>
 
-### Respuesta
+### Response
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -69,15 +140,20 @@ print(r.json())
 ```json
 {
   "data": {
-    "documentType": "DNIAR",
+    "documentType": "CCAR",
     "documentNumber": "123456789",
-    "firstName": "Juan",
-    "lastName": "Pérez",
-    "fullName": "Juan Pérez",
-    "status": "valid"
+    "fullName": "MATEO VERIFIK",
+    "firstName": "MATEO",
+    "lastName": "VERIFIK",
+    "arrayName": [
+      "MATEO",
+      "VERIFIK"
+    ]
   },
-  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "AR001"
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
+  }
 }
 ```
 
@@ -86,15 +162,42 @@ print(r.json())
 
 ```json
 {
-  "message": "Document not found",
-  "code": "DOCUMENT_NOT_FOUND"
+  "code": "NotFound",
+  "message": "Record not found.",
+    "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+    }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "missing documentType\n. missing documentNumber\n"
+}
+```
+
+  </TabItem>
+  <TabItem value="409-2" label="409 (Tipo Inválido)">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "documentType must be one of: [DNIAR]"
 }
 ```
 
   </TabItem>
 </Tabs>
 
-### Notas
+### Características
 
-- Usa `DNIAR` como `documentType` para consultas de DNI argentino.
-
+-   **Verificación de DNI**: Verificar la autenticidad de los Documentos Nacionales de Identidad argentinos
+-   **Datos de Identidad Completos**: Devuelve nombre completo, nombre, apellido y número de documento
+-   **Respuesta Estructurada**: Formato de datos organizado para fácil integración
+-   **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+-   **Manejo de Errores**: Respuestas de error completas para varios escenarios
