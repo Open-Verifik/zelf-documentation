@@ -2,7 +2,7 @@
 id: united-states
 title: Estados Unidos
 description: Servicios de validación de identidad de Estados Unidos
-slug: /estados-unidos
+slug: /identidad/estados-unidos
 ---
 
 # Estados Unidos

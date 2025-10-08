@@ -188,6 +188,11 @@ const sidebars = {
 					id: "identity/venezuela",
 					label: "🇻🇪 Venezuela",
 				},
+				{
+					type: "doc",
+					id: "identity/venezuela-foreigner-id",
+					label: "🇻🇪 Venezuela - Foreigner ID",
+				},
 			],
 		},
 		{

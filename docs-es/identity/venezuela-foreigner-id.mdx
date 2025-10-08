@@ -1,0 +1,194 @@
+---
+id: venezuela-foreigner-id
+title: 🇻🇪 Venezuela - Cédula de Extranjero
+description: Verificar la identidad de individuos extranjeros en Venezuela usando su número de documento
+slug: /identidad/venezuela-cedula-extranjero
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇻🇪 Venezuela - Cédula de Extranjero
+
+## Endpoint
+
+```
+https://api.verifik.co/v2/ve/foreigner-id
+```
+
+El Servicio de Consulta de Extranjeros en Venezuela te permite verificar la identidad de individuos extranjeros en el país. Simplemente proporciona el número de documento para recibir información relevante. La respuesta incluye detalles como el nombre completo del individuo, sus nombres y apellidos por separado, y el tipo de documento.
+
+Este servicio es ideal para empresas y organizaciones que necesitan confirmar de manera confiable la identidad de clientes, empleados o socios extranjeros.
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parameters
+
+| Name           | Type    | Required | Description                                    |
+| -------------- | ------- | -------- | ---------------------------------------------- |
+| `documentNumber` | string | Yes      | Número de documento de la persona a consultar. |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/ve/foreigner-id',
+  params: { documentNumber: '123456789'},
+  headers: {
+    Accept: 'application/json',
+    Authorization: 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+
+headers = {
+    'Accept': "application/json",
+    'Authorization': "Bearer <tu_token>"
+}
+
+conn.request("GET", "/v2/ve/foreigner-id?documentNumber=123456789", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('GET', 'https://api.verifik.co/v2/ve/foreigner-id?documentNumber=123456789', [
+  'headers' => [
+    'Accept' => 'application/json',
+    'Authorization' => 'Bearer <tu_token>',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+import Foundation
+
+let headers = [
+  "Accept": "application/json",
+  "Authorization": "Bearer <tu_token>"
+]
+
+let request = NSMutableURLRequest(url: NSURL(string: "https://api.verifik.co/v2/ve/foreigner-id?documentNumber=123456789")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "GET"
+request.allHTTPHeaderFields = headers
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error as Any)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "documentType": "CEVE",
+    "documentNumber": "123456789",
+    "fullName": "MATEO VENEZUELA VERIFIK",
+    "lastName": "MATEO",
+    "firstName": "VENEZUELA VERIFIK",
+    "arrayName": [
+      "MATEO",
+      "VENEZUELA",
+      "VERIFIK"
+    ]
+  },
+  "signature": {
+    "dateTime": "March 13, 2024 2:01 AM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "7VWXP"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentNumber"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Features
+
+-   **Verificación de Cédula de Extranjero**: Verificar la identidad de individuos extranjeros en Venezuela
+-   **Datos de Identidad Completos**: Retorna nombre completo, nombres y apellidos, y detalles del documento
+-   **Respuesta Estructurada**: Formato de datos organizado para fácil integración
+-   **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+-   **Manejo de Errores**: Respuestas de error comprensivas para varios escenarios
