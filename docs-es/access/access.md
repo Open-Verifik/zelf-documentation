@@ -27,7 +27,7 @@ Empecemos diciendo que el camino **óptimo** es: Configurar todo en nuestra [apl
       </div>
       <div className="card__body">
         <p>Comienza creando un nuevo proyecto en la plataforma Verifik para organizar tus flujos de autenticación.</p>
-        <a href="/docs/resources/projects/create-a-project" className="button button--primary">Crear Proyecto</a>
+        <a href="#" className="button button--primary">Crear Proyecto</a>
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@ Empecemos diciendo que el camino **óptimo** es: Configurar todo en nuestra [apl
       </div>
       <div className="card__body">
         <p>Define el flujo de autenticación con type = "login" para tu proyecto.</p>
-        <a href="/docs/resources/project-flows/create-a-project-flow" className="button button--primary">Crear Flujo</a>
+        <a href="#" className="button button--primary">Crear Flujo</a>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@ Empecemos diciendo que el camino **óptimo** es: Configurar todo en nuestra [apl
       </div>
       <div className="card__body">
         <p>Configura los métodos de autenticación que quieres soportar.</p>
-        <a href="/docs/resources/project-flows/create-a-project-flow/smart-access-project-flow" className="button button--primary">Configurar Métodos</a>
+        <a href="#" className="button button--primary">Configurar Métodos</a>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ Empecemos diciendo que el camino **óptimo** es: Configurar todo en nuestra [apl
       </div>
       <div className="card__body">
         <p>Conecta tu base de datos de usuarios existente al sistema de autenticación.</p>
-        <a href="/docs/resources/project-flows/create-a-project-flow/security-settings" className="button button--primary">Conectar BD</a>
+        <a href="#" className="button button--primary">Conectar BD</a>
       </div>
     </div>
   </div>
@@ -77,7 +77,7 @@ Empecemos diciendo que el camino **óptimo** es: Configurar todo en nuestra [apl
       </div>
       <div className="card__body">
         <p>Configura webhooks para recibir notificaciones en tiempo real para eventos de autenticación.</p>
-        <a href="/docs/resources/webhooks/webhook-integration" className="button button--primary">Configurar Webhooks</a>
+        <a href="#" className="button button--primary">Configurar Webhooks</a>
       </div>
     </div>
   </div>
@@ -147,8 +147,8 @@ https://api.verifik.co/v2/access
 
 Si no has creado un proyecto y un projectFlow con la propiedad type = **login**, entonces aquí están los enlaces para eso:
 
-- [Crear un Proyecto](/docs/resources/projects/create-a-project)
-- [Crear un Flujo de Proyecto](/docs/resources/project-flows/create-a-project-flow)
+- [Crear un Proyecto](#)
+- [Crear un Flujo de Proyecto](#)
 
 ### Empecemos
 
@@ -197,8 +197,8 @@ Authorization: Bearer <your_jwt_token>
 
 ### Endpoints de API
 
-- [Crear una Validación de Correo](/docs/resources/email-validations/create-an-email-validation)
-- [Validar una Validación de Correo](/docs/resources/email-validations/validate-an-email-validation)
+- [Crear una Validación de Correo](#)
+- [Validar una Validación de Correo](#)
 
 ---
 
@@ -208,8 +208,8 @@ Authorization: Bearer <your_jwt_token>
 
 Si no has creado un proyecto y un projectFlow con la propiedad type = **login**, entonces aquí están los enlaces para eso:
 
-- [Crear un Proyecto](/docs/resources/projects/create-a-project)
-- [Crear un Flujo de Proyecto](/docs/resources/project-flows/create-a-project-flow)
+- [Crear un Proyecto](#)
+- [Crear un Flujo de Proyecto](#)
 
 ### Empecemos
 
@@ -271,8 +271,8 @@ Authorization: Bearer <your_jwt_token>
 
 ### Endpoints de API
 
-- [Crear una Validación de Teléfono de Registro de App](/docs/resources/phone-validations/create-an-app-registration-phone-validation)
-- [Validar una Validación de Teléfono](/docs/resources/phone-validations/validate-a-phone-validation)
+- [Crear una Validación de Teléfono de Registro de App](#)
+- [Validar una Validación de Teléfono](#)
 
 ---
 
@@ -282,8 +282,8 @@ Authorization: Bearer <your_jwt_token>
 
 Si no has creado un proyecto y un projectFlow con la propiedad type = **login**, entonces aquí están los enlaces para eso:
 
-- [Crear un Proyecto](/docs/resources/projects/create-a-project)
-- [Crear un Flujo de Proyecto](/docs/resources/project-flows/create-a-project-flow)
+- [Crear un Proyecto](#)
+- [Crear un Flujo de Proyecto](#)
 
 ### Empecemos
 
@@ -346,8 +346,8 @@ Authorization: Bearer <your_jwt_token>
 
 ### Endpoints de API
 
-- [Crear una Validación Biométrica](/docs/resources/biometric-validations/create-a-biometric-validation)
-- [Validar una Validación Biométrica de Inicio de Sesión de App](/docs/resources/biometric-validations/validate-an-app-login-biometric-validation)
+- [Crear una Validación Biométrica](#)
+- [Validar una Validación Biométrica de Inicio de Sesión de App](#)
 
 ---
 

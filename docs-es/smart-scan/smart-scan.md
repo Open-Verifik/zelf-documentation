@@ -426,5 +426,5 @@ Para soporte técnico y documentación de API, contacta a nuestro equipo de sopo
 ---
 
 :::tip Comenzando
-¿Listo para comenzar a usar Escaneo Inteligente? Revisa nuestra [documentación de API](/docs/api) y [guías de integración](/docs/integrations) para comenzar rápidamente.
+¿Listo para comenzar a usar Escaneo Inteligente? Revisa nuestra [documentación de API](#) y [guías de integración](#) para comenzar rápidamente.
 :::
