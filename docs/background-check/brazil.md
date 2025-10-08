@@ -2,7 +2,11 @@
 id: brazil
 title: Brazil
 description: Conduct background checks on Brazilian individuals using CPF
+slug: /background-check/brazil
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Brazil
 
@@ -14,6 +18,8 @@ https://api.verifik.co/v2/br/background-check
 
 The Brazil Background service provides detailed information about Brazilian individuals. When making a query, the response includes relevant data such as associated names, ability to issue reports, certification number, document number, document type, first name, full name, last name, and a base64-encoded PDF file.
 
+This information can be used for a variety of purposes, such as employment screening, due diligence, compliance verification, and fraud prevention.
+
 ### Headers
 
 | Name          | Value              |
@@ -21,15 +27,18 @@ The Brazil Background service provides detailed information about Brazilian indi
 | Content-Type  | `application/json` |
 | Authorization | `Bearer <token>`   |
 
-### Query Parameters
+### Parameters
 
-| Name           | Type   | Required? | Description                                    | Example      |
-| -------------- | ------ | --------- | ---------------------------------------------- | ------------ |
-| documentType   | String | True      | Document type. Valid parameter: CPF.          | `CPF`        |
-| documentNumber | String | True      | Document number of the person to consult.     | `123456789`  |
-| dateOfBirth    | String | True      | Date of birth of the person to consult, valid format: dd/mm/yyyy. | `20/05/2022` |
+| Name           | Type    | Required | Description                                    |
+| -------------- | ------- | -------- | ---------------------------------------------- |
+| `documentType` | string  | Yes      | Document type. Allowed parameter: CPF. |
+| `documentNumber` | string | Yes      | Document number of the person to consult. |
+| `dateOfBirth` | string | Yes      | Date of birth of the person to consult, valid format: dd/mm/yyyy. |
 
 ### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
 
 ```javascript
 import axios from 'axios';
@@ -56,11 +65,85 @@ try {
 }
 ```
 
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+
+headers = {
+    'Accept': "application/json",
+    'Authorization': "Bearer <your_token>"
+}
+
+conn.request("GET", "/v2/br/background-check?documentType=CPF&documentNumber=012.345.678-01&dateOfBirth=17/02/2002", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('GET', 'https://api.verifik.co/v2/br/background-check?documentType=CPF&documentNumber=012.345.678-01&dateOfBirth=17/02/2002', [
+  'headers' => [
+    'Accept' => 'application/json',
+    'Authorization' => 'Bearer <your_token>',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+import Foundation
+
+let headers = [
+  "Accept": "application/json",
+  "Authorization": "Bearer <your_token>"
+]
+
+let request = NSMutableURLRequest(url: NSURL(string: "https://api.verifik.co/v2/br/background-check?documentType=CPF&documentNumber=012.345.678-01&dateOfBirth=17/02/2002")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "GET"
+request.allHTTPHeaderFields = headers
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error as Any)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
+```
+
+  </TabItem>
+</Tabs>
+
 ### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
 
 ```json
 {
-  "success": true,
   "data": {
     "documentType": "CPF",
     "documentNumber": "012.345.678-01",
@@ -73,24 +156,55 @@ try {
     "associatedNames": ["João Silva Santos"],
     "pdfReport": "base64_encoded_pdf_content",
     "status": "clear"
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
   }
 }
 ```
 
-### Error Responses
+  </TabItem>
+  <TabItem value="404" label="404">
 
 ```json
 {
-  "success": false,
-  "error": "Person not found",
-  "code": "PERSON_NOT_FOUND"
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
 }
 ```
 
-## Use Cases
+  </TabItem>
+  <TabItem value="409" label="409">
 
-- **Employment Screening**: Verify candidate background for hiring
-- **Due Diligence**: Conduct background checks for business partnerships
-- **Compliance**: Meet regulatory requirements for KYC processes
-- **Security**: Verify individuals for access to sensitive areas
-- **Fraud Prevention**: Detect potential fraudulent activities
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentType\n. missing documentNumber\n. missing dateOfBirth\n"
+}
+```
+
+  </TabItem>
+  <TabItem value="409-2" label="409 (Invalid Type)">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "documentType must be one of: [CPF]"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Features
+
+-   **CPF Verification**: Verify the authenticity of Brazilian CPF documents
+-   **Complete Background Data**: Returns full name, document details, certification number, and PDF report
+-   **Structured Response**: Organized data format for easy integration
+-   **Multiple Programming Languages**: Support for JavaScript, Python, PHP, and Swift
+-   **Error Handling**: Comprehensive error responses for various scenarios
