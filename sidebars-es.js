@@ -110,6 +110,165 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "VALIDACIÓN DE VEHÍCULOS",
+			collapsible: false,
+			items: [
+				{
+					type: "doc",
+					id: "validacion-vehiculos/argentina",
+					label: "🇦🇷 Argentina",
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/bolivia",
+					label: "🇧🇴 Bolivia",
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/brazil",
+					label: "🇧🇷 Brasil",
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/chile",
+					label: "🇨🇱 Chile",
+				},
+				{
+					type: "category",
+					label: "🇨🇴 Colombia",
+					collapsible: true,
+					items: [
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia",
+							label: "Resumen",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/impuestos-bogota",
+							label: "Impuestos en Bogotá",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/multas-vehiculos-bogota",
+							label: "Verificación de Multas de Vehículos",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/accidentalidad-vehiculos-bogota",
+							label: "Accidentalidad de Vehículos",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/pico-y-placa-bogota",
+							label: "Pico y Placa",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/valores-vehiculos-por-placa-fasecolda",
+							label: "Valores de Vehículos por Placa",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/vehiculo-por-codigo-fasecolda",
+							label: "Vehículo por Código",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/verificacion-siniestros-fasecolda",
+							label: "Verificación de Siniestros",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/licencia-conducir-runt",
+							label: "Licencia de Conducir",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/registros-vehiculos-por-placa-runt",
+							label: "Registros de Vehículos por Placa",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/registros-vehiculos-por-placa-simplificado-runt",
+							label: "Registros de Vehículos por Placa (Simplificado)",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/registros-vehiculos-por-vin-runt",
+							label: "Registros de Vehículos por VIN",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/soat-rtm-vehiculo-runt",
+							label: "SOAT y RTM del Vehículo",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/multas-simit",
+							label: "SIMIT - Multas",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/acuerdos-simit",
+							label: "SIMIT - Acuerdos",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/resoluciones-simit",
+							label: "SIMIT - Resoluciones",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/consulta-general-por-documento-simit",
+							label: "Consulta General por Documento",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/consulta-general-por-placa-simit",
+							label: "Consulta General por Placa",
+						},
+						{
+							type: "doc",
+							id: "validacion-vehiculos/colombia/registros-entrenamiento-sisconmp",
+							label: "Registros de Entrenamiento SISCONMP",
+						},
+					],
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/costa-rica",
+					label: "🇨🇷 Costa Rica",
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/ecuador",
+					label: "🇪🇨 Ecuador",
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/mexico",
+					label: "🇲🇽 México",
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/paraguay",
+					label: "🇵🇾 Paraguay",
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/peru",
+					label: "🇵🇪 Perú",
+				},
+				{
+					type: "doc",
+					id: "validacion-vehiculos/estados-unidos",
+					label: "🇺🇸 Estados Unidos",
+				},
+			],
+		},
+		{
+			type: "category",
 			label: "VERIFIK LLC",
 			collapsible: false,
 			items: [

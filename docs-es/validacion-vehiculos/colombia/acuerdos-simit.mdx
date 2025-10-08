@@ -1,0 +1,129 @@
+---
+id: acuerdos-simit
+title: SIMIT - Acuerdos
+description: Servicio de acuerdos de pago SIMIT para violaciones de tráfico
+sidebar_label: SIMIT - Acuerdos
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/simit/acuerdos
+```
+
+El Servicio de Acuerdos SIMIT proporciona un método eficiente para recuperar acuerdos de pago relacionados con violaciones de tráfico en el sistema SIMIT de Colombia. Al consultar el servicio con detalles relevantes, los usuarios pueden obtener información completa sobre acuerdos de pago incluyendo detalles del infractor, números de resolución y montos adeudados.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parámetros
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `documentType` | string | Yes | Tipo de documento. Parámetros válidos: `CC`, `PA`, `CE`, `TI`, `RC`. |
+| `documentNumber` | string | Yes | Número de documento a consultar, sin espacios ni puntos. |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/simit/acuerdos", {
+  params: { 
+    documentType: "CC", 
+    documentNumber: "123456789" 
+  },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/simit/acuerdos"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CC", "documentNumber": "123456789"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "acuerdosPagos": [
+      {
+        "estadosResoluciones": "Acuerdo de pago",
+        "fechaComparendo": "1900/01/01",
+        "fechaResolucion": "2018/07/05",
+        "noComparendo": "NO REPORTADO",
+        "nombresInfractores": "PEPE SALGADO",
+        "permitePago": "N",
+        "resoluciones": "0003030",
+        "secretarias": "Barrancabermeja",
+        "total": "558864.0"
+      }
+    ]
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "March 3, 2022 12:11 PM"}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentType. missing documentNumber"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notas
+
+- Los Acuerdos SIMIT permiten a los infractores pagar multas de tráfico en cuotas.
+- El estado "Acuerdo de pago" indica un acuerdo de pago activo.
+- `permitePago: "N"` significa que el pago no está actualmente permitido.
+- Los montos se proporcionan en Pesos Colombianos (COP).
+- Los números de resolución se usan para rastrear acuerdos específicos.

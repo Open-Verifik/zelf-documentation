@@ -1,0 +1,166 @@
+---
+id: registros-vehiculos-por-vin-runt
+title: Registros de Vehículos por VIN
+description: Servicio de información de vehículos RUNT por VIN
+sidebar_label: RUNT - Registros de Vehículos por VIN
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/runt/vehicle-by-vin
+```
+
+El servicio de Información de Vehículos te permite recuperar información detallada sobre un vehículo registrado en Colombia usando su VIN (Número de Identificación del Vehículo). Este servicio proporciona datos completos incluyendo el estado del vehículo, tipo de servicio, clase, marca, modelo, color y especificaciones técnicas como peso y capacidad de asientos.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parámetros
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `vin` | string | Yes | VIN del vehículo del que quieres verificar datos. |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/runt/vehicle-by-vin", {
+  params: { vin: "3MVDM2WLAML234946" },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/runt/vehicle-by-vin"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"vin": "3MVDM2WLAML234946"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "informacionGeneral": {
+      "noLicenciaTransito": "10021312347",
+      "estadoDelVehiculo": "ACTIVO",
+      "tipoServicio": "Particular",
+      "claseVehiculo": "CAMIONETA",
+      "marca": "MAZDA",
+      "linea": "CX-30",
+      "modelo": "2021",
+      "color": "MACHINE GRAY",
+      "noMotor": "PY402912330",
+      "noChasis": "3MVDM2WLAML234946",
+      "noVin": "3MVDM2WLAML234946",
+      "cilidraje": "2488",
+      "tipoCarroceria": "WAGON",
+      "fechaMatricula": "17/10/2020",
+      "tieneGravamenes": "NO",
+      "organismoTransito": "SECRETARIA DISTRITAL DE MOVILIDAD DE BOGOTA",
+      "prendas": "NO",
+      "clasificacion": "AUTOMOVIL",
+      "tipoCombustible": "GASOLINA",
+      "noPlaca": "ABC123",
+      "puertas": "5"
+    },
+    "datosTecnicos": {
+      "pesoBrutoVehicular": "1939",
+      "noEjes": "2",
+      "pasajerosSentados": "5"
+    },
+    "soat": [
+      {
+        "noPoliza": "355100023467200",
+        "fechaExpedicion": "03/10/2023",
+        "fechaVigencia": "17/10/2023",
+        "fechaVencimiento": "16/10/2024",
+        "entidadExpideSoat": "SEGUROS COMERCIALES BOLIVAR S.A",
+        "estado": "VIGENTE",
+        "tipoTarifa": "221"
+      }
+    ],
+    "polizasResponsabilidadCivil": [],
+    "tecnoMecanica": [
+      {
+        "vigente": "NO APLICA"
+      }
+    ],
+    "solicitudes": [
+      {
+        "noSolicitud": "124539870",
+        "fechaSolicitud": "17/10/2020",
+        "estado": "AUTORIZADA",
+        "tramitesRealizados": "Tramite matricula inicial",
+        "entidad": "SECRETARIA DISTRITAL DE MOVILIDAD DE BOGOTA"
+      }
+    ]
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "March 14, 2024 2:23 PM"},
+  "id": "DWTV2"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing vin"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notas
+
+- VIN (Número de Identificación del Vehículo) es un identificador único de 17 caracteres para vehículos.
+- Este servicio proporciona la misma información completa que el servicio basado en placa.
+- El estado del vehículo "ACTIVO" significa que el vehículo está actualmente registrado y operativo.
+- La información del seguro SOAT se incluye cuando está disponible.

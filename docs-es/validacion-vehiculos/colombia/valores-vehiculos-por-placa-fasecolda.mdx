@@ -1,0 +1,177 @@
+---
+id: valores-vehiculos-por-placa-fasecolda
+title: Valores de Vehículos por Placa
+description: Servicio de valores de vehículos Fasecolda
+sidebar_label: Fasecolda - Valores de Vehículos por Placa
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/fasecolda/values-by-plate
+```
+
+El servicio de Consulta de Valores de Vehículos Fasecolda proporciona información completa sobre vehículos registrados en Colombia. Puedes acceder a datos detallados incluyendo clase de vehículo, marca, modelo, año, valor estimado, capacidad de carga, tipo de combustible y otros atributos clave.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parámetros
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `plate` | string | Yes | Placa a consultar sin espacios ni puntos. |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/fasecolda/values-by-plate", {
+  params: { plate: "ABC123" },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/fasecolda/values-by-plate"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"plate": "ABC123"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "absShow": "NO",
+    "airbags": "0",
+    "airconditioningShow": "SI",
+    "axles": "2",
+    "bcpp": "64200",
+    "brakes": "DISCO/TAMBOR",
+    "capacityLoad": "0",
+    "capacityPassengers": "5",
+    "category": "LIVIANO PASAJEROS",
+    "class": "AUTOMOVIL",
+    "country": "COL",
+    "cylinderCapacity": "1598",
+    "doors": "5",
+    "electricChairs": "0",
+    "electricGlasses": "0",
+    "electricMirrors": "0",
+    "explorersShow": "NO",
+    "foodSystem": "NO APLICA",
+    "fuel": "GASOLINA",
+    "groupUpdate": "1",
+    "homoloCode": "08001151",
+    "importedShow": "NO",
+    "line1": "SANDERO [FL]",
+    "line2": "AUTHENTIQUE",
+    "line3": "MT 1600CC 8V AA",
+    "long": "4057",
+    "marke": "RENAULT",
+    "novelty": "A",
+    "observation": "",
+    "plate": "ABC123",
+    "power": "90",
+    "rearSuspension": "NO APLICA",
+    "reverseCameraShow": "NO",
+    "segmentCylinder": "L",
+    "segmentSize": "B",
+    "sensorsShow": "NO",
+    "service": "PARTICULAR",
+    "sunroofShow": "NO",
+    "tachometer": "NO APLICA",
+    "traction": "DELANTERA",
+    "transmission": "4X2",
+    "typeAddress": "HIDRÁULICA",
+    "typeAirConditioning": "MANUAL",
+    "typeBox": "MECANICA",
+    "typeHeadlights": "HALOGENO",
+    "typology": "HATCHBACK",
+    "upholsteryLeatherShow": "NO",
+    "valueModel": [
+      {
+        "modelo": "2016",
+        "valor": 34500,
+        "estado": "USADO",
+        "modeloId": 47,
+        "idEstado": 1
+      },
+      {
+        "modelo": "2015",
+        "valor": 32800,
+        "estado": "USADO",
+        "modeloId": 46,
+        "idEstado": 1
+      }
+    ],
+    "weight": "1108"
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "October 12, 2023 7:38 PM"},
+  "id": "mhlt7"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing plate"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notas
+
+- Fasecolda es el sistema oficial de valoración de vehículos de Colombia.
+- El array `valueModel` contiene valores históricos para diferentes años de modelo.
+- Los valores se proporcionan en Pesos Colombianos (COP).
+- El campo `bcpp` contiene el precio comercial base del vehículo.
+- `estado: "USADO"` indica valores de vehículos usados.

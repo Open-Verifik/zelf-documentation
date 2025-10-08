@@ -1,0 +1,130 @@
+---
+id: verificacion-siniestros-fasecolda
+title: Verificación de Siniestros
+description: Servicio de verificación de historial de accidentes Fasecolda
+sidebar_label: Fasecolda - Verificación de Siniestros
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/co/fasecolda/sinister
+```
+
+El servicio de Verificación de Siniestros Fasecolda proporciona una plataforma digital detallada para verificar el historial de reclamos de seguros de vehículos en Colombia. Al ingresar la placa de matrícula de un vehículo, puedes acceder a información completa sobre cualquier reclamo de seguro registrado asociado con ese vehículo.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parámetros
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `plate` | string | Yes | Placa del vehículo a consultar, sin espacios ni puntos. |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/fasecolda/sinister", {
+  params: { plate: "ABC123" },
+  headers: { 
+    Accept: "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/fasecolda/sinister"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"plate": "ABC123"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "plate": "KDK605",
+    "sinister": [
+      {
+        "id": "1",
+        "accidentDate": "20/01/2015",
+        "protection": "Pérdida Menor Cuantía"
+      },
+      {
+        "id": "2",
+        "accidentDate": "17/08/2012",
+        "protection": "Pérdida Menor Cuantía"
+      },
+      {
+        "id": "3",
+        "accidentDate": "16/01/2017",
+        "protection": "Pérdida Menor Cuantía"
+      }
+    ]
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "February 9, 2024 7:43 PM"},
+  "id": "PFDB2"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2022 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing plate"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notas
+
+- "Siniestro" se refiere a reclamos de seguros o accidentes en la terminología de seguros colombiana.
+- "Pérdida Menor Cuantía" indica reclamos de pérdida menor.
+- Este servicio es esencial para evaluar el historial de seguros de un vehículo y riesgos potenciales.
+- Cada registro de reclamo incluye un ID único, fecha de accidente y tipo de protección.
