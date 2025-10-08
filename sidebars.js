@@ -76,7 +76,7 @@ const sidebars = {
 			type: "category",
 			label: "SCAN DOCS API'S",
 			collapsible: false,
-			items: ["scandocs/scan-studio", "scandocs/scan-prompt"],
+			items: ["ocr-engines/scan-studio", "ocr-engines/scan-prompt"],
 		},
 		{
 			type: "category",

@@ -1,0 +1,137 @@
+---
+id: scan-studio
+title: Scan Studio
+description: OCR API with trained models for high accuracy text extraction
+slug: /ocr-engines/scan-studio
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+https://api.verifik.co/v2/ocr/scan-studio
+```
+
+Scan Studio is our advanced OCR API that uses trained models to achieve high accuracy text extraction from various document types. This service provides specialized OCR capabilities with pre-trained models for specific document types, ensuring high accuracy and reliable text extraction.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `image` | string | Yes | Image in Base64 encoded format or a URL where the image is hosted. |
+| `model` | string | Yes | Trained model to use for extraction. |
+| `cropFace` | boolean | No | If you want to crop the face out of the document, pass this as `true`. |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.post("https://api.verifik.co/v2/ocr/scan-studio", {
+  image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...",
+  model: "id_documents",
+  cropFace: true
+}, {
+  headers: { 
+    "Content-Type": "application/json", 
+    Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` 
+  },
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/ocr/scan-studio"
+headers = {"Content-Type": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+payload = {
+    "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...",
+    "model": "id_documents",
+    "cropFace": True
+}
+r = requests.post(url, json=payload, headers=headers)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "id": "studio001",
+  "data": {
+    "extractedText": "Complete extracted text content",
+    "confidence": 0.95,
+    "fields": {
+      "fullName": "Juan Miguel Rodríguez López",
+      "lastName": "Rodríguez López",
+      "firstName": "Juan Miguel",
+      "documentNumber": "12345678",
+      "dateOfBirth": "1990-01-15",
+      "documentType": "DNI"
+    },
+    "model": "id_documents",
+    "processingTime": "2.3s"
+  },
+  "signature": {
+    "message": "Certified by Verifik.co",
+    "dateTime": "January 16, 2024 3:44 PM"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "message": "Model not found",
+  "code": "MODEL_NOT_FOUND"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Available Models
+
+- **`id_documents`**: Government-issued identification cards
+- **`drivers_licenses`**: Various country driver's licenses
+- **`passports`**: International passport documents
+- **`business_documents`**: Invoices, contracts, and business forms
+- **`custom`**: Custom trained models available upon request
+
+### Features
+
+- **High Accuracy**: Trained models provide superior accuracy (95%+)
+- **Structured Data**: Returns organized field data
+- **Multiple Languages**: Support for various languages
+- **Fast Processing**: Optimized models for quick extraction
+- **Custom Models**: Available upon request for specific use cases
+
+### Notes
+
+- Use Base64 encoded images or direct URLs for the `image` parameter.
+- Specify the appropriate `model` for best results.
+- The `cropFace` parameter helps improve accuracy by focusing on document content.

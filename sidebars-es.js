@@ -69,7 +69,7 @@ const sidebars = {
 			type: "category",
 			label: "SCAN DOCS API'S",
 			collapsible: false,
-			items: ["scandocs/escaneo-estudio", "scandocs/escaneo-prompt"],
+			items: ["ocr-engines/escaneo-estudio", "ocr-engines/escaneo-prompt"],
 		},
 		{
 			type: "category",
