@@ -388,7 +388,6 @@ const sidebars = {
 					label: "Proyectos",
 					collapsible: true,
 					items: [
-						"resources/proyectos",
 						"resources/crear-un-proyecto",
 						"resources/listar-todos-los-proyectos",
 						"resources/recuperar-un-proyecto",
@@ -401,7 +400,6 @@ const sidebars = {
 					label: "Flujos de Proyecto",
 					collapsible: true,
 					items: [
-						"resources/flujos-de-proyecto",
 						"resources/crear-un-flujo-de-proyecto",
 						"resources/listar-todos-los-flujos-de-proyecto",
 						"resources/recuperar-un-flujo-de-proyecto",
