@@ -409,6 +409,19 @@ const sidebars = {
 				},
 				{
 					type: "category",
+					label: "Validaciones de Email",
+					collapsible: true,
+					items: [
+						"resources/validaciones-de-email",
+						"resources/crear-una-validacion-de-email",
+						"resources/listar-todas-las-validaciones-de-email",
+						"resources/recuperar-una-validacion-de-email",
+						"resources/validar-una-validacion-de-email",
+						"resources/el-objeto-validacion-de-email",
+					],
+				},
+				{
+					type: "category",
 					label: "Inicios de Sesión de Aplicación",
 					collapsible: true,
 					items: [
