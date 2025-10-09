@@ -1,0 +1,198 @@
+---
+id: estados-unidos
+title: 🇺🇸 Estados Unidos - Información de Vehículos
+description: Servicio de validación de vehículos estadounidenses para recuperar información vehicular usando placa de matrícula y estado
+slug: /validacion-vehiculos/estados-unidos
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇺🇸 Estados Unidos - Información de Vehículos
+
+Este servicio te permite recuperar información detallada sobre un vehículo en Estados Unidos usando su placa de matrícula y estado. La respuesta incluye varios puntos de datos como marca, modelo, año del modelo, configuración del motor, clase del cuerpo, estilo de transmisión y más.
+
+## Endpoint
+
+```
+GET https://api.verifik.co/v2/usa/vehicle
+```
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parámetros
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `plate` | string | **Sí** | Placa de matrícula a consultar, sin espacios ni puntos. | `ABC123` |
+| `state` | string | **Sí** | Abreviación del estado donde está registrado el vehículo. | `AL` |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/usa/vehicle',
+  params: {
+    plate: 'ABC123',
+    state: 'AL'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/usa/vehicle?plate=ABC123&state=AL", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/usa/vehicle?plate=ABC123&state=AL');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/usa/vehicle?plate=ABC123&state=AL")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "plate": "ABC123",
+    "state": "AL",
+    "make": "Ford",
+    "model": "F-150",
+    "year": "2020",
+    "engine": "3.5L V6",
+    "transmission": "Automatic",
+    "fuelType": "Gasoline",
+    "vin": "1FTFW1ET5LFA12345",
+    "bodyClass": "Pickup",
+    "registrationDate": "15/03/2020",
+    "status": "active",
+    "owner": "John Smith",
+    "city": "Birmingham"
+  },
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "ZX35K"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Vehicle not found",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing plate or state\n"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Características
+
+- **Recuperación de Información de Vehículos**: Obtener detalles completos de vehículos del registro vehicular estadounidense
+- **Validación de Placa de Matrícula**: Verificar placas de matrícula de vehículos registradas en estados de EE.UU.
+- **Consulta Específica por Estado**: Consultar vehículos por abreviación de estado para resultados precisos
+- **Especificaciones Técnicas**: Obtener configuración del motor, transmisión, tipo de combustible y VIN
+- **Clasificación de Vehículos**: Acceder a clase del cuerpo e información del tipo de vehículo
+- **Detalles de Registro**: Recuperar fecha de registro, estado e información del propietario
+- **Información de Ubicación**: Obtener detalles de ciudad y estado de registro
+- **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+- **Datos en Tiempo Real**: Acceder a información vehicular actual y actualizada
+- **Manejo Completo de Errores**: Respuestas de error detalladas para varios escenarios
+- **Integración con Registro Estadounidense**: Acceso directo a bases de datos oficiales de vehículos de EE.UU.
