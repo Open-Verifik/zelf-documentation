@@ -385,6 +385,19 @@ const sidebars = {
 			items: [
 				{
 					type: "category",
+					label: "Proyectos",
+					collapsible: true,
+					items: [
+						"resources/proyectos",
+						"resources/crear-un-proyecto",
+						"resources/listar-todos-los-proyectos",
+						"resources/recuperar-un-proyecto",
+						"resources/actualizar-un-proyecto",
+						"resources/el-objeto-proyecto",
+					],
+				},
+				{
+					type: "category",
 					label: "Inicios de Sesión de Aplicación",
 					collapsible: true,
 					items: [
