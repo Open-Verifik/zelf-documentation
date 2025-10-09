@@ -170,6 +170,11 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "identity/peru-foreigner-id",
+					label: "🇵🇪 Peru - Foreigner ID",
+				},
+				{
+					type: "doc",
 					id: "identity/spain-citizen",
 					label: "🇪🇸 Spain Citizen",
 				},
