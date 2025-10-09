@@ -2,7 +2,7 @@
 id: el-objeto-proyecto
 title: El Objeto Proyecto
 description: El objeto Proyecto representa proyectos dentro de tu cuenta Verifik
-slug: /doc-es/recursos/el-objeto-proyecto
+slug: /recursos/el-objeto-proyecto
 ---
 
 import Tabs from '@theme/Tabs';
