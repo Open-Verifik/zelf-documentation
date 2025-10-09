@@ -125,6 +125,11 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "identity/colombia-pep-id",
+					label: "🇨🇴 Colombia - PEP ID",
+				},
+				{
+					type: "doc",
 					id: "identity/costa-rica",
 					label: "🇨🇷 Costa Rica",
 				},
