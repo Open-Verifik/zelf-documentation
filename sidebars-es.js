@@ -433,19 +433,26 @@ const sidebars = {
 				},
 				{
 					type: "category",
+					label: "Validación de Vivacidad de Documentos",
+					collapsible: true,
+					items: [
+						"resources/el-objeto-validacion-de-vivacidad-de-documento",
+						"resources/crear-una-validacion-de-vivacidad-de-documento",
+						"resources/listar-todas-las-validaciones-de-vivacidad-de-documentos",
+						"resources/recuperar-una-validacion-de-vivacidad-de-documento",
+					],
+				},
+				{
+					type: "category",
 					label: "Validaciones de Documentos",
 					collapsible: true,
 					items: [
 						"resources/validaciones-de-documentos",
-						"resources/crear-una-validacion-de-vivacidad-de-documento",
+						"resources/el-objeto-validacion-de-documento",
 						"resources/listar-todas-las-validaciones-de-documentos",
-						"resources/listar-todas-las-validaciones-de-vivacidad-de-documentos",
 						"resources/recuperar-una-validacion-de-documento",
-						"resources/recuperar-una-validacion-de-vivacidad-de-documento",
 						"resources/eliminar-una-validacion-de-documento",
 						"resources/actualizar-una-validacion-de-documento",
-						"resources/el-objeto-validacion-de-documento",
-						"resources/el-objeto-validacion-de-vivacidad-de-documento",
 					],
 				},
 				{
