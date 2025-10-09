@@ -1,19 +1,333 @@
 ---
 id: canada
-title: Canadá
-description: Servicios de validación de identidad canadiense (licencias de conducir)
+title: 🇨🇦 Canadá - Validación de Licencias de Conducir
+description: Servicios de validación de identidad canadiense para licencias de conducir de Columbia Británica y Ontario
 slug: /identidad/canada
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇨🇦 Canadá - Validación de Licencias de Conducir
+
+Los servicios de validación de identidad canadiense incluyen verificación de licencias de conducir para las provincias de Columbia Británica y Ontario. Estos servicios te permiten verificar la autenticidad y validez de las licencias de conducir emitidas en estas provincias canadienses.
+
+## Provincias Soportadas
+
+| Provincia | Endpoint | Descripción |
+|----------|----------|-------------|
+| **Columbia Británica** | `/v2/ca/british-columbia/driver-license` | Verificar licencias de conducir de BC con número de documento y apellido |
+| **Ontario** | `/v2/ca/ontario/driver-license` | Verificar licencias de conducir de Ontario con número de documento |
+
+## Licencia de Conducir de Columbia Británica
 
 ### Endpoint
 
 ```
-Ver sección de Validación de Conductor para endpoints específicos por provincia
+GET https://api.verifik.co/v2/ca/british-columbia/driver-license
 ```
 
-Los servicios de validación de identidad canadiense incluyen verificación de licencias de conducir para Columbia Británica y Ontario.
+El servicio de Verificación de Licencia de Conducir de Columbia Británica ofrece un método directo para verificar la autenticidad y validez de una licencia de conducir en la provincia de Columbia Británica, Canadá. Al utilizar este servicio, puedes validar rápidamente una licencia de conducir basándote en el número de documento proporcionado y el apellido.
 
-### Notas
+### Headers
 
-- Usa las páginas dedicadas bajo Validación de Conductor para APIs específicas por provincia y formatos de solicitud/respuesta.
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
 
+### Parámetros
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `documentNumber` | string | **Sí** | Licencia de conducir a consultar, todos los datos deben ingresarse exactamente como se encuentran en este documento. | `1123456` |
+| `lastName` | string | **Sí** | Apellido que aparece en la Licencia de Conducir. | `HELLO` |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/ca/british-columbia/driver-license',
+  params: {
+    documentNumber: '7793458',
+    lastName: 'JIWA'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/ca/british-columbia/driver-license?documentNumber=1123456&lastName=HELLO", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/ca/british-columbia/driver-license?documentNumber=1123456&lastName=HELLO');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/ca/british-columbia/driver-license?documentNumber=1123456&lastName=HELLO")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+## Licencia de Conducir de Ontario
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/ca/ontario/driver-license
+```
+
+El servicio de Licencia de Conducir de Ontario te permite obtener rápidamente información esencial sobre una licencia de conducir emitida en la provincia de Ontario, Canadá. Al proporcionar el número de documento, puedes acceder a detalles como el estado de la licencia y el número de verificación asociado.
+
+Usa este servicio para validar y verificar la autenticidad de las licencias de conducir de Ontario de manera eficiente. Ya sea que necesites confirmar la validez de una licencia de conducir para fines de identificación o regulatorios, este servicio proporciona información precisa y actualizada de la licencia.
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parámetros
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `documentNumber` | string | **Sí** | Licencia de conducir a consultar, todos los datos deben ingresarse exactamente como se encuentran en este documento. | `S123456789123456` |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/ca/ontario/driver-license',
+  params: {
+    documentNumber: 'S123456789123456'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import requests
+
+url = "https://api.verifik.co/v2/ca/ontario/driver-license?documentNumber=S123456789123456"
+
+payload = {}
+headers = {}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/ca/ontario/driver-license?documentNumber=S123456789123456');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/ca/ontario/driver-license?documentNumber=S123456789123456")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+## Ejemplos de Respuesta
+
+<Tabs>
+  <TabItem value="200-bc" label="200 - Columbia Británica">
+
+```json
+{
+  "data": {
+    "documentNumber": "1123456",
+    "lastName": "HELLO",
+    "valid": true
+  },
+  "signature": {
+    "dateTime": "August 8, 2023 10:56 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "1234567"
+}
+```
+
+  </TabItem>
+  <TabItem value="200-ontario" label="200 - Ontario">
+
+```json
+{
+  "data": {
+    "documentNumber": "S123456789123456",
+    "licenceStatus": "Valid",
+    "verificationNumber": "123V5"
+  },
+  "signature": {
+    "dateTime": "March 12, 2024 3:47 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "8X9FD"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing lastName\n missing documentNumber\n"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Características
+
+- **Validación Específica por Provincia**: Endpoints separados para Columbia Británica y Ontario
+- **Verificación de Licencias de Conducir**: Verificar autenticidad y validez de licencias de conducir canadienses
+- **Datos en Tiempo Real**: Acceder al estado actual de la licencia y números de verificación
+- **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+- **Manejo Completo de Errores**: Respuestas de error detalladas para varios escenarios
+- **Integración Gubernamental**: Integración directa con sistemas de licencias provinciales
+- **Validación de Número de Documento**: Verificar números de licencia con formato apropiado
+- **Coincidencia de Apellido**: Capa adicional de verificación para licencias de BC
+- **Información de Estado**: Obtener estado actual de la licencia y detalles de verificación
+- **Autenticación Segura**: Autenticación con token Bearer para todas las solicitudes

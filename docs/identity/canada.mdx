@@ -1,19 +1,333 @@
 ---
 id: canada
-title: Canada
-description: Canadian identity validation services (driver licenses)
+title: 🇨🇦 Canada - Driver License Validation
+description: Canadian driver license validation services for British Columbia and Ontario
 slug: /identity/canada
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇨🇦 Canada - Driver License Validation
+
+Canadian identity validation services include driver license verification for British Columbia and Ontario provinces. These services allow you to verify the authenticity and validity of driver's licenses issued in these Canadian provinces.
+
+## Supported Provinces
+
+| Province | Endpoint | Description |
+|----------|----------|-------------|
+| **British Columbia** | `/v2/ca/british-columbia/driver-license` | Verify BC driver licenses with document number and last name |
+| **Ontario** | `/v2/ca/ontario/driver-license` | Verify Ontario driver licenses with document number |
+
+## British Columbia Driver License
 
 ### Endpoint
 
 ```
-See Driver Validation section for specific endpoints by province
+GET https://api.verifik.co/v2/ca/british-columbia/driver-license
 ```
 
-Canadian identity validation services include driver license verification for British Columbia and Ontario.
+The British Columbia Driver License Verification service offers a straightforward method to verify the authenticity and validity of a driver's license in the province of British Columbia, Canada. By utilizing this service, you can quickly validate a driver's license based on the provided document number and last name.
 
-### Notes
+### Headers
 
-- Use the dedicated pages under Driver Validation for province-specific APIs and request/response formats.
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
 
+### Parameters
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `documentNumber` | string | **Yes** | Driver's license to consult, all data must be entered exactly as found in this document. | `1123456` |
+| `lastName` | string | **Yes** | Last name that appears in the Driver License. | `HELLO` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/ca/british-columbia/driver-license',
+  params: {
+    documentNumber: '7793458',
+    lastName: 'JIWA'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/ca/british-columbia/driver-license?documentNumber=1123456&lastName=HELLO", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/ca/british-columbia/driver-license?documentNumber=1123456&lastName=HELLO');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/ca/british-columbia/driver-license?documentNumber=1123456&lastName=HELLO")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+## Ontario Driver License
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/ca/ontario/driver-license
+```
+
+The Ontario Driver's License service allows you to quickly obtain essential information about a driver's license issued in the province of Ontario, Canada. By providing the document number, you can access details such as the license status and the associated verification number.
+
+Use this service to validate and verify the authenticity of Ontario driver's licenses efficiently. Whether you need to confirm the validity of a driver's license for identification or regulatory purposes, this service provides accurate and up-to-date license information.
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parameters
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `documentNumber` | string | **Yes** | Driver's license to consult, all data must be entered exactly as found in this document. | `S123456789123456` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/ca/ontario/driver-license',
+  params: {
+    documentNumber: 'S123456789123456'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import requests
+
+url = "https://api.verifik.co/v2/ca/ontario/driver-license?documentNumber=S123456789123456"
+
+payload = {}
+headers = {}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/ca/ontario/driver-license?documentNumber=S123456789123456');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/ca/ontario/driver-license?documentNumber=S123456789123456")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+## Response Examples
+
+<Tabs>
+  <TabItem value="200-bc" label="200 - British Columbia">
+
+```json
+{
+  "data": {
+    "documentNumber": "1123456",
+    "lastName": "HELLO",
+    "valid": true
+  },
+  "signature": {
+    "dateTime": "August 8, 2023 10:56 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "1234567"
+}
+```
+
+  </TabItem>
+  <TabItem value="200-ontario" label="200 - Ontario">
+
+```json
+{
+  "data": {
+    "documentNumber": "S123456789123456",
+    "licenceStatus": "Valid",
+    "verificationNumber": "123V5"
+  },
+  "signature": {
+    "dateTime": "March 12, 2024 3:47 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "8X9FD"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing lastName\n missing documentNumber\n"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Features
+
+- **Province-Specific Validation**: Separate endpoints for British Columbia and Ontario
+- **Driver License Verification**: Verify authenticity and validity of Canadian driver licenses
+- **Real-time Data**: Access current license status and verification numbers
+- **Multiple Programming Languages**: Support for JavaScript, Python, PHP, and Swift
+- **Comprehensive Error Handling**: Detailed error responses for various scenarios
+- **Government Integration**: Direct integration with provincial licensing systems
+- **Document Number Validation**: Verify license numbers with proper formatting
+- **Last Name Matching**: Additional verification layer for BC licenses
+- **Status Information**: Get current license status and verification details
+- **Secure Authentication**: Bearer token authentication for all requests
