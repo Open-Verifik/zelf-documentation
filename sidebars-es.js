@@ -381,7 +381,7 @@ const sidebars = {
 		{
 			type: "category",
 			label: "RECURSOS",
-			collapsible: true,
+			collapsible: false,
 			items: [
 				{
 					type: "category",
