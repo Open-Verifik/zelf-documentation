@@ -380,6 +380,27 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "RECURSOS",
+			collapsible: true,
+			items: [
+				{
+					type: "category",
+					label: "Inicios de Sesión de Aplicación",
+					collapsible: true,
+					items: [
+						"resources/the-app-login-object",
+						"resources/create-an-app-login",
+						"resources/retrieve-an-app-login",
+						"resources/list-all-app-logins",
+						"resources/create-an-app-login-biometric-validation",
+						"resources/validate-an-app-login-biometric-validation",
+						"resources/email-access-example",
+					],
+				},
+			],
+		},
+		{
+			type: "category",
 			label: "VERIFIK LLC",
 			collapsible: false,
 			items: [
