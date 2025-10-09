@@ -400,11 +400,11 @@ const sidebars = {
 					label: "Flujos de Proyecto",
 					collapsible: true,
 					items: [
+						"resources/el-objeto-flujo-de-proyecto",
 						"resources/crear-un-flujo-de-proyecto",
 						"resources/listar-todos-los-flujos-de-proyecto",
 						"resources/recuperar-un-flujo-de-proyecto",
 						"resources/actualizar-un-flujo-de-proyecto",
-						"resources/el-objeto-flujo-de-proyecto",
 					],
 				},
 				{
@@ -412,12 +412,24 @@ const sidebars = {
 					label: "Validaciones de Email",
 					collapsible: true,
 					items: [
-						"resources/validaciones-de-email",
+						"resources/el-objeto-validacion-de-email",
 						"resources/crear-una-validacion-de-email",
 						"resources/listar-todas-las-validaciones-de-email",
 						"resources/recuperar-una-validacion-de-email",
 						"resources/validar-una-validacion-de-email",
-						"resources/el-objeto-validacion-de-email",
+					],
+				},
+				{
+					type: "category",
+					label: "Validaciones de Teléfono",
+					collapsible: true,
+					items: [
+						"resources/validaciones-de-telefono",
+						"resources/crear-una-validacion-de-telefono",
+						"resources/listar-todas-las-validaciones-de-telefono",
+						"resources/recuperar-una-validacion-de-telefono",
+						"resources/validar-una-validacion-de-telefono",
+						"resources/el-objeto-validacion-de-telefono",
 					],
 				},
 				{
