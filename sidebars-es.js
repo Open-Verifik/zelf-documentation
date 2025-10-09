@@ -424,12 +424,23 @@ const sidebars = {
 					label: "Validaciones de Teléfono",
 					collapsible: true,
 					items: [
-						"resources/validaciones-de-telefono",
+						"resources/el-objeto-validacion-de-telefono",
 						"resources/crear-una-validacion-de-telefono",
 						"resources/listar-todas-las-validaciones-de-telefono",
 						"resources/recuperar-una-validacion-de-telefono",
 						"resources/validar-una-validacion-de-telefono",
-						"resources/el-objeto-validacion-de-telefono",
+					],
+				},
+				{
+					type: "category",
+					label: "Validaciones Biométricas",
+					collapsible: true,
+					items: [
+						"resources/validaciones-biometricas",
+						"resources/crear-una-validacion-biometrica",
+						"resources/listar-todas-las-validaciones-biometricas",
+						"resources/recuperar-una-validacion-biometrica",
+						"resources/el-objeto-validacion-biometrica",
 					],
 				},
 				{
