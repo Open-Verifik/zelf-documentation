@@ -1,61 +1,125 @@
 ---
 id: peru
-title: Perú
-description: Verificar identidades de ciudadanos peruanos usando DNI
+title: 🇵🇪 Perú
+description: Verificar identidades de ciudadanos peruanos usando DNI API v3
 slug: /identidad/peru
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-### Endpoint
+# 🇵🇪 Perú
+
+El servicio de Verificación de Identidad de Ciudadano Peruano te permite verificar la identidad de un ciudadano en Perú usando su DNI. Este servicio devuelve información personal, como nombre completo, fecha de nacimiento y algunos otros detalles que son requeridos para validar la identidad de alguien en Perú con solo el Número de Documento DNI.
+
+## Endpoint
 
 ```
-https://api.verifik.co/v2/pe/cedula
+GET https://api.verifik.co/v3/pe/cedula
 ```
-
-Verificar DNI y retornar detalles clave de identidad.
 
 ### Headers
 
-| Name | Value |
-| --- | --- |
-| Accept | `application/json` |
-| Authorization | `Bearer <token>` |
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
 
 ### Parámetros
 
-| Name | Type | Required | Description |
-| --- | --- | --- | --- |
-| `documentType` | string | Sí | Permitido: `DNI`. |
-| `documentNumber` | string | Sí | Valor DNI. |
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `documentType` | string | **Sí** | Tipo de documento. Valor permitido: DNI. | `DNI` |
+| `documentNumber` | string | **Sí** | Número de documento de la persona a consultar. | `1234567` |
 
 ### Solicitud
 
 <Tabs>
-  <TabItem value="node" label="Node.js">
+  <TabItem value="javascript" label="JavaScript">
 
 ```javascript
-import axios from "axios";
+import axios from 'axios';
 
-const { data } = await axios.get("https://api.verifik.co/v2/pe/cedula", {
-  params: { documentType: "DNI", documentNumber: "123456789" },
-  headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
-});
-console.log(data);
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v3/pe/cedula',
+  params: {
+    documentType: 'DNI',
+    documentNumber: '1234567'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
 ```
 
   </TabItem>
   <TabItem value="python" label="Python">
 
 ```python
-import os, requests
+import http.client
 
-url = "https://api.verifik.co/v2/pe/cedula"
-headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "DNI", "documentNumber": "123456789"}
-r = requests.get(url, headers=headers, params=params)
-print(r.json())
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v3/pe/cedula?documentType=DNI&documentNumber=1234567", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v3/pe/cedula?documentType=DNI&documentNumber=1234567');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v3/pe/cedula?documentType=DNI&documentNumber=1234567")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
 ```
 
   </TabItem>
@@ -69,33 +133,75 @@ print(r.json())
 ```json
 {
   "data": {
+    "address": "CARACALLA",
+    "arrayName": [
+      "FELIPE",
+      "TRUJILLO",
+      "HERNANDEZ"
+    ],
+    "civilStatus": "SOLTERO",
+    "dateOfBirth": "19-12-1995",
+    "documentNumber": "71647369",
     "documentType": "DNI",
-    "documentNumber": "123456789",
-    "firstName": "Carlos",
-    "lastName": "Mendoza",
-    "fullName": "Carlos Mendoza",
-    "dateOfBirth": "1985-08-10",
-    "status": "valid"
+    "firstName": "FELIPE",
+    "fullName": "FELIPE TRUJILLO HERNANDEZ",
+    "lastName": "TRUJILLO HERNANDEZ",
+    "sex": "M",
+    "ubigeoReniec": "070101",
+    "verificationDigit": "2"
   },
-  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "PE001"
+  "signature": {
+    "dateTime": "April 16, 2025 2:43 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "FHBCC"
 }
 ```
 
   </TabItem>
-  <TabItem value="400" label="400">
+  <TabItem value="404" label="404">
 
 ```json
 {
-  "message": "Invalid DNI number",
-  "code": "INVALID_DNI"
+  "code": "NotFound",
+  "message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409 - Falta número de documento">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentNumber\n"
+}
+```
+
+  </TabItem>
+  <TabItem value="409b" label="409 - Longitud inválida del número de documento">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "documentNumber maximum length: 8\n"
 }
 ```
 
   </TabItem>
 </Tabs>
 
-### Notas
+## Características
 
-- Proporciona DNI sin separadores.
-
+- **Verificación de Identidad de Ciudadano Peruano**: Verificar la identidad de ciudadanos en Perú usando su DNI
+- **Información Personal**: Acceder a nombre completo, primer nombre, apellido y fecha de nacimiento
+- **Datos Demográficos**: Obtener estado civil, sexo e información de dirección
+- **Detalles del Documento**: Acceder a tipo de documento, número y dígito de verificación
+- **Información Geográfica**: Obtener código ubigeoReniec para identificación de ubicación
+- **Componentes de Nombre en Array**: Acceder a componentes individuales del nombre para procesamiento detallado
+- **Validación de Documento**: Validar DNI con dígito de verificación
+- **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+- **Datos en Tiempo Real**: Acceder a información de ciudadanos actual y actualizada
+- **Manejo Completo de Errores**: Respuestas de error detalladas para varios escenarios
+- **Integración con Registro Peruano**: Acceso directo a base de datos oficial de ciudadanos peruanos
+- **Validación de Longitud de DNI**: Validación de longitud máxima para números de documento
