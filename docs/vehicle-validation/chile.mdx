@@ -1,0 +1,393 @@
+---
+id: chile
+title: 🇨🇱 Chile - Vehicle Validation Services
+description: Chilean vehicle validation services including driver license verification and vehicle information lookup
+slug: /vehicle-validation/chile
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇨🇱 Chile - Vehicle Validation Services
+
+Chilean vehicle validation services provide comprehensive verification capabilities for both driver licenses and vehicle information. These services allow you to retrieve detailed information about Chilean drivers and vehicles registered in the country.
+
+## Services Available
+
+### 1. Driver License Verification
+Retrieve detailed information about a Chilean driver's license using the license number as a query parameter.
+
+### 2. Vehicle Information Lookup
+Verify vehicle information registered in Chile by providing the license plate number.
+
+---
+
+## Driver License Verification
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/cl/driver-license
+```
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parameters
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `documentNumber` | string | **Yes** | License to consult, without spaces or points. | `12345678` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/cl/driver-license',
+  params: {
+    documentNumber: '12345678'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/cl/driver-license?documentNumber=12345678", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/cl/driver-license?documentNumber=12345678');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cl/driver-license?documentNumber=12345678")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "RUT": "12.345.678-9",
+    "address": "PEDRO LEON UGALDE 1825",
+    "class": "B",
+    "controlDate": "23/08/2009",
+    "documentNumber": "012345678",
+    "lastControlDate": "15/07/2003",
+    "lastName": "VERIFIK",
+    "license": "CA-12345678",
+    "municipality": "SANTIAGO",
+    "names": "MATEO",
+    "procedure": "DUPLICADO",
+    "restrictions": ".USAR LENTES O DE CONTACTO. "
+  },
+  "signature": {
+    "dateTime": "November 2, 2023 3:12 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "1tm6q"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentNumber\n"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+## Vehicle Information Lookup
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/cl/vehicle
+```
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parameters
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `plate` | string | **Yes** | Plate to consult, without spaces or points. | `ABC123` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/cl/vehicle',
+  params: {
+    plate: 'BB985'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/cl/vehicle?plate=BB985", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/cl/vehicle?plate=BB985');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cl/vehicle?plate=BB985")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "chasisNumber": "ME1KG0447E2066723",
+    "color": "NEGRO",
+    "engineNumber": "1ES3032465",
+    "fines": "NO POSEE MULTAS",
+    "manufacturer": "NO DISPONIBLE",
+    "mark": "YAMAHA",
+    "model": "FZ 16",
+    "orderTheft": "NO DISPONIBLE",
+    "origin": "NO DISPONIBLE",
+    "owner": "",
+    "plate": "BB985",
+    "publicTrans": "NO DISPONIBLE",
+    "revision": "NO DISPONIBLE",
+    "rut": "26043542-6",
+    "type": "MOTO",
+    "typeTransPub": "NO DISPONIBLE",
+    "year": "2014"
+  },
+  "signature": {
+    "dateTime": "April 21, 2023 8:32 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Placa no encontrada",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing plate\n"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Features
+
+### Driver License Verification
+- **RUT Validation**: Verify Chilean tax identification numbers
+- **License Class Information**: Get detailed license class details (A, B, C, etc.)
+- **Control Dates**: Access license control and last control dates
+- **Driver Information**: Retrieve driver names, addresses, and municipality
+- **License Restrictions**: Get information about driving restrictions
+- **Procedure Information**: Access license procedure details (duplicate, renewal, etc.)
+
+### Vehicle Information Lookup
+- **Vehicle Registration**: Verify vehicle registration in Chile
+- **Technical Specifications**: Get chassis number, engine number, manufacturer, model
+- **Vehicle Details**: Access year, color, and type information
+- **Owner Information**: Retrieve vehicle owner RUT and details
+- **Fine Status**: Check for outstanding fines associated with the vehicle
+- **Theft Status**: Verify if vehicle has theft orders
+- **Public Transport**: Check public transport classification
+
+### General Features
+- **Multiple Programming Languages**: Support for JavaScript, Python, PHP, and Swift
+- **Real-time Data**: Access current and up-to-date information
+- **Comprehensive Error Handling**: Detailed error responses for various scenarios
+- **Structured Responses**: Well-formatted JSON responses with signature verification
+- **Chilean Registry Integration**: Direct access to official Chilean vehicle and driver databases
