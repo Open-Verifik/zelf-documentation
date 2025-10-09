@@ -2,7 +2,7 @@
 id: crear-un-proyecto
 title: Crear un Proyecto
 description: Crear un nuevo proyecto para servicios de autenticación y validación
-slug: /doc-es/recursos/crear-un-proyecto
+slug: /recursos/crear-un-proyecto
 ---
 
 import Tabs from '@theme/Tabs';

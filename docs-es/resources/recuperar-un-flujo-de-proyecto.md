@@ -2,7 +2,7 @@
 id: recuperar-un-flujo-de-proyecto
 title: Recuperar un Flujo de Proyecto
 description: Recuperar un flujo de proyecto específico usando su identificador único
-slug: /doc-es/recursos/recuperar-un-flujo-de-proyecto
+slug: /recursos/recuperar-un-flujo-de-proyecto
 ---
 
 import Tabs from '@theme/Tabs';

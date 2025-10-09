@@ -2,7 +2,7 @@
 id: el-objeto-flujo-de-proyecto
 title: El Objeto Flujo de Proyecto
 description: El objeto Flujo de Proyecto representa configuraciones de flujo para proyectos en Verifik
-slug: /doc-es/recursos/el-objeto-flujo-de-proyecto
+slug: /recursos/el-objeto-flujo-de-proyecto
 ---
 
 import Tabs from '@theme/Tabs';

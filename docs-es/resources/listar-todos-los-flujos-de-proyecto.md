@@ -2,7 +2,7 @@
 id: listar-todos-los-flujos-de-proyecto
 title: Listar Todos los Flujos de Proyecto
 description: Recuperar una lista de todos los flujos de proyecto con filtrado opcional y paginación
-slug: /doc-es/recursos/listar-todos-los-flujos-de-proyecto
+slug: /recursos/listar-todos-los-flujos-de-proyecto
 ---
 
 import Tabs from '@theme/Tabs';

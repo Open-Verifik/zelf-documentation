@@ -2,7 +2,7 @@
 id: actualizar-un-proyecto
 title: Actualizar un Proyecto
 description: Actualizar un registro de proyecto existente
-slug: /doc-es/recursos/actualizar-un-proyecto
+slug: /recursos/actualizar-un-proyecto
 ---
 
 import Tabs from '@theme/Tabs';

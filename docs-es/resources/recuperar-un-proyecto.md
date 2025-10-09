@@ -2,7 +2,7 @@
 id: recuperar-un-proyecto
 title: Recuperar un Proyecto
 description: Recuperar un proyecto específico usando su identificador único
-slug: /doc-es/recursos/recuperar-un-proyecto
+slug: /recursos/recuperar-un-proyecto
 ---
 
 import Tabs from '@theme/Tabs';

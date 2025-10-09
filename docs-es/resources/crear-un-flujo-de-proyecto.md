@@ -2,7 +2,7 @@
 id: crear-un-flujo-de-proyecto
 title: Crear un Flujo de Proyecto
 description: Crear una nueva configuración de flujo de proyecto
-slug: /doc-es/recursos/crear-un-flujo-de-proyecto
+slug: /recursos/crear-un-flujo-de-proyecto
 ---
 
 import Tabs from '@theme/Tabs';

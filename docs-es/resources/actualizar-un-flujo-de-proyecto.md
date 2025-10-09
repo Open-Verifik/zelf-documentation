@@ -2,7 +2,7 @@
 id: actualizar-un-flujo-de-proyecto
 title: Actualizar un Flujo de Proyecto
 description: Actualizar una configuración de flujo de proyecto existente
-slug: /doc-es/recursos/actualizar-un-flujo-de-proyecto
+slug: /recursos/actualizar-un-flujo-de-proyecto
 ---
 
 import Tabs from '@theme/Tabs';

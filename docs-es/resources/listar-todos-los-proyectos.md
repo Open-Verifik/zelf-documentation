@@ -2,7 +2,7 @@
 id: listar-todos-los-proyectos
 title: Listar Todos los Proyectos
 description: Recuperar una lista de todos los proyectos con filtrado opcional y paginación
-slug: /doc-es/recursos/listar-todos-los-proyectos
+slug: /recursos/listar-todos-los-proyectos
 ---
 
 import Tabs from '@theme/Tabs';
