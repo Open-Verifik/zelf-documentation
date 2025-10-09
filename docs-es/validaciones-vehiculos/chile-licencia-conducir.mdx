@@ -1,23 +1,21 @@
 ---
-id: chile
-title: 🇨🇱 Chile - Información de Vehículos
-description: Servicio de validación de vehículos chilenos para recuperar información vehicular por placa de matrícula
-slug: /validacion-vehiculos/chile
+id: chile-driver-license
+title: 🇨🇱 Chile - Licencia de Conducir
+description: Servicio de validación de licencias de conducir chilenas para recuperar información detallada de licencias de conducir
+slug: /validaciones-conductores/chile-licencia-conducir
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 🇨🇱 Chile - Información de Vehículos
+# 🇨🇱 Chile - Licencia de Conducir
 
-El servicio de validación de vehículos chilenos proporciona capacidades de verificación integrales para información vehicular. Este servicio te permite recuperar información detallada sobre vehículos registrados en Chile.
+Este servicio te permite recuperar información detallada sobre una licencia de conducir chilena usando el número de licencia como parámetro de consulta. Puedes obtener información como el RUT (número único de identificación tributaria), dirección, clase de licencia, fechas de control y más. Proporciona datos esenciales relacionados con la licencia de conducir en un formato estructurado.
 
-## Consulta de Información Vehicular
-
-### Endpoint
+## Endpoint
 
 ```
-GET https://api.verifik.co/v2/cl/vehicle
+GET https://api.verifik.co/v2/cl/driver-license
 ```
 
 ### Headers
@@ -31,7 +29,7 @@ GET https://api.verifik.co/v2/cl/vehicle
 
 | Name | Type | Required | Description | Example |
 | ---- | ---- | -------- | ----------- | ------- |
-| `plate` | string | **Sí** | Placa a consultar, sin espacios o puntos. | `ABC123` |
+| `documentNumber` | string | **Sí** | Licencia a consultar, sin espacios o puntos. | `12345678` |
 
 ### Solicitud
 
@@ -43,9 +41,9 @@ import axios from 'axios';
 
 const options = {
   method: 'GET',
-  url: 'https://api.verifik.co/v2/cl/vehicle',
+  url: 'https://api.verifik.co/v2/cl/driver-license',
   params: {
-    plate: 'BB985'
+    documentNumber: '12345678'
   },
   headers: {
     'Accept': 'application/json',
@@ -70,7 +68,7 @@ import http.client
 conn = http.client.HTTPSConnection("api.verifik.co")
 payload = ''
 headers = {}
-conn.request("GET", "/v2/cl/vehicle?plate=BB985", payload, headers)
+conn.request("GET", "/v2/cl/driver-license?documentNumber=12345678", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
@@ -83,7 +81,7 @@ print(data.decode("utf-8"))
 <?php
 require_once 'HTTP/Request2.php';
 $request = new HTTP_Request2();
-$request->setUrl('https://api.verifik.co/v2/cl/vehicle?plate=BB985');
+$request->setUrl('https://api.verifik.co/v2/cl/driver-license?documentNumber=12345678');
 $request->setMethod(HTTP_Request2::METHOD_GET);
 $request->setConfig(array(
   'follow_redirects' => TRUE
@@ -108,7 +106,7 @@ catch(HTTP_Request2_Exception $e) {
   <TabItem value="swift" label="Swift">
 
 ```swift
-var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cl/vehicle?plate=BB985")!,timeoutInterval: Double.infinity)
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cl/driver-license?documentNumber=12345678")!,timeoutInterval: Double.infinity)
 request.httpMethod = "GET"
 
 let task = URLSession.shared.dataTask(with: request) { data, response, error in 
@@ -133,28 +131,24 @@ task.resume()
 ```json
 {
   "data": {
-    "chasisNumber": "ME1KG0447E2066723",
-    "color": "NEGRO",
-    "engineNumber": "1ES3032465",
-    "fines": "NO POSEE MULTAS",
-    "manufacturer": "NO DISPONIBLE",
-    "mark": "YAMAHA",
-    "model": "FZ 16",
-    "orderTheft": "NO DISPONIBLE",
-    "origin": "NO DISPONIBLE",
-    "owner": "",
-    "plate": "BB985",
-    "publicTrans": "NO DISPONIBLE",
-    "revision": "NO DISPONIBLE",
-    "rut": "26043542-6",
-    "type": "MOTO",
-    "typeTransPub": "NO DISPONIBLE",
-    "year": "2014"
+    "RUT": "12.345.678-9",
+    "address": "PEDRO LEON UGALDE 1825",
+    "class": "B",
+    "controlDate": "23/08/2009",
+    "documentNumber": "012345678",
+    "lastControlDate": "15/07/2003",
+    "lastName": "VERIFIK",
+    "license": "CA-12345678",
+    "municipality": "SANTIAGO",
+    "names": "MATEO",
+    "procedure": "DUPLICADO",
+    "restrictions": ".USAR LENTES O DE CONTACTO. "
   },
   "signature": {
-    "dateTime": "April 21, 2023 8:32 PM",
+    "dateTime": "November 2, 2023 3:12 PM",
     "message": "Certified by Verifik.co"
-  }
+  },
+  "id": "1tm6q"
 }
 ```
 
@@ -164,7 +158,7 @@ task.resume()
 ```json
 {
   "code": "NotFound",
-  "message": "Placa no encontrada",
+  "message": "Record not found.",
   "signature": {
     "dateTime": "August 31, 2025 3:24 PM",
     "message": "Certified by Verifik.co"
@@ -178,7 +172,7 @@ task.resume()
 ```json
 {
   "code": "MissingParameter",
-  "message": "missing plate\n"
+  "message": "missing documentNumber\n"
 }
 ```
 
@@ -187,18 +181,14 @@ task.resume()
 
 ## Características
 
-### Consulta de Información Vehicular
-- **Registro Vehicular**: Verificar registro de vehículos en Chile
-- **Especificaciones Técnicas**: Obtener número de chasis, número de motor, fabricante, modelo
-- **Detalles del Vehículo**: Acceder a información de año, color y tipo
-- **Información del Propietario**: Recuperar RUT del propietario y detalles
-- **Estado de Multas**: Verificar multas pendientes asociadas al vehículo
-- **Estado de Robo**: Verificar si el vehículo tiene órdenes de robo
-- **Transporte Público**: Verificar clasificación de transporte público
-
-### Características Generales
+- **Validación de RUT**: Verificar números de identificación tributaria chilenos
+- **Información de Clase de Licencia**: Obtener detalles de clase de licencia (A, B, C, etc.)
+- **Fechas de Control**: Acceder a fechas de control de licencia y último control
+- **Información del Conductor**: Recuperar nombres, direcciones y municipio del conductor
+- **Restricciones de Licencia**: Obtener información sobre restricciones de conducción
+- **Información de Procedimiento**: Acceder a detalles de procedimiento de licencia (duplicado, renovación, etc.)
 - **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
-- **Datos en Tiempo Real**: Acceder a información actual y actualizada
+- **Datos en Tiempo Real**: Acceder a información actual y actualizada de licencias de conducir
 - **Manejo Completo de Errores**: Respuestas de error detalladas para varios escenarios
 - **Respuestas Estructuradas**: Respuestas JSON bien formateadas con verificación de firma
-- **Integración con Registro Chileno**: Acceso directo a base de datos oficial de vehículos chilenos
+- **Integración con Registro Chileno**: Acceso directo a base de datos oficial de licencias de conducir chilenas

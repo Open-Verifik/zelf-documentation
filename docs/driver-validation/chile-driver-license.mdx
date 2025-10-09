@@ -1,23 +1,21 @@
 ---
-id: chile
-title: 🇨🇱 Chile - Vehicle Information
-description: Chilean vehicle validation service for retrieving vehicle information by license plate
-slug: /vehicle-validation/chile
+id: chile-driver-license
+title: 🇨🇱 Chile - Driver License
+description: Chilean driver license validation service for retrieving detailed driver license information
+slug: /driver-validation/chile-driver-license
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 🇨🇱 Chile - Vehicle Information
+# 🇨🇱 Chile - Driver License
 
-Chilean vehicle validation service provides comprehensive verification capabilities for vehicle information. This service allows you to retrieve detailed information about vehicles registered in Chile.
+This service allows you to retrieve detailed information about a Chilean driver's license using the license number as a query parameter. You can obtain information such as the RUT (unique tax identification number), address, license class, control dates, and more. It provides essential data related to the driver's license in a structured format.
 
-## Vehicle Information Lookup
-
-### Endpoint
+## Endpoint
 
 ```
-GET https://api.verifik.co/v2/cl/vehicle
+GET https://api.verifik.co/v2/cl/driver-license
 ```
 
 ### Headers
@@ -31,7 +29,7 @@ GET https://api.verifik.co/v2/cl/vehicle
 
 | Name | Type | Required | Description | Example |
 | ---- | ---- | -------- | ----------- | ------- |
-| `plate` | string | **Yes** | Plate to consult, without spaces or points. | `ABC123` |
+| `documentNumber` | string | **Yes** | License to consult, without spaces or points. | `12345678` |
 
 ### Request
 
@@ -43,9 +41,9 @@ import axios from 'axios';
 
 const options = {
   method: 'GET',
-  url: 'https://api.verifik.co/v2/cl/vehicle',
+  url: 'https://api.verifik.co/v2/cl/driver-license',
   params: {
-    plate: 'BB985'
+    documentNumber: '12345678'
   },
   headers: {
     'Accept': 'application/json',
@@ -70,7 +68,7 @@ import http.client
 conn = http.client.HTTPSConnection("api.verifik.co")
 payload = ''
 headers = {}
-conn.request("GET", "/v2/cl/vehicle?plate=BB985", payload, headers)
+conn.request("GET", "/v2/cl/driver-license?documentNumber=12345678", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
@@ -83,7 +81,7 @@ print(data.decode("utf-8"))
 <?php
 require_once 'HTTP/Request2.php';
 $request = new HTTP_Request2();
-$request->setUrl('https://api.verifik.co/v2/cl/vehicle?plate=BB985');
+$request->setUrl('https://api.verifik.co/v2/cl/driver-license?documentNumber=12345678');
 $request->setMethod(HTTP_Request2::METHOD_GET);
 $request->setConfig(array(
   'follow_redirects' => TRUE
@@ -108,7 +106,7 @@ catch(HTTP_Request2_Exception $e) {
   <TabItem value="swift" label="Swift">
 
 ```swift
-var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cl/vehicle?plate=BB985")!,timeoutInterval: Double.infinity)
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cl/driver-license?documentNumber=12345678")!,timeoutInterval: Double.infinity)
 request.httpMethod = "GET"
 
 let task = URLSession.shared.dataTask(with: request) { data, response, error in 
@@ -133,28 +131,24 @@ task.resume()
 ```json
 {
   "data": {
-    "chasisNumber": "ME1KG0447E2066723",
-    "color": "NEGRO",
-    "engineNumber": "1ES3032465",
-    "fines": "NO POSEE MULTAS",
-    "manufacturer": "NO DISPONIBLE",
-    "mark": "YAMAHA",
-    "model": "FZ 16",
-    "orderTheft": "NO DISPONIBLE",
-    "origin": "NO DISPONIBLE",
-    "owner": "",
-    "plate": "BB985",
-    "publicTrans": "NO DISPONIBLE",
-    "revision": "NO DISPONIBLE",
-    "rut": "26043542-6",
-    "type": "MOTO",
-    "typeTransPub": "NO DISPONIBLE",
-    "year": "2014"
+    "RUT": "12.345.678-9",
+    "address": "PEDRO LEON UGALDE 1825",
+    "class": "B",
+    "controlDate": "23/08/2009",
+    "documentNumber": "012345678",
+    "lastControlDate": "15/07/2003",
+    "lastName": "VERIFIK",
+    "license": "CA-12345678",
+    "municipality": "SANTIAGO",
+    "names": "MATEO",
+    "procedure": "DUPLICADO",
+    "restrictions": ".USAR LENTES O DE CONTACTO. "
   },
   "signature": {
-    "dateTime": "April 21, 2023 8:32 PM",
+    "dateTime": "November 2, 2023 3:12 PM",
     "message": "Certified by Verifik.co"
-  }
+  },
+  "id": "1tm6q"
 }
 ```
 
@@ -164,7 +158,7 @@ task.resume()
 ```json
 {
   "code": "NotFound",
-  "message": "Placa no encontrada",
+  "message": "Record not found.",
   "signature": {
     "dateTime": "August 31, 2025 3:24 PM",
     "message": "Certified by Verifik.co"
@@ -178,7 +172,7 @@ task.resume()
 ```json
 {
   "code": "MissingParameter",
-  "message": "missing plate\n"
+  "message": "missing documentNumber\n"
 }
 ```
 
@@ -187,18 +181,14 @@ task.resume()
 
 ## Features
 
-### Vehicle Information Lookup
-- **Vehicle Registration**: Verify vehicle registration in Chile
-- **Technical Specifications**: Get chassis number, engine number, manufacturer, model
-- **Vehicle Details**: Access year, color, and type information
-- **Owner Information**: Retrieve vehicle owner RUT and details
-- **Fine Status**: Check for outstanding fines associated with the vehicle
-- **Theft Status**: Verify if vehicle has theft orders
-- **Public Transport**: Check public transport classification
-
-### General Features
+- **RUT Validation**: Verify Chilean tax identification numbers
+- **License Class Information**: Get detailed license class details (A, B, C, etc.)
+- **Control Dates**: Access license control and last control dates
+- **Driver Information**: Retrieve driver names, addresses, and municipality
+- **License Restrictions**: Get information about driving restrictions
+- **Procedure Information**: Access license procedure details (duplicate, renewal, etc.)
 - **Multiple Programming Languages**: Support for JavaScript, Python, PHP, and Swift
-- **Real-time Data**: Access current and up-to-date information
+- **Real-time Data**: Access current and up-to-date driver license information
 - **Comprehensive Error Handling**: Detailed error responses for various scenarios
 - **Structured Responses**: Well-formatted JSON responses with signature verification
-- **Chilean Registry Integration**: Direct access to official Chilean vehicle database
+- **Chilean Registry Integration**: Direct access to official Chilean driver license database
