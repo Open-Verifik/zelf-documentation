@@ -204,6 +204,11 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "validaciones-vehiculos/chile-licencia-conducir",
+					label: "🇨🇱 Chile - Licencia de Conducir",
+				},
+				{
+					type: "doc",
 					id: "validaciones-vehiculos/licencia-de-manejo-florida",
 					label: "🇺🇸 Licencia de Manejo Florida",
 				},

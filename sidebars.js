@@ -453,6 +453,11 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "driver-validation/chile-driver-license",
+					label: "🇨🇱 Chile Driver License",
+				},
+				{
+					type: "doc",
 					id: "driver-validation/florida-driver-license",
 					label: "🇺🇸 Florida Driver License",
 				},
