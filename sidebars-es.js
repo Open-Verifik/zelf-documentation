@@ -398,6 +398,19 @@ const sidebars = {
 				},
 				{
 					type: "category",
+					label: "Flujos de Proyecto",
+					collapsible: true,
+					items: [
+						"resources/flujos-de-proyecto",
+						"resources/crear-un-flujo-de-proyecto",
+						"resources/listar-todos-los-flujos-de-proyecto",
+						"resources/recuperar-un-flujo-de-proyecto",
+						"resources/actualizar-un-flujo-de-proyecto",
+						"resources/el-objeto-flujo-de-proyecto",
+					],
+				},
+				{
+					type: "category",
 					label: "Inicios de Sesión de Aplicación",
 					collapsible: true,
 					items: [
