@@ -83,6 +83,7 @@ const sidebars = {
 				{ type: "doc", id: "identity/chile", label: "🇨🇱 Chile" },
 				{ type: "doc", id: "identity/colombia", label: "🇨🇴 Ciudadano Colombiano" },
 				{ type: "doc", id: "identity/colombia-full-id", label: "🇨🇴 Colombia - ID Completo" },
+				{ type: "doc", id: "identity/colombia-foreigner-id", label: "🇨🇴 Colombia - Cédula de Extranjero" },
 				{ type: "doc", id: "identity/costa-rica", label: "🇨🇷 Costa Rica" },
 				{ type: "doc", id: "identity/dominican-republic", label: "🇩🇴 República Dominicana" },
 				{ type: "doc", id: "identity/ecuador", label: "🇪🇨 Ecuador" },
