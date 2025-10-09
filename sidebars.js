@@ -573,6 +573,9 @@ const sidebars = {
 						"resources/create-an-app-login",
 						"resources/retrieve-an-app-login",
 						"resources/list-all-app-logins",
+						"resources/create-an-app-login-biometric-validation",
+						"resources/validate-an-app-login-biometric-validation",
+						"resources/email-access-example",
 					],
 				},
 				{

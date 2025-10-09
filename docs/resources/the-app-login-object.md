@@ -1,106 +1,101 @@
 ---
 id: the-app-login-object
 title: The App Login Object
-description: The App Login object represents login sessions within your Verifik projects
+description: The App Login object represents user authentication sessions
+slug: /resources/the-app-login-object
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # The App Login Object
 
-The App Login object represents login sessions within your Verifik projects. This object contains all the information needed to track and manage user login attempts and authentication processes.
+### **Attributes**
 
-## Attributes
+***
 
-**`client`** - ObjectId - Required
-
+**client** - `ObjectId` - Required\
 Client ID associated with this login request. It must be defined properly, as this links the login to a specific client.
 
-**`name`** - String - Optional
+***
 
+**name** - `String` - Optional\
 Optional name for the login session.
 
-**`status`** - String - Optional
+***
 
+**status** - `String` - Optional\
 Optional status of the login request (e.g., pending, completed, failed).
 
-**`project`** - ObjectId - Required
+***
 
+**project** - `ObjectId` - Required\
 Project ID linked to this login request. It must be defined, as this links the login to a specific project.
 
-**`projectFlow`** - ObjectId - Required
+***
 
+**projectFlow** - `ObjectId` - Required\
 ProjectFlow ID that defines the flow configuration for this login. This is a required field.
 
-**`type`** - String - Required
+***
 
-The type of login being performed:
+**type** - `String` - Required\
+Type of login being attempted. This must be one of the following values:
 
-* `"email"` - Email-based login
-* `"phone"` - Phone-based login
-* `"biometric"` - Biometric-based login
+* `email`
+* `phone`
+* `faceLiveness`
 
-**`emailValidation`** - ObjectId - Optional
+***
 
-Reference to the Email Validation object if login was performed via email.
+**emailValidation** - `ObjectId` - Optional\
+Reference to the EmailValidation object if an email-based login is used.
 
-**`phoneValidation`** - ObjectId - Optional
+***
 
-Reference to the Phone Validation object if login was performed via phone.
+**phoneValidation** - `ObjectId` - Optional\
+Reference to the PhoneValidation object if a phone-based login is used.
 
-**`biometricValidation`** - ObjectId - Optional
+***
 
-Reference to the Biometric Validation object if login was performed via biometric.
+**biometricValidation** - `ObjectId` - Optional\
+Reference to the BiometricValidation object if a biometric login is used.
 
-**`identifier`** - String - Required
+***
 
-A unique identifier for the user (e.g., email, phone number).
+**face** - `ObjectId` - Optional\
+Reference to the IdentityImage object, used for facial recognition or liveness checks.
 
-**`ipAddress`** - String - Optional
+***
 
-IP address of the user performing the login.
+**accessControlLog** - `ObjectId` - Optional\
+Reference to the AccessControlLog object, used to log access control actions related to this login.
 
-**`userAgent`** - String - Optional
+***
 
-User agent string from the login request.
-
-**`expiresAt`** - Date - Optional
-
-Expiration date and time for the login session.
-
-**`token`** - String - Optional
-
-Authentication token generated for this login session.
-
-**`createdAt`** - Date - Required
-
-Timestamp when the app login was created.
-
-**`updatedAt`** - Date - Required
-
-Timestamp when the app login was last updated.
-
-**`completedAt`** - Date - Optional
-
-Timestamp when the login was completed successfully.
-
-## Example Object
+### AppLogin Object Example
 
 ```json
 {
-  "_id": "app_login_123456789",
-  "client": "client_123456789",
-  "name": "User Login Session",
+  "client": "5f43a1b5e4b0d51d5b6f3e57",
+  "name": "Login for Project A",
   "status": "completed",
-  "project": "project_123456789",
-  "projectFlow": "flow_123456789",
+  "project": "5f43a1b5e4b0d51d5b6f3e58",
+  "projectFlow": "5f43a1b5e4b0d51d5b6f3e59",
   "type": "email",
-  "emailValidation": "email_validation_123456789",
-  "identifier": "user@example.com",
-  "ipAddress": "192.168.1.1",
-  "userAgent": "Mozilla/5.0...",
-  "expiresAt": "2024-01-15T11:30:00Z",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "createdAt": "2024-01-15T10:30:00Z",
-  "updatedAt": "2024-01-15T10:32:00Z",
-  "completedAt": "2024-01-15T10:32:00Z"
+  "emailValidation": "5f43a1b5e4b0d51d5b6f3e60",
+  "phoneValidation": null,
+  "biometricValidation": null,
+  "face": null,
+  "accessControlLog": "5f43a1b5e4b0d51d5b6f3e61"
 }
 ```
+
+### Features
+
+- **Client Association**: Links app logins to specific clients
+- **Project Integration**: Connected to specific projects and project flows
+- **Multiple Validation Types**: Support for email, phone, and biometric authentication
+- **Validation References**: Links to specific validation objects
+- **Access Control Logging**: Tracks access control actions for security
+- **Status Tracking**: Monitors login attempt status (pending, completed, failed)

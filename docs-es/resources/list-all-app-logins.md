@@ -1,14 +1,14 @@
 ---
 id: list-all-app-logins
-title: List All App Logins
-description: Retrieve a list of all app login attempts with detailed validation information
-slug: /resources/list-all-app-logins
+title: Listar Todos los Inicios de Sesión de Aplicación
+description: Recuperar una lista de todos los intentos de inicio de sesión de aplicación con información detallada de validación
+slug: /recursos/listar-todos-los-inicios-de-sesion-de-aplicacion
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# List All App Logins
+# Listar Todos los Inicios de Sesión de Aplicación
 
 ## Endpoint
 
@@ -16,28 +16,28 @@ import TabItem from '@theme/TabItem';
 GET https://api.verifik.co/v2/app-logins
 ```
 
-This endpoint retrieves a list of app login attempts with detailed validation information for email, phone, and biometrics. The response includes an array of data containing information about the login attempts and associated validation types (email, phone, biometric).
+Este endpoint recupera una lista de intentos de inicio de sesión de aplicación con información detallada de validación para email, teléfono y biometría. La respuesta incluye una matriz de datos que contiene información sobre los intentos de inicio de sesión y tipos de validación asociados (email, teléfono, biométrico).
 
 ### Headers
 
-| Name          | Value              |
-| ------------- | ------------------ |
-| Content-Type  | `application/json` |
-| Authorization | `Bearer <token>`   |
+| Nombre         | Valor              |
+| -------------- | ------------------ |
+| Content-Type   | `application/json` |
+| Authorization  | `Bearer <token>`   |
 
-### Parameters
+### Parámetros
 
-| Parameter Name                     | Type   | Required | Description                                                                                                           |
-| ---------------------------------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------- |
-| `page`                             | number | No       | Specifies the page of the results to retrieve. Default is `1`.                                                        |
-| `populates[]`                      | array  | No       | An array specifying which validations to include (e.g., `emailValidation`, `phoneValidation`, `biometricValidation`). |
-| `sort`                             | string | No       | Field by which to sort the results. Default is by creation date (`-createdAt`).                                       |
-| `where-exists_emailValidation`     | number | No       | Filter results where email validation exists (`1` to include).                                                        |
-| `where-exists_phoneValidation`     | number | No       | Filter results where phone validation exists (`1` to include).                                                        |
-| `where-exists_biometricValidation` | number | No       | Filter results where biometric validation exists (`1` to include).                                                    |
-| `like_name`                        | string | No       | Search results by name (supports partial matching).                                                                   |
+| Nombre de Parámetro                     | Tipo   | Requerido | Descripción                                                                                                           |
+| ---------------------------------------- | ------ | --------- | --------------------------------------------------------------------------------------------------------------------- |
+| `page`                                   | number | No        | Especifica la página de los resultados a recuperar. El valor por defecto es `1`.                                     |
+| `populates[]`                            | array  | No        | Una matriz que especifica qué validaciones incluir (por ejemplo, `emailValidation`, `phoneValidation`, `biometricValidation`). |
+| `sort`                                   | string | No        | Campo por el cual ordenar los resultados. El valor por defecto es por fecha de creación (`-createdAt`).               |
+| `where-exists_emailValidation`           | number | No        | Filtrar resultados donde existe validación de email (`1` para incluir).                                             |
+| `where-exists_phoneValidation`           | number | No        | Filtrar resultados donde existe validación de teléfono (`1` para incluir).                                          |
+| `where-exists_biometricValidation`       | number | No        | Filtrar resultados donde existe validación biométrica (`1` para incluir).                                            |
+| `like_name`                              | string | No        | Buscar resultados por nombre (soporta coincidencia parcial).                                                          |
 
-### Request
+### Solicitud
 
 <Tabs>
   <TabItem value="javascript" label="JavaScript">
@@ -55,7 +55,7 @@ const options = {
   },
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer <your_token>'
+    'Authorization': 'Bearer <tu_token>'
   }
 };
 
@@ -77,7 +77,7 @@ conn = http.client.HTTPSConnection("api.verifik.co")
 
 headers = {
   'Content-Type': 'application/json',
-  'Authorization': 'Bearer <your_token>'
+  'Authorization': 'Bearer <tu_token>'
 }
 
 conn.request("GET", "/v2/app-logins?page=1&populates[]=emailValidation&populates[]=phoneValidation&populates[]=biometricValidation&sort=-createdAt", headers=headers)
@@ -99,7 +99,7 @@ $client = new \GuzzleHttp\Client();
 $response = $client->request('GET', 'https://api.verifik.co/v2/app-logins?page=1&populates[]=emailValidation&populates[]=phoneValidation&populates[]=biometricValidation&sort=-createdAt', [
   'headers' => [
     'Content-Type' => 'application/json',
-    'Authorization' => 'Bearer <your_token>',
+    'Authorization' => 'Bearer <tu_token>',
   ],
 ]);
 
@@ -114,7 +114,7 @@ import Foundation
 
 let headers = [
   "Content-Type": "application/json",
-  "Authorization": "Bearer <your_token>"
+  "Authorization": "Bearer <tu_token>"
 ]
 
 let request = NSMutableURLRequest(url: NSURL(string: "https://api.verifik.co/v2/app-logins?page=1&populates[]=emailValidation&populates[]=phoneValidation&populates[]=biometricValidation&sort=-createdAt")! as URL,
@@ -139,7 +139,7 @@ dataTask.resume()
   </TabItem>
 </Tabs>
 
-### Response
+### Respuesta
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -150,8 +150,8 @@ dataTask.resume()
     {
       "_id": "66e49e46dbfa9731ceb9d477",
       "client": "613375a1eab2fe08527f81e2",
-      "name": "Verifik Main Account",
-      "status": "validated",
+      "name": "Cuenta Principal de Verifik",
+      "status": "validado",
       "project": "6266193db77ccc8111730c90",
       "projectFlow": "658ed28b0990f300134d7b78",
       "type": "email",
@@ -160,13 +160,13 @@ dataTask.resume()
         "client": "613375a1eab2fe08527f81e2",
         "project": "6266193db77ccc8111730c90",
         "projectFlow": "658ed28b0990f300134d7b78",
-        "status": "validated",
+        "status": "validado",
         "validationMethod": "verificationCode",
         "email": "miguel.trevinom@gmail.com",
         "emailData": {
-          "firstName": "Verifik Main Account",
-          "title": "Verifik Client App",
-          "projectName": "Verifik Client App",
+          "firstName": "Cuenta Principal de Verifik",
+          "title": "Aplicación Cliente Verifik",
+          "projectName": "Aplicación Cliente Verifik",
           "contactEmail": "miguel@verifik.co",
           "logo": "https://cdn.verifik.co/projects/VerifikClientApp_1726146056389-image.png",
           "authLink": "http://localhost:4400/sign-in/6266193db77ccc8111730c90?email=miguel.trevinom@gmail.com&otp=",
@@ -192,11 +192,11 @@ dataTask.resume()
   </TabItem>
 </Tabs>
 
-### Features
+### Características
 
-- **Comprehensive Login Data**: Retrieve detailed information about all login attempts
-- **Validation Population**: Include email, phone, and biometric validation details
-- **Advanced Filtering**: Filter by validation type existence and name matching
-- **Pagination Support**: Navigate through large lists of login attempts
-- **Multiple Programming Languages**: Support for JavaScript, Python, PHP, and Swift
-- **Sorting Options**: Sort results by creation date or other fields
+- **Datos Completos de Inicio de Sesión**: Recuperar información detallada sobre todos los intentos de inicio de sesión
+- **Población de Validación**: Incluir detalles de validación de email, teléfono y biométrica
+- **Filtrado Avanzado**: Filtrar por existencia de tipo de validación y coincidencia de nombre
+- **Soporte de Paginación**: Navegar a través de grandes listas de intentos de inicio de sesión
+- **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+- **Opciones de Ordenamiento**: Ordenar resultados por fecha de creación u otros campos

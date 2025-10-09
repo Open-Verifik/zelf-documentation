@@ -1,14 +1,14 @@
 ---
 id: retrieve-an-app-login
-title: Retrieve an App Login
-description: Retrieve a single app login record by its ID with optional populated fields
-slug: /resources/retrieve-an-app-login
+title: Recuperar un Inicio de Sesión de Aplicación
+description: Recuperar un registro de inicio de sesión de aplicación específico por su ID con campos poblados opcionales
+slug: /recursos/recuperar-un-inicio-de-sesion-de-aplicacion
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Retrieve an App Login
+# Recuperar un Inicio de Sesión de Aplicación
 
 ## Endpoint
 
@@ -16,28 +16,28 @@ import TabItem from '@theme/TabItem';
 GET https://api.verifik.co/v2/app-logins/{id}
 ```
 
-This endpoint retrieves a single app login record by its ID, along with optional populated fields such as `emailValidation`, `phoneValidation`, or `biometricValidation`.
+Este endpoint recupera un registro de inicio de sesión de aplicación específico por su ID, junto con campos poblados opcionales como `emailValidation`, `phoneValidation` o `biometricValidation`.
 
 ### Headers
 
-| Name          | Value              |
-| ------------- | ------------------ |
-| Content-Type  | `application/json` |
-| Authorization | `Bearer <token>`   |
+| Nombre         | Valor              |
+| -------------- | ------------------ |
+| Content-Type   | `application/json` |
+| Authorization  | `Bearer <token>`   |
 
-### Parameters
+### Parámetros
 
-| Name | Type   | Required | Description                                                 |
-| ---- | ------ | -------- | ----------------------------------------------------------- |
-| `id` | string | Yes      | The unique ID of the app login record you want to retrieve. |
+| Nombre | Tipo   | Requerido | Descripción                                                 |
+| ------ | ------ | --------- | ----------------------------------------------------------- |
+| `id`   | string | Sí        | El ID único del registro de inicio de sesión de aplicación que deseas recuperar. |
 
-### Query Parameters
+### Parámetros de Consulta
 
-| Name          | Type  | Required | Description                                                                            |
-| ------------- | ----- | -------- | -------------------------------------------------------------------------------------- |
-| `populates[]` | array | No       | An array specifying which validation fields to populate (e.g., `biometricValidation`). |
+| Nombre         | Tipo  | Requerido | Descripción                                                                            |
+| -------------- | ----- | --------- | -------------------------------------------------------------------------------------- |
+| `populates[]`  | array | No        | Una matriz que especifica qué campos de validación poblar (por ejemplo, `biometricValidation`). |
 
-### Request
+### Solicitud
 
 <Tabs>
   <TabItem value="javascript" label="JavaScript">
@@ -53,7 +53,7 @@ const options = {
   },
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer <your_token>'
+    'Authorization': 'Bearer <tu_token>'
   }
 };
 
@@ -75,7 +75,7 @@ conn = http.client.HTTPSConnection("api.verifik.co")
 
 headers = {
   'Content-Type': 'application/json',
-  'Authorization': 'Bearer <your_token>'
+  'Authorization': 'Bearer <tu_token>'
 }
 
 conn.request("GET", "/v2/app-logins/66e464acbad79f3a380d408f?populates[]=biometricValidation", headers=headers)
@@ -96,8 +96,8 @@ $client = new \GuzzleHttp\Client();
 
 $response = $client->request('GET', 'https://api.verifik.co/v2/app-logins/66e464acbad79f3a380d408f?populates[]=biometricValidation', [
   'headers' => [
-    'Content-Type': 'application/json',
-    'Authorization' => 'Bearer <your_token>',
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer <tu_token>',
   ],
 ]);
 
@@ -112,7 +112,7 @@ import Foundation
 
 let headers = [
   "Content-Type": "application/json",
-  "Authorization": "Bearer <your_token>"
+  "Authorization": "Bearer <tu_token>"
 ]
 
 let request = NSMutableURLRequest(url: NSURL(string: "https://api.verifik.co/v2/app-logins/66e464acbad79f3a380d408f?populates[]=biometricValidation")! as URL,
@@ -137,7 +137,7 @@ dataTask.resume()
   </TabItem>
 </Tabs>
 
-### Response
+### Respuesta
 
 <Tabs>
   <TabItem value="200" label="200">
@@ -148,7 +148,7 @@ dataTask.resume()
     "_id": "66e464acbad79f3a380d408f",
     "client": "613375a1eab2fe08527f81e2",
     "name": "",
-    "status": "pending",
+    "status": "pendiente",
     "project": "6266193db77ccc8111730c90",
     "projectFlow": "658ed28b0990f300134d7b78",
     "type": "faceliveness",
@@ -174,11 +174,11 @@ dataTask.resume()
   </TabItem>
 </Tabs>
 
-### Features
+### Características
 
-- **Single Login Retrieval**: Get detailed information about a specific login attempt
-- **Validation Population**: Include populated validation objects (email, phone, biometric)
-- **Complete Login Data**: Access all login details including status and timestamps
-- **Multiple Programming Languages**: Support for JavaScript, Python, PHP, and Swift
-- **Error Handling**: Proper 404 responses for non-existent login records
-- **Flexible Population**: Choose which validation fields to populate
+- **Recuperación de Inicio de Sesión Individual**: Obtener información detallada sobre un intento de inicio de sesión específico
+- **Población de Validación**: Incluir objetos de validación poblados (email, teléfono, biométrico)
+- **Datos Completos de Inicio de Sesión**: Acceder a todos los detalles del inicio de sesión incluyendo estado y timestamps
+- **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+- **Manejo de Errores**: Respuestas 404 apropiadas para registros de inicio de sesión inexistentes
+- **Población Flexible**: Elegir qué campos de validación poblar
