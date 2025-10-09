@@ -470,6 +470,21 @@ const sidebars = {
 				},
 				{
 					type: "category",
+					label: "Webhooks",
+					collapsible: true,
+					items: [
+						"resources/webhooks",
+						"resources/el-objeto-webhook",
+						"resources/crear-un-webhook",
+						"resources/listar-todos-los-webhooks",
+						"resources/recuperar-un-webhook",
+						"resources/actualizar-un-webhook",
+						"resources/eliminar-un-webhook",
+						"resources/integracion-de-webhook",
+					],
+				},
+				{
+					type: "category",
 					label: "Inicios de Sesión de Aplicación",
 					collapsible: true,
 					items: [
