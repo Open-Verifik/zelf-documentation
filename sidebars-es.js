@@ -473,7 +473,6 @@ const sidebars = {
 					label: "Webhooks",
 					collapsible: true,
 					items: [
-						"resources/webhooks",
 						"resources/el-objeto-webhook",
 						"resources/crear-un-webhook",
 						"resources/listar-todos-los-webhooks",
