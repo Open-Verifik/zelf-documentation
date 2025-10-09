@@ -1,0 +1,200 @@
+---
+id: paraguay
+title: 🇵🇾 Paraguay - Vehicle Information
+description: Paraguayan vehicle validation service for retrieving comprehensive vehicle information by license plate
+slug: /vehicle-validation/paraguay
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇵🇾 Paraguay - Vehicle Information
+
+This service provides detailed information about a vehicle in Paraguay using its license plate number. The response includes vehicle details such as the brand, chassis, type, year, number of axles, the owner's name, the type of service, the current status of the vehicle, and the license plate number.
+
+This information is useful for various purposes, including vehicle verification, ownership checks, and compliance monitoring.
+
+## Endpoint
+
+```
+GET https://api.verifik.co/v2/py/vehicle
+```
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parameters
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `plate` | string | **Yes** | Plate number to consult. | `ABC123` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/py/vehicle',
+  params: {
+    plate: 'ABC123'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/py/vehicle?plate=ABC123", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/py/vehicle?plate=ABC123');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/py/vehicle?plate=ABC123")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "axles": "3",
+    "brand": "MERCEDES BENZ",
+    "chassis": "9BM958207GB012345",
+    "owner": "CI086-COOPERATIVA CHORTITZER LTDA.",
+    "plate": "ABC123",
+    "service": "CARGA NACIONAL",
+    "situation": "VENCIDA",
+    "type": "CAMION CISTERNA",
+    "year": "2023"
+  },
+  "signature": {
+    "dateTime": "June 24, 2024 7:34 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "Z4ALR"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing plate\n"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Features
+
+- **Vehicle Information Retrieval**: Get comprehensive vehicle details from Paraguayan vehicle registry
+- **License Plate Validation**: Verify vehicle license plates registered in Paraguay
+- **Vehicle Specifications**: Access detailed vehicle specifications including:
+  - Brand and manufacturer information
+  - Chassis number for vehicle identification
+  - Vehicle type and classification
+  - Manufacturing year and model details
+  - Number of axles for vehicle configuration
+- **Ownership Information**: Retrieve current vehicle owner details
+- **Service Type Classification**: Get information about vehicle service type (e.g., CARGA NACIONAL)
+- **Vehicle Status Monitoring**: Access current vehicle situation and status
+- **Compliance Verification**: Verify vehicle compliance and registration status
+- **Multiple Programming Languages**: Support for JavaScript, Python, PHP, and Swift
+- **Real-time Data**: Access current and up-to-date vehicle information
+- **Comprehensive Error Handling**: Detailed error responses for various scenarios
+- **Paraguayan Registry Integration**: Direct access to official Paraguayan vehicle database
+- **Vehicle Type Classification**: Support for various vehicle types including trucks, tankers, and commercial vehicles
+- **Ownership Verification**: Verify vehicle ownership for legal and commercial purposes
