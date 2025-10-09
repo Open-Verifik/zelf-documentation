@@ -449,27 +449,27 @@ const sidebars = {
 				{
 					type: "doc",
 					id: "driver-validation/british-columbia-driver-license",
-					label: "🇨🇦 British Columbia Driver License",
+					label: "🇨🇦 British Columbia - Driver License",
 				},
 				{
 					type: "doc",
 					id: "driver-validation/chile-driver-license",
-					label: "🇨🇱 Chile Driver License",
+					label: "🇨🇱 Chile - Driver License",
 				},
 				{
 					type: "doc",
 					id: "driver-validation/florida-driver-license",
-					label: "🇺🇸 Florida Driver License",
+					label: "🇺🇸 Florida -Driver License",
 				},
 				{
 					type: "doc",
 					id: "driver-validation/kansas-driver-license",
-					label: "🇺🇸 Kansas Driver License",
+					label: "🇺🇸 Kansas - Driver License",
 				},
 				{
 					type: "doc",
 					id: "driver-validation/ontario-driver-license",
-					label: "🇨🇦 Ontario Driver License",
+					label: "🇨🇦 Ontario - Driver License",
 				},
 			],
 		},

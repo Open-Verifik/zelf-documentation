@@ -200,7 +200,7 @@ const sidebars = {
 				{
 					type: "doc",
 					id: "validaciones-vehiculos/licencia-de-manejo-british-columbia",
-					label: "🇨🇦 Licencia de Manejo British Columbia",
+					label: "🇨🇦 British Columbia -Licencia de Manejo",
 				},
 				{
 					type: "doc",
@@ -210,17 +210,17 @@ const sidebars = {
 				{
 					type: "doc",
 					id: "validaciones-vehiculos/licencia-de-manejo-florida",
-					label: "🇺🇸 Licencia de Manejo Florida",
+					label: "🇺🇸 Florida - Licencia de Manejo",
 				},
 				{
 					type: "doc",
 					id: "validaciones-vehiculos/licencia-de-manejo-kansas",
-					label: "🇺🇸 Licencia de Manejo Kansas",
+					label: "🇺🇸 Kansas - Licencia de Manejo",
 				},
 				{
 					type: "doc",
 					id: "validaciones-vehiculos/licencia-de-manejo-ontario",
-					label: "🇨🇦 Licencia de Manejo Ontario",
+					label: "🇨🇦 Ontario- Licencia de Manejo",
 				},
 			],
 		},
