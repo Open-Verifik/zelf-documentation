@@ -94,6 +94,7 @@ const sidebars = {
 				{ type: "doc", id: "identity/paraguay", label: "🇵🇾 Paraguay" },
 				{ type: "doc", id: "identity/peru", label: "🇵🇪 Perú" },
 				{ type: "doc", id: "identity/peru-foreigner-id", label: "🇵🇪 Perú - Cédula de Extranjero" },
+				{ type: "doc", id: "identity/peru-full-id", label: "🇵🇪 Perú - ID Completo" },
 				{ type: "doc", id: "identity/spain-citizen", label: "🇪🇸 Ciudadano Español" },
 				{ type: "doc", id: "identity/estados-unidos", label: "🇺🇸 Estados Unidos" },
 				{ type: "doc", id: "identity/uruguay", label: "🇺🇾 Uruguay" },

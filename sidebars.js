@@ -175,6 +175,11 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "identity/peru-full-id",
+					label: "🇵🇪 Peru - Full ID",
+				},
+				{
+					type: "doc",
 					id: "identity/spain-citizen",
 					label: "🇪🇸 Spain Citizen",
 				},
