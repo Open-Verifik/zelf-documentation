@@ -204,7 +204,7 @@ const sidebars = {
 				},
 				{
 					type: "doc",
-					id: "validaciones-vehiculos/chile-licencia-conducir",
+					id: "validaciones-conductores/chile-licencia-conducir",
 					label: "🇨🇱 Chile - Licencia de Conducir",
 				},
 				{
