@@ -82,18 +82,23 @@ print(r.json())
 ```json
 {
   "data": {
+    "arrayName": [
+      "JULIO",
+      "CESAR",
+      "CABANA",
+      "CONTRERAS"
+    ],
+    "documentNumber": "1121329662",
     "documentType": "CC",
-    "documentNumber": "123456789",
-    "firstName": "Juan",
-    "lastName": "Pérez",
-    "fullName": "Juan Pérez",
-    "status": "valid"
+    "firstName": "JULIO CESAR",
+    "fullName": "JULIO CESAR CABANA CONTRERAS",
+    "lastName": "CABANA CONTRERAS"
   },
   "signature": {
-    "message": "Certified by Verifik.co",
-    "dateTime": "January 16, 2024 3:44 PM"
+    "dateTime": "October 8, 2025 8:21 PM",
+    "message": "Certified by Verifik.co"
   },
-  "id": "AB123"
+  "id": "I70IL"
 }
 ```
 
@@ -102,18 +107,38 @@ print(r.json())
 
 ```json
 {
-  "message": "Document not found",
-  "code": "DOCUMENT_NOT_FOUND"
+  "code": "NotFound",
+  "message": "Record not found."
 }
 ```
 
   </TabItem>
-  <TabItem value="401" label="401">
+  <TabItem value="409" label="409">
 
 ```json
 {
-  "message": "Authentication required",
-  "code": "UNAUTHORIZED"
+  "code": "MissingParameter",
+  "message": "missing documentType\n"
+}
+```
+
+  </TabItem>
+  <TabItem value="409b" label="409 - Tipo de documento inválido">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "documentType must be one of: [CC,PPT]"
+}
+```
+
+  </TabItem>
+  <TabItem value="409c" label="409 - Falta número de documento">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentNumber\n"
 }
 ```
 
