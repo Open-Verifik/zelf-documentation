@@ -436,11 +436,11 @@ const sidebars = {
 					label: "Validaciones Biométricas",
 					collapsible: true,
 					items: [
+						"resources/el-objeto-validacion-biometrica",
 						"resources/validaciones-biometricas",
 						"resources/crear-una-validacion-biometrica",
 						"resources/listar-todas-las-validaciones-biometricas",
 						"resources/recuperar-una-validacion-biometrica",
-						"resources/el-objeto-validacion-biometrica",
 					],
 				},
 				{
