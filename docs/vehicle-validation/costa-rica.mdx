@@ -1,0 +1,230 @@
+---
+id: costa-rica
+title: 🇨🇷 Costa Rica - Vehicle Information
+description: Costa Rican vehicle validation service for retrieving comprehensive vehicle information by license plate
+slug: /vehicle-validation/costa-rica
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇨🇷 Costa Rica - Vehicle Information
+
+This service provides detailed information about a vehicle in Costa Rica using its license plate number. The response includes comprehensive data such as the current owner's name, vehicle details (engine displacement, fiscal value, gross and net weight, occupant capacity, power, and traction), as well as the infraction history and previous owner history.
+
+This information is useful for various purposes, including vehicle verification, historical checks, and compliance monitoring.
+
+## Endpoint
+
+```
+GET https://api.verifik.co/v2/cr/vehicle
+```
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parameters
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `plate` | string | **Yes** | Plate to consult without spaces or points. | `ABC123` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/cr/vehicle',
+  params: {
+    plate: 'ABC123'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/cr/vehicle?plate=ABC123", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/cr/vehicle?plate=ABC123');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cr/vehicle?plate=ABC123")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "currentOwner": "GUILLERMO RODRIGUEZ SOLIS",
+    "dataVehicle": {
+      "engineDisplacement": "2389 c.c.",
+      "estateValue": "CRC 530,000",
+      "grossWeight": "1550  kgrms.",
+      "netWeight": "1100  kgrms.",
+      "noVin": "",
+      "occupants": "5",
+      "power": "85 KW. (114 HP)",
+      "traction": "NO APLICA"
+    },
+    "infractions": [
+      {
+        "judicialAuthority": "JUZGADO DE TRANSITO DEL II CIRCUITO JUDICIAL DE SAN JOSE",
+        "summaryNumber": "18-003179-0174-TR",
+        "ticketNumber": "2018243000156",
+        "type": "COLISIONES"
+      },
+      {
+        "judicialAuthority": "JUZGADO DE TRANSITO DEL II CIRCUITO JUDICIAL DE SAN JOSE",
+        "summaryNumber": "17-008609-0174-TR",
+        "ticketNumber": "2017202000461",
+        "type": "COLISIONES"
+      }
+    ],
+    "ownerHistory": [
+      {
+        "date": "12/10/2016",
+        "fullName": "RODRIGUEZ GUILLERMO SOLIS"
+      },
+      {
+        "date": "15/02/2007",
+        "fullName": "RODRIGUEZ AGUSTIN SOLIS"
+      },
+      {
+        "date": "29/04/1991",
+        "fullName": "LAFUENTE ANDRES BARQUERO"
+      },
+      {
+        "date": "29/04/1991",
+        "fullName": "SALAS ANA EUGENIA VASQUEZ"
+      }
+    ],
+    "plate": "123456",
+    "vehicle": "1987 NISSAN D21 GRIS"
+  },
+  "signature": {
+    "dateTime": "June 24, 2024 7:39 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "OJBUG"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing plate\n"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Features
+
+- **Vehicle Information Retrieval**: Get comprehensive vehicle details from Costa Rican vehicle registry
+- **License Plate Validation**: Verify vehicle license plates registered in Costa Rica
+- **Current Owner Information**: Retrieve current vehicle owner details
+- **Vehicle Specifications**: Get engine displacement, fiscal value, weight, capacity, power, and traction
+- **Infraction History**: Access complete history of traffic violations and infractions
+- **Owner History**: View chronological list of all previous vehicle owners
+- **Judicial Authority**: Get information about judicial authorities handling infractions
+- **Ticket Information**: Access ticket numbers and summary numbers for infractions
+- **Multiple Programming Languages**: Support for JavaScript, Python, PHP, and Swift
+- **Real-time Data**: Access current and up-to-date vehicle information
+- **Comprehensive Error Handling**: Detailed error responses for various scenarios
+- **Costa Rican Registry Integration**: Direct access to official Costa Rican vehicle database
