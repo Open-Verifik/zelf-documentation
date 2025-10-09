@@ -1,0 +1,216 @@
+---
+id: chilean
+title: 🇨🇱 Chile - Validación Empresarial
+description: Servicio de validación empresarial chileno para recuperación de información de empresas
+slug: /validacion-empresarial/chilean
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇨🇱 Chile - Validación Empresarial
+
+Este servicio te permite recuperar información sobre una empresa en Chile proporcionando su tipo de documento y número. La respuesta del servicio contendrá el nombre de la empresa, su categoría comercial, subcategoría y actividad. Además, este servicio te proporcionará una lista de servicios para los cuales la empresa está autorizada a trabajar.
+
+## Endpoint
+
+```
+GET https://api.verifik.co/v2/cl/company
+```
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parámetros
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `documentType` | string | **Sí** | Tipo de documento. Parámetro permitido: RUT. | `RUT` |
+| `documentNumber` | string | **Sí** | RUT de la empresa que quieres consultar, ingresa este parámetro con puntos y guiones según lo establecido por la documentación nativa. | `33516727409` |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/cl/company',
+  params: {
+    documentType: 'RUT',
+    documentNumber: '212957739'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/cl/company?documentType=RUT&documentNumber=212957739", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/cl/company?documentType=RUT&documentNumber=212957739');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cl/company?documentType=RUT&documentNumber=212957739")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "activities": "Contribuyente presenta Inicio de Actividades: SI",
+    "currentEconomicActivities": [
+      {
+        "activity": "ELABORACION DE PRODUCTOS DE PANADERIA Y PASTELERIA",
+        "code": "107100",
+        "category": "Primera",
+        "affectIVA": "Si",
+        "date": "05-09-2014"
+      },
+      {
+        "activity": "VENTA AL POR MENOR DE ALIMENTOS EN COMERCIOS ESPECIALIZADOS (ALMACENES",
+        "code": "472101",
+        "category": "Primera",
+        "affectIVA": "Si",
+        "date": "05-09-2014"
+      }
+    ],
+    "documentNumber": "76409396",
+    "documentType": "RUT",
+    "fullRUT": "76409396-8",
+    "name": "PANADERIA R&M SPA",
+    "stampedDocuments": [],
+    "startDate": "05-09-2014"
+  },
+  "signature": {
+    "dateTime": "September 4, 2023 3:07 PM",
+    "message": "Certified by Verifik.co"
+  },
+  "id": "azbnj"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "No existe contribuyente asociado a la CUIT ingresada",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentType\n. missing documentNumber\n"
+}
+```
+
+  </TabItem>
+  <TabItem value="409-validation" label="409 - Validación">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "documentType must be one of: [RUT]"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Características
+
+- **Recuperación de Información Empresarial**: Obtener datos completos de empresas del registro empresarial chileno
+- **Validación de RUT**: Verificar números RUT (Rol Único Tributario) de empresas chilenas
+- **Actividades Económicas**: Recuperar actividades económicas detalladas y categorías comerciales
+- **Autorización Empresarial**: Obtener lista de servicios para los cuales la empresa está autorizada
+- **Historial de Actividades**: Acceder a actividades económicas históricas con fechas y códigos
+- **Estado IVA**: Verificar si la empresa afecta IVA para cada actividad
+- **Información de Fecha de Inicio**: Obtener fecha de inicio de la empresa y estado de iniciación de actividades
+- **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+- **Datos en Tiempo Real**: Acceder a información empresarial actual y actualizada
+- **Manejo Completo de Errores**: Respuestas de error detalladas para varios escenarios
