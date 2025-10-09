@@ -1,0 +1,184 @@
+---
+id: estados-unidos
+title: 🇺🇸 Estados Unidos - Verificación de SSN
+description: Servicio de verificación de Número de Seguro Social para validación de identidad de Estados Unidos
+slug: /identidad/estados-unidos
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🇺🇸 Estados Unidos - Verificación de SSN
+
+El Servicio de Verificación de SSN es una herramienta robusta diseñada para verificar Números de Seguro Social (SSN) emitidos en Estados Unidos. Este servicio permite a los usuarios validar rápidamente un SSN proporcionando detalles como el estado emisor y el primer año de emisión. La respuesta incluye el SSN en sí, el año en que fue emitido por primera vez, el estado emisor y el estado de validez del SSN. Esta herramienta es esencial para asegurar la precisión y autenticidad de los Números de Seguro Social.
+
+## Endpoint
+
+```
+GET https://api.verifik.co/v2/usa/ssn
+```
+
+### Headers
+
+| Name          | Value              |
+| ------------- | ------------------ |
+| Content-Type  | `application/json` |
+| Authorization | `Bearer <token>`   |
+
+### Parámetros
+
+| Name | Type | Required | Description | Example |
+| ---- | ---- | -------- | ----------- | ------- |
+| `documentNumber` | string | **Sí** | SSN a consultar, debe escribirse exactamente como aparece en el documento. | `123-45-678` |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/usa/ssn',
+  params: {
+    documentNumber: '123-45-678'
+  },
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer <tu_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+payload = ''
+headers = {}
+conn.request("GET", "/v2/usa/ssn?documentNumber=123-45-678", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.verifik.co/v2/usa/ssn?documentNumber=123-45-678');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+?>
+```
+
+  </TabItem>
+  <TabItem value="swift" label="Swift">
+
+```swift
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/usa/ssn?documentNumber=123-45-678")!,timeoutInterval: Double.infinity)
+request.httpMethod = "GET"
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+  guard let data = data else {
+    print(String(describing: error))
+    return
+  }
+  print(String(data: data, encoding: .utf8)!)
+}
+
+task.resume()
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+  "data": {
+    "firstYearIssued": "1936",
+    "issuingState": "Oklahoma (OK)",
+    "SSN": "123-45-678",
+    "valid": true
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 3:42 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "code": "NotFound",
+  "message": "Record not found.",
+  "signature": {
+    "dateTime": "August 31, 2025 3:24 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+  "code": "MissingParameter",
+  "message": "missing documentNumber\n"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Características
+
+- **Validación de SSN**: Verificar Números de Seguro Social emitidos en Estados Unidos
+- **Información del Estado Emisor**: Obtener detalles sobre qué estado emitió el SSN
+- **Primer Año Emitido**: Recuperar el año cuando el SSN fue emitido por primera vez
+- **Estado de Validez**: Confirmar si el SSN es válido y activo
+- **Múltiples Lenguajes de Programación**: Soporte para JavaScript, Python, PHP y Swift
+- **Verificación en Tiempo Real**: Validación instantánea de la autenticidad del SSN
+- **Integración Gubernamental**: Integración directa con datos de la Administración del Seguro Social
+- **Autenticación Segura**: Autenticación con token Bearer para todas las solicitudes
+- **Manejo Completo de Errores**: Respuestas de error detalladas para varios escenarios
+- **Validación de Formato**: Asegura que el SSN se proporcione en formato correcto (XXX-XX-XXXX)
