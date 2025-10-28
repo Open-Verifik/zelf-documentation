@@ -131,7 +131,7 @@ import TabItem from '@theme/TabItem';
     },
     "features": [
       {
-        "name": "Zelf Name System",
+        "name": "Zelf Name Service",
         "code": "zns",
         "description": "Encryptions, Decryptions, previews of ZelfProofs",
         "enabled": true
@@ -285,7 +285,7 @@ curl -X POST "https://api.zelf.world/api/license" \
       },
       "features": [
         {
-          "name": "Zelf Name System",
+          "name": "Zelf Name Service",
           "code": "zns",
           "description": "Encryptions, Decryptions, previews of ZelfProofs",
           "enabled": true
@@ -365,7 +365,7 @@ async function createLicense() {
         },
         features: [
           {
-            name: 'Zelf Name System',
+            name: 'Zelf Name Service',
             code: 'zns',
             description: 'Encryptions, Decryptions, previews of ZelfProofs',
             enabled: true
@@ -460,7 +460,7 @@ def create_license():
             },
             "features": [
                 {
-                    "name": "Zelf Name System",
+                    "name": "Zelf Name Service",
                     "code": "zns",
                     "description": "Encryptions, Decryptions, previews of ZelfProofs",
                     "enabled": True

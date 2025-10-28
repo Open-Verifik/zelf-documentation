@@ -82,7 +82,7 @@ import TabItem from '@theme/TabItem';
         },
         "features": [
           {
-            "name": "Zelf Name System",
+            "name": "Zelf Name Service",
             "code": "zns",
             "description": "Encryptions, Decryptions, previews of ZelfProofs",
             "enabled": true

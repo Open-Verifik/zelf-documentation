@@ -205,7 +205,7 @@ curl -X POST "https://api.zelf.world/api/license" \
       },
       "features": [
         {
-          "name": "Zelf Name System",
+          "name": "Zelf Name Service",
           "code": "zns",
           "description": "Encryptions, Decryptions, previews of ZelfProofs",
           "enabled": true
@@ -259,7 +259,7 @@ curl -X POST "https://api.zelf.world/api/license" \
 - **ZelfKeys**: Maximum number of ZelfKeys you can store
 
 **✨ Features**:
-- **ZNS**: Zelf Name System for decentralized naming
+- **ZNS**: Zelf Name Service for decentralized naming
 - **ZelfKeys**: Secure storage for passwords, notes, etc.
 
 **🛡️ Validation Rules**:
@@ -386,7 +386,7 @@ async function createZelfAccount() {
         },
         features: [
           {
-            name: "Zelf Name System",
+            name: "Zelf Name Service",
             code: "zns",
             description: "Encryptions, Decryptions, previews of ZelfProofs",
             enabled: true
