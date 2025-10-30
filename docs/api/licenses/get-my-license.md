@@ -1,3 +1,10 @@
+---
+title: Get My License
+description: Retrieve your current ZELF license details for the authenticated client, including domain and subscription.
+keywords: [zelf license api, get license, license details]
+image: /img/social-card.png
+---
+
 # Get My License
 
 Retrieve the current user's license information and account details.

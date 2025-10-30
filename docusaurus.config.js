@@ -71,6 +71,12 @@ const config = {
 				theme: {
 					customCss: "./src/css/custom.css",
 				},
+				sitemap: {
+					changefreq: "weekly",
+					priority: 0.5,
+					filename: "sitemap.xml",
+					ignorePatterns: ["**/tags/**", "**/page/**"],
+				},
 			}),
 		],
 	],
@@ -86,18 +92,83 @@ const config = {
 				editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
 			},
 		],
+		function injectJsonLd() {
+			return {
+				name: "inject-jsonld",
+				injectHtmlTags() {
+					const org = {
+						"@context": "https://schema.org",
+						"@type": "Organization",
+						name: "ZELF",
+						url: "https://docs.zelf.world",
+						logo: "https://docs.zelf.world/img/logo.svg",
+						sameAs: ["https://github.com/zelf"],
+					};
+					const website = {
+						"@context": "https://schema.org",
+						"@type": "WebSite",
+						name: "ZELF Docs",
+						url: "https://docs.zelf.world",
+						potentialAction: {
+							"@type": "SearchAction",
+							target: "https://docs.zelf.world/search?q={search_term_string}",
+							"query-input": "required name=search_term_string",
+						},
+					};
+					const breadcrumbsRuntime = `
+					(function(){
+					  try{
+					    var loc = window.location;
+					    var parts = loc.pathname.replace(/^\/+|\/+$/g,'').split('/');
+					    var itemList = [];
+					    var pathAcc = '';
+					    for(var i=0;i<parts.length;i++){
+					      pathAcc += '/' + parts[i];
+					      itemList.push({
+					        '@type':'ListItem',
+					        position:i+1,
+					        name: decodeURIComponent(parts[i]),
+					        item: loc.origin + pathAcc
+					      });
+					    }
+					    var data = {
+					      '@context':'https://schema.org',
+					      '@type':'BreadcrumbList',
+					      itemListElement:itemList
+					    };
+					    var s=document.createElement('script');
+					    s.type='application/ld+json';
+					    s.text=JSON.stringify(data);
+					    document.head.appendChild(s);
+					  }catch(e){}
+					})();`;
+					return {
+						headTags: [
+							{ tagName: "script", attributes: { type: "application/ld+json" }, innerHTML: JSON.stringify(org) },
+							{ tagName: "script", attributes: { type: "application/ld+json" }, innerHTML: JSON.stringify(website) },
+							{ tagName: "script", attributes: {}, innerHTML: breadcrumbsRuntime },
+						],
+					};
+				},
+			};
+		},
 	],
 
 	themeConfig:
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
-			// Replace with your project's social card
-			image: "img/docusaurus-social-card.jpg",
+			// Social sharing image (use PNG for widest crawler compatibility)
+			image: "img/social-card.png",
+			metadata: [
+				{ name: "description", content: "ZELF documentation: biometrics-secured identity, ZNS, and developer guides." },
+				{ name: "twitter:card", content: "summary_large_image" },
+				{ name: "twitter:site", content: "@zelfworld" },
+			],
 			navbar: {
 				title: "ZELF",
 				logo: {
-					alt: "ZELF Logo",
-					src: "img/zelflogo.png",
+					alt: "logo",
+					src: "/img/zelflogo.png",
 				},
 				items: [
 					{

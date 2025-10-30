@@ -1,4 +1,11 @@
-# Create Account
+---
+title: Create Account API — ZELF ZNS
+description: Create a ZELF client account via POST /api/clients with live face verification and master password. Returns IPFS hash and a JWT for future calls.
+keywords: [zelf, zns, create account api, post /api/clients, biometric account creation, face verification api]
+image: /img/social-card.png
+---
+
+# Create Account API — ZELF ZNS
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

@@ -1,3 +1,10 @@
+---
+title: Create License
+description: Create a ZELF license for a domain or tag with usage limits and ownership details stored on IPFS.
+keywords: [zelf license api, zns license, create license, license domain]
+image: /img/social-card.png
+---
+
 # Create License
 
 Create or update a license for a domain with comprehensive configuration settings.

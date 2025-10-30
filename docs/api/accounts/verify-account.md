@@ -1,3 +1,10 @@
+---
+title: Verify Account
+description: Verify a ZELF client account by email or phone via GET /api/clients, or list accounts with pagination.
+keywords: [zelf, verify account api, get /api/clients, check account exists, zns account lookup]
+image: /img/social-card.png
+---
+
 # Verify Account
 
 import Tabs from '@theme/Tabs';

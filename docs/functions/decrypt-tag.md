@@ -1,3 +1,10 @@
+---
+title: Decrypt Tag
+description: Decrypt a Zelf tag using live face verification and password to recover wallet data and metadata.
+keywords: [decrypt zelf tag, zelfproof decrypt, biometric verification, wallet recovery]
+image: /img/social-card.png
+---
+
 # Decrypt Tag
 
 import Tabs from '@theme/Tabs';

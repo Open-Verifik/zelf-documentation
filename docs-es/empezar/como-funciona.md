@@ -1,3 +1,10 @@
+---
+title: Cómo funciona
+description: Aprende cómo Zelf genera ZelfProofs no biométricos y verifica identidad sin almacenar biometría.
+keywords: [zelf, cómo funciona, zelfproof, cifrado, verificación, identidad]
+image: /img/social-card.svg
+---
+
 # Cómo funciona
 
 <iframe 

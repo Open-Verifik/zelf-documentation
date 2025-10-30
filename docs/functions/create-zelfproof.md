@@ -1,3 +1,10 @@
+---
+title: Create ZelfProof
+description: Generate a ZelfProof by encrypting metadata with a live face and optional password.
+keywords: [zelfproof, zero-knowledge face proof, encrypt metadata, biometric encryption, zns]
+image: /img/social-card.png
+---
+
 # Create ZelfProof
 
 import Tabs from '@theme/Tabs';

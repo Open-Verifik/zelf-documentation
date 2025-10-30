@@ -117,18 +117,18 @@ const sidebars = {
 			collapsible: false,
 			items: [
 				"integraciones/avalanche",
-				// "integraciones/blockdag", // oculto del sidebar
-				// {
-				// 	type: "category",
-				// 	label: "Hitos BlockDAG",
-				// 	collapsible: true,
-				// 	items: [
-				// 		"integraciones/blockdag-milestone-one",
-				// 		"integraciones/blockdag-milestone-two",
-				// 		"integraciones/blockdag-milestone-three",
-				// 		"integraciones/blockdag-milestone-four",
-				// 	],
-				// },
+				"integraciones/blockdag",
+				{
+					type: "category",
+					label: "Hitos BlockDAG",
+					collapsible: true,
+					items: [
+						"integraciones/blockdag-milestone-one",
+						"integraciones/blockdag-milestone-two",
+						"integraciones/blockdag-milestone-three",
+						"integraciones/blockdag-milestone-four",
+					],
+				},
 			],
 		},
 		{

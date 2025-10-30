@@ -1,3 +1,10 @@
+---
+title: Use cases
+description: Real-world applications of ZelfProof across finance, healthcare, government, retail, and more.
+keywords: [use cases, zelfproof, banking, healthcare, government, ecommerce, education, security]
+image: /img/social-card.svg
+---
+
 # Use cases
 
 ![](https://1734807472-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpZcqM4Fiw6bW4Zvc28S3%2Fuploads%2FKJvVLaRG1YBil9hGceXG%2FTitulos-02.png?alt=media&#x26;token=dcff27d1-5439-49fe-8607-50f660dc190e)

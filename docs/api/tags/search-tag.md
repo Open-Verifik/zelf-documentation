@@ -1,3 +1,10 @@
+---
+title: Search Tag
+description: Search Zelf tags by text query and retrieve matching entries with pagination.
+keywords: [search zelf tag, zns search api, find zelf name]
+image: /img/social-card.png
+---
+
 # Search Tag
 
 Search for a tag across any supported domain name (Zelf, Avax, BDAG, or other licensed domains).

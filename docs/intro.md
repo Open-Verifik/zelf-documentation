@@ -1,5 +1,9 @@
 ---
 sidebar_position: 1
+title: Welcome to Zelf World
+description: Overview of ZELF Name Service (ZNS), ZelfProof, and core privacy-preserving concepts.
+keywords: [zelf, zelfproof, zns, zero knowledge, identity, encryption, biometrics, privacy]
+image: /img/social-card.svg
 ---
 
 # Welcome to Zelf World

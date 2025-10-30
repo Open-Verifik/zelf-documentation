@@ -1,3 +1,10 @@
+---
+title: Search Licenses
+description: Search and list ZELF licenses, optionally filtering by domain. Returns IPFS-backed records.
+keywords: [zelf license api, zns license, list licenses, search licenses]
+image: /img/social-card.png
+---
+
 # Search Licenses
 
 Search and retrieve licenses from the system.

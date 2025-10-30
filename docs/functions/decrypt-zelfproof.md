@@ -2,6 +2,9 @@
 id: decrypt-zelfproof
 title: Decrypt ZelfProof
 sidebar_label: Decrypt ZelfProof
+description: Decrypt a ZelfProof by verifying a live face and optionally a password or verifier key; returns publicData and metadata.
+keywords: [decrypt zelfproof, verify live face, biometric decryption, recover metadata]
+image: /img/social-card.png
 ---
 
 import Tabs from '@theme/Tabs';
