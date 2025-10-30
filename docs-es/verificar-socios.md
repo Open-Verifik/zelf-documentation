@@ -12,19 +12,19 @@ Zelf ha establecido asociaciones con empresas líderes y organizaciones para pro
 
 ## Socios Tecnológicos
 
-### Redes Blockchain
+### Redes Blockchain {#blockchain-networks}
 - **Avalanche**: Integración blockchain de alto rendimiento
 - **Ethereum**: Compatibilidad con contratos inteligentes
 - **Polygon**: Soluciones de escalamiento de Capa 2
 - **Arbitrum**: Integración de rollup optimista
 
-### Proveedores de Nube
+### Proveedores de Nube {#cloud-providers}
 - **AWS**: Infraestructura escalable
 - **Google Cloud**: Servicios de IA y ML
 - **Microsoft Azure**: Soluciones empresariales
 - **IPFS**: Almacenamiento descentralizado
 
-### Socios de Seguridad
+### Socios de Seguridad {#security-partners}
 - **CertiK**: Auditoría de contratos inteligentes
 - **Quantstamp**: Verificación de seguridad
 - **Chainlink**: Servicios de oráculo
@@ -32,19 +32,19 @@ Zelf ha establecido asociaciones con empresas líderes y organizaciones para pro
 
 ## Socios de Integración
 
-### Servicios Financieros
+### Servicios Financieros {#financial-services}
 - **Bancos Tradicionales**: Integración de sistemas heredados
 - **Empresas Fintech**: Servicios financieros modernos
 - **Procesadores de Pago**: Procesamiento de transacciones
 - **Exchanges de Criptomonedas**: Plataformas de activos digitales
 
-### Proveedores de Identidad
+### Proveedores de Identidad {#identity-providers}
 - **Agencias Gubernamentales**: Verificación oficial de ID
 - **Sistemas Corporativos**: Gestión de identidad empresarial
 - **Instituciones Educativas**: Verificación de estudiantes
 - **Organizaciones de Salud**: Identidad del paciente
 
-### Empresas de Tecnología
+### Empresas de Tecnología {#technology-companies}
 - **Proveedores de Software**: Integración de aplicaciones
 - **Fabricantes de Hardware**: Compatibilidad de dispositivos
 - **Proveedores de Servicios**: Soporte de implementación
