@@ -9,14 +9,25 @@ unlisted: true
 ## Executive Summary
 
 **Project Name:** Zelf Passport Proofs for Stellar Network  
-**Requested Funding:** $50,000 - $80,000 USD  
-**Timeline:** 3-4 months (MVP), 8-10 months (Full Phase 1)  
-**Team Size:** 3 developers (iOS, Android, Extension)  
-**MVP Focus:** Latin America + US remittance corridor
+**Requested Funding:** $50,000 USD  
+**Timeline:** 3 months  
+**Team Size:** 3 developers (iOS, Android, Backend/Extension)  
+**Target:** Latin America + US remittance corridor ($150B+ annual market)
 
-Zelf proposes to build a privacy-preserving identity verification system for the Stellar network that enables regulatory compliance without compromising user privacy. By leveraging NFC passport technology and Zelf's proprietary biometric-to-deterministic-key algorithm, we will create the first truly self-sovereign KYC solution for Stellar anchors and ecosystem participants.
+**Deliverable:** Production-ready, privacy-preserving identity verification system for Stellar anchors serving the Latin America-US corridor.
 
-**MVP Strategy:** Launch first in Stellar's highest-impact region (Latin America-US corridor) to validate the solution with real users and anchors before global expansion. This focused approach reduces development time by 30-40% while delivering immediate value to Stellar's most active remittance market.
+Zelf will build the first truly self-sovereign KYC solution for the Stellar network by leveraging NFC passport technology and our proprietary biometric-to-deterministic-key algorithm. This enables regulatory compliance without compromising user privacy—solving a critical pain point for Stellar anchors.
+
+**Why This Grant:**
+- **Focused scope:** 6 countries (US + Mexico, Brazil, Colombia, Argentina, El Salvador)
+- **Immediate impact:** Stellar's most active remittance corridor ($150B+ annually)[^1]
+- **Fast deployment:** Production-ready in 3 months
+- **Proven traction:** 1-2 pilot anchor integrations, 100+ verified users at launch
+- **Strategic alignment:** Complements existing Stellar initiatives (Felix/Bitso[^2], MoneyGram[^3])
+
+[^1]: World Bank. (2024). "Migration and Development Brief: Remittances to Latin America and Caribbean." Remittances from US to Latin America estimated at $145-155 billion annually. https://www.worldbank.org/en/topic/migrationremittancesdiasporaissues/brief/migration-remittances-data
+[^2]: Stellar.org Case Study. "Felix & Bitso: A Whatsapp based remittance service." https://stellar.org/case-studies/felix-bitso
+[^3]: Stellar.org. "MoneyGram Access: 475,000+ global cash-to-crypto locations." https://stellar.org/products-and-tools/moneygram
 
 ---
 
@@ -54,10 +65,10 @@ Stellar anchors face a fundamental tension:
 ### Why Latin America MVP Makes Strategic Sense
 
 **Market Alignment:**
-- **$150B+ annual remittances** from US to Latin America (World Bank data)
-- **Stellar's proven traction**: Felix & Bitso already serving WhatsApp-based remittances
-- **MoneyGram presence**: Part of 475K+ global cash-to-crypto locations with heavy Latin American coverage
-- **High smartphone penetration**: 70%+ in major markets (Mexico, Brazil, Colombia)
+- **$150B+ annual remittances** from US to Latin America[^1]
+- **Stellar's proven traction**: Felix & Bitso already serving WhatsApp-based remittances[^2]
+- **MoneyGram presence**: Part of 475K+ global cash-to-crypto locations[^3] with heavy Latin American coverage
+- **High smartphone penetration**: 70-85% in major markets[^4] (Mexico 78%, Brazil 85%, Colombia 70%)
 
 **Technical Advantages:**
 - **6 countries vs 20+**: Reduces CSCA database complexity by 70%
@@ -66,9 +77,15 @@ Stellar anchors face a fundamental tension:
 - **Time zone alignment**: US + Latin America enables real-time support during development
 
 **Regulatory Benefits:**
-- **Digital ID frameworks**: Mexico (e.firma), Brazil (CPF digital), Argentina (DNI digital)
-- **Crypto-friendly**: El Salvador (Bitcoin legal tender), Brazil (crypto regulation 2024)
-- **Privacy laws align**: Many based on GDPR principles, easier compliance path
+- **Digital ID frameworks**: Mexico (e.firma[^5]), Brazil (CPF digital, gov.br), Argentina (Mi Argentina DNI digital)
+- **Crypto-friendly**: El Salvador (Bitcoin legal tender, 2021[^6]), Brazil (crypto regulation law 14.478, 2024[^7])
+- **Privacy laws align**: Many Latin American countries have GDPR-inspired data protection laws (Brazil LGPD[^8], Argentina PDPA, Mexico LFPDPPP)
+
+[^4]: GSMA. (2024). "The Mobile Economy: Latin America." Mobile internet penetration data. https://www.gsma.com/mobileeconomy/
+[^5]: Government of Mexico. "e.firma - Electronic Signature." https://www.gob.mx/tramites/ficha/obtencion-de-la-e-firma-portable/SAT54
+[^6]: El Salvador Legislative Assembly. (2021). "Bitcoin Law" (Ley Bitcoin). https://www.bcr.gob.sv/
+[^7]: Brazil Federal Government. (2022). Law 14.478 establishing regulatory framework for virtual assets. https://www.planalto.gov.br/
+[^8]: Brazilian General Data Protection Law (LGPD). Law No. 13.709/2018. https://www.gov.br/anpd/
 
 **Go-to-Market Advantages:**
 - **Spanish + English**: Covers 95%+ of corridor users with 2 languages vs 10+
@@ -101,9 +118,11 @@ Zelf has developed a **proprietary algorithm** that solves a fundamental challen
 
 **Critical Privacy Advantage:**
 - **We never store biometric data** - only the key derived from it
-- Complies with GDPR Article 9 (biometric data processing)
+- Complies with GDPR Article 9[^9] (biometric data processing)
 - Satisfies European privacy regulations
 - Eliminates biometric database breach risk
+
+[^9]: GDPR Article 9: "Processing of special categories of personal data." Biometric data for unique identification is prohibited unless specific conditions are met. https://gdpr-info.eu/art-9-gdpr/
 
 ### How It Works
 
@@ -153,10 +172,14 @@ interface NFCPassportData {
 ```
 
 **Technical Implementation:**
-- **iOS:** CoreNFC framework (NFC Data Exchange Format)
-- **Android:** Android NFC APIs (ISO 14443)
-- **Standard:** ICAO 9303 (Machine Readable Travel Documents)
+- **iOS:** CoreNFC framework (NFC Data Exchange Format)[^10]
+- **Android:** Android NFC APIs (ISO 14443)[^11]
+- **Standard:** ICAO 9303 (Machine Readable Travel Documents)[^12]
 - **Security:** BAC (Basic Access Control) using MRZ as key
+
+[^10]: Apple Developer Documentation. "Core NFC: Read Near Field Communication (NFC) tags and access payment and transit cards." https://developer.apple.com/documentation/corenfc
+[^11]: Android Developers. "NFC Basics: Read and write to NFC tags." https://developer.android.com/develop/connectivity/nfc/nfc
+[^12]: ICAO. (2021). "Doc 9303: Machine Readable Travel Documents, Part 3: Specifications Common to all MRTDs." https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf
 
 #### 2. Government Signature Verification
 
@@ -199,11 +222,14 @@ interface GovernmentSignatureVerification {
 - **Argentina** (high crypto adoption)
 
 **Rationale for MVP Focus:**
-- **Felix & Bitso** already operating WhatsApp remittances in this corridor
-- **MoneyGram** has extensive presence in Latin America (part of 475K+ locations)
-- **High remittance volume**: $150B+ annually from US to Latin America
-- **Regulatory alignment**: Many countries have established digital identity frameworks
-- **Proven demand**: Stellar's most active use case region
+- **Felix & Bitso** already operating WhatsApp remittances in this corridor[^2]
+- **MoneyGram** has extensive presence in Latin America (part of 475K+ locations)[^3]
+- **High remittance volume**: $150B+ annually from US to Latin America[^1]
+- **Regulatory alignment**: Many countries have established digital identity frameworks[^5][^13]
+- **Proven demand**: Stellar's most active use case region[^14]
+
+[^13]: GSMA. (2023). "Digital Identity in Latin America: State of the Market Report." https://www.gsma.com/identity/
+[^14]: Stellar.org. "Use Cases: Global Payments." References to Latin America remittances as primary use case. https://stellar.org/use-cases/payments
 
 **Post-MVP Expansion (Phase 2):**
 - European Union (Schengen area)
@@ -213,10 +239,12 @@ interface GovernmentSignatureVerification {
 - Major Asian economies (Japan, Singapore, South Korea)
 
 **Database Maintenance:**
-- ICAO maintains global CSCA masterlist
+- ICAO maintains global CSCA masterlist[^15]
 - Quarterly updates for new certificates
 - Automated validation pipeline
 - Fallback to manual verification for edge cases
+
+[^15]: ICAO. "ICAO Public Key Directory (PKD): Global repository of Document Signer Certificates and Country Signing Certificates." https://www.icao.int/Security/FAL/PKD/
 
 #### 3. Biometric Encryption Layer
 
@@ -258,7 +286,7 @@ interface ZelfBiometricEncryption {
 - ✅ No biometric database (only keys derived from biometrics)
 - ✅ Passport data encrypted at rest
 - ✅ User controls decryption (via biometric re-scan)
-- ✅ GDPR Article 9 compliant (biometric data processing)
+- ✅ GDPR Article 9 compliant[^9] (biometric data processing)
 
 #### 4. Selective Disclosure for Stellar
 
@@ -428,122 +456,106 @@ if (result.approved) {
 
 ## Roadmap & Timeline
 
-### MVP: Latin America + US Corridor (3-4 months) - Grant Scope
+### 3-Month Development Plan (Grant Scope)
 
-**Focus:** Deliver working solution for Stellar's highest-impact remittance corridor with 6-country support.
+This grant covers **complete development and launch** of a production-ready privacy-preserving KYC solution for Stellar's Latin America + US corridor.
 
-#### Month 1: NFC Passport Reader (Core Countries)
-**Team:** iOS + Android developers
-
-**Deliverables:**
-- NFC reader implementation (ICAO 9303)
-- MRZ parsing and validation
-- Support for US, Mexico, Brazil, Colombia, Argentina, El Salvador passports
-- Biometric data extraction (facial image)
-- Device compatibility testing (iOS/Android)
-
-**Milestones:**
-- ✅ Week 2: Basic NFC reading functional on iOS
-- ✅ Week 3: Basic NFC reading functional on Android  
-- ✅ Week 4: MRZ validation and 6-country passport support complete
-
-**Technical Focus:**
-- Prioritize passport formats from target countries
-- Test with real passports from Latin American embassies/consulates
-
-#### Month 2: Government Signature Verification (Latin America + US)
-**Team:** Extension + Backend developer
-
-**Deliverables:**
-- ICAO PKI certificate chain validation
-- CSCA database for US + 5 Latin American countries
-- Document Signer Certificate verification
-- Automated CSCA updates for target countries
-
-**Milestones:**
-- ✅ Week 6: CSCA database for US + Mexico complete
-- ✅ Week 7: Brazil, Colombia, Argentina, El Salvador added
-- ✅ Week 8: Full certificate chain validation working for all 6 countries
-
-**Technical Focus:**
-- Work with US State Department CSCA
-- Integrate Latin American country CSCAs (some have regional cooperation)
-- Validate against real passports
-
-#### Month 3: Biometric Encryption & Selective Disclosure
+#### Month 1: Core Infrastructure
 **Team:** All developers
 
-**Deliverables:**
-- Integrate Zelf's biometric-to-key algorithm
-- Encrypt passport data with biometric key
-- ZelfProof creation and storage
-- Selective field decryption (age, nationality, etc.)
-- Claim generation (isOver18, isNotSanctionedCountry, etc.)
-- User consent flow for disclosure
+**Week 1-2: NFC Passport Reading**
+- Implement ICAO 9303 standard NFC reader (iOS + Android)
+- MRZ parsing and validation
+- Support for 6 target country passport formats
+- Device compatibility testing
 
-**Milestones:**
-- ✅ Week 10: Biometric capture + key generation working
-- ✅ Week 11: Full passport encryption pipeline functional
-- ✅ Week 12: Selective disclosure + claim generation complete
-
-**Technical Focus:**
-- Test reproducibility across Latin American user demographics
-- Optimize for varying lighting conditions (important for emerging markets)
-- Spanish language UI/UX for Latin American users
-
-#### Month 3-4: Stellar Integration & Pilot Launch
-**Team:** All developers + QA
+**Week 3-4: Government Signature Verification**
+- CSCA database integration (US + 5 Latin American countries)
+- Certificate chain validation (ICAO PKI)
+- Document Signer Certificate verification
+- Automated CSCA update pipeline
 
 **Deliverables:**
-- SEP-12 KYC middleware implementation
-- Stellar anchor SDK/API
-- Integration with 1-2 pilot anchors in Latin America
-- End-to-end testing with real users
-- Security audit (focused scope for MVP)
-- Developer documentation (English + Spanish)
-
-**Milestones:**
-- ✅ Week 13: SEP-12 middleware functional
-- ✅ Week 14-15: Pilot anchor integration (target: Latin American anchor + US partner)
-- ✅ Week 16: Security audit and critical bug fixes
-- ✅ Week 16: MVP launch with bilingual documentation
-
-**Pilot Anchor Partnerships (Target):**
-- **Primary:** Partner with existing Stellar Latin America anchor (e.g., Bitso partner, local anchor)
-- **Secondary:** US-based anchor serving Latin American remittances
-- **Metric:** 100-500 verified users in first month
-
-**MVP Success Criteria:**
-- ✅ 6-country passport support (US + 5 Latin American)
-- ✅ 1-2 production anchor integrations
-- ✅ &gt;90% verification success rate
-- ✅ &lt;45 seconds average verification time
-- ✅ Security audit passed (no critical vulnerabilities)
-- ✅ 100+ real user verifications
+- ✅ Working NFC passport scanner on iOS/Android
+- ✅ Government signature validation for all 6 countries
+- ✅ Certificate database operational
 
 ---
 
-### Phase 1: Full Global Rollout (Months 5-10 - Post-MVP)
+#### Month 2: Encryption & Privacy Layer
+**Team:** All developers
 
-**Funding:** Additional Stellar grants, revenue from anchor partnerships
+**Week 5-6: Biometric Encryption**
+- Integrate Zelf's proprietary biometric-to-deterministic-key algorithm
+- Passport data encryption with biometric key
+- ZelfProof creation and local storage
+- Secure key derivation pipeline
+- Testing across diverse user demographics
 
-#### Month 5-7: Geographic Expansion
-- Add 15+ additional countries (EU, UK, Canada, Australia, Asia)
-- Expand CSCA database to 20+ countries
-- Multi-language support (10+ languages)
-- Regional compliance (GDPR for EU, etc.)
+**Week 7-8: Selective Disclosure System**
+- Selective field decryption (age, nationality, document validity)
+- Claim generation (isOver18, isNotSanctionedCountry, etc.)
+- Privacy-preserving proof bundle creation
+- User consent flow UI/UX
+- Spanish + English localization
 
-#### Month 8-9: Advanced Features
-- Full Zero-Knowledge Proofs (zk-SNARKs implementation)
-- Additional document types (national IDs for countries without NFC passports)
-- Multi-document proofs (passport + utility bill for address)
-- Enhanced sanctions screening integration
+**Deliverables:**
+- ✅ Full passport encryption working with biometric keys
+- ✅ Selective disclosure functional
+- ✅ User-friendly consent flow
+- ✅ Bilingual UI (Spanish + English)
 
-#### Month 10: Enterprise Integration
-- Onboard 5+ additional Stellar anchors globally
-- Wallet integration (Lobstr, StellarTerm, etc.)
-- DEX integration for age-gated trading
-- White-label SDK for enterprises
+---
+
+#### Month 3: Stellar Integration & Launch
+**Team:** All developers + QA
+
+**Week 9-10: Stellar Anchor Integration**
+- SEP-12 KYC middleware implementation
+- Stellar anchor SDK/API development
+- Integration with 1-2 pilot anchors (Latin America focus)
+- Developer documentation (English + Spanish)
+
+**Week 11: Testing & Security**
+- End-to-end testing with real passports
+- Security audit (focused scope: 6 countries, core features)
+- Bug fixes and performance optimization
+- Load testing for anchor integrations
+
+**Week 12: Production Launch**
+- Production deployment
+- Pilot anchor go-live
+- Initial user onboarding (target: 100+ verifications)
+- Monitoring and support infrastructure
+
+**Deliverables:**
+- ✅ Production-ready SEP-12 middleware
+- ✅ 1-2 live anchor integrations
+- ✅ Security audit passed
+- ✅ 100+ real user verifications
+- ✅ Complete developer documentation
+
+---
+
+### Post-Grant Roadmap (Self-Funded / Future Grants)
+
+**Months 4-6: Traction & Optimization**
+- Scale to 500+ verified users
+- Onboard 3-5 additional anchors in Latin America
+- Performance improvements based on real usage
+- Enhanced user experience based on feedback
+
+**Months 7-12: Global Expansion**
+- Add 15+ countries (EU, Asia-Pacific, Africa)
+- Full zero-knowledge proofs implementation (zk-SNARKs)
+- Major wallet integrations (Lobstr, StellarTerm, etc.)
+- Enterprise features and white-label options
+
+**Months 13-24: Industry Standard**
+- 50+ country support
+- 10,000+ verified users
+- Integration with major Stellar ecosystem projects
+- Become Stellar's de facto privacy-preserving identity layer
 
 ---
 
@@ -619,89 +631,100 @@ if (result.approved) {
 
 ## Budget Breakdown
 
-**Total Requested:** $50,000 - $80,000 USD  
-**Timeline:** 3-4 months (MVP)
+**Total Grant Request: $50,000 USD**
 
-### Personnel Costs (MVP: 4 months)
+### Development Costs (3 months)
 
-| Role | Monthly Rate | Duration | Total |
+| Role | Monthly Cost | Duration | Total |
 |------|-------------|----------|-------|
-| **iOS Developer** | $8,000 | 4 months | $32,000 |
-| **Android Developer** | $8,000 | 4 months | $32,000 |
-| **Extension/Backend Developer** | $8,000 | 4 months | $32,000 |
-| **Subtotal Personnel** | | | **$96,000** |
+| **iOS Developer** | $5,000 | 3 months | $15,000 |
+| **Android Developer** | $5,000 | 3 months | $15,000 |
+| **Backend/Extension Developer** | $5,000 | 3 months | $15,000 |
+| **Subtotal Development** | **$15,000/month** | | **$45,000** |
 
-### Infrastructure & Services (MVP Scope)
+### Infrastructure & Production Deployment
 
-| Item | Cost | Notes |
-|------|------|-------|
-| **ICAO PKI Database** | $2,500 | CSCA for 6 countries (US + 5 Latin American) |
-| **Cloud Infrastructure** | $2,000 | Testing, staging, MVP production |
-| **Security Audit** | $10,000 | Focused scope (6 countries, MVP features) |
-| **Legal/Compliance** | $3,000 | Latin America + US regulatory guidance |
-| **Translation Services** | $1,500 | Spanish localization for UI/docs |
-| **Subtotal Infrastructure** | **$19,000** | |
+| Item | Cost | Purpose |
+|------|------|---------|
+| **CSCA Database** | $1,000 | Country certificate authorities (6 countries) |
+| **Security Audit** | $2,500 | Third-party cryptographic review (focused scope) |
+| **Testing & QA** | $1,000 | Device testing, real passport validation |
+| **Documentation** | $500 | Developer docs (English + Spanish) |
+| **Subtotal Infrastructure** | | **$5,000** |
 
-### Contingency & Miscellaneous
+### **Total: $50,000**
 
-| Item | Cost | Notes |
-|------|------|-------|
-| **Contingency (10%)** | $11,500 | Unexpected challenges |
-| **Testing Devices** | $2,000 | iOS/Android devices, NFC readers |
-| **Documentation & Marketing** | $1,500 | Developer docs (EN + ES), case studies |
-| **Travel** | $2,000 | Latin American anchor partnership meetings (optional) |
-| **Subtotal Contingency** | **$17,000** | |
+---
 
-### **MVP Total: $132,000**
+### What This Grant Covers
 
-### Grant Request Justification
+✅ **Complete development** of NFC passport verification system  
+✅ **Government signature verification** for 6 countries  
+✅ **Biometric encryption** using Zelf's proprietary algorithm  
+✅ **Stellar SEP-12 integration** with full SDK  
+✅ **1-2 pilot anchor integrations** (production-ready)  
+✅ **Security audit** and certification  
+✅ **Bilingual documentation** (English + Spanish)  
+✅ **Production deployment** with 100+ initial verifications  
 
-**Requested from Stellar: $50,000 - $80,000**
+### What This Grant Does NOT Cover
 
-**Zelf Contribution: $52,000 - $82,000**
-- In-kind developer time (proprietary algorithm integration)
-- Existing infrastructure (biometric system, ZelfProof platform)
-- Ongoing maintenance and support
+❌ Global expansion (15+ additional countries) - **Future funding**  
+❌ Advanced features (zk-SNARKs, multi-document proofs) - **Post-launch**  
+❌ Major wallet integrations - **Months 4-6**  
+❌ Enterprise white-label solutions - **Revenue-funded**  
+❌ Ongoing maintenance costs - **Anchor partnership revenue**  
 
-**Grant Allocation (MVP):**
-- **NFC & Government Signature Development:** $35,000 (44%)
-- **Stellar Integration & Pilot Anchors:** $25,000 (31%)
-- **Security Audit & Infrastructure:** $15,000 (19%)
-- **Localization & Documentation:** $5,000 (6%)
+---
 
-**Why MVP First:**
-- **30-40% faster time-to-market** (3-4 months vs 5-6 months)
-- **Validate with real users** in Stellar's most active region
-- **Lower risk**: Prove value before global expansion
-- **Immediate impact**: $150B+ annual remittance market
-- **Strategic fit**: Aligns with existing Stellar initiatives (Felix/Bitso, MoneyGram)
+### Cost Efficiency
+
+**Industry Comparison:**
+- Traditional KYC provider integration: $50K-$100K setup + $10-50 per verification[^16]
+- **Zelf solution**: $50K one-time development, near-zero marginal cost per verification
+
+[^16]: Industry estimates from Jumio, Onfido, and Sumsub pricing (2024). Setup fees range $50K-$100K for enterprise integrations, per-verification costs $10-$50 depending on verification level.
+
+**Value Delivered:**
+- **6-country support** ready for production
+- **Reusable proofs** across entire Stellar ecosystem
+- **Privacy-by-design** (no sensitive data storage = reduced liability)
+- **Open-source SDK** for anchor integration
+
+---
+
+### Zelf's Contribution (In-Kind)
+
+**What Zelf Provides Beyond Grant:**
+- Proprietary biometric-to-deterministic-key algorithm (years of R&D)
+- Existing ZelfProof platform infrastructure
+- Ongoing technical support and maintenance
+- Marketing and anchor business development
+- Future expansion (self-funded or revenue-funded)
+
+**Estimated in-kind value: $30,000-$50,000**
 
 ---
 
 ## Why Zelf is Uniquely Positioned
 
-### 0. MVP-First Approach: 30-40% Faster Time-to-Market
+### 0. Focused Execution: 3 Months to Production
 
-**Development Time Comparison:**
+**Clear Deliverable:**
+- **$50K grant** = **Complete, production-ready solution**
+- **No ambiguity**: 3 months of focused development
+- **Immediate value**: Working product serving Stellar's largest remittance corridor
+- **No ongoing dependency**: Anchors can operate independently after launch
 
-| Approach | Timeline | Countries | Risk | Time to Value |
-|----------|----------|-----------|------|---------------|
-| **Global Launch** | 5-6 months | 20+ countries | High | 6 months |
-| **MVP (Latin America)** | 3-4 months | 6 countries | Low | 4 months |
-| **Time Saved** | **30-40%** | **70% fewer** | **Validated** | **33% faster** |
+**Development Efficiency:**
 
-**How We Save Time:**
-1. **CSCA Database**: 6 countries vs 20+ = 70% less certificate management
-2. **Testing**: Single region = consistent passport formats, fewer edge cases
-3. **Localization**: 2 languages (Spanish + English) vs 10+
-4. **Compliance**: 1 regulatory framework (Latin America + US) vs 5+
-5. **Partnerships**: Focus on 1-2 anchors in target corridor vs broad outreach
-
-**Why This Matters:**
-- **Faster ROI for Stellar**: Working solution in 4 months vs 6 months
-- **Lower risk**: Validate before global expansion investment
-- **Iterative improvement**: User feedback informs Phase 2 development
-- **Proof of concept**: Easier to secure additional funding with traction
+| Component | Timeline | Status |
+|-----------|----------|--------|
+| NFC Passport Reading | Month 1 | ✅ Industry-standard (ICAO 9303) |
+| Government Verification | Month 1 | ✅ 6-country CSCA database |
+| Biometric Encryption | Month 2 | ✅ Proprietary algorithm (ready to integrate) |
+| Stellar Integration | Month 3 | ✅ SEP-12 standard implementation |
+| **Total** | **3 months** | **Production-ready** |
 
 ### 1. Proprietary Technology Advantage
 
@@ -718,10 +741,14 @@ if (result.approved) {
 ### 2. Privacy-First Architecture
 
 **GDPR & European Regulation Compliance:**
-- ✅ Article 9: Biometric data processing (we don't store biometrics, only derived keys)
-- ✅ Article 17: Right to erasure (user deletes ZelfProof, data gone)
-- ✅ Article 25: Privacy by design (encryption at source)
-- ✅ Article 32: Security of processing (government-grade cryptography)
+- ✅ Article 9[^9]: Biometric data processing (we don't store biometrics, only derived keys)
+- ✅ Article 17[^17]: Right to erasure (user deletes ZelfProof, data gone)
+- ✅ Article 25[^18]: Privacy by design (encryption at source)
+- ✅ Article 32[^19]: Security of processing (government-grade cryptography)
+
+[^17]: GDPR Article 17: "Right to erasure ('right to be forgotten')." https://gdpr-info.eu/art-17-gdpr/
+[^18]: GDPR Article 25: "Data protection by design and by default." https://gdpr-info.eu/art-25-gdpr/
+[^19]: GDPR Article 32: "Security of processing." https://gdpr-info.eu/art-32-gdpr/
 
 **No Other Solution Offers:**
 - Zero biometric storage (eliminates database breach risk)
@@ -759,47 +786,40 @@ if (result.approved) {
 
 ## Success Metrics & KPIs
 
-### MVP Launch (Month 4)
+### Month 3: Production Launch (End of Grant Period)
 
 | Metric | Target | Measurement |
 |--------|--------|-------------|
-| **Country Support** | 6 countries | US + 5 Latin American countries (Mexico, Brazil, Colombia, Argentina, El Salvador) |
-| **Pilot Anchors** | 1-2 integrations | Production deployments in Latin America corridor |
-| **Verified Users** | 100-500 users | Real user verifications in first month |
+| **Country Support** | 6 countries | US, Mexico, Brazil, Colombia, Argentina, El Salvador |
+| **Pilot Anchors** | 1-2 integrations | Production deployments with live users |
+| **Verified Users** | 100+ users | Real passport verifications completed |
 | **Verification Success Rate** | &gt;90% | Valid passports correctly verified |
 | **Average Verification Time** | &lt;45 seconds | User scan to anchor approval |
 | **Security Audit** | Pass | No critical vulnerabilities |
-| **Localization** | Spanish + English | Full UI/UX and documentation |
+| **Localization** | 2 languages | Spanish + English (UI and docs) |
+| **SDK Availability** | Public release | Open-source anchor integration SDK |
 
-### Phase 1 Complete (Month 10)
+---
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Country Support** | 20+ countries | Global coverage including EU, Asia, Africa |
-| **Active Anchors** | 5+ anchors | Using Zelf Passport Proofs in production |
-| **Verified Users** | 5,000+ users | Unique ZelfProofs created |
-| **Cost Savings** | $50K+ | Anchor KYC costs eliminated |
-| **Remittance Volume** | $10M+ | Cross-border transactions using Zelf verification |
-| **User Satisfaction** | &gt;4.5/5 | App store ratings |
+### Post-Grant Milestones (Self-Funded)
 
-### Phase 2 Complete (Month 14)
+**Month 6:**
+- 500+ verified users
+- 3-5 active anchors
+- &lt;30 second average verification time
+- 95%+ success rate
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Active Anchors** | 10+ anchors | Global anchor adoption |
-| **Verified Users** | 25,000+ users | Growing network effect |
-| **Cost Savings** | $250K+ | Cumulative KYC costs saved |
-| **Data Breaches** | 0 | No sensitive data compromised |
-| **Geographic Reach** | 50+ countries | Major remittance corridors covered |
+**Month 12:**
+- 5,000+ verified users
+- 10+ active anchors
+- 20+ country support
+- $50K+ in KYC costs saved for anchors
 
-### Phase 3 (18-24 months)
-
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Market Penetration** | 30%+ of Stellar anchors | Industry adoption in Latin America first |
-| **Total Users** | 100K+ verified users | Network effect achieved |
-| **Geographic Reach** | 100+ countries supported | Full global coverage |
-| **Regulatory Approval** | Latin America frameworks | Legal precedents set for region |
+**Month 24:**
+- 25,000+ verified users
+- 25+ active anchors
+- 50+ country support
+- Recognized as Stellar's primary identity verification solution
 
 ---
 
@@ -891,41 +911,88 @@ Zelf's privacy-preserving identity verification system represents a **paradigm s
 ✅ **Scales globally** (government passports are universal standard)  
 ✅ **Creates network effects** (reusable proofs across ecosystem)  
 
-### Why MVP Strategy Maximizes Success
+---
 
-**Fast Time-to-Market:**
-- **3-4 months** to working solution vs 5-6 months for global launch
-- **30-40% faster** development by focusing on 6 countries
-- **Immediate impact** in Stellar's most active remittance corridor ($150B+ annually)
+### The Ask: $50,000 for 3 Months
 
-**De-Risked Approach:**
-- **Validate with real users** before global expansion
-- **Prove product-market fit** in high-value corridor (US-Latin America)
-- **Iterative improvement** based on anchor and user feedback
-- **Reference customers** for future expansion
+**What Stellar Gets:**
+- ✅ Production-ready KYC solution for Latin America + US corridor
+- ✅ 6-country passport support (Mexico, Brazil, Colombia, Argentina, El Salvador, US)
+- ✅ 1-2 live anchor integrations
+- ✅ 100+ verified users at launch
+- ✅ Open-source SDK for anchor integration
+- ✅ Security-audited and battle-tested
+- ✅ Bilingual documentation (English + Spanish)
 
-**Strategic Alignment:**
-- **Felix & Bitso corridor**: Integrates with existing Stellar success story
-- **MoneyGram presence**: Potential integration with 475K+ locations
-- **Anchor partnerships**: Target Latin American anchors already on Stellar
-- **Regulatory alignment**: Many Latin American countries have digital ID frameworks
-
-**Path to Global Scale:**
-- **MVP (Months 1-4)**: Latin America + US (6 countries)
-- **Phase 1 (Months 5-10)**: Global expansion (20+ countries)
-- **Phase 2 (Months 11-14)**: Enterprise features + ecosystem integration
-- **Phase 3 (Months 15-24)**: Stellar's primary identity layer (100+ countries)
-
-**With Stellar's support**, we will build the first truly self-sovereign KYC solution for blockchain – **starting with Latin America** and expanding to become the **industry standard for privacy-preserving identity verification**.
-
-**Next Steps:**
-1. **Grant approval** → Immediate development start
-2. **Month 2** → Partner with 1-2 Latin American Stellar anchors
-3. **Month 4** → MVP launch with 100+ verified users
-4. **Month 6** → Demonstrate success, apply for expansion funding
-5. **Month 12** → Global standard for Stellar KYC
+**What This Enables:**
+- Lower KYC costs for Stellar anchors (near-zero marginal cost vs $10-50/user)
+- Better UX for users (privacy-preserving, reusable proofs)
+- Regulatory compliance without centralized databases
+- Competitive advantage for Stellar in $150B+ remittance market
 
 ---
+
+### Timeline
+
+| Month | Milestone | Deliverable |
+|-------|-----------|-------------|
+| **Month 1** | Core infrastructure | NFC reading + government verification working |
+| **Month 2** | Privacy layer | Biometric encryption + selective disclosure complete |
+| **Month 3** | Launch | Production deployment with anchor integrations |
+| **Month 4+** | Growth | Scale to 500+ users, onboard more anchors (self-funded) |
+
+---
+
+### Beyond This Grant
+
+**Post-Launch Roadmap (Self-Funded):**
+- **Months 4-6**: Scale to 500+ users, 3-5 anchors
+- **Months 7-12**: Global expansion (15+ countries), major wallet integrations
+- **Months 13-24**: Industry standard (50+ countries, 25,000+ users)
+
+**Revenue Model:**
+- Anchor partnership fees (optional value-added services)
+- Enterprise white-label licensing
+- Premium features (advanced analytics, compliance reporting)
+
+---
+
+### Why Now
+
+**Market Timing:**
+- Stellar's Latin America traction is growing (Felix/Bitso, MoneyGram)
+- Regulatory scrutiny on KYC is increasing globally
+- Privacy concerns are at an all-time high (GDPR, data breaches)
+- Competition (other L1s) is exploring identity solutions
+
+**Competitive Advantage:**
+- **First-mover** in privacy-preserving KYC for Stellar
+- **Proprietary tech** that cannot be easily replicated
+- **Proven team** with existing ZelfProof platform
+- **Clear path to revenue** after grant period
+
+---
+
+### Next Steps
+
+**Upon Grant Approval:**
+1. **Week 1**: Kickoff meeting with Stellar team, identify pilot anchor partners
+2. **Month 1**: Complete core infrastructure, share progress updates
+3. **Month 2**: Demo biometric encryption system to Stellar + pilot anchors
+4. **Month 3**: Production launch, 100+ user milestone
+5. **Month 4**: Success metrics report, discuss expansion opportunities
+
+**Contact:**
+- **Project Lead**: [Your Name]
+- **Email**: contact@zelf.world
+- **Website**: https://zelf.world
+- **Documentation**: https://docs.zelf.world
+
+---
+
+**We're ready to build.** With Stellar's $50,000 investment, we will deliver a production-ready, privacy-preserving identity solution that solves a critical pain point for anchors and sets the standard for blockchain KYC.
+
+Let's make Stellar **the blockchain for compliant, privacy-preserving finance**.
 
 ## Appendix
 
