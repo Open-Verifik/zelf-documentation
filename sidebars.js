@@ -153,6 +153,12 @@ const sidebars = {
 			collapsible: false,
 			items: ["roadmap/q1-2025", "roadmap/q2-2025", "roadmap/q3-2025", "roadmap/q4-2025"],
 		},
+		{
+			type: "category",
+			label: "Changelog",
+			collapsible: false,
+			items: ["changelog/changelog-index", "changelog/2025-01-05-transaction-amount-preservation"],
+		},
 	],
 };
 

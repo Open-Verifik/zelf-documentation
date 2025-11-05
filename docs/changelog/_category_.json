@@ -1,0 +1,9 @@
+{
+  "label": "Changelog",
+  "position": 100,
+  "collapsible": false,
+  "customProps": {
+    "description": "Detailed changelog entries for the ZELF Wallet Extension"
+  }
+}
+
