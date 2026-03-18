@@ -140,19 +140,7 @@ const sidebars = {
 			collapsible: false,
 			items: ["legal/team-members", "legal/terms-of-use", "legal/privacy-policy"],
 		},
-		{
-			type: "category",
-			label: "Airdrop",
-			collapsible: false,
-			items: ["airdrop/airdrop-rules", "airdrop/airdrop-rules-es", "airdrop/pricing-per-domain"],
-		},
 		"verify-partners",
-		{
-			type: "category",
-			label: "Roadmap",
-			collapsible: false,
-			items: ["roadmap/q1-2025", "roadmap/q2-2025", "roadmap/q3-2025", "roadmap/q4-2025"],
-		},
 		{
 			type: "category",
 			label: "Changelog",

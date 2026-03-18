@@ -137,19 +137,7 @@ const sidebars = {
 			collapsible: false,
 			items: ["legal/miembros-equipo", "legal/terminos-uso", "legal/politica-privacidad"],
 		},
-		{
-			type: "category",
-			label: "Airdrop",
-			collapsible: false,
-			items: ["airdrop/reglas-airdrop", "airdrop/precios-por-dominio"],
-		},
 		"verificar-socios",
-		{
-			type: "category",
-			label: "Hoja de Ruta",
-			collapsible: false,
-			items: ["hoja-ruta/q1-2025", "hoja-ruta/q2-2025", "hoja-ruta/q3-2025", "hoja-ruta/q4-2025"],
-		},
 	],
 };
 
