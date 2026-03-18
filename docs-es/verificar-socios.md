@@ -13,7 +13,6 @@ Zelf ha establecido asociaciones con empresas líderes y organizaciones para pro
 ## Socios Tecnológicos
 
 ### Redes Blockchain {#blockchain-networks}
-- **Avalanche**: Integración blockchain de alto rendimiento
 - **Ethereum**: Compatibilidad con contratos inteligentes
 - **Polygon**: Soluciones de escalamiento de Capa 2
 - **Arbitrum**: Integración de rollup optimista

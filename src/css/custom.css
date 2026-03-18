@@ -453,7 +453,7 @@ body {
   border-left: none;
 }
 
-/* Collapsible menu styling for BlockDAG milestones */
+/* Collapsible menu styling */
 .menu__list-item-collapsible .menu__list {
   max-height: 0;
   overflow: hidden;
@@ -477,15 +477,7 @@ body {
   line-height: 1.4;
 }
 
-/* Specific styling for BlockDAG milestones */
-.menu__list-item-collapsible .menu__list-item .menu__link[href*="blockdag-milestone"] {
-  font-size: 12px;
-  padding-left: 45px;
-  color: #6c757d;
-  margin: 1px 0;
-}
-
-/* Make BlockDAG milestones category label same size as other categories */
+/* Make collapsible category label same size as other categories */
 .menu__list-item-collapsible .menu__list-item-collapsible .menu__link {
   font-size: 14px !important;
   font-weight: 500 !important;
@@ -499,23 +491,12 @@ body {
   z-index: 1;
 }
 
-/* Compact spacing for milestone items */
-.menu__list-item-collapsible .menu__list-item .menu__link[href*="milestone"] {
-  padding-top: 3px;
-  padding-bottom: 3px;
-  margin: 0;
-}
-
 /* Responsive adjustments for smaller screens */
 @media (max-width: 1200px) {
   :root {
     --ifm-sidebar-width: 280px;
   }
   
-  .menu__list-item-collapsible .menu__list-item .menu__link[href*="blockdag-milestone"] {
-    font-size: 11px;
-    padding-left: 40px;
-  }
 }
 
 @media (max-width: 996px) {
@@ -526,11 +507,6 @@ body {
   .menu__list-item-collapsible .menu__list-item .menu__link {
     padding-left: 35px;
     font-size: 12px;
-  }
-  
-  .menu__list-item-collapsible .menu__list-item .menu__link[href*="blockdag-milestone"] {
-    font-size: 10px;
-    padding-left: 35px;
   }
 }
 

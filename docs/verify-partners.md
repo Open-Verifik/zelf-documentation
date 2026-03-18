@@ -13,7 +13,6 @@ Zelf has established partnerships with leading companies and organizations to pr
 ## Technology Partners
 
 ### Blockchain Networks
-- **Avalanche**: High-performance blockchain integration
 - **Ethereum**: Smart contract compatibility
 - **Polygon**: Layer 2 scaling solutions
 - **Arbitrum**: Optimistic rollup integration

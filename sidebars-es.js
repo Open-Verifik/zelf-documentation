@@ -113,26 +113,6 @@ const sidebars = {
 		},
 		{
 			type: "category",
-			label: "Integraciones",
-			collapsible: false,
-			items: [
-				"integraciones/avalanche",
-				"integraciones/blockdag",
-				{
-					type: "category",
-					label: "Hitos BlockDAG",
-					collapsible: true,
-					items: [
-						"integraciones/blockdag-milestone-one",
-						"integraciones/blockdag-milestone-two",
-						"integraciones/blockdag-milestone-three",
-						"integraciones/blockdag-milestone-four",
-					],
-				},
-			],
-		},
-		{
-			type: "category",
 			label: "Legal de Zelf",
 			collapsible: false,
 			items: ["legal/miembros-equipo", "legal/terminos-uso", "legal/politica-privacidad"],

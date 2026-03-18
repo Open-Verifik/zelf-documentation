@@ -40,9 +40,6 @@ This documentation covers:
 - Decrypt ZelfProof
 - Preview ZelfProof
 
-### Integrations
-- Avalanche blockchain integration
-
 ### Legal & Compliance
 - Team members
 - Terms of use

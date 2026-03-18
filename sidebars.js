@@ -116,26 +116,6 @@ const sidebars = {
 		// Spanish docs are served under the docs-es plugin; not listed here
 		{
 			type: "category",
-			label: "Integrations",
-			collapsible: false,
-			items: [
-				"integrations/avalanche",
-				"integrations/blockdag",
-				{
-					type: "category",
-					label: "BlockDAG Milestones",
-					collapsible: true,
-					items: [
-						"integrations/blockdag-milestone-one",
-						"integrations/blockdag-milestone-two",
-						"integrations/blockdag-milestone-three",
-						"integrations/blockdag-milestone-four",
-					],
-				},
-			],
-		},
-		{
-			type: "category",
 			label: "Zelf Legal",
 			collapsible: false,
 			items: ["legal/team-members", "legal/terms-of-use", "legal/privacy-policy"],
