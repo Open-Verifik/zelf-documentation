@@ -1029,6 +1029,12 @@ body {
   }
 }
 
+/* Hide unlisted/hidden pages from sidebar */
+.theme-doc-sidebar-item-link.hidden,
+.menu__list-item.hidden {
+  display: none !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
