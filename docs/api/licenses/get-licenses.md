@@ -28,6 +28,7 @@ This endpoint requires authentication via JWT token. You must first authenticate
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `domain` | string | No | Filter licenses by specific domain name (must match pattern: `^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$`) |
+| `includeThemeSettings` | string | No | If `1` or `true`, merges theme from `themeSettingsUrl` on the official license JSON when present. See [Include theme settings](./include-theme-settings). |
 
 ## Response
 
