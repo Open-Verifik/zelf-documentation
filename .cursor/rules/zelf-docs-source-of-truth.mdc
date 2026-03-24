@@ -1,0 +1,18 @@
+---
+description: Keep Zelf docs aligned with backend source-of-truth behavior and avoid copying stale examples
+alwaysApply: true
+---
+
+# Source Of Truth
+
+- Verify endpoint behavior against the `zelf` backend repo before changing public API docs.
+- Do not invent parameters, response fields, or auth requirements from old markdown examples alone.
+- If the backend guidance and existing docs disagree, prefer current backend code and tests, then update docs to match.
+- Treat existing doc drift as a cleanup opportunity, not a pattern to spread.
+- When touching API docs, check whether the corresponding backend tests or route/controller/module flow supports what the page claims.
+
+## Review Checklist
+
+- Does this page match the current backend endpoint path and auth model?
+- Are the documented fields present in the backend response shape?
+- Are the example languages and URL conventions still aligned with project standards?

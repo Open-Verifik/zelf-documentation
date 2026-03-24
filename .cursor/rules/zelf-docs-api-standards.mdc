@@ -1,0 +1,26 @@
+---
+description: Follow Zelf public API documentation standards and example conventions
+alwaysApply: true
+---
+
+# API Documentation Standards
+
+- Public API examples must use `https://api.zelf.world`.
+- Do not use localhost URLs in public docs.
+- For protected endpoints, document the auth flow when needed: create session, extract JWT, then call the protected API.
+- Document both success and error responses with real HTTP status codes.
+- Prefer Docusaurus `Tabs` and `TabItem` for response variants and multi-language examples.
+- Keep language coverage aligned with the current backend standard: cURL, Node.js, Python, PHP, and Rust unless the page is intentionally narrower.
+- Treat backend behavior in `zelf` as the source of truth for parameters, auth requirements, and response fields.
+
+## Examples
+
+```md
+<!-- Prefer -->
+curl -X GET "https://api.zelf.world/api/tags/search?tagName=username.zelf"
+```
+
+```md
+<!-- Avoid -->
+curl -X GET "http://localhost:3003/api/tags/search?tagName=username.zelf"
+```

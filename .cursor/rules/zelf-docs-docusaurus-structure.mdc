@@ -1,0 +1,23 @@
+---
+description: Preserve Zelf documentation repo structure, sidebars, and Docusaurus conventions
+alwaysApply: true
+---
+
+# Docusaurus Structure
+
+- Keep English content in `docs/` and Spanish content in `docs-es/`.
+- When adding, renaming, or removing pages, check `sidebars.js` and `sidebars-es.js`.
+- Preserve the repo’s frontmatter style on docs pages: `title`, `description`, `keywords`, and `image` where relevant.
+- Keep site-level assumptions aligned with `docusaurus.config.js`, including `https://docs.zelf.world`, the `docs-es` plugin, and the existing search/navbar setup.
+- Prefer working within the current doc taxonomy instead of inventing new top-level sections without a clear sidebar change.
+
+## Examples
+
+```md
+---
+title: Search Tag
+description: Search Zelf tags by text query and retrieve matching entries with pagination.
+keywords: [search zelf tag, zns search api, find zelf name]
+image: /img/social-card.png
+---
+```
