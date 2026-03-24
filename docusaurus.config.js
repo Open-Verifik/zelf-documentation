@@ -12,7 +12,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-	title: "ZELF",
+	title: "ZELF Docs",
 	tagline: "YOUR FACE IS YOUR KEY",
 	favicon: "img/favicon.ico",
 
@@ -165,9 +165,9 @@ const config = {
 				{ name: "twitter:site", content: "@zelfworld" },
 			],
 			navbar: {
-				title: "ZELF",
+				title: "ZELF Docs",
 				logo: {
-					alt: "logo",
+					alt: "ZELF Docs",
 					src: "/img/zelflogo.png",
 				},
 				items: [
@@ -199,7 +199,7 @@ const config = {
 						position: "right",
 					},
 				],
-				hideOnScroll: true,
+				hideOnScroll: false,
 				style: "primary",
 			},
 			footer: {

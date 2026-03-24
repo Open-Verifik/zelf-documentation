@@ -6,9 +6,51 @@ keywords: [zelf, zelfproof, zns, zero knowledge, identity, encryption, biometric
 image: /img/social-card.svg
 ---
 
-# Welcome to Zelf World
+<div className="doc-landing">
+  <div className="doc-landing__hero">
+    <div className="doc-landing__eyebrow">Privacy-preserving biometrics</div>
+    <h1 className="doc-landing__title">Welcome to Zelf World</h1>
+    <p className="doc-landing__lede">
+      Learn how <strong>Zelf Name Service</strong>, <strong>ZelfProof</strong>, and the ZELF APIs work together to encrypt, store, and recover sensitive secrets without ever storing biometric data.
+    </p>
+    <div className="doc-landing__actions">
+      <a className="button button--primary" href="/docs/getting-started/how-it-works">Start with architecture</a>
+      <a className="button button--secondary" href="/docs/api/tags/search-tag">Explore the API</a>
+    </div>
+  </div>
 
-Here, you will learn about the **Zelf Name Service** architecture and the APIs that can be combined or utilized as stand-alone solution to complete a successful flow in the encryption and decryption of a Zero Knowledge Face Proof ™ or ZK Face Proof ™ (**"ZelfProof"**), **the world's first to be commercialized to the public.**
+  <div className="doc-landing__grid">
+    <div className="doc-landing__card">
+      <h3>Zero biometric storage</h3>
+      <p>Your face is used to derive a proof, not stored as a reusable biometric template.</p>
+    </div>
+    <div className="doc-landing__card">
+      <h3>Built for encryption flows</h3>
+      <p>Combine sessions, proofs, tag management, and recovery into one secure end-to-end flow.</p>
+    </div>
+    <div className="doc-landing__card">
+      <h3>Docs for builders</h3>
+      <p>Move from product concepts to real API requests, response shapes, and implementation details quickly.</p>
+    </div>
+  </div>
+
+  <div className="doc-landing__quick-links">
+    <a className="doc-landing__quick-link" href="/docs/getting-started/how-it-works">
+      <strong>Understand the system</strong>
+      <span>Start with the architecture and core privacy model.</span>
+    </a>
+    <a className="doc-landing__quick-link" href="/docs/getting-started/lite-paper">
+      <strong>Read the Lite Paper</strong>
+      <span>Get the conceptual foundation behind ZelfProof and ZNS.</span>
+    </a>
+    <a className="doc-landing__quick-link" href="/docs/getting-started/use-cases">
+      <strong>Explore use cases</strong>
+      <span>See where the system fits in wallets, recovery, and identity flows.</span>
+    </a>
+  </div>
+</div>
+
+Here, you will learn about the **Zelf Name Service** architecture and the APIs that can be combined or used as a stand-alone solution to complete encryption and decryption flows for a Zero Knowledge Face Proof or ZK Face Proof (**"ZelfProof"**), **the world's first to be commercialized to the public.**
 
 ## What is Zelf Name Service?
 

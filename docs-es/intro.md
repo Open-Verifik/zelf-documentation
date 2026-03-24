@@ -6,9 +6,51 @@ keywords: [zelf, zelfproof, zns, conocimiento cero, identidad, cifrado, biometr�
 image: /img/social-card.svg
 ---
 
-# Bienvenido a Zelf World
+<div className="doc-landing">
+  <div className="doc-landing__hero">
+    <div className="doc-landing__eyebrow">Biometría que preserva la privacidad</div>
+    <h1 className="doc-landing__title">Bienvenido a Zelf World</h1>
+    <p className="doc-landing__lede">
+      Aprende cómo <strong>Zelf Name Service</strong>, <strong>ZelfProof</strong> y las APIs de ZELF trabajan juntas para cifrar, almacenar y recuperar secretos sensibles sin almacenar datos biométricos.
+    </p>
+    <div className="doc-landing__actions">
+      <a className="button button--primary" href="/docs-es/empezar/como-funciona">Empieza por la arquitectura</a>
+      <a className="button button--secondary" href="/docs-es/api/etiquetas/buscar-etiqueta">Explora la API</a>
+    </div>
+  </div>
 
-Aquí aprenderás sobre la arquitectura del **Zelf Name Service** y las APIs que pueden combinarse o utilizarse como solución independiente para completar un flujo exitoso en el cifrado y descifrado de una Prueba Facial de Conocimiento Cero ™ o ZK Face Proof ™ (**"ZelfProof"**), **la primera en el mundo en ser comercializada al público.**
+  <div className="doc-landing__grid">
+    <div className="doc-landing__card">
+      <h3>Sin almacenamiento biométrico</h3>
+      <p>Tu rostro se utiliza para derivar una prueba, no para guardar una plantilla biométrica reutilizable.</p>
+    </div>
+    <div className="doc-landing__card">
+      <h3>Diseñado para flujos de cifrado</h3>
+      <p>Combina sesiones, proofs, gestión de tags y recuperación dentro de un flujo seguro de extremo a extremo.</p>
+    </div>
+    <div className="doc-landing__card">
+      <h3>Documentación para builders</h3>
+      <p>Pasa rápidamente de los conceptos del producto a requests reales, respuestas y detalles de implementación.</p>
+    </div>
+  </div>
+
+  <div className="doc-landing__quick-links">
+    <a className="doc-landing__quick-link" href="/docs-es/empezar/como-funciona">
+      <strong>Entiende el sistema</strong>
+      <span>Comienza con la arquitectura y el modelo central de privacidad.</span>
+    </a>
+    <a className="doc-landing__quick-link" href="/docs-es/empezar/documento-tecnico">
+      <strong>Lee el documento técnico</strong>
+      <span>Obtén la base conceptual detrás de ZelfProof y ZNS.</span>
+    </a>
+    <a className="doc-landing__quick-link" href="/docs-es/empezar/casos-uso">
+      <strong>Explora casos de uso</strong>
+      <span>Descubre cómo encaja en wallets, recuperación y flujos de identidad.</span>
+    </a>
+  </div>
+</div>
+
+Aquí aprenderás sobre la arquitectura del **Zelf Name Service** y las APIs que pueden combinarse o utilizarse como solución independiente para completar flujos exitosos de cifrado y descifrado de una Prueba Facial de Conocimiento Cero o ZK Face Proof (**"ZelfProof"**), **la primera en el mundo en ser comercializada al público.**
 
 ## ¿Qué es Zelf Name Service?
 
