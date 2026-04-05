@@ -17,7 +17,9 @@ GET /api/tags/search
 
 ## Description
 
-This endpoint allows you to search for a tag across multiple domains and storage systems (IPFS and Arweave). The system supports multiple domains including Zelf, Avax, BDAG, and other licensed domains for companies and startups. 
+This endpoint allows you to search for a tag across multiple domains and storage systems (IPFS and Arweave). The system supports multiple domains including Zelf, Avax, BDAG, and other licensed domains for companies and startups.
+
+**Supported domains:** Registry TLDs are defined by **official license JSON** documents pinned in IPFS (see `GET /api/tags/domains`). Each license must include `"status": "active"` for that TLD to be accepted by this endpoint. If the `domain` query parameter names a TLD that is missing or not active, the API responds with `409` and a `validationError` such as `Domain 'sui' is not supported or inactive`.
 
 **Response Types:**
 1. **Tag Found**: Returns the tag object with all associated data
@@ -174,6 +176,12 @@ import TabItem from '@theme/TabItem';
 ```json
 {
   "validationError": "Name must be no more than 20 characters"
+}
+```
+
+```json
+{
+  "validationError": "Domain 'sui' is not supported or inactive"
 }
 ```
 
