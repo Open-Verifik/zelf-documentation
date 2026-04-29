@@ -28,13 +28,19 @@ Use this skill for practical work in `zelf-documentation`.
 - English sidebar: `sidebars.js`
 - Spanish sidebar: `sidebars-es.js`
 - Site config: `docusaurus.config.js`
+- Public API base URL for examples: `config/zelf-public-api.config.json` (`publicApiOrigin`; loaded by `config/zelf-public-api.cjs`)
 
 ## API docs workflow
 
 - Public API pages live under `docs/api/`.
-- Use `https://api.zelf.world` in examples.
+- Use `{{ZELF_PUBLIC_API_ORIGIN}}` in examples (and `{{ZELF_PUBLIC_API_HOST}}` only when an example needs the hostname without a scheme, for example some Python clients).
+- Example URLs expand at build time from `config/zelf-public-api.config.json` (`publicApiOrigin`, default `https://v3.zelf.world`), loaded by `config/zelf-public-api.cjs`. Edit that JSON file to change the base URL for all examples—do not use a `.env` file for this.
 - Check the backend repo `zelf` before updating endpoint behavior, auth rules, or response shapes.
 - For protected endpoints, include session bootstrap when that is part of the backend flow.
+
+## Troubleshooting
+
+- If `npm run build` fails with `EACCES` under `.docusaurus/` (often because the cache was created as another user), fix ownership on that folder and rebuild: `sudo chown -R "$(whoami)" .docusaurus`, then `npm run clear` and `npm run build`.
 
 ## Localization notes
 

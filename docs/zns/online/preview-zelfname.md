@@ -3,7 +3,7 @@
 ### Endpoint
 
 ```
-https://api.zelf.world/api/zelf-name-service/preview
+{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/preview
 ```
 
 In this method, we will preview only the public information that was stored inside the `ZelfProof` so you can identify what the `ZelfProof` might contain inside the encrypted private information. This preview process will first search for the `zelfName` in Arweave, retrieve the relevant information if available, and then decrypt the public data for display.
@@ -56,7 +56,7 @@ let data = JSON.stringify({
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://api.zelf.world/api/zelf-name-service/preview',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/preview',
   headers: { 
     'Content-Type': 'application/json', 
     'Authorization': '••••••'
@@ -80,7 +80,7 @@ axios.request(config)
 <TabItem value="cURL" label="cURL">
 
 ```bash
-curl --location 'https://api.zelf.world/api/zelf-name-service/preview' \
+curl --location '{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/preview' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1CJ9.eyJzZXNzaW...G-KJ4Wag' \
 --data '{

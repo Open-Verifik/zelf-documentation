@@ -97,7 +97,7 @@ This endpoint allows you to create a new client account with the provided inform
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "https://api.zelf.world/api/clients" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "John Doe",
@@ -131,7 +131,7 @@ const data = {
 
 const config = {
   method: 'post',
-  url: 'https://api.zelf.world/api/clients',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/clients',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -154,7 +154,7 @@ axios.request(config)
 ```python
 import requests
 
-url = "https://api.zelf.world/api/clients"
+url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients"
 
 payload = {
     "name": "John Doe",
@@ -181,7 +181,7 @@ print(response.json())
 
 ```php
 <?php
-$url = "https://api.zelf.world/api/clients";
+$url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients";
 
 $data = array(
     "name" => "John Doe",
@@ -232,7 +232,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
     
     let response = client
-        .post("https://api.zelf.world/api/clients")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/clients")
         .header("Content-Type", "application/json")
         .json(&data)
         .send()

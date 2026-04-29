@@ -256,7 +256,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # Primero, autenticarse para obtener el token JWT
-curl -X POST "https://api.zelf.world/api/clients/auth" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -266,7 +266,7 @@ curl -X POST "https://api.zelf.world/api/clients/auth" \
   }'
 
 # Luego crear una licencia
-curl -X POST "https://api.zelf.world/api/license" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/license" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE" \
@@ -336,7 +336,7 @@ const axios = require('axios');
 async function createLicense() {
   try {
     // Primero, autenticarse
-    const authResponse = await axios.post('https://api.zelf.world/api/clients/auth', {
+    const authResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth', {
       email: 'user@example.com',
       password: 'your_password',
       faceBase64: 'your_face_base64_data'
@@ -350,7 +350,7 @@ async function createLicense() {
     const token = authResponse.data.data.token;
 
     // Luego crear una licencia
-    const licenseResponse = await axios.post('https://api.zelf.world/api/license', {
+    const licenseResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/license', {
       domain: 'mydomain',
       faceBase64: 'your_face_base64_data',
       masterPassword: 'your_master_password',
@@ -429,7 +429,7 @@ import requests
 
 def create_license():
     # Primero, autenticarse
-    auth_url = "https://api.zelf.world/api/clients/auth"
+    auth_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth"
     auth_data = {
         "email": "user@example.com",
         "password": "your_password",
@@ -444,7 +444,7 @@ def create_license():
     token = auth_response.json()["data"]["token"]
     
     # Luego crear una licencia
-    license_url = "https://api.zelf.world/api/license"
+    license_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/license"
     license_data = {
         "domain": "mydomain",
         "faceBase64": "your_face_base64_data",

@@ -105,7 +105,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # Primero, autenticarse para obtener el token JWT
-curl -X POST "https://api.zelf.world/api/clients/auth" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -115,7 +115,7 @@ curl -X POST "https://api.zelf.world/api/clients/auth" \
   }'
 
 # Luego eliminar la licencia
-curl -X DELETE "https://api.zelf.world/api/license" \
+curl -X DELETE "{{ZELF_PUBLIC_API_ORIGIN}}/api/license" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE" \
@@ -134,7 +134,7 @@ const axios = require('axios');
 async function deleteLicense() {
   try {
     // Primero, autenticarse
-    const authResponse = await axios.post('https://api.zelf.world/api/clients/auth', {
+    const authResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth', {
       email: 'user@example.com',
       password: 'your_password',
       faceBase64: 'your_face_base64_data'
@@ -148,7 +148,7 @@ async function deleteLicense() {
     const token = authResponse.data.data.token;
 
     // Luego eliminar la licencia
-    const deleteResponse = await axios.delete('https://api.zelf.world/api/license', {
+    const deleteResponse = await axios.delete('{{ZELF_PUBLIC_API_ORIGIN}}/api/license', {
       data: {
         faceBase64: 'your_face_base64_data',
         masterPassword: 'your_master_password'
@@ -177,7 +177,7 @@ import requests
 
 def delete_license():
     # Primero, autenticarse
-    auth_url = "https://api.zelf.world/api/clients/auth"
+    auth_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth"
     auth_data = {
         "email": "user@example.com",
         "password": "your_password",
@@ -192,7 +192,7 @@ def delete_license():
     token = auth_response.json()["data"]["token"]
     
     # Luego eliminar la licencia
-    delete_url = "https://api.zelf.world/api/license"
+    delete_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/license"
     delete_data = {
         "faceBase64": "your_face_base64_data",
         "masterPassword": "your_master_password"
@@ -217,7 +217,7 @@ if __name__ == "__main__":
 <?php
 function deleteLicense() {
     // Primero, autenticarse
-    $authUrl = 'https://api.zelf.world/api/clients/auth';
+    $authUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth';
     $authData = [
         'email' => 'user@example.com',
         'password' => 'your_password',
@@ -238,7 +238,7 @@ function deleteLicense() {
     $token = $authResult['data']['token'];
     
     // Luego eliminar la licencia
-    $deleteUrl = 'https://api.zelf.world/api/license';
+    $deleteUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/license';
     $deleteData = [
         'faceBase64' => 'your_face_base64_data',
         'masterPassword' => 'your_master_password'
@@ -275,7 +275,7 @@ async fn delete_license() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
     // Primero, autenticarse
-    let auth_url = "https://api.zelf.world/api/clients/auth";
+    let auth_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth";
     let auth_data = json!({
         "email": "user@example.com",
         "password": "your_password",
@@ -294,7 +294,7 @@ async fn delete_license() -> Result<(), Box<dyn std::error::Error>> {
     let token = auth_result["data"]["token"].as_str().unwrap();
     
     // Luego eliminar la licencia
-    let delete_url = "https://api.zelf.world/api/license";
+    let delete_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/license";
     let delete_data = json!({
         "faceBase64": "your_face_base64_data",
         "masterPassword": "your_master_password"

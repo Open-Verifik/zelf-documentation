@@ -9,7 +9,7 @@ When we store it in Arweave we also bring more benefits besides the permanent st
 ### Claim your Zelf Name Site
 
 ```
-https://api.zelf.world/api/ar-io-arns/:zelfName
+{{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/:zelfName
 ```
 
 #### Request
@@ -32,7 +32,7 @@ const axios = require('axios');
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://api.zelf.world/api/ar-io-arns/myzelfname.zelf',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/myzelfname.zelf',
   headers: { }
 };
 
@@ -51,7 +51,7 @@ axios.request(config)
 <TabItem value="cURL" label="cURL">
 
 ```bash
-curl --location --request POST 'https://api.zelf.world/api/ar-io-arns/myzelfname.zelf'
+curl --location --request POST '{{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/myzelfname.zelf'
 ```
 
 </TabItem>
@@ -61,7 +61,7 @@ curl --location --request POST 'https://api.zelf.world/api/ar-io-arns/myzelfname
 ```python
 import http.client
 
-conn = http.client.HTTPSConnection("api.zelf.world")
+conn = http.client.HTTPSConnection("{{ZELF_PUBLIC_API_HOST}}")
 payload = ''
 headers = {}
 conn.request("POST", "/api/ar-io-arns/myzelfname.zelf", payload, headers)
@@ -127,7 +127,7 @@ print(data.decode("utf-8"))
 ### Query your Zelf Name Site
 
 ```
-https://api.zelf.world/api/ar-io-arns/:zelfName
+{{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/:zelfName
 ```
 
 #### Request
@@ -147,7 +147,7 @@ const axios = require('axios');
 let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://api.zelf.world/api/ar-io-arns/dinero.zelf',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/dinero.zelf',
   headers: { }
 };
 
@@ -165,7 +165,7 @@ axios.request(config)
 <TabItem value="cURL" label="cURL">
 
 ```bash
-curl --location --request GET 'https://api.zelf.world/api/ar-io-arns/dinero.zelf'
+curl --location --request GET '{{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/dinero.zelf'
 ```
 
 </TabItem>
@@ -175,7 +175,7 @@ curl --location --request GET 'https://api.zelf.world/api/ar-io-arns/dinero.zelf
 ```python
 import http.client
 
-conn = http.client.HTTPSConnection("api.zelf.world")
+conn = http.client.HTTPSConnection("{{ZELF_PUBLIC_API_HOST}}")
 payload = ''
 headers = {}
 conn.request("GET", "/api/ar-io-arns/dinero.zelf", payload, headers)

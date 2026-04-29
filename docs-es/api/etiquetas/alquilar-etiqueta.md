@@ -5,7 +5,7 @@ Alquilar una etiqueta para cualquier nombre de dominio soportado (Zelf, Avax, BD
 ## Endpoint
 
 ```
-POST /api/tags/lease
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease
 ```
 
 ## Descripción
@@ -148,7 +148,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # Primero, crear una sesión para obtener el token JWT
-curl -X POST "https://api.zelf.world/api/sessions" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -158,7 +158,7 @@ curl -X POST "https://api.zelf.world/api/sessions" \
   }'
 
 # Luego usar el token para alquilar una etiqueta
-curl -X POST "https://api.zelf.world/api/tags/lease" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE" \
@@ -181,7 +181,7 @@ const axios = require('axios');
 async function leaseTag() {
   try {
     // Primero, crear una sesión
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
+    const sessionResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', {
       identifier: 'test_session_123',
       type: 'createWallet',
       isWebExtension: false
@@ -195,7 +195,7 @@ async function leaseTag() {
     const token = sessionResponse.data.data.token;
 
     // Luego alquilar la etiqueta
-        const leaseResponse = await axios.post('https://api.zelf.world/api/tags/lease', {
+        const leaseResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease', {
           tagName: 'myname',
           domain: 'zelf',
           faceBase64: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...',
@@ -228,7 +228,7 @@ import base64
 
 def lease_tag():
     # Primero, crear una sesión
-    session_url = "https://api.zelf.world/api/sessions"
+    session_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions"
     session_data = {
         "identifier": "test_session_123",
         "type": "createWallet",
@@ -243,7 +243,7 @@ def lease_tag():
     token = session_response.json()["data"]["token"]
     
     # Luego alquilar la etiqueta
-    lease_url = "https://api.zelf.world/api/tags/lease"
+    lease_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease"
         lease_data = {
             "tagName": "myname",
             "domain": "bdag",
@@ -272,7 +272,7 @@ if __name__ == "__main__":
 <?php
 function leaseTag() {
     // Primero, crear una sesión
-    $sessionUrl = 'https://api.zelf.world/api/sessions';
+    $sessionUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions';
     $sessionData = [
         'identifier' => 'test_session_123',
         'type' => 'createWallet',
@@ -293,7 +293,7 @@ function leaseTag() {
     $token = $sessionResult['data']['token'];
     
     // Luego alquilar la etiqueta
-    $leaseUrl = 'https://api.zelf.world/api/tags/lease';
+    $leaseUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease';
         $leaseData = [
             'tagName' => 'myname',
             'domain' => 'avax',
@@ -335,7 +335,7 @@ async fn lease_tag() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
     // Primero, crear una sesión
-    let session_url = "https://api.zelf.world/api/sessions";
+    let session_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions";
     let session_data = json!({
         "identifier": "test_session_123",
         "type": "createWallet",
@@ -354,7 +354,7 @@ async fn lease_tag() -> Result<(), Box<dyn std::error::Error>> {
     let token = session_result["data"]["token"].as_str().unwrap();
     
     // Luego alquilar la etiqueta
-    let lease_url = "https://api.zelf.world/api/tags/lease";
+    let lease_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease";
         let lease_data = json!({
             "tagName": "myname",
             "domain": "zelf",

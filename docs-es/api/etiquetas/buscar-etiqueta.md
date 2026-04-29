@@ -5,7 +5,7 @@ Buscar una etiqueta en cualquier nombre de dominio soportado (Zelf, Avax, BDAG, 
 ## Endpoint
 
 ```
-GET /api/tags/search
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search
 ```
 
 ## Descripción
@@ -242,7 +242,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # Primero, crear una sesión para obtener el token JWT
-curl -X POST "https://api.zelf.world/api/sessions" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -252,12 +252,12 @@ curl -X POST "https://api.zelf.world/api/sessions" \
   }'
 
 # Luego buscar una etiqueta
-curl -X GET "https://api.zelf.world/api/tags/search?tagName=username.zelf&domain=zelf&os=DESKTOP" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search?tagName=username.zelf&domain=zelf&os=DESKTOP" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 
 # Buscar con duración de por vida para precios
-curl -X GET "https://api.zelf.world/api/tags/search?tagName=username.zelf&domain=zelf&os=DESKTOP&duration=lifetime" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search?tagName=username.zelf&domain=zelf&os=DESKTOP&duration=lifetime" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 ```
@@ -271,7 +271,7 @@ const axios = require('axios');
 async function searchTag() {
   try {
     // Primero, crear una sesión
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
+    const sessionResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', {
       identifier: 'test_session_123',
       type: 'createWallet',
       isWebExtension: false
@@ -285,7 +285,7 @@ async function searchTag() {
     const token = sessionResponse.data.data.token;
 
     // Luego buscar la etiqueta
-    const searchResponse = await axios.get('https://api.zelf.world/api/tags/search', {
+    const searchResponse = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search', {
       params: {
         tagName: 'username.zelf',
         domain: 'zelf',

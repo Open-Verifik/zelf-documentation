@@ -143,15 +143,15 @@ This endpoint allows you to verify if a client account exists and retrieve accou
 
 ```bash
 # Verify by email
-curl -X GET "https://api.zelf.world/api/clients?email=user@example.com" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?email=user@example.com" \
   -H "Content-Type: application/json"
 
 # Verify by phone
-curl -X GET "https://api.zelf.world/api/clients?countryCode=%2B1&phone=5551234567" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?countryCode=%2B1&phone=5551234567" \
   -H "Content-Type: application/json"
 
 # Get all accounts
-curl -X GET "https://api.zelf.world/api/clients" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients" \
   -H "Content-Type: application/json"
 ```
 
@@ -165,7 +165,7 @@ const axios = require('axios');
 // Verify by email
 async function verifyByEmail(email) {
   try {
-    const response = await axios.get(`https://api.zelf.world/api/clients`, {
+    const response = await axios.get(`{{ZELF_PUBLIC_API_ORIGIN}}/api/clients`, {
       params: { email }
     });
     
@@ -184,7 +184,7 @@ async function verifyByEmail(email) {
 // Verify by phone
 async function verifyByPhone(countryCode, phone) {
   try {
-    const response = await axios.get(`https://api.zelf.world/api/clients`, {
+    const response = await axios.get(`{{ZELF_PUBLIC_API_ORIGIN}}/api/clients`, {
       params: { countryCode, phone }
     });
     
@@ -203,7 +203,7 @@ async function verifyByPhone(countryCode, phone) {
 // Get all accounts with pagination
 async function getAllAccounts(page = 1, limit = 10) {
   try {
-    const response = await axios.get(`https://api.zelf.world/api/clients`, {
+    const response = await axios.get(`{{ZELF_PUBLIC_API_ORIGIN}}/api/clients`, {
       params: { page, limit }
     });
     
@@ -227,7 +227,7 @@ def verify_by_email(email):
     """Verify account by email address"""
     try:
         response = requests.get(
-            "https://api.zelf.world/api/clients",
+            "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients",
             params={"email": email}
         )
         response.raise_for_status()
@@ -245,7 +245,7 @@ def verify_by_phone(country_code, phone):
     """Verify account by phone number"""
     try:
         response = requests.get(
-            "https://api.zelf.world/api/clients",
+            "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients",
             params={"countryCode": country_code, "phone": phone}
         )
         response.raise_for_status()
@@ -263,7 +263,7 @@ def get_all_accounts(page=1, limit=10):
     """Get all accounts with pagination"""
     try:
         response = requests.get(
-            "https://api.zelf.world/api/clients",
+            "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients",
             params={"page": page, "limit": limit}
         )
         response.raise_for_status()
@@ -284,7 +284,7 @@ def get_all_accounts(page=1, limit=10):
 <?php
 
 function verifyByEmail($email) {
-    $url = "https://api.zelf.world/api/clients?" . http_build_query(['email' => $email]);
+    $url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?" . http_build_query(['email' => $email]);
     
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -311,7 +311,7 @@ function verifyByEmail($email) {
 }
 
 function verifyByPhone($countryCode, $phone) {
-    $url = "https://api.zelf.world/api/clients?" . http_build_query([
+    $url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?" . http_build_query([
         'countryCode' => $countryCode,
         'phone' => $phone
     ]);
@@ -341,7 +341,7 @@ function verifyByPhone($countryCode, $phone) {
 }
 
 function getAllAccounts($page = 1, $limit = 10) {
-    $url = "https://api.zelf.world/api/clients?" . http_build_query([
+    $url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?" . http_build_query([
         'page' => $page,
         'limit' => $limit
     ]);
@@ -382,7 +382,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     // Verify by email
     let email = "user@example.com";
-    let url = format!("https://api.zelf.world/api/clients?email={}", email);
+    let url = format!("{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?email={}", email);
     let response = client.get(&url).send().await?;
     
     if response.status().is_success() {
@@ -397,7 +397,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Verify by phone
     let country_code = "+1";
     let phone = "5551234567";
-    let url = format!("https://api.zelf.world/api/clients?countryCode={}&phone={}", 
+    let url = format!("{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?countryCode={}&phone={}", 
                      country_code, phone);
     let response = client.get(&url).send().await?;
     
@@ -411,7 +411,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     
     // Get all accounts
-    let url = "https://api.zelf.world/api/clients";
+    let url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients";
     let response = client.get(url).send().await?;
     
     if response.status().is_success() {

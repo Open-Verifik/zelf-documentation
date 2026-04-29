@@ -5,7 +5,7 @@ alwaysApply: true
 
 # API Documentation Standards
 
-- Public API examples must use `https://api.zelf.world`.
+- Public API examples must use `{{ZELF_PUBLIC_API_ORIGIN}}` in Markdown (expanded at build from `config/zelf-public-api.config.json`).
 - Do not use localhost URLs in public docs.
 - For protected endpoints, document the auth flow when needed: create session, extract JWT, then call the protected API.
 - Document both success and error responses with real HTTP status codes.
@@ -17,7 +17,7 @@ alwaysApply: true
 
 ```md
 <!-- Prefer -->
-curl -X GET "https://api.zelf.world/api/tags/search?tagName=username.zelf"
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search?tagName=username.zelf"
 ```
 
 ```md

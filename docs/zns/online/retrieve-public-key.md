@@ -3,7 +3,7 @@
 ### Endpoint \[GET]
 
 ```
-https://api.zelf.world/api/sessions/yek-cilbup 
+{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions/yek-cilbup 
 ```
 
 This endpoint retrieves the public key associated with a specified identifier.
@@ -47,7 +47,7 @@ const axios = require('axios');
 
 let config = {
   method: 'get',
-  url: 'https://api.zelf.world/api/sessions/yek-cilbup?identifier=AGED',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions/yek-cilbup?identifier=AGED',
   headers: { }
 };
 

@@ -49,7 +49,7 @@ Crear un ZelfProof y devolver una imagen ZelfQR. Opcionalmente incluir `generate
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "https://api.zelf.world/api/zelf-proof/encrypt-qr-code" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/encrypt-qr-code" \
   -H "Origin: https://tudominio.com" \
   -H "Authorization: Bearer <JWT>" \
   -H "Content-Type: application/json" \
@@ -84,7 +84,7 @@ const data = {
   generateZelfProof: true
 };
 
-const res = await axios.post('https://api.zelf.world/api/zelf-proof/encrypt-qr-code', data, {
+const res = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/encrypt-qr-code', data, {
   headers: { 
     Origin: 'https://tudominio.com',
     Authorization: `Bearer <JWT>`,
@@ -112,7 +112,7 @@ payload = {
   "generateZelfProof": True
 }
 headers = {"Origin": "https://tudominio.com", "Authorization": "Bearer <JWT>", "Content-Type": "application/json"}
-print(requests.post("https://api.zelf.world/api/zelf-proof/encrypt-qr-code", json=payload, headers=headers).json())
+print(requests.post("{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/encrypt-qr-code", json=payload, headers=headers).json())
 ```
 
 </TabItem>

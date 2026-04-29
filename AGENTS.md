@@ -29,7 +29,7 @@ This is the Docusaurus repository for Zelf public documentation.
 
 - `zelf` is the source of truth for endpoint behavior, auth flows, route names, and test-backed examples.
 - `zelf-documentation` is the source of truth for how those behaviors are presented in public docs.
-- Public API examples must use `https://api.zelf.world`, not localhost URLs.
+- Public API examples use `{{ZELF_PUBLIC_API_ORIGIN}}` (and host-only `{{ZELF_PUBLIC_API_HOST}}` where needed); Docusaurus expands these at build time using [`config/zelf-public-api.config.json`](config/zelf-public-api.config.json) (see [`config/zelf-public-api.cjs`](config/zelf-public-api.cjs)). Change `publicApiOrigin` there to update every example. Do not use localhost URLs in published examples.
 - When documenting protected endpoints, include the session creation flow before authenticated calls when that matches backend behavior.
 
 ## Authoring expectations

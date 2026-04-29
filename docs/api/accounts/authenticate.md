@@ -43,7 +43,7 @@ Authenticate a client account using biometric verification (face recognition) an
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST "https://api.zelf.world/api/clients/auth" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth" \
   -H "Origin: https://yourdomain.com" \
   -H "Content-Type: application/json" \
   -d '{
@@ -68,7 +68,7 @@ const authData = {
 };
 
 try {
-  const response = await axios.post('https://api.zelf.world/api/clients/auth', authData, {
+  const response = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth', authData, {
     headers: {
       'Origin': 'https://yourdomain.com',
       'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ headers = {
 
 try:
     response = requests.post(
-        "https://api.zelf.world/api/clients/auth",
+        "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth",
         json=auth_data,
         headers=headers
     )
@@ -129,7 +129,7 @@ $headers = [
 ];
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://api.zelf.world/api/clients/auth');
+curl_setopt($ch, CURLOPT_URL, '{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth');
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($authData));
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -165,7 +165,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let client = reqwest::Client::new();
     let response = client
-        .post("https://api.zelf.world/api/clients/auth")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth")
         .header("Origin", "https://yourdomain.com")
         .header("Content-Type", "application/json")
         .json(&auth_data)

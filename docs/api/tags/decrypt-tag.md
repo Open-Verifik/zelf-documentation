@@ -8,7 +8,7 @@ Decrypt a ZelfProof to access wallet data and metadata using biometric face veri
 ## Endpoint
 
 ```
-POST /api/tags/decrypt
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/decrypt
 ```
 
 ## Description
@@ -142,7 +142,7 @@ This endpoint allows you to decrypt a ZelfProof using biometric face verificatio
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "https://api.zelf.world/api/tags/decrypt" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/decrypt" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
@@ -169,7 +169,7 @@ const data = {
 
 const config = {
   method: 'post',
-  url: 'https://api.zelf.world/api/tags/decrypt',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/decrypt',
   headers: { 
     'Authorization': 'Bearer YOUR_JWT_TOKEN', 
     'Content-Type': 'application/json'
@@ -193,7 +193,7 @@ axios.request(config)
 ```python
 import requests
 
-url = "https://api.zelf.world/api/tags/decrypt"
+url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/decrypt"
 
 payload = {
     "tagName": "mytag",
@@ -217,7 +217,7 @@ print(response.json())
 
 ```php
 <?php
-$url = "https://api.zelf.world/api/tags/decrypt";
+$url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/decrypt";
 
 $data = array(
     "tagName" => "mytag",
@@ -260,7 +260,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
     
     let response = client
-        .post("https://api.zelf.world/api/tags/decrypt")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/decrypt")
         .header("Authorization", "Bearer YOUR_JWT_TOKEN")
         .header("Content-Type", "application/json")
         .json(&data)

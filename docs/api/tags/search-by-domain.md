@@ -5,7 +5,7 @@ Search for all tags within a specific domain and storage system.
 ## Endpoint
 
 ```
-GET /api/tags/search-by-domain
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search-by-domain
 ```
 
 ## Description
@@ -148,7 +148,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # First create a session to get JWT token
-curl -X POST "https://api.zelf.world/api/sessions" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -158,7 +158,7 @@ curl -X POST "https://api.zelf.world/api/sessions" \
   }'
 
 # Then use the token to search tags by domain
-curl -X GET "https://api.zelf.world/api/tags/search-by-domain?domain=zelf&storage=IPFS" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search-by-domain?domain=zelf&storage=IPFS" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 ```
@@ -172,7 +172,7 @@ const axios = require('axios');
 async function searchTagsByDomain() {
   try {
     // First create a session
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
+    const sessionResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', {
       identifier: 'search_domain_session_123',
       type: 'createWallet',
       isWebExtension: false
@@ -186,7 +186,7 @@ async function searchTagsByDomain() {
     const token = sessionResponse.data.data.token;
 
     // Then search tags by domain
-    const searchResponse = await axios.get('https://api.zelf.world/api/tags/search-by-domain', {
+    const searchResponse = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search-by-domain', {
       params: {
         domain: 'zelf',
         storage: 'IPFS'
@@ -215,7 +215,7 @@ import requests
 
 def search_tags_by_domain():
     # First create a session
-    session_url = "https://api.zelf.world/api/sessions"
+    session_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions"
     session_data = {
         "identifier": "search_domain_session_123",
         "type": "createWallet",
@@ -230,7 +230,7 @@ def search_tags_by_domain():
     token = session_response.json()["data"]["token"]
     
     # Then search tags by domain
-    search_url = "https://api.zelf.world/api/tags/search-by-domain"
+    search_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search-by-domain"
     search_params = {
         "domain": "zelf",
         "storage": "IPFS"
@@ -257,7 +257,7 @@ search_tags_by_domain()
 <?php
 function searchTagsByDomain() {
     // First create a session
-    $sessionUrl = 'https://api.zelf.world/api/sessions';
+    $sessionUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions';
     $sessionData = [
         'identifier' => 'search_domain_session_123',
         'type' => 'createWallet',
@@ -277,7 +277,7 @@ function searchTagsByDomain() {
     $token = $sessionResult['data']['token'];
     
     // Then search tags by domain
-    $searchUrl = 'https://api.zelf.world/api/tags/search-by-domain?' . http_build_query([
+    $searchUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search-by-domain?' . http_build_query([
         'domain' => 'zelf',
         'storage' => 'IPFS'
     ]);
@@ -317,7 +317,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
     // First create a session
-    let session_url = "https://api.zelf.world/api/sessions";
+    let session_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions";
     let session_data = json!({
         "identifier": "search_domain_session_123",
         "type": "createWallet",
@@ -336,7 +336,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let token = session_result["data"]["token"].as_str().unwrap();
     
     // Then search tags by domain
-    let search_url = "https://api.zelf.world/api/tags/search-by-domain";
+    let search_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search-by-domain";
     let search_response = client
         .get(search_url)
         .query(&[

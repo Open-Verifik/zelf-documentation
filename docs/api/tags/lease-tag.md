@@ -12,7 +12,7 @@ Lease a tag for any supported domain name (Zelf, Avax, BDAG, or other licensed d
 ## Endpoint
 
 ```
-POST /api/tags/lease
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease
 ```
 
 ## Description
@@ -45,7 +45,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "https://api.zelf.world/api/tags/lease" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -64,7 +64,7 @@ curl -X POST "https://api.zelf.world/api/tags/lease" \
 const axios = require('axios');
 
 async function leaseTag() {
-  const res = await axios.post('https://api.zelf.world/api/tags/lease', {
+  const res = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease', {
     tagName: 'myname',
     domain: 'zelf',
     faceBase64: '[FACE_BASE64_DATA]',
@@ -86,7 +86,7 @@ async function leaseTag() {
 ```python
 import requests
 
-url = "https://api.zelf.world/api/tags/lease"
+url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease"
 payload = {
     "tagName": "myname",
     "domain": "zelf",
@@ -120,7 +120,7 @@ func main() {
         "os":      "DESKTOP",
     }
     b, _ := json.Marshal(body)
-    req, _ := http.NewRequest("POST", "https://api.zelf.world/api/tags/lease", bytes.NewReader(b))
+    req, _ := http.NewRequest("POST", "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease", bytes.NewReader(b))
     req.Header.Set("Authorization", "Bearer <JWT>")
     req.Header.Set("Content-Type", "application/json")
     resp, err := http.DefaultClient.Do(req)
@@ -148,7 +148,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "os":      "DESKTOP"
     });
     let res = client
-        .post("https://api.zelf.world/api/tags/lease")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease")
         .header("Authorization", "Bearer <JWT>")
         .header("Content-Type", "application/json")
         .json(&payload)

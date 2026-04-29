@@ -12,7 +12,7 @@ Search for a tag across any supported domain name (Zelf, Avax, BDAG, or other li
 ## Endpoint
 
 ```
-GET /api/tags/search
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search
 ```
 
 ## Description
@@ -257,7 +257,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # First, create a session to get JWT token
-curl -X POST "https://api.zelf.world/api/sessions" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -267,12 +267,12 @@ curl -X POST "https://api.zelf.world/api/sessions" \
   }'
 
 # Then search for a tag
-curl -X GET "https://api.zelf.world/api/tags/search?tagName=username.zelf&domain=zelf&os=DESKTOP" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search?tagName=username.zelf&domain=zelf&os=DESKTOP" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 
 # Search with lifetime duration for pricing
-curl -X GET "https://api.zelf.world/api/tags/search?tagName=username.zelf&domain=zelf&os=DESKTOP&duration=lifetime" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search?tagName=username.zelf&domain=zelf&os=DESKTOP&duration=lifetime" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 ```
@@ -286,7 +286,7 @@ const axios = require('axios');
 async function searchTag() {
   try {
     // First, create a session
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
+    const sessionResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', {
       identifier: 'test_session_123',
       type: 'createWallet',
       isWebExtension: false
@@ -300,7 +300,7 @@ async function searchTag() {
     const token = sessionResponse.data.data.token;
 
     // Then search for the tag
-    const searchResponse = await axios.get('https://api.zelf.world/api/tags/search', {
+    const searchResponse = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search', {
       params: {
         tagName: 'username.zelf',
         domain: 'zelf',
@@ -345,7 +345,7 @@ def search_tag():
         }
         
         session_response = requests.post(
-            "https://api.zelf.world/api/sessions",
+            "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions",
             json=session_data,
             headers={
                 "Content-Type": "application/json",
@@ -364,7 +364,7 @@ def search_tag():
         }
         
         search_response = requests.get(
-            "https://api.zelf.world/api/tags/search",
+            "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search",
             params=search_params,
             headers={
                 "Origin": "https://test.example.com",
@@ -401,7 +401,7 @@ function searchTag() {
             'isWebExtension' => false
         ];
         
-        $sessionResponse = http_request('POST', 'https://api.zelf.world/api/sessions', $sessionData);
+        $sessionResponse = http_request('POST', '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', $sessionData);
         $token = $sessionResponse['data']['token'];
         
         // Then search for the tag
@@ -412,7 +412,7 @@ function searchTag() {
             'duration' => 'lifetime'
         ];
         
-        $searchUrl = 'https://api.zelf.world/api/tags/search?' . http_build_query($searchParams);
+        $searchUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search?' . http_build_query($searchParams);
         $searchResponse = http_request('GET', $searchUrl, null, [
             'Origin: https://test.example.com',
             'Authorization: Bearer ' . $token
@@ -475,7 +475,7 @@ async fn search_tag() -> Result<(), Box<dyn std::error::Error>> {
     
     let client = reqwest::Client::new();
     let session_response = client
-        .post("https://api.zelf.world/api/sessions")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions")
         .json(&session_data)
         .header("Content-Type", "application/json")
         .header("Origin", "https://test.example.com")
@@ -493,7 +493,7 @@ async fn search_tag() -> Result<(), Box<dyn std::error::Error>> {
     search_params.insert("duration", "lifetime");
     
     let search_response = client
-        .get("https://api.zelf.world/api/tags/search")
+        .get("{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/search")
         .query(&search_params)
         .header("Origin", "https://test.example.com")
         .header("Authorization", format!("Bearer {}", token))

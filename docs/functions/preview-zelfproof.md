@@ -44,7 +44,7 @@ const data = {
   zelfProof: '[ZELFPROOF_BASE64]'
 };
 
-const res = await axios.post('https://api.zelf.world/api/zelf-proof/preview', data, {
+const res = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/preview', data, {
   headers: {
     Origin: 'https://yourdomain.com',
     Authorization: `Bearer <JWT>`,
@@ -58,7 +58,7 @@ console.log(res.data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST "https://api.zelf.world/api/zelf-proof/preview" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/preview" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer <JWT>" \
   -H "Content-Type: application/json" \

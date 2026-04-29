@@ -45,7 +45,7 @@ Descifrar un ZelfProof verificando contra una imagen facial en vivo. Opcionalmen
 import requests
 import json
 
-url = "https://api.zelf.world/api/zelf-proof/decrypt"
+url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/decrypt"
 
 payload = json.dumps({
   "faceBase64": "[FACE_BASE64]",
@@ -78,7 +78,7 @@ const data = {
   zelfProof: '[ZELFPROOF_BASE64]'
 };
 
-const res = await axios.post('https://api.zelf.world/api/zelf-proof/decrypt', data, {
+const res = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/decrypt', data, {
   headers: {
     Origin: 'https://tudominio.com',
     Authorization: `Bearer <JWT>`,
@@ -112,7 +112,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let json: serde_json::Value = serde_json::from_str(&data)?;
 
     let response = client
-        .post("https://api.zelf.world/api/zelf-proof/decrypt")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/decrypt")
         .headers(headers)
         .json(&json)
         .send()

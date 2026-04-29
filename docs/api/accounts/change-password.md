@@ -40,7 +40,7 @@ Change the master password for an existing client account. This endpoint allows 
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT "https://api.zelf.world/api/clients/sync/password" \
+curl -X PUT "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync/password" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Content-Type: application/json" \
@@ -66,7 +66,7 @@ const passwordData = {
 };
 
 try {
-  const response = await axios.put('https://api.zelf.world/api/clients/sync/password', passwordData, {
+  const response = await axios.put('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync/password', passwordData, {
     headers: {
       'Origin': 'https://yourdomain.com',
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
@@ -101,7 +101,7 @@ headers = {
 
 try:
     response = requests.put(
-        "https://api.zelf.world/api/clients/sync/password",
+        "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync/password",
         json=password_data,
         headers=headers
     )
@@ -130,7 +130,7 @@ $headers = [
 ];
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://api.zelf.world/api/clients/sync/password');
+curl_setopt($ch, CURLOPT_URL, '{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync/password');
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($passwordData));
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -166,7 +166,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let client = reqwest::Client::new();
     let response = client
-        .put("https://api.zelf.world/api/clients/sync/password")
+        .put("{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync/password")
         .header("Origin", "https://yourdomain.com")
         .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
         .header("Content-Type", "application/json")

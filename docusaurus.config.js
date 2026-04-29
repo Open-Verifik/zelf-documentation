@@ -6,7 +6,13 @@
 
 // i18n enabled: en (default), es
 
+import { createRequire } from "node:module";
 import { themes as prismThemes } from "prism-react-renderer";
+
+const require = createRequire(import.meta.url);
+const { getZelfPublicApi } = require("./config/zelf-public-api.cjs");
+const remarkZelfPublicApi = require("./plugins/remark-zelf-public-api/index.cjs");
+const zelfPublicApi = getZelfPublicApi();
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -32,6 +38,11 @@ const config = {
 	// If you aren't using GitHub pages, you don't need these.
 	organizationName: "zelf", // Usually your GitHub org/user name.
 	projectName: "zelf-documentation", // Usually your repo name.
+
+	customFields: {
+		zelfPublicApiOrigin: zelfPublicApi.origin,
+		zelfPublicApiHost: zelfPublicApi.hostname,
+	},
 
 	onBrokenLinks: "throw",
 	onBrokenMarkdownLinks: "warn",
@@ -63,6 +74,7 @@ const config = {
 			({
 				docs: {
 					sidebarPath: "./sidebars.js",
+					remarkPlugins: [remarkZelfPublicApi],
 					// Please change this to your repo.
 					// Remove this to remove the "edit this page" links.
 					editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
@@ -89,6 +101,7 @@ const config = {
 				path: "docs-es",
 				routeBasePath: "docs-es",
 				sidebarPath: "./sidebars-es.js",
+				remarkPlugins: [remarkZelfPublicApi],
 				editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
 			},
 		],

@@ -9,7 +9,7 @@ Join our Discord to request access to the API. [https://discord.gg/49JnBAsaq9](h
 ### Autenticación endpoint
 
 ```
-https://api.zelf.world/api/clients/auth
+{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth
 ```
 
 This endpoint allows the creation of a new **JWT (JSON Web Token)** that you will need to authenticate your account.

@@ -5,7 +5,7 @@ Recuperar una etiqueta usando un ZelfProof existente de una etiqueta previamente
 ## Endpoint
 
 ```
-POST /api/tags/lease-recovery
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-recovery
 ```
 
 ## Descripción
@@ -159,7 +159,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # Primero, crear una sesión para obtener el token JWT
-curl -X POST "https://api.zelf.world/api/sessions" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -169,7 +169,7 @@ curl -X POST "https://api.zelf.world/api/sessions" \
   }'
 
 # Luego usar el token para recuperar una etiqueta
-curl -X POST "https://api.zelf.world/api/tags/lease-recovery" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-recovery" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE" \
@@ -194,7 +194,7 @@ const axios = require('axios');
 async function recoverTag() {
   try {
     // Primero, crear una sesión
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
+    const sessionResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', {
       identifier: 'test_session_123',
       type: 'createWallet',
       isWebExtension: false
@@ -208,7 +208,7 @@ async function recoverTag() {
     const token = sessionResponse.data.data.token;
 
     // Luego recuperar la etiqueta
-    const recoveryResponse = await axios.post('https://api.zelf.world/api/tags/lease-recovery', {
+    const recoveryResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-recovery', {
       zelfProof: 'your_existing_zelfproof_data',
       tagName: 'mynewtag',
       domain: 'zelf',
@@ -242,7 +242,7 @@ import requests
 
 def recover_tag():
     # Primero, crear una sesión
-    session_url = "https://api.zelf.world/api/sessions"
+    session_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions"
     session_data = {
         "identifier": "test_session_123",
         "type": "createWallet",
@@ -257,7 +257,7 @@ def recover_tag():
     token = session_response.json()["data"]["token"]
     
     # Luego recuperar la etiqueta
-    recovery_url = "https://api.zelf.world/api/tags/lease-recovery"
+    recovery_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-recovery"
     recovery_data = {
         "zelfProof": "your_existing_zelfproof_data",
         "tagName": "mynewtag",
@@ -288,7 +288,7 @@ if __name__ == "__main__":
 <?php
 function recoverTag() {
     // Primero, crear una sesión
-    $sessionUrl = 'https://api.zelf.world/api/sessions';
+    $sessionUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions';
     $sessionData = [
         'identifier' => 'test_session_123',
         'type' => 'createWallet',
@@ -309,7 +309,7 @@ function recoverTag() {
     $token = $sessionResult['data']['token'];
     
     // Luego recuperar la etiqueta
-    $recoveryUrl = 'https://api.zelf.world/api/tags/lease-recovery';
+    $recoveryUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-recovery';
     $recoveryData = [
         'zelfProof' => 'your_existing_zelfproof_data',
         'tagName' => 'mynewtag',
@@ -352,7 +352,7 @@ async fn recover_tag() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
     // Primero, crear una sesión
-    let session_url = "https://api.zelf.world/api/sessions";
+    let session_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions";
     let session_data = json!({
         "identifier": "test_session_123",
         "type": "createWallet",
@@ -371,7 +371,7 @@ async fn recover_tag() -> Result<(), Box<dyn std::error::Error>> {
     let token = session_result["data"]["token"].as_str().unwrap();
     
     // Luego recuperar la etiqueta
-    let recovery_url = "https://api.zelf.world/api/tags/lease-recovery";
+    let recovery_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-recovery";
     let recovery_data = json!({
         "zelfProof": "your_existing_zelfproof_data",
         "tagName": "mynewtag",

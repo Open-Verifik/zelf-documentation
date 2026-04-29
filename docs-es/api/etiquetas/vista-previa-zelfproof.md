@@ -8,7 +8,7 @@ Obtener una vista previa de un ZelfProof antes del descifrado para ver sus datos
 ## Endpoint
 
 ```
-POST /api/tags/preview-zelfproof
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview-zelfproof
 ```
 
 ## Descripción
@@ -59,7 +59,7 @@ Este endpoint te permite obtener una vista previa de un ZelfProof y ver sus deta
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "https://api.zelf.world/api/tags/preview-zelfproof" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview-zelfproof" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
@@ -80,7 +80,7 @@ const data = {
 
 const config = {
   method: 'post',
-  url: 'https://api.zelf.world/api/tags/preview-zelfproof',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview-zelfproof',
   headers: { 
     'Authorization': 'Bearer YOUR_JWT_TOKEN', 
     'Content-Type': 'application/json'
@@ -104,7 +104,7 @@ axios.request(config)
 ```python
 import requests
 
-url = "https://api.zelf.world/api/tags/preview-zelfproof"
+url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview-zelfproof"
 
 payload = {
     "zelfProof": "[ZELFPROOF_BASE64_DATA]"
@@ -125,7 +125,7 @@ print(response.json())
 
 ```php
 <?php
-$url = "https://api.zelf.world/api/tags/preview-zelfproof";
+$url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview-zelfproof";
 
 $data = array(
     "zelfProof" => "[ZELFPROOF_BASE64_DATA]"
@@ -162,7 +162,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
     
     let response = client
-        .post("https://api.zelf.world/api/tags/preview-zelfproof")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview-zelfproof")
         .header("Authorization", "Bearer YOUR_JWT_TOKEN")
         .header("Content-Type", "application/json")
         .json(&data)

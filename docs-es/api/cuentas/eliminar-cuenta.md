@@ -39,7 +39,7 @@ Eliminar permanentemente una cuenta de cliente y todos los datos asociados. Este
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE "https://api.zelf.world/api/clients" \
+curl -X DELETE "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients" \
   -H "Origin: https://tudominio.com" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Content-Type: application/json" \
@@ -63,7 +63,7 @@ const deleteData = {
 };
 
 try {
-  const response = await axios.delete('https://api.zelf.world/api/clients', {
+  const response = await axios.delete('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients', {
     headers: {
       'Origin': 'https://tudominio.com',
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
@@ -98,7 +98,7 @@ headers = {
 
 try:
     response = requests.delete(
-        "https://api.zelf.world/api/clients",
+        "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients",
         json=delete_data,
         headers=headers
     )
@@ -126,7 +126,7 @@ $headers = [
 ];
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://api.zelf.world/api/clients');
+curl_setopt($ch, CURLOPT_URL, '{{ZELF_PUBLIC_API_ORIGIN}}/api/clients');
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($deleteData));
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -161,7 +161,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let client = reqwest::Client::new();
     let response = client
-        .delete("https://api.zelf.world/api/clients")
+        .delete("{{ZELF_PUBLIC_API_ORIGIN}}/api/clients")
         .header("Origin", "https://tudominio.com")
         .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
         .header("Content-Type", "application/json")

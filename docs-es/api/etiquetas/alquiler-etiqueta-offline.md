@@ -5,7 +5,7 @@ Alquilar una etiqueta para uso offline con datos ZelfProof.
 ## Endpoint
 
 ```
-POST /api/tags/lease-offline
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-offline
 ```
 
 ## Descripción
@@ -155,7 +155,7 @@ O para otros errores del servidor:
 
 ```bash
 # Primero, crear una sesión para obtener el token JWT
-curl -X POST https://api.zelf.world/api/sessions \
+curl -X POST {{ZELF_PUBLIC_API_ORIGIN}}/api/sessions \
   -H "Content-Type: application/json" \
   -H "Origin: https://yourdomain.com" \
   -d '{
@@ -165,7 +165,7 @@ curl -X POST https://api.zelf.world/api/sessions \
   }'
 
 # Luego alquilar una etiqueta offline
-curl -X POST https://api.zelf.world/api/tags/lease-offline \
+curl -X POST {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-offline \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Origin: https://yourdomain.com" \
@@ -185,7 +185,7 @@ const axios = require('axios');
 async function leaseOfflineTag() {
   try {
     // Crear sesión
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
+    const sessionResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', {
       identifier: 'my-session-id',
       type: 'createWallet',
       isWebExtension: false
@@ -199,7 +199,7 @@ async function leaseOfflineTag() {
     const authToken = sessionResponse.data.data.token;
 
     // Alquilar etiqueta offline
-    const response = await axios.post('https://api.zelf.world/api/tags/lease-offline', {
+    const response = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-offline', {
       tagName: 'mytag.zelf',
       domain: 'zelf',
       zelfProofQRCode: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...'
@@ -229,7 +229,7 @@ import json
 
 # Crear sesión
 def create_session():
-    url = 'https://api.zelf.world/api/sessions'
+    url = '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions'
     data = {
         'identifier': 'my-session-id',
         'type': 'createWallet',
@@ -247,7 +247,7 @@ def create_session():
 def lease_offline_tag():
     auth_token = create_session()
     
-    url = 'https://api.zelf.world/api/tags/lease-offline'
+    url = '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-offline'
     data = {
         'tagName': 'mytag.zelf',
         'domain': 'zelf',
@@ -274,7 +274,7 @@ print(json.dumps(result, indent=2))
 
 // Crear sesión
 function createSession() {
-    $url = 'https://api.zelf.world/api/sessions';
+    $url = '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions';
     $data = [
         'identifier' => 'my-session-id',
         'type' => 'createWallet',
@@ -300,7 +300,7 @@ function createSession() {
 function leaseOfflineTag() {
     $authToken = createSession();
     
-    $url = 'https://api.zelf.world/api/tags/lease-offline';
+    $url = '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-offline';
     $data = [
         'tagName' => 'mytag.zelf',
         'domain' => 'zelf',
@@ -341,7 +341,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     // Crear sesión
     let session_response = client
-        .post("https://api.zelf.world/api/sessions")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions")
         .header("Content-Type", "application/json")
         .header("Origin", "https://yourdomain.com")
         .json(&json!({
@@ -357,7 +357,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     // Alquilar etiqueta offline
     let response = client
-        .post("https://api.zelf.world/api/tags/lease-offline")
+        .post("{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/lease-offline")
         .header("Content-Type", "application/json")
         .header("Authorization", format!("Bearer {}", auth_token))
         .header("Origin", "https://yourdomain.com")

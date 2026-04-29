@@ -14,15 +14,16 @@ When there is ambiguity, check these files first:
 1. `docs/api/tags/search-tag.md`
 2. `docs/api/tags/lease-tag.md`
 3. `docs/api/licenses/get-licenses.md`
-4. `docusaurus.config.js`
-5. `sidebars.js`
-6. The corresponding backend route, controller, module, and tests in `zelf`
+4. `config/zelf-public-api.config.json` (canonical `publicApiOrigin` for examples; loaded by `config/zelf-public-api.cjs`)
+5. `docusaurus.config.js`
+6. `sidebars.js`
+7. The corresponding backend route, controller, module, and tests in `zelf`
 
 ## Default API page structure
 
 - Frontmatter with `title`, `description`, `keywords`, and `image`
 - Short introduction
-- `## Endpoint`
+- `## Endpoint` — in the code fence, show the full URL (`GET`/`POST` `{{ZELF_PUBLIC_API_ORIGIN}}/api/...`) so the production base is visible above the fold, not only a relative path.
 - `## Description`
 - `## Authentication` when needed
 - `## Parameters`
@@ -33,7 +34,7 @@ When there is ambiguity, check these files first:
 
 - Default to cURL, Node.js, Python, PHP, and Rust for full API references.
 - Prefer consistent auth examples that show session creation before protected calls.
-- Keep example URLs on `https://api.zelf.world`.
+- Keep example URLs on `{{ZELF_PUBLIC_API_ORIGIN}}`.
 - Do not spread older language drift unless the page intentionally needs a special language example.
 
 ## Sidebar guidance

@@ -222,7 +222,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # First, authenticate to get JWT token
-curl -X POST "https://api.zelf.world/api/clients/auth" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -232,7 +232,7 @@ curl -X POST "https://api.zelf.world/api/clients/auth" \
   }'
 
 # Then get my license
-curl -X GET "https://api.zelf.world/api/license/my-license" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/license/my-license" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
@@ -247,7 +247,7 @@ const axios = require('axios');
 async function getMyLicense() {
   try {
     // First, authenticate
-    const authResponse = await axios.post('https://api.zelf.world/api/clients/auth', {
+    const authResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth', {
       email: 'user@example.com',
       password: 'your_password',
       faceBase64: 'your_face_base64_data'
@@ -261,7 +261,7 @@ async function getMyLicense() {
     const token = authResponse.data.data.token;
 
     // Then get my license
-    const licenseResponse = await axios.get('https://api.zelf.world/api/license/my-license', {
+    const licenseResponse = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/license/my-license', {
       headers: {
         'Content-Type': 'application/json',
         'Origin': 'https://test.example.com',
@@ -292,7 +292,7 @@ import requests
 
 def get_my_license():
     # First, authenticate
-    auth_url = "https://api.zelf.world/api/clients/auth"
+    auth_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth"
     auth_data = {
         "email": "user@example.com",
         "password": "your_password",
@@ -307,7 +307,7 @@ def get_my_license():
     token = auth_response.json()["data"]["token"]
     
     # Then get my license
-    license_url = "https://api.zelf.world/api/license/my-license"
+    license_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/license/my-license"
     license_headers = {
         "Content-Type": "application/json",
         "Origin": "https://test.example.com",
@@ -335,7 +335,7 @@ if __name__ == "__main__":
 <?php
 function getMyLicense() {
     // First, authenticate
-    $authUrl = 'https://api.zelf.world/api/clients/auth';
+    $authUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth';
     $authData = [
         'email' => 'user@example.com',
         'password' => 'your_password',
@@ -356,7 +356,7 @@ function getMyLicense() {
     $token = $authResult['data']['token'];
     
     // Then get my license
-    $licenseUrl = 'https://api.zelf.world/api/license/my-license';
+    $licenseUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/license/my-license';
     
     $licenseOptions = [
         'http' => [
@@ -394,7 +394,7 @@ async fn get_my_license() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
     // First, authenticate
-    let auth_url = "https://api.zelf.world/api/clients/auth";
+    let auth_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth";
     let auth_data = json!({
         "email": "user@example.com",
         "password": "your_password",
@@ -413,7 +413,7 @@ async fn get_my_license() -> Result<(), Box<dyn std::error::Error>> {
     let token = auth_result["data"]["token"].as_str().unwrap();
     
     // Then get my license
-    let license_url = "https://api.zelf.world/api/license/my-license";
+    let license_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/license/my-license";
     
     let license_response = client
         .get(license_url)

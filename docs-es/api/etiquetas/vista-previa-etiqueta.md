@@ -5,7 +5,7 @@ Previsualizar una etiqueta para ver si existe o verificar información de precio
 ## Endpoint
 
 ```
-GET /api/tags/preview
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview
 ```
 
 ## Descripción
@@ -165,7 +165,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # Primero crear una sesión para obtener el token JWT
-curl -X POST "https://api.zelf.world/api/sessions" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -175,7 +175,7 @@ curl -X POST "https://api.zelf.world/api/sessions" \
   }'
 
 # Luego usar el token para previsualizar una etiqueta
-curl -X GET "https://api.zelf.world/api/tags/preview?tagName=myname&domain=zelf&os=DESKTOP" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview?tagName=myname&domain=zelf&os=DESKTOP" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 ```
@@ -189,7 +189,7 @@ const axios = require('axios');
 async function previewTag() {
   try {
     // Primero crear una sesión
-    const sessionResponse = await axios.post('https://api.zelf.world/api/sessions', {
+    const sessionResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', {
       identifier: 'preview_session_123',
       type: 'createWallet',
       isWebExtension: false
@@ -203,7 +203,7 @@ async function previewTag() {
     const token = sessionResponse.data.data.token;
 
     // Luego previsualizar la etiqueta
-    const previewResponse = await axios.get('https://api.zelf.world/api/tags/preview', {
+    const previewResponse = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview', {
       params: {
         tagName: 'myname',
         domain: 'zelf',
@@ -232,7 +232,7 @@ import requests
 
 def preview_tag():
     # Primero crear una sesión
-    session_url = "https://api.zelf.world/api/sessions"
+    session_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions"
     session_data = {
         "identifier": "preview_session_123",
         "type": "createWallet",
@@ -247,7 +247,7 @@ def preview_tag():
     token = session_response.json()["data"]["token"]
     
     # Luego previsualizar la etiqueta
-    preview_url = "https://api.zelf.world/api/tags/preview"
+    preview_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview"
     preview_params = {
         "tagName": "myname",
         "domain": "zelf",
@@ -271,7 +271,7 @@ preview_tag()
 <?php
 function previewTag() {
     // Primero crear una sesión
-    $sessionUrl = 'https://api.zelf.world/api/sessions';
+    $sessionUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions';
     $sessionData = [
         'identifier' => 'preview_session_123',
         'type' => 'createWallet',
@@ -291,7 +291,7 @@ function previewTag() {
     $token = $sessionResult['data']['token'];
     
     // Luego previsualizar la etiqueta
-    $previewUrl = 'https://api.zelf.world/api/tags/preview?' . http_build_query([
+    $previewUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview?' . http_build_query([
         'tagName' => 'myname',
         'domain' => 'zelf',
         'os' => 'DESKTOP'
@@ -325,7 +325,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
     // Primero crear una sesión
-    let session_url = "https://api.zelf.world/api/sessions";
+    let session_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions";
     let session_data = json!({
         "identifier": "preview_session_123",
         "type": "createWallet",
@@ -344,7 +344,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let token = session_result["data"]["token"].as_str().unwrap();
     
     // Luego previsualizar la etiqueta
-    let preview_url = "https://api.zelf.world/api/tags/preview";
+    let preview_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/preview";
     let preview_response = client
         .get(preview_url)
         .query(&[

@@ -71,11 +71,11 @@ Antes de crear una cuenta, necesitamos verificar si ya existe una cuenta con tu 
 
 ```bash
 # Verificar por email
-curl -X GET "https://api.zelf.world/api/clients?email=tu.email@ejemplo.com" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?email=tu.email@ejemplo.com" \
   -H "Content-Type: application/json"
 
 # Verificar por teléfono
-curl -X GET "https://api.zelf.world/api/clients?countryCode=%2B1&phone=5551234567" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?countryCode=%2B1&phone=5551234567" \
   -H "Content-Type: application/json"
 ```
 
@@ -123,7 +123,7 @@ Si no existe ninguna cuenta, procede a crear una nueva.
 ### Ejemplo de Solicitud
 
 ```bash
-curl -X POST "https://api.zelf.world/api/clients" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Juan Pérez",
@@ -186,7 +186,7 @@ Después de crear tu cuenta, necesitas crear una licencia para tu dominio. Esta 
 ### Ejemplo de Solicitud
 
 ```bash
-curl -X POST "https://api.zelf.world/api/license" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/license" \
   -H "Content-Type: application/json" \
   -H "Origin: https://tudominio.com" \
   -H "Authorization: Bearer TU_TOKEN_JWT_AQUI" \
@@ -294,7 +294,7 @@ Ahora que tu cuenta y licencia están configuradas, puedes autenticarte para acc
 ### Ejemplo de Solicitud
 
 ```bash
-curl -X POST "https://api.zelf.world/api/clients/auth" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth" \
   -H "Origin: https://tudominio.com" \
   -H "Content-Type: application/json" \
   -d '{
@@ -338,7 +338,7 @@ Aquí tienes un ejemplo completo mostrando los cuatro pasos en secuencia:
 const axios = require('axios');
 
 async function crearCuentaZelf() {
-  const baseURL = 'https://api.zelf.world';
+  const baseURL = '{{ZELF_PUBLIC_API_ORIGIN}}';
   const datosCuenta = {
     name: "Juan Pérez",
     countryCode: "+1",
@@ -456,7 +456,7 @@ async function autenticarCuenta(email, faceBase64, masterPassword) {
     identificationMethod: "email"
   };
 
-  const response = await axios.post('https://api.zelf.world/api/clients/auth', datosAuth, {
+  const response = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth', datosAuth, {
     headers: {
       'Origin': 'https://tudominio.com',
       'Content-Type': 'application/json'

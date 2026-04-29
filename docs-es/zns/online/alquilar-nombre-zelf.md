@@ -3,7 +3,7 @@
 ### Endpoint \[POST]
 
 ```
-https://api.zelf.world/api/zelf-name-service/v2/lease
+{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/lease
 ```
 
 This endpoint allows the creation of a new **ZelfProof** as raw bytes encoded in base64. These are the same bytes used to generate the QR code.
@@ -67,7 +67,7 @@ let data = JSON.stringify({
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://api.zelf.world/api/zelf-name-service/v2/lease',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/lease',
   headers: { 
     'Content-Type': 'application/json', 
     'Authorization': 'Bearer eyJhbGciVCJ9.eyJjbGll...qBtlFSNM'
@@ -93,7 +93,7 @@ axios.request(config)
 import http.client
 import json
 
-conn = http.client.HTTPConnection("api.zelf.world")
+conn = http.client.HTTPConnection("{{ZELF_PUBLIC_API_HOST}}")
 payload = json.dumps({
   "type": "create",
   "zelfName": "yourzelfnamehere.zelf",
@@ -120,7 +120,7 @@ val client = OkHttpClient()
 val mediaType = "application/json".toMediaType()
 val body = "{\n    \"type\": \"create\",\n    \"zelfName\": \"yourzelfname.zelf\",\n    \"wordsCount\": 12,\n    \"removePGP\": true,\n    \"faceBase64\": \"/9j/4AAQSkZJRg...AuXLkwp/9k=\"\n}".toRequestBody(mediaType)
 val request = Request.Builder()
-  .url("https://api.zelf.world/api/zelf-name-service/lease")
+  .url("{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/lease")
   .post(body)
   .addHeader("Content-Type", "application/json")
   .addHeader("Authorization", "Bearer eyJhbGciOiJIUJ9.eyJjbGllbn...FSNM")

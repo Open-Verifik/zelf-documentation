@@ -3,7 +3,7 @@
 ### Endpoint \[POST]
 
 ```
-https://api.zelf.world/api/sessions
+{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions
 ```
 
 This endpoint is used to create a new session for a device using a unique identifier. The response includes a token that can be used for subsequent authenticated requests.
@@ -17,7 +17,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="cURL" label="cURL">
 
 ```bash
-curl --location --request POST 'https://api.zelf.world/api/sessions' \
+curl --location --request POST '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions' \
 --header 'origin: postman' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -36,7 +36,7 @@ let data = JSON.stringify({
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://api.zelf.world/api/sessions',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions',
   headers: { 
     'origin': 'postman', 
     'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let data = "";
 
-    let request = client.request(reqwest::Method::POST, "https://api.zelf.world/api/sessions")
+    let request = client.request(reqwest::Method::POST, "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions")
         .headers(headers)
         .body(data);
 
@@ -87,7 +87,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 <TabItem value="Swift" label="Swift">
 
 ```swift
-var request = URLRequest(url: URL(string: "https://api.zelf.world/api/sessions")!,timeoutInterval: Double.infinity)
+var request = URLRequest(url: URL(string: "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions")!,timeoutInterval: Double.infinity)
 request.addValue("postman", forHTTPHeaderField: "origin")
 
 request.httpMethod = "POST"

@@ -3,7 +3,7 @@
 ### Endpoint
 
 ```
-https://api.zelf.world/api/zelf-name-service/v2/decrypt
+{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/decrypt
 ```
 
 This endpoint is used to decrypt a ZelfProof by taking the **ZelfName** along with the face (selfie) and the password (optional). The first thing that we do, is that we perform a liveness test prior the decryption to make sure it's a real person utilizing the decryption API.
@@ -56,7 +56,7 @@ let data = JSON.stringify({
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://api.zelf.world/api/zelf-name-service/v2/decrypt',
+  url: '{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/decrypt',
   headers: { 
     'Content-Type': 'application/json', 
     'Authorization': 'Bearer eyJhbGciOiJIUzICJ9.eyJzZXNzaGRr...PIc0'
@@ -78,7 +78,7 @@ axios.request(config)
 <TabItem value="cURL" label="cURL">
 
 ```bash
-curl --location 'https://api.zelf.world/api/zelf-name-service/v2/decrypt' \
+curl --location '{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/decrypt' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzIXVCJ9.ey...EQ8R-iw' \
 --data '{
@@ -96,7 +96,7 @@ curl --location 'https://api.zelf.world/api/zelf-name-service/v2/decrypt' \
 import http.client
 import json
 
-conn = http.client.HTTPConnection("api.zelf.world")
+conn = http.client.HTTPConnection("{{ZELF_PUBLIC_API_HOST}}")
 payload = json.dumps({
   "zelfName": "importtesttwo240testagain10.zelf",
   "removePGP": true,

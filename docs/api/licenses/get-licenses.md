@@ -137,7 +137,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # First, authenticate to get JWT token
-curl -X POST "https://api.zelf.world/api/clients/auth" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -d '{
@@ -147,13 +147,13 @@ curl -X POST "https://api.zelf.world/api/clients/auth" \
   }'
 
 # Then search for licenses
-curl -X GET "https://api.zelf.world/api/license" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/license" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 
 # Search for specific domain
-curl -X GET "https://api.zelf.world/api/license?domain=mydomain" \
+curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/license?domain=mydomain" \
   -H "Content-Type: application/json" \
   -H "Origin: https://test.example.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
@@ -168,7 +168,7 @@ const axios = require('axios');
 async function searchLicenses() {
   try {
     // First, authenticate
-    const authResponse = await axios.post('https://api.zelf.world/api/clients/auth', {
+    const authResponse = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth', {
       email: 'user@example.com',
       password: 'your_password',
       faceBase64: 'your_face_base64_data'
@@ -182,7 +182,7 @@ async function searchLicenses() {
     const token = authResponse.data.data.token;
 
     // Then search for licenses
-    const licensesResponse = await axios.get('https://api.zelf.world/api/license', {
+    const licensesResponse = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/license', {
       headers: {
         'Content-Type': 'application/json',
         'Origin': 'https://test.example.com',
@@ -193,7 +193,7 @@ async function searchLicenses() {
     console.log('All Licenses:', licensesResponse.data);
 
     // Search for specific domain
-    const domainResponse = await axios.get('https://api.zelf.world/api/license', {
+    const domainResponse = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/license', {
       params: {
         domain: 'mydomain'
       },
@@ -221,7 +221,7 @@ import requests
 
 def search_licenses():
     # First, authenticate
-    auth_url = "https://api.zelf.world/api/clients/auth"
+    auth_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth"
     auth_data = {
         "email": "user@example.com",
         "password": "your_password",
@@ -236,7 +236,7 @@ def search_licenses():
     token = auth_response.json()["data"]["token"]
     
     # Then search for licenses
-    licenses_url = "https://api.zelf.world/api/license"
+    licenses_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/license"
     licenses_headers = {
         "Content-Type": "application/json",
         "Origin": "https://test.example.com",
@@ -262,7 +262,7 @@ if __name__ == "__main__":
 <?php
 function searchLicenses() {
     // First, authenticate
-    $authUrl = 'https://api.zelf.world/api/clients/auth';
+    $authUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth';
     $authData = [
         'email' => 'user@example.com',
         'password' => 'your_password',
@@ -283,7 +283,7 @@ function searchLicenses() {
     $token = $authResult['data']['token'];
     
     // Then search for licenses
-    $licensesUrl = 'https://api.zelf.world/api/license';
+    $licensesUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/license';
     
     $licensesOptions = [
         'http' => [
@@ -299,7 +299,7 @@ function searchLicenses() {
     echo "All Licenses: " . json_encode($licensesResult, JSON_PRETTY_PRINT);
     
     // Search for specific domain
-    $domainUrl = 'https://api.zelf.world/api/license?domain=mydomain';
+    $domainUrl = '{{ZELF_PUBLIC_API_ORIGIN}}/api/license?domain=mydomain';
     $domainResponse = file_get_contents($domainUrl, false, $licensesContext);
     $domainResult = json_decode($domainResponse, true);
     
@@ -322,7 +322,7 @@ async fn search_licenses() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
     
     // First, authenticate
-    let auth_url = "https://api.zelf.world/api/clients/auth";
+    let auth_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth";
     let auth_data = json!({
         "email": "user@example.com",
         "password": "your_password",
@@ -341,7 +341,7 @@ async fn search_licenses() -> Result<(), Box<dyn std::error::Error>> {
     let token = auth_result["data"]["token"].as_str().unwrap();
     
     // Then search for licenses
-    let licenses_url = "https://api.zelf.world/api/license";
+    let licenses_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/license";
     
     let licenses_response = client
         .get(licenses_url)
@@ -355,7 +355,7 @@ async fn search_licenses() -> Result<(), Box<dyn std::error::Error>> {
     println!("All Licenses: {}", serde_json::to_string_pretty(&licenses_result)?);
     
     // Search for specific domain
-    let domain_url = "https://api.zelf.world/api/license?domain=mydomain";
+    let domain_url = "{{ZELF_PUBLIC_API_ORIGIN}}/api/license?domain=mydomain";
     let domain_response = client
         .get(domain_url)
         .header("Content-Type", "application/json")

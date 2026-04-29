@@ -48,7 +48,7 @@ Crea un nuevo ZelfProof (prueba biométrica de conocimiento cero) usando una ima
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "https://api.zelf.world/api/zelf-proof/encrypt" \
+curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/encrypt" \
   -H "Origin: https://tudominio.com" \
   -H "Authorization: Bearer <JWT>" \
   -H "Content-Type: application/json" \
@@ -81,7 +81,7 @@ const data = {
   tolerance: 'REGULAR'
 };
 
-const res = await axios.post('https://api.zelf.world/api/zelf-proof/encrypt', data, {
+const res = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/encrypt', data, {
   headers: {
     Origin: 'https://tudominio.com',
     Authorization: `Bearer <JWT>`,
@@ -108,7 +108,7 @@ payload = {
   "tolerance": "REGULAR"
 }
 headers = {"Origin": "https://tudominio.com", "Authorization": "Bearer <JWT>", "Content-Type": "application/json"}
-print(requests.post("https://api.zelf.world/api/zelf-proof/encrypt", json=payload, headers=headers).json())
+print(requests.post("{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/encrypt", json=payload, headers=headers).json())
 ```
 
 </TabItem>

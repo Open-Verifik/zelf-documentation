@@ -40,7 +40,7 @@ Actualizar una cuenta de cliente existente con nueva información. Este endpoint
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT "https://api.zelf.world/api/clients/sync" \
+curl -X PUT "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync" \
   -H "Origin: https://tudominio.com" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Content-Type: application/json" \
@@ -66,7 +66,7 @@ const updateData = {
 };
 
 try {
-  const response = await axios.put('https://api.zelf.world/api/clients/sync', updateData, {
+  const response = await axios.put('{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync', updateData, {
     headers: {
       'Origin': 'https://tudominio.com',
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
@@ -101,7 +101,7 @@ headers = {
 
 try:
     response = requests.put(
-        "https://api.zelf.world/api/clients/sync",
+        "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync",
         json=update_data,
         headers=headers
     )
@@ -130,7 +130,7 @@ $headers = [
 ];
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://api.zelf.world/api/clients/sync');
+curl_setopt($ch, CURLOPT_URL, '{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync');
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($updateData));
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -166,7 +166,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let client = reqwest::Client::new();
     let response = client
-        .put("https://api.zelf.world/api/clients/sync")
+        .put("{{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync")
         .header("Origin", "https://tudominio.com")
         .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
         .header("Content-Type", "application/json")
