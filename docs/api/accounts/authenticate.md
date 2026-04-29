@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 ## Endpoint
 
 ```
-POST /api/clients/auth
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth
 ```
 
 ## Description

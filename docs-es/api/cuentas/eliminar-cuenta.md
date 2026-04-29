@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 ## Endpoint
 
 ```
-DELETE /api/clients
+DELETE {{ZELF_PUBLIC_API_ORIGIN}}/api/clients
 ```
 
 ## Descripción

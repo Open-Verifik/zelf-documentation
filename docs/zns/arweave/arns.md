@@ -9,7 +9,7 @@ When we store it in Arweave we also bring more benefits besides the permanent st
 ### Claim your Zelf Name Site
 
 ```
-{{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/:zelfName
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/:zelfName
 ```
 
 #### Request
@@ -127,7 +127,7 @@ print(data.decode("utf-8"))
 ### Query your Zelf Name Site
 
 ```
-{{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/:zelfName
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/ar-io-arns/:zelfName
 ```
 
 #### Request

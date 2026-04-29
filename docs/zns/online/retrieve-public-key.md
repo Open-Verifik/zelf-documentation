@@ -3,7 +3,7 @@
 ### Endpoint \[GET]
 
 ```
-{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions/yek-cilbup 
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/sessions/yek-cilbup
 ```
 
 This endpoint retrieves the public key associated with a specified identifier.

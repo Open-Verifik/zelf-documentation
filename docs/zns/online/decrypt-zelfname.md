@@ -3,7 +3,7 @@
 ### Endpoint
 
 ```
-{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/decrypt
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/decrypt
 ```
 
 This endpoint is used to decrypt a ZelfProof by taking the **ZelfName** along with the face (selfie) and the password (optional). The first thing that we do, is that we perform a liveness test prior the decryption to make sure it's a real person utilizing the decryption API.

@@ -61,7 +61,7 @@ Caminemos a través de cada paso:
 
 Antes de crear una cuenta, necesitamos verificar si ya existe una cuenta con tu email o número de teléfono.
 
-### Endpoint: `GET /api/clients`
+### Endpoint: `GET {{ZELF_PUBLIC_API_ORIGIN}}/api/clients`
 
 **Propósito**: Verificar si ya existe una cuenta con tu email o número de teléfono.
 
@@ -111,7 +111,7 @@ curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients?countryCode=%2B1&phone=55512
 
 Si no existe ninguna cuenta, procede a crear una nueva.
 
-### Endpoint: `POST /api/clients`
+### Endpoint: `POST {{ZELF_PUBLIC_API_ORIGIN}}/api/clients`
 
 **Propósito**: Crear una nueva cuenta de cliente con verificación biométrica facial y contraseña maestra.
 
@@ -173,7 +173,7 @@ curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/clients" \
 
 Después de crear tu cuenta, necesitas crear una licencia para tu dominio. Esta licencia define las reglas y permisos para tu identidad Zelf.
 
-### Endpoint: `POST /api/license`
+### Endpoint: `POST {{ZELF_PUBLIC_API_ORIGIN}}/api/license`
 
 **Propósito**: Crear o actualizar una licencia para un dominio con configuraciones completas.
 
@@ -283,7 +283,7 @@ curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/license" \
 
 Ahora que tu cuenta y licencia están configuradas, puedes autenticarte para acceder a tus servicios Zelf.
 
-### Endpoint: `POST /api/clients/auth`
+### Endpoint: `POST {{ZELF_PUBLIC_API_ORIGIN}}/api/clients/auth`
 
 **Propósito**: Autenticarse usando tus datos biométricos y contraseña maestra para recibir un token JWT.
 

@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 ## Endpoint
 
 ```
-PUT /api/clients/sync/password
+PUT {{ZELF_PUBLIC_API_ORIGIN}}/api/clients/sync/password
 ```
 
 ## Descripción

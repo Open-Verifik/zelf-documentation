@@ -12,7 +12,7 @@ Search and retrieve licenses from the system.
 ## Endpoint
 
 ```
-GET /api/license
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/license
 ```
 
 ## Description

@@ -5,7 +5,7 @@ Crear o actualizar una licencia para un dominio con configuración completa.
 ## Endpoint
 
 ```
-POST /api/license
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/license
 ```
 
 ## Descripción

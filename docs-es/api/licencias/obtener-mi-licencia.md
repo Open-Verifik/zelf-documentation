@@ -5,7 +5,7 @@ Recuperar la información de licencia del usuario actual y detalles de la cuenta
 ## Endpoint
 
 ```
-GET /api/license/my-license
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/license/my-license
 ```
 
 ## Descripción

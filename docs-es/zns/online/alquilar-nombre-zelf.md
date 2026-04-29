@@ -3,7 +3,7 @@
 ### Endpoint \[POST]
 
 ```
-{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/lease
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/v2/lease
 ```
 
 This endpoint allows the creation of a new **ZelfProof** as raw bytes encoded in base64. These are the same bytes used to generate the QR code.

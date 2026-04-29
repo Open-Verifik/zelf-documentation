@@ -5,7 +5,7 @@ Eliminar una licencia existente con verificación biométrica.
 ## Endpoint
 
 ```
-DELETE /api/license
+DELETE {{ZELF_PUBLIC_API_ORIGIN}}/api/license
 ```
 
 ## Descripción

@@ -3,7 +3,7 @@
 ### Endpoint
 
 ```
-{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/preview
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-name-service/preview
 ```
 
 In this method, we will preview only the public information that was stored inside the `ZelfProof` so you can identify what the `ZelfProof` might contain inside the encrypted private information. This preview process will first search for the `zelfName` in Arweave, retrieve the relevant information if available, and then decrypt the public data for display.

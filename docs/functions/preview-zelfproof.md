@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 ## Endpoint
 
 ```
-POST /api/zelf-proof/preview
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-proof/preview
 ```
 
 ## Description

@@ -8,7 +8,7 @@ Verificar si existe una cuenta de cliente en el sistema Zelf y recuperar informa
 ## Endpoint
 
 ```
-GET /api/clients
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/clients
 ```
 
 ## Descripción

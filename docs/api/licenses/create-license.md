@@ -12,7 +12,7 @@ Create or update a license for a domain with comprehensive configuration setting
 ## Endpoint
 
 ```
-POST /api/license
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/license
 ```
 
 ## Description

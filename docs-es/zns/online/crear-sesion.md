@@ -3,7 +3,7 @@
 ### Endpoint \[POST]
 
 ```
-{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/sessions
 ```
 
 This endpoint is used to create a new session for a device using a unique identifier. The response includes a token that can be used for subsequent authenticated requests.

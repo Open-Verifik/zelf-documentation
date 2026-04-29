@@ -5,7 +5,7 @@ Buscar y recuperar licencias del sistema.
 ## Endpoint
 
 ```
-GET /api/license
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/license
 ```
 
 ## Descripción

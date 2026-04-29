@@ -15,7 +15,7 @@ Create a new client account with biometric face verification and master password
 ## Endpoint
 
 ```
-POST /api/clients
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/clients
 ```
 
 ## Description

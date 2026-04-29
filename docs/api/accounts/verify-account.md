@@ -15,7 +15,7 @@ Verify if a client account exists in the Zelf system and retrieve account inform
 ## Endpoint
 
 ```
-GET /api/clients
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/clients
 ```
 
 ## Description

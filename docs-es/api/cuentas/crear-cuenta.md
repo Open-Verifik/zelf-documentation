@@ -8,7 +8,7 @@ Crear una nueva cuenta de cliente con verificación biométrica facial y autenti
 ## Endpoint
 
 ```
-POST /api/clients
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/clients
 ```
 
 ## Descripción

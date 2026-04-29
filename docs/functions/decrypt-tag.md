@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 ### Endpoint
 
 ```
-{{ZELF_PUBLIC_API_ORIGIN}}/api/tags/decrypt
+POST {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/decrypt
 ```
 
 This endpoint allows you to decrypt a **ZelfProof** using biometric face verification to access the original wallet data, including mnemonic phrases and private keys. The decryption process verifies the user's identity through face recognition before providing access to sensitive information.

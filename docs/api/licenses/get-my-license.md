@@ -12,7 +12,7 @@ Retrieve the current user's license information and account details.
 ## Endpoint
 
 ```
-GET /api/license/my-license
+GET {{ZELF_PUBLIC_API_ORIGIN}}/api/license/my-license
 ```
 
 ## Description
