@@ -80,6 +80,12 @@ const sidebars = {
 					collapsible: true,
 					items: ["api/licenses/get-licenses", "api/licenses/get-my-license", "api/licenses/create-license", "api/licenses/delete-license"],
 				},
+				{
+					type: "category",
+					label: "Blogs API",
+					collapsible: true,
+					items: ["api/blogs/list-blogs", "api/blogs/get-blogs-by-language", "api/blogs/get-blog-by-slug"],
+				},
 			],
 		},
 		{
