@@ -69,6 +69,18 @@ const sidebars = {
 				},
 				{
 					type: "category",
+					label: "API de Zelf Keys",
+					collapsible: true,
+					items: [
+						"api/zelf-keys/store",
+						"api/zelf-keys/list",
+						"api/zelf-keys/retrieve",
+						"api/zelf-keys/preview",
+						"api/zelf-keys/delete",
+					],
+				},
+				{
+					type: "category",
 					label: "API de Licencias",
 					collapsible: true,
 					items: [
