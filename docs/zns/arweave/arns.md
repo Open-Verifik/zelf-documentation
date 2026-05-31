@@ -85,8 +85,7 @@ print(data.decode("utf-8"))
         "transactionId": "oAXUqVVS2-I2OWPKjVOsLGNnwYVFHUTpJepvCxnrEvY",
         "ttlSeconds": 3600
     },
-    "primaryUrl": "https://dinero_zelf.arweave.zelf.world",
-    "secondaryUrl": "https://dinero_zelf.arweave.net"
+    "primaryUrl": "https://dinero_zelf.arweave.net"
 }
 ```
 
@@ -105,8 +104,7 @@ print(data.decode("utf-8"))
     },
     "upToDate": true,
     "zelfName": "jumitrmo",
-    "primaryUrl": "https://myzelfname_zelf.arweave.zelf.world",
-    "secondaryUrl": "https://myzelfname_zelf.arweave.net"
+    "primaryUrl": "https://myzelfname_zelf.arweave.net"
 }
 ```
 
@@ -203,8 +201,7 @@ print(data.decode("utf-8"))
     },
     "upToDate": true,
     "zelfName": "dinero",
-    "primaryUrl": "https://dinero_zelf.arweave.zelf.world",
-    "secondaryUrl": "https://dinero_zelf.arweave.net"
+    "primaryUrl": "https://dinero_zelf.arweave.net"
 }
 ```
 

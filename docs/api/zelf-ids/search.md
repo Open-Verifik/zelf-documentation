@@ -72,7 +72,7 @@ import TabItem from '@theme/TabItem';
     "arweave": [
       {
         "id": "fL2-FBVD0GFddYIfbD8wrjE7kKSMFtSgTxKJGHXYKgk",
-        "url": "https://arweave.zelf.world/fL2-FBVD0GFddYIfbD8wrjE7kKSMFtSgTxKJGHXYKgk",
+        "url": "https://arweave.net/fL2-FBVD0GFddYIfbD8wrjE7kKSMFtSgTxKJGHXYKgk",
         "explorerUrl": "https://viewblock.io/arweave/tx/fL2-FBVD0GFddYIfbD8wrjE7kKSMFtSgTxKJGHXYKgk",
         "publicData": {
           "ethAddress": "0x2DDcA84eF860085053A0008471BF27D73658f261",
@@ -90,7 +90,7 @@ import TabItem from '@theme/TabItem';
     "tagName": "migueltrevino.zelf",
     "tagObject": {
       "id": "fL2-FBVD0GFddYIfbD8wrjE7kKSMFtSgTxKJGHXYKgk",
-      "url": "https://arweave.zelf.world/fL2-FBVD0GFddYIfbD8wrjE7kKSMFtSgTxKJGHXYKgk",
+      "url": "https://arweave.net/fL2-FBVD0GFddYIfbD8wrjE7kKSMFtSgTxKJGHXYKgk",
       "publicData": {
         "ethAddress": "0x2DDcA84eF860085053A0008471BF27D73658f261",
         "btcAddress": "18gM3C84vAeAYvy5KweUdaJtmhD86dLAN2",
