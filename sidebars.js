@@ -100,6 +100,12 @@ const sidebars = {
 					collapsible: true,
 					items: ["api/blogs/list-blogs", "api/blogs/get-blogs-by-language", "api/blogs/get-blog-by-slug"],
 				},
+				{
+					type: "category",
+					label: "App Version API",
+					collapsible: true,
+					items: ["api/app-version"],
+				},
 			],
 		},
 		{
