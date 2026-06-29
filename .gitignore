@@ -2,7 +2,7 @@
 node_modules/
 
 # Production / Build output
-build/
+# build/ is committed for Forge static deploy (git pull only on server).
 .docusaurus/
 .cache-loader
 

@@ -15,8 +15,20 @@ This is the Docusaurus repository for Zelf public documentation.
 
 - Start local docs with `npm start`.
 - Build production docs with `npm run build` (`prebuild` clears stale `.docusaurus`/`build` output before compiling).
+- **Forge deploy:** build locally, commit `build/`, push to `main`. The server only runs `git pull` (see `scripts/forge-deploy.sh`).
+- Release workflow: `npm run build:release` → commit `build/` with source changes → push.
 - Social cards are generated during `prebuild` via `npm run generate:og`.
 - Production site URL is `https://docs.zelf.world`.
+
+### Forge site deploy script
+
+Point the `docs.zelf.world` Forge deploy script at:
+
+```bash
+bash scripts/forge-deploy.sh
+```
+
+Do **not** run `npm install` or `npm run build` on the server.
 
 ## Content structure
 
