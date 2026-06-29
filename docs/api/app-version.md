@@ -5,6 +5,9 @@ keywords: [app version api, mobile update, force update, zelf app version]
 image: /img/social-card.png
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Mobile App Version
 
 Public endpoint used by native clients to read the current **latest** and **minimum** supported version per platform and, when the app sends its installed version, whether an update is optional or **forced**.
@@ -31,9 +34,6 @@ Policy values are stored in **MongoDB** as a singleton document (`MobileAppVersi
 | `current` | string | No | Client app version (semver). If omitted or empty, no `updateAvailable` / `forceUpdate` fields are returned. |
 
 ## Response
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Tabs>
 <TabItem value="200-policy" label="200 OK - Policy only" default>
@@ -93,9 +93,6 @@ import TabItem from '@theme/TabItem';
 - `forceUpdate`: `true` when the client version is strictly older than `minimumVersion` (block usage until updated).
 
 ## Examples
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Tabs>
 <TabItem value="curl" label="cURL" default>
