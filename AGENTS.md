@@ -14,7 +14,7 @@ Update those files when Docusaurus commands, sidebar structure, API doc conventi
 This is the Docusaurus repository for Zelf public documentation.
 
 - Start local docs with `npm start`.
-- Build production docs with `npm run build`.
+- Build production docs with `npm run build` (`prebuild` clears stale `.docusaurus`/`build` output before compiling).
 - Social cards are generated during `prebuild` via `npm run generate:og`.
 - Production site URL is `https://docs.zelf.world`.
 
