@@ -63,6 +63,8 @@ Este endpoint verifica a **CCCR** (*Cédula de Identidad Costarricense*) contra 
 | `documentType` | string  | Sim         | Tipo de documento. Valor permitido: `CCCR`.  |
 | `documentNumber` | string | Sim        | Número da cédula sem espaços.                |
 
+Clientes em sandbox podem usar os números de documento `010000001`–`010000010` (canônico `10000001`–`10000010`) para perfis de demonstração estáveis; `090040401` retorna 404; `090040402` retorna a resposta de "requer renovação" mostrada a seguir.
+
 ### Requisição
 
 <Tabs>
@@ -72,7 +74,7 @@ Este endpoint verifica a **CCCR** (*Cédula de Identidad Costarricense*) contra 
 import axios from "axios";
 
 const { data } = await axios.get("https://api.verifik.co/v2/cr/cedula", {
-  params: { documentType: "CCCR", documentNumber: "123456789" },
+  params: { documentType: "CCCR", documentNumber: "010000001" },
   headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
 });
 console.log(data);
@@ -90,7 +92,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 ]);
 $query = http_build_query([
     "documentType" => "CCCR",
-    "documentNumber" => "123456789"
+    "documentNumber" => "010000001"
 ]);
 curl_setopt($ch, CURLOPT_URL, "https://api.verifik.co/v2/cr/cedula?".$query);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -107,7 +109,7 @@ import os, requests
 
 url = "https://api.verifik.co/v2/cr/cedula"
 headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "CCCR", "documentNumber": "123456789"}
+params = {"documentType": "CCCR", "documentNumber": "010000001"}
 r = requests.get(url, headers=headers, params=params)
 print(r.json())
 ```
@@ -124,7 +126,7 @@ import (
 )
 
 func main() {
-    url := "https://api.verifik.co/v2/cr/cedula?documentType=CCCR&documentNumber=123456789"
+    url := "https://api.verifik.co/v2/cr/cedula?documentType=CCCR&documentNumber=010000001"
     req, _ := http.NewRequest("GET", url, nil)
     req.Header.Set("Accept", "application/json")
     req.Header.Set("Authorization", "Bearer "+getenv("VERIFIK_TOKEN"))
@@ -146,14 +148,31 @@ func main() {
 {
   "data": {
     "documentType": "CCCR",
-    "documentNumber": "123456789",
-    "firstName": "Ana",
-    "lastName": "Rodríguez",
-    "fullName": "Ana Rodríguez",
-    "status": "valid"
+    "documentNumber": "010000001",
+    "firstName": "MARIA ELENA",
+    "lastName": "LOPEZ GARCIA",
+    "fullName": "MARIA ELENA LOPEZ GARCIA"
   },
-  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "CR001"
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "July 27, 2026 3:00 PM"}
+}
+```
+
+  </TabItem>
+  <TabItem value="200-renewal" label="200 (Requer Renovação)">
+
+```json
+{
+  "data": {
+    "documentType": "CCCR",
+    "documentNumber": "020000002",
+    "status": "requires_renewal",
+    "expired": true,
+    "message": {
+      "es": "La fecha de vencimiento de su última solicitud, es menor a doce meses, por lo que debe renovar su documento en las oficinas del TSE",
+      "en": "The expiration date on file for this citizen's last request is less than twelve months away, so the document must be renewed in person at a TSE office."
+    }
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "July 27, 2026 3:00 PM"}
 }
 ```
 
@@ -193,6 +212,7 @@ func main() {
 ### Observações
 
 - Informe o número sem espaços ou pontos.
+- Uma cédula que não é elegível para a reimpressão on-line segundo as regras de renovação do TSE ainda é resolvida com sucesso (`200`) com `status: "requires_renewal"` e `expired: true`, em vez de um erro. O objeto `message` bilíngue (`es`/`en`) explica que o cidadão deve renovar o documento pessoalmente em um escritório do TSE.
 
 ---
 

@@ -1,0 +1,192 @@
+---
+id: colombia-registraduria-matrimonio
+title: コロンビア — 婚姻民事登記（SCCRC）
+description: GET /v2/co/registraduria/matrimonio（Registraduría SCCRC）で書類・氏名・シリアルによりコロンビアの婚姻民事登記記録を検索します。
+slug: /identity/colombia-registraduria-matrimonio
+keywords:
+  - v2/co/registraduria/matrimonio
+  - /v2/co/registraduria/matrimonio
+  - v2 co registraduria matrimonio
+  - api/co/registraduria/matrimonio
+  - /api/co/registraduria/matrimonio
+  - api.verifik.co/v2/co/registraduria/matrimonio
+  - 'https://api.verifik.co/v2/co/registraduria/matrimonio'
+  - GET v2/co/registraduria/matrimonio
+  - GET /v2/co/registraduria/matrimonio
+  - co/registraduria/matrimonio
+  - registraduria/matrimonio
+  - registro civil matrimonio
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "コロンビア 婚姻民事登記（SCCRC）| Verifik API",
+	description:
+		"書類番号、氏名、またはシリアルで Registraduría SCCRC の婚姻民事登記簿を照会します。",
+	articleSection: "API ドキュメント",
+	keywords: "コロンビア, Registraduría, SCCRC, matrimonio, 婚姻, 本人確認 API",
+	about: {
+		"@type": "Thing",
+		name: "本人確認 API",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# コロンビア — 婚姻民事登記（SCCRC）
+
+**Registraduría Nacional del Estado Civil**（**SCCRC**）の **婚姻民事登記簿**（*registro civil de matrimonio*）を照会します。
+
+検索モードは **いずれか 1 つ** を指定してください。
+
+1. **`documentNumber` + `sexo`** — 書類検索（単一レコード）
+2. **`primerNombre` + `primerApellido` + `sexo` + `fecha`** — 氏名検索（**`matches`** を返す場合あり）
+3. **`serial`** — シリアル検索（単一レコード）
+
+## この API が返す内容
+
+- 単一レコード **または** **`matches`** 配列（氏名モード）
+- **`documentNumber`**, **`documentType`**, 氏名, **`sexo`**, **`serial`**
+- 利用可能な場合 **`oficina`** / **`expeditionPlace`**, **`fecha`**
+- **`recordType`** — `REGISTRO CIVIL DE MATRIMONIO`
+- **署名付き** Verifik レスポンスラッパー
+
+## API リファレンス
+
+### エンドポイント
+
+```
+GET https://api.verifik.co/v2/co/registraduria/matrimonio
+```
+
+**婚姻登記** の検索にこのエンドポイントを使用します。同じ連携は JSON ボディの **`POST`** でも利用できます。**`GET`** は下記の **クエリパラメーター** を使用します。
+
+### ヘッダー（Headers）
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### パラメーター（Parameters）
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `documentNumber` | string | conditional | NUIP/CC; **`sexo`** が必要 | `10000001` |
+| `sexo` | string | conditional | 書類または氏名検索で必須（`MASCULINO` / `FEMENINO`） | `MASCULINO` |
+| `serial` | string | conditional | 婚姻登記シリアル | `0042012345` |
+| `primerNombre` | string | conditional | 第一名（氏名モード） | `JUAN` |
+| `primerApellido` | string | conditional | 第一姓（氏名モード） | `PEREZ` |
+| `fecha` | string | conditional | 婚姻日 **`DD/MM/YYYY`**（氏名モード） | `20/06/2015` |
+| `segundoNombre` | string | no | 第二名 | `CARLOS` |
+| `segundoApellido` | string | no | 第二姓 | `GOMEZ` |
+
+### リクエスト（Request）
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/registraduria/matrimonio", {
+	params: {
+		documentNumber: "10000001",
+		sexo: "MASCULINO",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/registraduria/matrimonio"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentNumber": "10000001", "sexo": "MASCULINO"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### レスポンス（Response）
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"documentType": "CC",
+		"documentNumber": "10000001",
+		"firstName": "JUAN CARLOS",
+		"lastName": "PEREZ GOMEZ",
+		"fullName": "JUAN CARLOS PEREZ GOMEZ",
+		"arrayName": ["JUAN", "CARLOS", "PEREZ", "GOMEZ"],
+		"sexo": "MASCULINO",
+		"serial": "0042012345",
+		"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+		"fecha": "20/06/2015",
+		"recordType": "REGISTRO CIVIL DE MATRIMONIO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "Provide serial, or documentNumber+sexo, or name fields with sexo and fecha"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 機能
+
+- 3 つの検索モード: **書類**、**氏名**、または **シリアル**
+- 氏名モードは **`matches`** を返す場合あり; 書類/シリアルは単一オブジェクトを返す
+- **GET** と **POST** は同一ハンドラーを共有
+
+## ユースケース
+
+- KYC / コンプライアンス向けに **婚姻登記** ヒットを確認
+- 既知書類に紐づく婚姻シリアルを解決
+- 伝記データのみの氏名ベース・スクリーニング
+
+### Notes
+
+- 検索モードは **正確に 1 つ** のみ指定してください（シリアルを書類/氏名フィールドと混在させないでください）。
+- **サンドボックス:** 文書番号 **`10000001`–`10000010`**; 氏名モードは [氏名検索](/verifik-ja/identity-validation/colombia/colombian-citizen-by-name) と同じサンドボックスプロファイルに従います。
+- ソースの一時的な可用性の問題は **409**（`Endpoint_out_of_service`）として現れることがあります。
+- 関連: [書類による市民検索](/identity-validation/colombia/colombian-citizen)、[氏名による市民検索](/verifik-ja/identity-validation/colombia/colombian-citizen-by-name)、[シリアルによる民事登記検索](/verifik-ja/identity/colombia-registraduria-serial)、[Registraduría 証明書](/verifik-ja/identity/colombia-registraduria-certificate)。

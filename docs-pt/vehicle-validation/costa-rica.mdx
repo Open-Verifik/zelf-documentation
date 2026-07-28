@@ -51,7 +51,7 @@ Envie uma requisição GET com o parâmetro de query **`plate`** (sem espaços o
 
 | Nome | Tipo | Obrigatório | Descrição | Exemplo |
 | ---- | ---- | ----------- | --------- | ------- |
-| `plate` | string | **Sim** | Placa a ser consultada, sem espaços ou pontos. | `ABC123` |
+| `plate` | string | **Sim** | Placa a ser consultada, sem espaços ou pontos. | `AA123BA` |
 
 ### Requisição
 
@@ -62,7 +62,7 @@ Envie uma requisição GET com o parâmetro de query **`plate`** (sem espaços o
 import axios from "axios";
 
 const { data } = await axios.get("https://api.verifik.co/v2/cr/vehicle", {
-  params: { plate: "ABC123" },
+  params: { plate: "AA123BA" },
   headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
 });
 console.log(data);
@@ -77,7 +77,7 @@ import http.client
 conn = http.client.HTTPSConnection("api.verifik.co")
 payload = ''
 headers = {}
-conn.request("GET", "/v2/cr/vehicle?plate=ABC123", payload, headers)
+conn.request("GET", "/v2/cr/vehicle?plate=AA123BA", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
@@ -90,7 +90,7 @@ print(data.decode("utf-8"))
 <?php
 require_once 'HTTP/Request2.php';
 $request = new HTTP_Request2();
-$request->setUrl('https://api.verifik.co/v2/cr/vehicle?plate=ABC123');
+$request->setUrl('https://api.verifik.co/v2/cr/vehicle?plate=AA123BA');
 $request->setMethod(HTTP_Request2::METHOD_GET);
 $request->setConfig(array(
   'follow_redirects' => TRUE
@@ -115,7 +115,7 @@ catch(HTTP_Request2_Exception $e) {
   <TabItem value="swift" label="Swift">
 
 ```swift
-var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cr/vehicle?plate=ABC123")!,timeoutInterval: Double.infinity)
+var request = URLRequest(url: URL(string: "https://api.verifik.co/v2/cr/vehicle?plate=AA123BA")!,timeoutInterval: Double.infinity)
 request.httpMethod = "GET"
 
 let task = URLSession.shared.dataTask(with: request) { data, response, error in 
@@ -140,57 +140,35 @@ task.resume()
 ```json
 {
   "data": {
-    "currentOwner": "GUILLERMO RODRIGUEZ SOLIS",
+    "currentOwner": "MARIA ELENA LOPEZ GARCIA",
     "dataVehicle": {
-      "engineDisplacement": "2389 c.c.",
-      "estateValue": "CRC 530,000",
-      "grossWeight": "1550  kgrms.",
-      "netWeight": "1100  kgrms.",
-      "noVin": "",
+      "engineDisplacement": "1600",
+      "estateValue": "$15000000",
+      "grossWeight": "1850 kg",
+      "netWeight": "1420 kg",
+      "noVin": "JTD00000001",
       "occupants": "5",
-      "power": "85 KW. (114 HP)",
-      "traction": "NO APLICA"
+      "power": "120 HP",
+      "traction": "4x2"
     },
-    "infractions": [
-      {
-        "judicialAuthority": "JUZGADO DE TRANSITO DEL II CIRCUITO JUDICIAL DE SAN JOSE",
-        "summaryNumber": "18-003179-0174-TR",
-        "ticketNumber": "2018243000156",
-        "type": "COLISIONES"
-      },
-      {
-        "judicialAuthority": "JUZGADO DE TRANSITO DEL II CIRCUITO JUDICIAL DE SAN JOSE",
-        "summaryNumber": "17-008609-0174-TR",
-        "ticketNumber": "2017202000461",
-        "type": "COLISIONES"
-      }
-    ],
+    "infractions": [],
     "ownerHistory": [
       {
-        "date": "12/10/2016",
-        "fullName": "RODRIGUEZ GUILLERMO SOLIS"
+        "date": "15/01/2020",
+        "fullName": "MARIA ELENA LOPEZ GARCIA"
       },
       {
-        "date": "15/02/2007",
-        "fullName": "RODRIGUEZ AGUSTIN SOLIS"
-      },
-      {
-        "date": "29/04/1991",
-        "fullName": "LAFUENTE ANDRES BARQUERO"
-      },
-      {
-        "date": "29/04/1991",
-        "fullName": "SALAS ANA EUGENIA VASQUEZ"
+        "date": "10/06/2015",
+        "fullName": "JOSE ANTONIO PEREZ RODRIGUEZ"
       }
     ],
-    "plate": "123456",
-    "vehicle": "1987 NISSAN D21 GRIS"
+    "plate": "AA123BA",
+    "vehicle": "TOYOTA COROLLA XLI"
   },
   "signature": {
-    "dateTime": "June 24, 2024 7:39 PM",
+    "dateTime": "July 27, 2026 3:00 PM",
     "message": "Certified by Verifik.co"
-  },
-  "id": "OJBUG"
+  }
 }
 ```
 

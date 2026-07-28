@@ -1,0 +1,204 @@
+---
+id: colombian-citizen-by-name
+title: 哥伦比亚 — 按姓名查询公民（SCCRC）
+description: 通过 GET /v2/co/cedula/by-name（Registraduría SCCRC），使用姓名、性别与出生日期反向查询哥伦比亚出生民事登记记录。
+slug: /identity-validation/colombia/colombian-citizen-by-name
+keywords:
+  - v2/co/cedula/by-name
+  - /v2/co/cedula/by-name
+  - v2 co cedula by-name
+  - api/co/cedula/by-name
+  - /api/co/cedula/by-name
+  - api.verifik.co/v2/co/cedula/by-name
+  - 'https://api.verifik.co/v2/co/cedula/by-name'
+  - GET v2/co/cedula/by-name
+  - GET /v2/co/cedula/by-name
+  - co/cedula/by-name
+  - cedula/by-name
+  - registraduria sccrc by name
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "哥伦比亚按姓名查询公民（SCCRC）| Verifik API",
+	description:
+		"通过 Registraduría SCCRC，使用姓名、性别与出生日期搜索哥伦比亚出生民事登记记录。可能返回多条匹配。",
+	articleSection: "API 文档",
+	keywords: "哥伦比亚, Registraduría, SCCRC, cédula, 按姓名, 身份 API",
+	about: {
+		"@type": "Thing",
+		name: "身份核验 API",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 哥伦比亚 — 按姓名查询公民（SCCRC）
+
+使用 **姓名**、**性别** 与 **出生日期** 搜索 **Registraduría Nacional del Estado Civil** 出生民事登记簿（**SCCRC**）。与[按证件查询哥伦比亚公民](/verifik-zh/identity-validation/colombia/colombian-citizen)不同，此端点为**反向查询**，可能返回**多条匹配**。
+
+适用于已知个人身份属性但不知 NUIP/CC，或需要在证件核验前确认可能的登记命中时。
+
+## 此 API 返回的内容
+
+- **`matches`** — 民事登记命中数组（零条或多条）
+- **`documentNumber`**、**`documentType`** — 记录中存在时的 NUIP/CC
+- **`firstName`**、**`lastName`**、**`fullName`**、**`arrayName`** — 姓名组成部分
+- **`sexo`**、**`serial`** — 性别与民事登记序列号
+- **`oficina`** / **`expeditionPlace`**、**`fecha`** / **`dateOfBirth`** — 在有 Detalle 补全数据时可用
+- **`recordType`** — `REGISTRO CIVIL DE NACIMIENTO`
+- **已签名**的 Verifik 响应包装
+
+## API 参考
+
+### 端点
+
+```
+GET https://api.verifik.co/v2/co/cedula/by-name
+```
+
+需要**按姓名查找出生登记候选**时使用此端点。同一集成也支持带 JSON 正文的 **`POST`**。**`GET`** 使用如下所示的**查询参数**。
+
+### 请求头（Headers）
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### 参数（Parameters）
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `primerNombre` | string | yes | 第一名（名） | `MARIA` |
+| `primerApellido` | string | yes | 第一姓 | `LOPEZ` |
+| `sexo` | string | yes | 登记性别。允许：`MASCULINO`、`FEMENINO`（也可用 `M` / `F`） | `FEMENINO` |
+| `fecha` | string | yes | 出生日期，格式 **`DD/MM/YYYY`** | `15/03/1990` |
+| `segundoNombre` | string | no | 第二名 | `ELENA` |
+| `segundoApellido` | string | no | 第二姓 | `GARCIA` |
+
+### 请求（Request）
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/cedula/by-name", {
+	params: {
+		primerNombre: "MARIA",
+		primerApellido: "LOPEZ",
+		sexo: "FEMENINO",
+		fecha: "15/03/1990",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/cedula/by-name"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {
+	"primerNombre": "MARIA",
+	"primerApellido": "LOPEZ",
+	"sexo": "FEMENINO",
+	"fecha": "15/03/1990",
+}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### 响应（Response）
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"matches": [
+			{
+				"documentType": "CC",
+				"documentNumber": "10000001",
+				"firstName": "MARIA ELENA",
+				"lastName": "LOPEZ GARCIA",
+				"fullName": "MARIA ELENA LOPEZ GARCIA",
+				"arrayName": ["MARIA", "ELENA", "LOPEZ", "GARCIA"],
+				"sexo": "FEMENINO",
+				"serial": "0031010001",
+				"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+				"expeditionPlace": "NOTARIA UNICA - BOGOTA D.C.",
+				"fecha": "15/03/1990",
+				"dateOfBirth": "15/03/1990",
+				"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+			}
+		],
+		"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "missing primerNombre"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 功能
+
+- 针对 Registraduría **SCCRC** 出生登记的**反向查询**
+- 响应始终为 **`{ matches: [...] }`** 形态（请审查每一条命中）
+- 可选第二名/第二姓可提高精确度
+- **GET** 与 **POST** 共用同一处理程序
+
+## 使用场景
+
+- 根据已知姓名 + 出生日期恢复可能的 **NUIP/CC** 候选
+- 仅有传记数据时对申请人进行预筛
+- 对照民事登记命中交叉核验姓名拼写
+
+### 说明（Notes）
+
+- 请始终检查 **`matches`**；姓名查询可能返回一人以上。
+- **`fecha`** 必须为 **`DD/MM/YYYY`**（出生日期）。
+- **沙箱：** 姓名查询映射到证件号 **`10000001`–`10000010`** 的固定档案。示例默认值：`MARIA` / `LOPEZ` / `FEMENINO` / `15/03/1990`。
+- 来源暂时不可用时可能表现为 **409**（`Endpoint_out_of_service`）。
+- 相关：[按证件查询哥伦比亚公民](/verifik-zh/identity-validation/colombia/colombian-citizen)、[按序列号查询民事登记](/verifik-zh/identity/colombia-registraduria-serial)、[婚姻民事登记](/verifik-zh/identity/colombia-registraduria-matrimonio)。

@@ -1,0 +1,204 @@
+---
+id: colombian-citizen-by-name
+title: コロンビア — 氏名による市民検索（SCCRC）
+description: GET /v2/co/cedula/by-name（Registraduría SCCRC）で氏名・性別・生年月日によりコロンビアの出生民事登記記録を逆引きします。
+slug: /identity-validation/colombia/colombian-citizen-by-name
+keywords:
+  - v2/co/cedula/by-name
+  - /v2/co/cedula/by-name
+  - v2 co cedula by-name
+  - api/co/cedula/by-name
+  - /api/co/cedula/by-name
+  - api.verifik.co/v2/co/cedula/by-name
+  - 'https://api.verifik.co/v2/co/cedula/by-name'
+  - GET v2/co/cedula/by-name
+  - GET /v2/co/cedula/by-name
+  - co/cedula/by-name
+  - cedula/by-name
+  - registraduria sccrc by name
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "コロンビア 氏名による市民検索（SCCRC）| Verifik API",
+	description:
+		"Registraduría SCCRC を通じて氏名・性別・生年月日でコロンビアの出生民事登記記録を検索します。複数件が返る場合があります。",
+	articleSection: "API ドキュメント",
+	keywords: "コロンビア, Registraduría, SCCRC, cédula, 氏名検索, 本人確認 API",
+	about: {
+		"@type": "Thing",
+		name: "本人確認 API",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# コロンビア — 氏名による市民検索（SCCRC）
+
+**Registraduría Nacional del Estado Civil** の出生民事登記簿（**SCCRC**）を **氏名**、**性別**、**生年月日** で検索します。[書類によるコロンビア市民検索](/identity-validation/colombia/colombian-citizen) とは異なり、このエンドポイントは **逆引き** であり、**複数件** が返る場合があります。
+
+NUIP/CC は不明だが本人属性は把握している場合、または書類ベースの確認前に登記候補を確認したい場合に利用します。
+
+## この API が返す内容
+
+- **`matches`** — 民事登記のヒット配列（0 件以上）
+- **`documentNumber`**, **`documentType`** — 記録にある場合の NUIP/CC
+- **`firstName`**, **`lastName`**, **`fullName`**, **`arrayName`** — 氏名の構成要素
+- **`sexo`**, **`serial`** — 性別と民事登記シリアル
+- **`oficina`** / **`expeditionPlace`**, **`fecha`** / **`dateOfBirth`** — Detalle 補完が可能な場合
+- **`recordType`** — `REGISTRO CIVIL DE NACIMIENTO`
+- **署名付き** Verifik レスポンスラッパー
+
+## API リファレンス
+
+### エンドポイント
+
+```
+GET https://api.verifik.co/v2/co/cedula/by-name
+```
+
+**氏名で出生登記の候補を探す**ときにこのエンドポイントを使用します。同じ連携は JSON ボディの **`POST`** でも利用できます。**`GET`** は下記の **クエリパラメーター** を使用します。
+
+### ヘッダー（Headers）
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### パラメーター（Parameters）
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `primerNombre` | string | yes | 第一名（名前） | `MARIA` |
+| `primerApellido` | string | yes | 第一姓 | `LOPEZ` |
+| `sexo` | string | yes | 登記上の性別。許可値: `MASCULINO`, `FEMENINO`（`M` / `F` も可） | `FEMENINO` |
+| `fecha` | string | yes | 生年月日 **`DD/MM/YYYY`** | `15/03/1990` |
+| `segundoNombre` | string | no | 第二名 | `ELENA` |
+| `segundoApellido` | string | no | 第二姓 | `GARCIA` |
+
+### リクエスト（Request）
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/cedula/by-name", {
+	params: {
+		primerNombre: "MARIA",
+		primerApellido: "LOPEZ",
+		sexo: "FEMENINO",
+		fecha: "15/03/1990",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/cedula/by-name"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {
+	"primerNombre": "MARIA",
+	"primerApellido": "LOPEZ",
+	"sexo": "FEMENINO",
+	"fecha": "15/03/1990",
+}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### レスポンス（Response）
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"matches": [
+			{
+				"documentType": "CC",
+				"documentNumber": "10000001",
+				"firstName": "MARIA ELENA",
+				"lastName": "LOPEZ GARCIA",
+				"fullName": "MARIA ELENA LOPEZ GARCIA",
+				"arrayName": ["MARIA", "ELENA", "LOPEZ", "GARCIA"],
+				"sexo": "FEMENINO",
+				"serial": "0031010001",
+				"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+				"expeditionPlace": "NOTARIA UNICA - BOGOTA D.C.",
+				"fecha": "15/03/1990",
+				"dateOfBirth": "15/03/1990",
+				"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+			}
+		],
+		"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "missing primerNombre"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 機能
+
+- Registraduría **SCCRC** 出生登記に対する **逆引き**
+- レスポンスは常に **`{ matches: [...] }`** 形式（すべてのヒットを確認）
+- 任意の第二名・第二姓で精度向上
+- **GET** と **POST** は同一ハンドラーを共有
+
+## ユースケース
+
+- 既知の氏名 + 生年月日から可能な **NUIP/CC** 候補を復元
+- 伝記データのみの申請者を事前スクリーニング
+- 民事登記ヒットと氏名表記を照合
+
+### Notes
+
+- 必ず **`matches`** を確認してください。氏名クエリは複数人を返すことがあります。
+- **`fecha`** は **`DD/MM/YYYY`**（生年月日）である必要があります。
+- **サンドボックス:** 氏名クエリは文書番号 **`10000001`–`10000010`** の固定プロファイルにマッピングされます。例の既定値: `MARIA` / `LOPEZ` / `FEMENINO` / `15/03/1990`。
+- ソースの一時的な可用性の問題は **409**（`Endpoint_out_of_service`）として現れることがあります。
+- 関連: [書類によるコロンビア市民検索](/identity-validation/colombia/colombian-citizen)、[シリアルによる民事登記検索](/verifik-ja/identity/colombia-registraduria-serial)、[婚姻民事登記](/verifik-ja/identity/colombia-registraduria-matrimonio)。

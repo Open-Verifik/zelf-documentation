@@ -63,6 +63,8 @@ https://api.verifik.co/v2/cr/cedula
 | `documentType`   | string  | 예   | 문서 종류. 허용 값: `CCCR`.         |
 | `documentNumber` | string  | 예   | 공백 없이 입력한 cédula 번호.       |
 
+샌드박스 클라이언트는 안정적인 데모 프로필을 위해 문서 번호 `010000001`–`010000010`(표준형 `10000001`–`10000010`)을 사용할 수 있습니다. `090040401`은 404를 반환하며, `090040402`는 아래에 표시된 "갱신 필요" 응답을 반환합니다.
+
 ### 요청(Request)
 
 <Tabs>
@@ -72,7 +74,7 @@ https://api.verifik.co/v2/cr/cedula
 import axios from "axios";
 
 const { data } = await axios.get("https://api.verifik.co/v2/cr/cedula", {
-  params: { documentType: "CCCR", documentNumber: "123456789" },
+  params: { documentType: "CCCR", documentNumber: "010000001" },
   headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
 });
 console.log(data);
@@ -90,7 +92,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 ]);
 $query = http_build_query([
     "documentType" => "CCCR",
-    "documentNumber" => "123456789"
+    "documentNumber" => "010000001"
 ]);
 curl_setopt($ch, CURLOPT_URL, "https://api.verifik.co/v2/cr/cedula?".$query);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -107,7 +109,7 @@ import os, requests
 
 url = "https://api.verifik.co/v2/cr/cedula"
 headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "CCCR", "documentNumber": "123456789"}
+params = {"documentType": "CCCR", "documentNumber": "010000001"}
 r = requests.get(url, headers=headers, params=params)
 print(r.json())
 ```
@@ -124,7 +126,7 @@ import (
 )
 
 func main() {
-    url := "https://api.verifik.co/v2/cr/cedula?documentType=CCCR&documentNumber=123456789"
+    url := "https://api.verifik.co/v2/cr/cedula?documentType=CCCR&documentNumber=010000001"
     req, _ := http.NewRequest("GET", url, nil)
     req.Header.Set("Accept", "application/json")
     req.Header.Set("Authorization", "Bearer "+getenv("VERIFIK_TOKEN"))
@@ -146,14 +148,31 @@ func main() {
 {
   "data": {
     "documentType": "CCCR",
-    "documentNumber": "123456789",
-    "firstName": "Ana",
-    "lastName": "Rodríguez",
-    "fullName": "Ana Rodríguez",
-    "status": "valid"
+    "documentNumber": "010000001",
+    "firstName": "MARIA ELENA",
+    "lastName": "LOPEZ GARCIA",
+    "fullName": "MARIA ELENA LOPEZ GARCIA"
   },
-  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "CR001"
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "July 27, 2026 3:00 PM"}
+}
+```
+
+  </TabItem>
+  <TabItem value="200-renewal" label="200 (갱신 필요)">
+
+```json
+{
+  "data": {
+    "documentType": "CCCR",
+    "documentNumber": "020000002",
+    "status": "requires_renewal",
+    "expired": true,
+    "message": {
+      "es": "La fecha de vencimiento de su última solicitud, es menor a doce meses, por lo que debe renovar su documento en las oficinas del TSE",
+      "en": "The expiration date on file for this citizen's last request is less than twelve months away, so the document must be renewed in person at a TSE office."
+    }
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "July 27, 2026 3:00 PM"}
 }
 ```
 
@@ -193,6 +212,7 @@ func main() {
 ### 비고
 
 - 번호는 공백이나 점 없이 입력해 주십시오.
+- TSE의 갱신 규정에 따라 온라인 재발급 대상이 아닌 신분증(cédula)은 오류가 아니라 `status: "requires_renewal"`과 `expired: true`를 포함한 성공(`200`) 응답으로 처리됩니다. 이중 언어(`es`/`en`) `message` 객체는 시민이 TSE 사무소에 직접 방문하여 문서를 갱신해야 함을 설명합니다.
 
 ---
 

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-18T02:04:54.485Z",
+  "generatedAt": "2026-07-28T04:32:24.615Z",
   "docsRoot": "docs/",
-  "totalFilesScanned": 491,
-  "filesWithEndpoint": 210,
-  "uniqueEndpointUrls": 210,
+  "totalFilesScanned": 495,
+  "filesWithEndpoint": 214,
+  "uniqueEndpointUrls": 214,
   "duplicateUrlGroups": 55,
   "noEndpointCount": 205,
   "canonical": [
@@ -424,6 +424,12 @@
       "priority": "P2"
     },
     {
+      "endpointUrl": "v2/co/cedula/by-name",
+      "primaryPath": "identity-validation/colombia/colombian-citizen-by-name.mdx",
+      "duplicatePaths": [],
+      "priority": "P2"
+    },
+    {
       "endpointUrl": "v2/co/cedula/extra",
       "primaryPath": "identity-validation/colombia/colombian-citizen-with-extra-data.mdx",
       "duplicatePaths": [
@@ -434,6 +440,12 @@
     {
       "endpointUrl": "v2/co/cedula/premium",
       "primaryPath": "identity-validation/colombia/colombian-cedula-premium.mdx",
+      "duplicatePaths": [],
+      "priority": "P2"
+    },
+    {
+      "endpointUrl": "v2/co/cedula/registraduria",
+      "primaryPath": "identity/colombia-cedula-registraduria.mdx",
       "duplicatePaths": [],
       "priority": "P2"
     },
@@ -579,6 +591,18 @@
     {
       "endpointUrl": "v2/co/registraduria/certificado",
       "primaryPath": "identity/colombia-registraduria-certificate.mdx",
+      "duplicatePaths": [],
+      "priority": "P2"
+    },
+    {
+      "endpointUrl": "v2/co/registraduria/matrimonio",
+      "primaryPath": "identity/colombia-registraduria-matrimonio.mdx",
+      "duplicatePaths": [],
+      "priority": "P2"
+    },
+    {
+      "endpointUrl": "v2/co/registraduria/serial",
+      "primaryPath": "identity/colombia-registraduria-serial.mdx",
       "duplicatePaths": [],
       "priority": "P2"
     },
@@ -2361,6 +2385,12 @@
         "priority": "P2"
       },
       {
+        "endpointUrl": "v2/co/cedula/registraduria",
+        "primaryPath": "identity/colombia-cedula-registraduria.mdx",
+        "duplicatePaths": [],
+        "priority": "P2"
+      },
+      {
         "endpointUrl": "v2/co/foreigner-id/ce",
         "primaryPath": "identity/colombia-ce.mdx",
         "duplicatePaths": [],
@@ -2375,6 +2405,18 @@
       {
         "endpointUrl": "v2/co/registraduria/certificado",
         "primaryPath": "identity/colombia-registraduria-certificate.mdx",
+        "duplicatePaths": [],
+        "priority": "P2"
+      },
+      {
+        "endpointUrl": "v2/co/registraduria/matrimonio",
+        "primaryPath": "identity/colombia-registraduria-matrimonio.mdx",
+        "duplicatePaths": [],
+        "priority": "P2"
+      },
+      {
+        "endpointUrl": "v2/co/registraduria/serial",
+        "primaryPath": "identity/colombia-registraduria-serial.mdx",
         "duplicatePaths": [],
         "priority": "P2"
       },
@@ -3092,6 +3134,12 @@
         "duplicatePaths": [
           "identity/colombia.mdx"
         ],
+        "priority": "P2"
+      },
+      {
+        "endpointUrl": "v2/co/cedula/by-name",
+        "primaryPath": "identity-validation/colombia/colombian-citizen-by-name.mdx",
+        "duplicatePaths": [],
         "priority": "P2"
       },
       {

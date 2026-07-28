@@ -1,0 +1,204 @@
+---
+id: colombian-citizen-by-name
+title: Colômbia — Consulta de cidadão por nome (SCCRC)
+description: Consulta inversa de registros civis de nascimento colombianos por nomes, sexo e data de nascimento via GET /v2/co/cedula/by-name (Registraduría SCCRC).
+slug: /identity-validation/colombia/colombian-citizen-by-name
+keywords:
+  - v2/co/cedula/by-name
+  - /v2/co/cedula/by-name
+  - v2 co cedula by-name
+  - api/co/cedula/by-name
+  - /api/co/cedula/by-name
+  - api.verifik.co/v2/co/cedula/by-name
+  - 'https://api.verifik.co/v2/co/cedula/by-name'
+  - GET v2/co/cedula/by-name
+  - GET /v2/co/cedula/by-name
+  - co/cedula/by-name
+  - cedula/by-name
+  - registraduria sccrc by name
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "Colômbia — Consulta de cidadão por nome (SCCRC) | API Verifik",
+	description:
+		"Pesquise registros civis de nascimento colombianos por nomes, sexo e data de nascimento via Registraduría SCCRC. Pode retornar várias correspondências.",
+	articleSection: "Documentação da API",
+	keywords: "Colômbia, Registraduría, SCCRC, cédula, por nome, API de identidade",
+	about: {
+		"@type": "Thing",
+		name: "API de verificação de identidade",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Colômbia — Consulta de cidadão por nome (SCCRC)
+
+Consulte o registro civil de nascimento (**SCCRC**) da **Registraduría Nacional del Estado Civil** usando **nomes**, **sexo** e **data de nascimento**. Diferente de [cidadão colombiano por documento](/identity-validation/colombia/colombian-citizen), este endpoint é uma **consulta inversa** e pode retornar **várias correspondências**.
+
+Use quando você conhece atributos de identidade pessoal, mas não o NUIP/CC, ou quando precisa confirmar possíveis resultados no registro antes de uma verificação por documento.
+
+## O que esta API retorna
+
+- **`matches`** — array de resultados do registro civil (zero ou mais)
+- **`documentNumber`**, **`documentType`** — NUIP/CC quando presentes no registro
+- **`firstName`**, **`lastName`**, **`fullName`**, **`arrayName`** — partes do nome
+- **`sexo`**, **`serial`** — sexo e serial do registro civil
+- **`oficina`** / **`expeditionPlace`**, **`fecha`** / **`dateOfBirth`** — quando o enriquecimento Detalle estiver disponível
+- **`recordType`** — `REGISTRO CIVIL DE NACIMIENTO`
+- Um wrapper de resposta Verifik **assinado**
+
+## Referência da API
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/co/cedula/by-name
+```
+
+Use este endpoint quando precisar **encontrar candidatos do registro de nascimento por nome**. A mesma integração está disponível como **`POST`** com corpo JSON. **`GET`** usa **parâmetros de consulta** conforme mostrado abaixo.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `primerNombre` | string | yes | Primeiro nome | `MARIA` |
+| `primerApellido` | string | yes | Primeiro sobrenome | `LOPEZ` |
+| `sexo` | string | yes | Sexo conforme registrado. Permitidos: `MASCULINO`, `FEMENINO` (também `M` / `F`) | `FEMENINO` |
+| `fecha` | string | yes | Data de nascimento em **`DD/MM/YYYY`** | `15/03/1990` |
+| `segundoNombre` | string | no | Segundo nome | `ELENA` |
+| `segundoApellido` | string | no | Segundo sobrenome | `GARCIA` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/cedula/by-name", {
+	params: {
+		primerNombre: "MARIA",
+		primerApellido: "LOPEZ",
+		sexo: "FEMENINO",
+		fecha: "15/03/1990",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/cedula/by-name"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {
+	"primerNombre": "MARIA",
+	"primerApellido": "LOPEZ",
+	"sexo": "FEMENINO",
+	"fecha": "15/03/1990",
+}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"matches": [
+			{
+				"documentType": "CC",
+				"documentNumber": "10000001",
+				"firstName": "MARIA ELENA",
+				"lastName": "LOPEZ GARCIA",
+				"fullName": "MARIA ELENA LOPEZ GARCIA",
+				"arrayName": ["MARIA", "ELENA", "LOPEZ", "GARCIA"],
+				"sexo": "FEMENINO",
+				"serial": "0031010001",
+				"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+				"expeditionPlace": "NOTARIA UNICA - BOGOTA D.C.",
+				"fecha": "15/03/1990",
+				"dateOfBirth": "15/03/1990",
+				"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+			}
+		],
+		"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "missing primerNombre"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Recursos
+
+- **Consulta inversa** no registro de nascimento **SCCRC** da Registraduría
+- A resposta sempre tem a forma **`{ matches: [...] }`** (revise cada resultado)
+- Segundo nome / sobrenome opcionais melhoram a precisão
+- **GET** e **POST** compartilham o mesmo handler
+
+## Casos de uso
+
+- Recuperar possíveis candidatos de **NUIP/CC** a partir de nome + data de nascimento conhecidos
+- Pré-selecionar solicitantes quando apenas dados biográficos estão disponíveis
+- Conferir a ortografia do nome com resultados do registro civil
+
+### Notes
+
+- Sempre inspecione **`matches`**; consultas por nome podem retornar mais de uma pessoa.
+- **`fecha`** deve ser **`DD/MM/YYYY`** (data de nascimento).
+- **Sandbox:** consultas por nome mapeiam para perfis fixos com números de documento **`10000001`–`10000010`**. Valores de exemplo padrão: `MARIA` / `LOPEZ` / `FEMENINO` / `15/03/1990`.
+- Problemas temporários de disponibilidade da fonte podem aparecer como **409** (`Endpoint_out_of_service`).
+- Relacionado: [Cidadão colombiano por documento](/identity-validation/colombia/colombian-citizen), [Registro civil por serial](/identity/colombia-registraduria-serial), [Registro civil de casamento](/identity/colombia-registraduria-matrimonio).

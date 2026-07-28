@@ -1,9 +1,9 @@
 # Docs i18n — canonical endpoint inventory
 
-Generated: 2026-07-18T02:04:54.487Z
+Generated: 2026-07-28T04:32:24.616Z
 
-- **Files scanned:** 491
-- **Unique endpoint URLs:** 210
+- **Files scanned:** 495
+- **Unique endpoint URLs:** 214
 - **Duplicate URL groups (SEO / aliases):** 55
 - **Docs without `### Endpoint` block:** 205
 
@@ -13,7 +13,7 @@ Generated: 2026-07-18T02:04:54.487Z
 | --- | ---: | --- |
 | P0 | 23 | vehicle-validation/colombia |
 | P1 | 23 | vehicle-validation (other countries) |
-| P2 | 164 | identity, biometrics, resources, etc. |
+| P2 | 168 | identity, biometrics, resources, etc. |
 
 ## Duplicate URLs (keep one canonical; others are usually SEO)
 
@@ -274,8 +274,10 @@ Generated: 2026-07-18T02:04:54.487Z
 | P0 | `v2/co/bogota/vehicle/fines` | `vehicle-validation/colombia/bogota-vehicle-fines.mdx` |
 | P0 | `v2/co/bogota/vehicle/tax` | `vehicle-validation/colombia/bogota-taxes.mdx` |
 | P2 | `v2/co/cedula` | `identity-validation/colombia/colombian-citizen.mdx` |
+| P2 | `v2/co/cedula/by-name` | `identity-validation/colombia/colombian-citizen-by-name.mdx` |
 | P2 | `v2/co/cedula/extra` | `identity-validation/colombia/colombian-citizen-with-extra-data.mdx` |
 | P2 | `v2/co/cedula/premium` | `identity-validation/colombia/colombian-cedula-premium.mdx` |
+| P2 | `v2/co/cedula/registraduria` | `identity/colombia-cedula-registraduria.mdx` |
 | P2 | `v2/co/cedula/rethus` | `legal/colombia-rethus.mdx` |
 | P2 | `v2/co/company/dian` | `business-validation/colombia-dian-verification.mdx` |
 | P2 | `v2/co/company/dian/invoicer` | `business-validation/colombia-legal-invoicer-verification.mdx` |
@@ -299,6 +301,8 @@ Generated: 2026-07-18T02:04:54.487Z
 | P2 | `v2/co/rama/proceso` | `legal/retrieve-details-of-a-legal-process-by-number.mdx` |
 | P2 | `v2/co/rama/procesos` | `legal/colombian-legal-processes.mdx` |
 | P2 | `v2/co/registraduria/certificado` | `identity/colombia-registraduria-certificate.mdx` |
+| P2 | `v2/co/registraduria/matrimonio` | `identity/colombia-registraduria-matrimonio.mdx` |
+| P2 | `v2/co/registraduria/serial` | `identity/colombia-registraduria-serial.mdx` |
 | P2 | `v2/co/registraduria/votacion` | `legal/voting.md` |
 | P2 | `v2/co/rues` | `business-validation/colombia-rues-v2.mdx` |
 | P2 | `v2/co/rues/complete` | `business-validation/colombia-rues-complete-v2.mdx` |

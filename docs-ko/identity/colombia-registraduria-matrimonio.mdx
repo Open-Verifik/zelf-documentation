@@ -1,0 +1,192 @@
+---
+id: colombia-registraduria-matrimonio
+title: 콜롬비아 — 결혼 민사등록 (SCCRC)
+description: GET /v2/co/registraduria/matrimonio(Registraduría SCCRC)로 문서, 이름 또는 일련번호로 콜롬비아 결혼 민사등록 기록을 검색합니다.
+slug: /identity/colombia-registraduria-matrimonio
+keywords:
+  - v2/co/registraduria/matrimonio
+  - /v2/co/registraduria/matrimonio
+  - v2 co registraduria matrimonio
+  - api/co/registraduria/matrimonio
+  - /api/co/registraduria/matrimonio
+  - api.verifik.co/v2/co/registraduria/matrimonio
+  - 'https://api.verifik.co/v2/co/registraduria/matrimonio'
+  - GET v2/co/registraduria/matrimonio
+  - GET /v2/co/registraduria/matrimonio
+  - co/registraduria/matrimonio
+  - registraduria/matrimonio
+  - registro civil matrimonio
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "콜롬비아 결혼 민사등록 (SCCRC) | Verifik API",
+	description:
+		"문서 번호, 이름 또는 일련번호로 Registraduría SCCRC 결혼 민사등록부를 조회합니다.",
+	articleSection: "API 문서",
+	keywords: "콜롬비아, Registraduría, SCCRC, matrimonio, 결혼, 신원 API",
+	about: {
+		"@type": "Thing",
+		name: "신원 확인 API",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 콜롬비아 — 결혼 민사등록 (SCCRC)
+
+**Registraduría Nacional del Estado Civil**(**SCCRC**)의 **결혼 민사등록부**(*registro civil de matrimonio*)를 조회합니다.
+
+검색 모드는 **하나만** 제공하세요.
+
+1. **`documentNumber` + `sexo`** — 문서 검색(단일 기록)
+2. **`primerNombre` + `primerApellido` + `sexo` + `fecha`** — 이름 검색(**`matches`** 반환 가능)
+3. **`serial`** — 일련번호 검색(단일 기록)
+
+## 이 API가 반환하는 내용
+
+- 단일 기록 **또는** **`matches`** 배열(이름 모드)
+- **`documentNumber`**, **`documentType`**, 이름, **`sexo`**, **`serial`**
+- 가능할 때 **`oficina`** / **`expeditionPlace`**, **`fecha`**
+- **`recordType`** — `REGISTRO CIVIL DE MATRIMONIO`
+- **서명된** Verifik 응답 래퍼
+
+## API 레퍼런스
+
+### 엔드포인트
+
+```
+GET https://api.verifik.co/v2/co/registraduria/matrimonio
+```
+
+**결혼 등록** 조회에 이 엔드포인트를 사용합니다. 동일한 연동은 JSON 본문의 **`POST`**로도 가능합니다. **`GET`**은 아래와 같이 **쿼리 매개변수**를 사용합니다.
+
+### 헤더(Headers)
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### 매개변수(Parameters)
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `documentNumber` | string | conditional | NUIP/CC; **`sexo`** 필요 | `10000001` |
+| `sexo` | string | conditional | 문서 또는 이름 검색에 필요 (`MASCULINO` / `FEMENINO`) | `MASCULINO` |
+| `serial` | string | conditional | 결혼 등록 일련번호 | `0042012345` |
+| `primerNombre` | string | conditional | 첫 번째 이름(이름 모드) | `JUAN` |
+| `primerApellido` | string | conditional | 첫 번째 성(이름 모드) | `PEREZ` |
+| `fecha` | string | conditional | 결혼일 **`DD/MM/YYYY`**(이름 모드) | `20/06/2015` |
+| `segundoNombre` | string | no | 두 번째 이름 | `CARLOS` |
+| `segundoApellido` | string | no | 두 번째 성 | `GOMEZ` |
+
+### 요청(Request)
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/registraduria/matrimonio", {
+	params: {
+		documentNumber: "10000001",
+		sexo: "MASCULINO",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/registraduria/matrimonio"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentNumber": "10000001", "sexo": "MASCULINO"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### 응답(Response)
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"documentType": "CC",
+		"documentNumber": "10000001",
+		"firstName": "JUAN CARLOS",
+		"lastName": "PEREZ GOMEZ",
+		"fullName": "JUAN CARLOS PEREZ GOMEZ",
+		"arrayName": ["JUAN", "CARLOS", "PEREZ", "GOMEZ"],
+		"sexo": "MASCULINO",
+		"serial": "0042012345",
+		"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+		"fecha": "20/06/2015",
+		"recordType": "REGISTRO CIVIL DE MATRIMONIO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "Provide serial, or documentNumber+sexo, or name fields with sexo and fecha"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 기능
+
+- 세 가지 검색 모드: **문서**, **이름**, 또는 **일련번호**
+- 이름 모드는 **`matches`**를 반환할 수 있음; 문서/일련번호는 단일 객체 반환
+- **GET**과 **POST**가 동일한 핸들러를 공유
+
+## 사용 사례
+
+- KYC / 컴플라이언스를 위한 **결혼 등록** 일치 확인
+- 알려진 문서에 연결된 결혼 일련번호 해석
+- 생체정보만 있을 때 이름 기반 스크리닝
+
+### 참고(Notes)
+
+- 검색 모드는 **정확히 하나**만 제공하세요(일련번호를 문서/이름 필드와 섞지 마세요).
+- **샌드박스:** 문서 번호 **`10000001`–`10000010`**; 이름 모드는 [이름으로 조회](/verifik-ko/identity-validation/colombia/colombian-citizen-by-name)와 동일한 샌드박스 프로필을 따릅니다.
+- 일시적인 소스 가용성 문제는 **409**(`Endpoint_out_of_service`)로 나타날 수 있습니다.
+- 관련: [문서로 시민 조회](/verifik-ko/identity-validation/colombia/colombian-citizen), [이름으로 시민 조회](/verifik-ko/identity-validation/colombia/colombian-citizen-by-name), [일련번호로 민사등록 조회](/verifik-ko/identity/colombia-registraduria-serial), [Registraduría 증명서](/verifik-ko/identity/colombia-registraduria-certificate).

@@ -176,6 +176,6 @@ print(r.json())
 
 - **`date`** is the **document issue date**, not the date of birth.
 - Wrong **`DD/MM/YYYY`** format typically returns **409** (`MissingParameter`).
-- Upstream or scraping failures (e.g. captcha/PDF flow) may surface as **409** with codes such as **`Endpoint_out_of_service`**.
+- Temporary source availability issues may surface as **409** with codes such as **`Endpoint_out_of_service`**.
 - **`GET`** and **`POST`** share the same handler; use **`POST`** if you prefer a JSON body.
 - Treat **pdfBase64** and personal fields as **sensitive**; comply with Colombian privacy rules and your contracts.

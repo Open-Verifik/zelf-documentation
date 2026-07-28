@@ -1,0 +1,183 @@
+---
+id: colombia-registraduria-serial
+title: Colombie — Consultation du registre civil par serial (SCCRC)
+description: Localisez un acte de naissance civil colombien par numéro de serial via GET /v2/co/registraduria/serial (Registraduría SCCRC).
+slug: /identity/colombia-registraduria-serial
+keywords:
+  - v2/co/registraduria/serial
+  - /v2/co/registraduria/serial
+  - v2 co registraduria serial
+  - api/co/registraduria/serial
+  - /api/co/registraduria/serial
+  - api.verifik.co/v2/co/registraduria/serial
+  - 'https://api.verifik.co/v2/co/registraduria/serial'
+  - GET v2/co/registraduria/serial
+  - GET /v2/co/registraduria/serial
+  - co/registraduria/serial
+  - registraduria/serial
+  - registro civil serial
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "Colombie — Consultation du registre civil par serial (SCCRC) | API Verifik",
+	description:
+		"Localisez un acte de naissance civil colombien à l’aide du serial imprimé sur le registro civil via la Registraduría SCCRC.",
+	articleSection: "Documentation API",
+	keywords: "Colombie, Registraduría, SCCRC, serial, registro civil, API d'identité",
+	about: {
+		"@type": "Thing",
+		name: "API de vérification d'identité",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Colombie — Consultation du registre civil par serial (SCCRC)
+
+Localisez un acte de **naissance** du registre civil (*registro civil de nacimiento*) de la **Registraduría Nacional del Estado Civil** (**SCCRC**) à l’aide du **serial** imprimé sur le document du registre.
+
+Cela complète [citoyen par document](/identity-validation/colombia/colombian-citizen) et [recherche par nom](/identity-validation/colombia/colombian-citizen-by-name) lorsque vous disposez déjà du serial du registre civil.
+
+## Ce que renvoie cette API
+
+- **`documentNumber`**, **`documentType`** — NUIP/CC lorsqu’ils sont présents
+- **`firstName`**, **`lastName`**, **`fullName`**, **`arrayName`**
+- **`sexo`**, **`serial`**
+- **`oficina`** / **`expeditionPlace`**, **`fecha`** / **`dateOfBirth`** lorsqu’ils sont disponibles
+- **`recordType`** — `REGISTRO CIVIL DE NACIMIENTO`
+- Un wrapper de réponse Verifik **signé**
+
+## Référence API
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/co/registraduria/serial
+```
+
+Utilisez cet endpoint lorsque vous avez le **serial du registre civil** et avez besoin des champs d’identité associés. La même intégration est disponible en **`POST`** avec un corps JSON. **`GET`** utilise des **paramètres de requête** comme indiqué ci-dessous.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `serial` | string | yes | Serial du registre civil (jusqu’à **10** chiffres ; zéros initiaux autorisés) | `0031058170` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/registraduria/serial", {
+	params: {
+		serial: "0031058170",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/registraduria/serial"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"serial": "0031058170"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"documentType": "CC",
+		"documentNumber": "10000001",
+		"firstName": "ALIXON DAYANA",
+		"lastName": "TORRES MORA",
+		"fullName": "ALIXON DAYANA TORRES MORA",
+		"arrayName": ["ALIXON", "DAYANA", "TORRES", "MORA"],
+		"sexo": "FEMENINO",
+		"serial": "0031058170",
+		"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+		"expeditionPlace": "NOTARIA UNICA - BOGOTA D.C.",
+		"fecha": "15/03/1990",
+		"dateOfBirth": "15/03/1990",
+		"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "missing serial"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Fonctionnalités
+
+- Recherche par **serial** imprimé sur le *registro civil de nacimiento*
+- Réponse à un seul enregistrement (pas un tableau `matches`)
+- **GET** et **POST** partagent le même handler
+
+## Cas d’usage
+
+- Numériser ou valider des données d’un **registro civil** physique
+- Résoudre un NUIP/CC à partir d’un serial de registre civil connu
+- Pistes d’audit qui stockent des serials plutôt que des numéros de document
+
+### Notes
+
+- **`serial`** ne contient que des chiffres (le remplissage par zéros initiaux est accepté).
+- **Serial d’exemple sandbox :** `0031058170` (correspond aux numéros de document sandbox dans la plage **`10000001`–`10000010`**).
+- Des problèmes temporaires de disponibilité de la source peuvent apparaître en **409** (`Endpoint_out_of_service`).
+- Voir aussi : [Certificat Registraduría](/identity/colombia-registraduria-certificate), [Citoyen par nom](/identity-validation/colombia/colombian-citizen-by-name), [Registre de mariage](/identity/colombia-registraduria-matrimonio).

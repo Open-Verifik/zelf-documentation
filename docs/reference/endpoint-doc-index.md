@@ -804,6 +804,20 @@ keywords:
   - "https://api.verifik.co/v2/co/cedula"
   - "GET v2/co/cedula"
   - "GET /v2/co/cedula"
+  - "v2/co/cedula/by-name"
+  - "/v2/co/cedula/by-name"
+  - "v2 co cedula by-name"
+  - "co/cedula/by-name"
+  - "/co/cedula/by-name"
+  - "api/co/cedula/by-name"
+  - "/api/co/cedula/by-name"
+  - "api co cedula by-name"
+  - "cedula/by-name"
+  - "/cedula/by-name"
+  - "api.verifik.co/v2/co/cedula/by-name"
+  - "https://api.verifik.co/v2/co/cedula/by-name"
+  - "GET v2/co/cedula/by-name"
+  - "GET /v2/co/cedula/by-name"
   - "v2/co/cedula/extra"
   - "/v2/co/cedula/extra"
   - "v2 co cedula extra"
@@ -830,6 +844,20 @@ keywords:
   - "https://api.verifik.co/v2/co/cedula/premium"
   - "GET v2/co/cedula/premium"
   - "GET /v2/co/cedula/premium"
+  - "v2/co/cedula/registraduria"
+  - "/v2/co/cedula/registraduria"
+  - "v2 co cedula registraduria"
+  - "co/cedula/registraduria"
+  - "/co/cedula/registraduria"
+  - "api/co/cedula/registraduria"
+  - "/api/co/cedula/registraduria"
+  - "api co cedula registraduria"
+  - "cedula/registraduria"
+  - "/cedula/registraduria"
+  - "api.verifik.co/v2/co/cedula/registraduria"
+  - "https://api.verifik.co/v2/co/cedula/registraduria"
+  - "GET v2/co/cedula/registraduria"
+  - "GET /v2/co/cedula/registraduria"
   - "v2/co/cedula/rethus"
   - "/v2/co/cedula/rethus"
   - "v2 co cedula rethus"
@@ -1150,6 +1178,34 @@ keywords:
   - "https://api.verifik.co/v2/co/registraduria/certificado"
   - "GET v2/co/registraduria/certificado"
   - "GET /v2/co/registraduria/certificado"
+  - "v2/co/registraduria/matrimonio"
+  - "/v2/co/registraduria/matrimonio"
+  - "v2 co registraduria matrimonio"
+  - "co/registraduria/matrimonio"
+  - "/co/registraduria/matrimonio"
+  - "api/co/registraduria/matrimonio"
+  - "/api/co/registraduria/matrimonio"
+  - "api co registraduria matrimonio"
+  - "registraduria/matrimonio"
+  - "/registraduria/matrimonio"
+  - "api.verifik.co/v2/co/registraduria/matrimonio"
+  - "https://api.verifik.co/v2/co/registraduria/matrimonio"
+  - "GET v2/co/registraduria/matrimonio"
+  - "GET /v2/co/registraduria/matrimonio"
+  - "v2/co/registraduria/serial"
+  - "/v2/co/registraduria/serial"
+  - "v2 co registraduria serial"
+  - "co/registraduria/serial"
+  - "/co/registraduria/serial"
+  - "api/co/registraduria/serial"
+  - "/api/co/registraduria/serial"
+  - "api co registraduria serial"
+  - "registraduria/serial"
+  - "/registraduria/serial"
+  - "api.verifik.co/v2/co/registraduria/serial"
+  - "https://api.verifik.co/v2/co/registraduria/serial"
+  - "GET v2/co/registraduria/serial"
+  - "GET /v2/co/registraduria/serial"
   - "v2/co/registraduria/votacion"
   - "/v2/co/registraduria/votacion"
   - "v2 co registraduria votacion"
@@ -2608,12 +2664,12 @@ keywords:
 
 # Endpoint URL → documentation page
 
-This page lists every Verifik API endpoint that has a canonical doc page (210 entries),
+This page lists every Verifik API endpoint that has a canonical doc page (214 entries),
 grouped by country or topic. Use it when you have a raw URL fragment (e.g. `v2/co/cedula`) and want to jump to the documentation.
 
 If the search bar didn't find your endpoint, this page lists every API path along with whitespace-tokenized aliases so it shows up regardless of how you typed the URL.
 
-_Last regenerated: 2026-07-18T02:04:54.537Z_
+_Last regenerated: 2026-07-28T04:32:24.667Z_
 
 ## Argentina
 
@@ -2673,8 +2729,10 @@ _Last regenerated: 2026-07-18T02:04:54.537Z_
 | `v2/co/bogota/vehicle/fines` | v2 co bogota vehicle fines co/bogota/vehicle/fines /co/bogota/vehicle/fines api/co/bogota/vehicle/fines /api/co/bogota/vehicle/fines api co bogota vehicle fines bogota/vehicle/fines /bogota/vehicle/fines vehicle/fines /vehicle/fines api.verifik.co/v2/co/bogota/vehicle/fines https://api.verifik.co/v2/co/bogota/vehicle/fines GET v2/co/bogota/vehicle/fines GET /v2/co/bogota/vehicle/fines | [Vehicle Fines Check](/vehicle-validation/colombia/bogota-vehicle-fines) |
 | `v2/co/bogota/vehicle/tax` | v2 co bogota vehicle tax co/bogota/vehicle/tax /co/bogota/vehicle/tax api/co/bogota/vehicle/tax /api/co/bogota/vehicle/tax api co bogota vehicle tax bogota/vehicle/tax /bogota/vehicle/tax vehicle/tax /vehicle/tax api.verifik.co/v2/co/bogota/vehicle/tax https://api.verifik.co/v2/co/bogota/vehicle/tax GET v2/co/bogota/vehicle/tax GET /v2/co/bogota/vehicle/tax | [Taxes in Bogotá](/vehicle-validation/colombia/bogota-taxes) |
 | `v2/co/cedula` | v2 co cedula co/cedula /co/cedula api/co/cedula /api/co/cedula api co cedula api.verifik.co/v2/co/cedula https://api.verifik.co/v2/co/cedula GET v2/co/cedula GET /v2/co/cedula | [Colombian Citizen](/identity-validation/colombia/colombian-citizen) |
+| `v2/co/cedula/by-name` | v2 co cedula by-name co/cedula/by-name /co/cedula/by-name api/co/cedula/by-name /api/co/cedula/by-name api co cedula by-name cedula/by-name /cedula/by-name api.verifik.co/v2/co/cedula/by-name https://api.verifik.co/v2/co/cedula/by-name GET v2/co/cedula/by-name GET /v2/co/cedula/by-name | [Colombia — Citizen lookup by name (SCCRC)](/identity-validation/colombia/colombian-citizen-by-name) |
 | `v2/co/cedula/extra` | v2 co cedula extra co/cedula/extra /co/cedula/extra api/co/cedula/extra /api/co/cedula/extra api co cedula extra cedula/extra /cedula/extra api.verifik.co/v2/co/cedula/extra https://api.verifik.co/v2/co/cedula/extra GET v2/co/cedula/extra GET /v2/co/cedula/extra | [Colombian Citizen with Extra Data](/identity-validation/colombia/colombian-citizen-with-extra-data) |
 | `v2/co/cedula/premium` | v2 co cedula premium co/cedula/premium /co/cedula/premium api/co/cedula/premium /api/co/cedula/premium api co cedula premium cedula/premium /cedula/premium api.verifik.co/v2/co/cedula/premium https://api.verifik.co/v2/co/cedula/premium GET v2/co/cedula/premium GET /v2/co/cedula/premium | [Colombia — National ID premium lookup (CC)](/identity-validation/colombia/colombian-cedula-premium) |
+| `v2/co/cedula/registraduria` | v2 co cedula registraduria co/cedula/registraduria /co/cedula/registraduria api/co/cedula/registraduria /api/co/cedula/registraduria api co cedula registraduria cedula/registraduria /cedula/registraduria api.verifik.co/v2/co/cedula/registraduria https://api.verifik.co/v2/co/cedula/registraduria GET v2/co/cedula/registraduria GET /v2/co/cedula/registraduria | [Colombia — Citizen lookup via Registraduría (SCCRC)](/identity/colombia-cedula-registraduria) |
 | `v2/co/cedula/rethus` | v2 co cedula rethus co/cedula/rethus /co/cedula/rethus api/co/cedula/rethus /api/co/cedula/rethus api co cedula rethus cedula/rethus /cedula/rethus api.verifik.co/v2/co/cedula/rethus https://api.verifik.co/v2/co/cedula/rethus GET v2/co/cedula/rethus GET /v2/co/cedula/rethus | [Colombia — RETHUS (health professionals registry)](/legal/colombia-rethus) |
 | `v2/co/company/dian` | v2 co company dian co/company/dian /co/company/dian api/co/company/dian /api/co/company/dian api co company dian company/dian /company/dian api.verifik.co/v2/co/company/dian https://api.verifik.co/v2/co/company/dian GET v2/co/company/dian GET /v2/co/company/dian | [Colombia DIAN Verification](/business-validation/colombia-dian-verification) |
 | `v2/co/company/dian/invoicer` | v2 co company dian invoicer co/company/dian/invoicer /co/company/dian/invoicer api/co/company/dian/invoicer /api/co/company/dian/invoicer api co company dian invoicer company/dian/invoicer /company/dian/invoicer dian/invoicer /dian/invoicer api.verifik.co/v2/co/company/dian/invoicer https://api.verifik.co/v2/co/company/dian/invoicer GET v2/co/company/dian/invoicer GET /v2/co/company/dian/invoicer | [Colombia Legal Invoicer Verification](/business-validation/colombia-legal-invoicer-verification) |
@@ -2698,6 +2756,8 @@ _Last regenerated: 2026-07-18T02:04:54.537Z_
 | `v2/co/rama/proceso` | v2 co rama proceso co/rama/proceso /co/rama/proceso api/co/rama/proceso /api/co/rama/proceso api co rama proceso rama/proceso /rama/proceso api.verifik.co/v2/co/rama/proceso https://api.verifik.co/v2/co/rama/proceso GET v2/co/rama/proceso GET /v2/co/rama/proceso | [Retrieve Details of a Legal Process by Number](/legal/retrieve-details-of-a-legal-process-by-number) |
 | `v2/co/rama/procesos` | v2 co rama procesos co/rama/procesos /co/rama/procesos api/co/rama/procesos /api/co/rama/procesos api co rama procesos rama/procesos /rama/procesos api.verifik.co/v2/co/rama/procesos https://api.verifik.co/v2/co/rama/procesos GET v2/co/rama/procesos GET /v2/co/rama/procesos | [Colombia — Judicial processes](/legal/colombian-legal-processes) |
 | `v2/co/registraduria/certificado` | v2 co registraduria certificado co/registraduria/certificado /co/registraduria/certificado api/co/registraduria/certificado /api/co/registraduria/certificado api co registraduria certificado registraduria/certificado /registraduria/certificado api.verifik.co/v2/co/registraduria/certificado https://api.verifik.co/v2/co/registraduria/certificado GET v2/co/registraduria/certificado GET /v2/co/registraduria/certificado | [Colombia — Registraduría ID validity certificate (CC)](/identity/colombia-registraduria-certificate) |
+| `v2/co/registraduria/matrimonio` | v2 co registraduria matrimonio co/registraduria/matrimonio /co/registraduria/matrimonio api/co/registraduria/matrimonio /api/co/registraduria/matrimonio api co registraduria matrimonio registraduria/matrimonio /registraduria/matrimonio api.verifik.co/v2/co/registraduria/matrimonio https://api.verifik.co/v2/co/registraduria/matrimonio GET v2/co/registraduria/matrimonio GET /v2/co/registraduria/matrimonio | [Colombia — Marriage civil registry (SCCRC)](/identity/colombia-registraduria-matrimonio) |
+| `v2/co/registraduria/serial` | v2 co registraduria serial co/registraduria/serial /co/registraduria/serial api/co/registraduria/serial /api/co/registraduria/serial api co registraduria serial registraduria/serial /registraduria/serial api.verifik.co/v2/co/registraduria/serial https://api.verifik.co/v2/co/registraduria/serial GET v2/co/registraduria/serial GET /v2/co/registraduria/serial | [Colombia — Civil registry lookup by serial (SCCRC)](/identity/colombia-registraduria-serial) |
 | `v2/co/registraduria/votacion` | v2 co registraduria votacion co/registraduria/votacion /co/registraduria/votacion api/co/registraduria/votacion /api/co/registraduria/votacion api co registraduria votacion registraduria/votacion /registraduria/votacion api.verifik.co/v2/co/registraduria/votacion https://api.verifik.co/v2/co/registraduria/votacion GET v2/co/registraduria/votacion GET /v2/co/registraduria/votacion | [Retrieve Voting Information for Colombian Citizens](/legal/voting) |
 | `v2/co/rues` | v2 co rues co/rues /co/rues api/co/rues /api/co/rues api co rues api.verifik.co/v2/co/rues https://api.verifik.co/v2/co/rues GET v2/co/rues GET /v2/co/rues | [Colombia — RUES business lookup (v2, legacy)](/business-validation/colombia-rues-v2) |
 | `v2/co/rues/complete` | v2 co rues complete co/rues/complete /co/rues/complete api/co/rues/complete /api/co/rues/complete api co rues complete rues/complete /rues/complete api.verifik.co/v2/co/rues/complete https://api.verifik.co/v2/co/rues/complete GET v2/co/rues/complete GET /v2/co/rues/complete | [Colombia — RUES complete lookup (v2, legacy)](/business-validation/colombia-rues-complete-v2) |

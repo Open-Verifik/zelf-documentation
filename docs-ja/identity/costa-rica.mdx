@@ -63,6 +63,8 @@ https://api.verifik.co/v2/cr/cedula
 | `documentType`   | string | はい | 文書タイプ。許可される値: `CCCR`。           |
 | `documentNumber` | string | はい | スペースを含まない cédula 番号。             |
 
+サンドボックスクライアントは、安定したデモプロファイル用にドキュメント番号 `010000001`–`010000010`（正規形 `10000001`–`10000010`）を使用できます。`090040401` は404を返し、`090040402` は以下に示す「更新が必要」というレスポンスを返します。
+
 ### リクエスト
 
 <Tabs>
@@ -72,7 +74,7 @@ https://api.verifik.co/v2/cr/cedula
 import axios from "axios";
 
 const { data } = await axios.get("https://api.verifik.co/v2/cr/cedula", {
-  params: { documentType: "CCCR", documentNumber: "123456789" },
+  params: { documentType: "CCCR", documentNumber: "010000001" },
   headers: { Accept: "application/json", Authorization: `Bearer ${process.env.VERIFIK_TOKEN}` },
 });
 console.log(data);
@@ -90,7 +92,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 ]);
 $query = http_build_query([
     "documentType" => "CCCR",
-    "documentNumber" => "123456789"
+    "documentNumber" => "010000001"
 ]);
 curl_setopt($ch, CURLOPT_URL, "https://api.verifik.co/v2/cr/cedula?".$query);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -107,7 +109,7 @@ import os, requests
 
 url = "https://api.verifik.co/v2/cr/cedula"
 headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
-params = {"documentType": "CCCR", "documentNumber": "123456789"}
+params = {"documentType": "CCCR", "documentNumber": "010000001"}
 r = requests.get(url, headers=headers, params=params)
 print(r.json())
 ```
@@ -124,7 +126,7 @@ import (
 )
 
 func main() {
-    url := "https://api.verifik.co/v2/cr/cedula?documentType=CCCR&documentNumber=123456789"
+    url := "https://api.verifik.co/v2/cr/cedula?documentType=CCCR&documentNumber=010000001"
     req, _ := http.NewRequest("GET", url, nil)
     req.Header.Set("Accept", "application/json")
     req.Header.Set("Authorization", "Bearer "+getenv("VERIFIK_TOKEN"))
@@ -146,14 +148,31 @@ func main() {
 {
   "data": {
     "documentType": "CCCR",
-    "documentNumber": "123456789",
-    "firstName": "Ana",
-    "lastName": "Rodríguez",
-    "fullName": "Ana Rodríguez",
-    "status": "valid"
+    "documentNumber": "010000001",
+    "firstName": "MARIA ELENA",
+    "lastName": "LOPEZ GARCIA",
+    "fullName": "MARIA ELENA LOPEZ GARCIA"
   },
-  "signature": {"message": "Certified by Verifik.co", "dateTime": "January 16, 2024 3:44 PM"},
-  "id": "CR001"
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "July 27, 2026 3:00 PM"}
+}
+```
+
+  </TabItem>
+  <TabItem value="200-renewal" label="200 (更新が必要)">
+
+```json
+{
+  "data": {
+    "documentType": "CCCR",
+    "documentNumber": "020000002",
+    "status": "requires_renewal",
+    "expired": true,
+    "message": {
+      "es": "La fecha de vencimiento de su última solicitud, es menor a doce meses, por lo que debe renovar su documento en las oficinas del TSE",
+      "en": "The expiration date on file for this citizen's last request is less than twelve months away, so the document must be renewed in person at a TSE office."
+    }
+  },
+  "signature": {"message": "Certified by Verifik.co", "dateTime": "July 27, 2026 3:00 PM"}
 }
 ```
 
@@ -193,6 +212,7 @@ func main() {
 ### 注意事項
 
 - 番号はスペースやドットを含めずに入力してください。
+- TSEの更新規則によりオンライン再発行の対象外となる身分証明書（cédula）は、エラーではなく成功（`200`）として返され、`status: "requires_renewal"` と `expired: true` が設定されます。二言語（`es`/`en`）の `message` オブジェクトには、市民がTSEの窓口で直接更新する必要があることが説明されています。
 
 ---
 

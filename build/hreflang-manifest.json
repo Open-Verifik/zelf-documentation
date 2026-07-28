@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T02:04:54.424Z",
+  "generatedAt": "2026-07-28T04:32:24.558Z",
   "siteUrl": "https://docs.verifik.co",
   "clusters": {
     "intro": {
@@ -827,6 +827,15 @@
       "ja": "https://docs.verifik.co/verifik-ja/identity-validation/colombia/colombian-cedula-premium/",
       "zh": "https://docs.verifik.co/verifik-zh/identity-validation/colombia/colombian-cedula-premium/"
     },
+    "identity-validation/colombia/colombian-citizen-by-name": {
+      "en": "https://docs.verifik.co/identity-validation/colombia/colombian-citizen-by-name/",
+      "es": "https://docs.verifik.co/verifik-es/validacion-identidad/colombia/ciudadano-colombiano-por-nombre/",
+      "fr": "https://docs.verifik.co/verifik-fr/identity-validation/colombia/colombian-citizen-by-name/",
+      "pt": "https://docs.verifik.co/verifik-pt/identity-validation/colombia/colombian-citizen-by-name/",
+      "ko": "https://docs.verifik.co/verifik-ko/identity-validation/colombia/colombian-citizen-by-name/",
+      "ja": "https://docs.verifik.co/verifik-ja/identity-validation/colombia/colombian-citizen-by-name/",
+      "zh": "https://docs.verifik.co/verifik-zh/identity-validation/colombia/colombian-citizen-by-name/"
+    },
     "identity-validation/colombia/colombian-citizen-with-extra-data": {
       "en": "https://docs.verifik.co/identity-validation/colombia/colombian-citizen-with-extra-data/",
       "es": "https://docs.verifik.co/verifik-es/validacion-identidad/colombia/ciudadano-colombiano-con-datos-extra/"
@@ -927,6 +936,15 @@
       "ja": "https://docs.verifik.co/verifik-ja/identity/colombia-ce/",
       "zh": "https://docs.verifik.co/verifik-zh/identity/colombia-ce/"
     },
+    "identity/colombia-cedula-registraduria": {
+      "en": "https://docs.verifik.co/identity/colombia-cedula-registraduria/",
+      "es": "https://docs.verifik.co/verifik-es/identity/colombia-cedula-registraduria/",
+      "fr": "https://docs.verifik.co/verifik-fr/identity/colombia-cedula-registraduria/",
+      "pt": "https://docs.verifik.co/verifik-pt/identity/colombia-cedula-registraduria/",
+      "ko": "https://docs.verifik.co/verifik-ko/identity/colombia-cedula-registraduria/",
+      "ja": "https://docs.verifik.co/verifik-ja/identity/colombia-cedula-registraduria/",
+      "zh": "https://docs.verifik.co/verifik-zh/identity/colombia-cedula-registraduria/"
+    },
     "identity/colombia-full-id": {
       "en": "https://docs.verifik.co/identity/colombia-full-id/",
       "es": "https://docs.verifik.co/verifik-es/identidad/colombia-full-id/",
@@ -962,6 +980,24 @@
       "ko": "https://docs.verifik.co/verifik-ko/identity/colombia-registraduria-certificate/",
       "ja": "https://docs.verifik.co/verifik-ja/identity/colombia-registraduria-certificate/",
       "zh": "https://docs.verifik.co/verifik-zh/identity/colombia-registraduria-certificate/"
+    },
+    "identity/colombia-registraduria-matrimonio": {
+      "en": "https://docs.verifik.co/identity/colombia-registraduria-matrimonio/",
+      "es": "https://docs.verifik.co/verifik-es/identity/colombia-registraduria-matrimonio/",
+      "fr": "https://docs.verifik.co/verifik-fr/identity/colombia-registraduria-matrimonio/",
+      "pt": "https://docs.verifik.co/verifik-pt/identity/colombia-registraduria-matrimonio/",
+      "ko": "https://docs.verifik.co/verifik-ko/identity/colombia-registraduria-matrimonio/",
+      "ja": "https://docs.verifik.co/verifik-ja/identity/colombia-registraduria-matrimonio/",
+      "zh": "https://docs.verifik.co/verifik-zh/identity/colombia-registraduria-matrimonio/"
+    },
+    "identity/colombia-registraduria-serial": {
+      "en": "https://docs.verifik.co/identity/colombia-registraduria-serial/",
+      "es": "https://docs.verifik.co/verifik-es/identity/colombia-registraduria-serial/",
+      "fr": "https://docs.verifik.co/verifik-fr/identity/colombia-registraduria-serial/",
+      "pt": "https://docs.verifik.co/verifik-pt/identity/colombia-registraduria-serial/",
+      "ko": "https://docs.verifik.co/verifik-ko/identity/colombia-registraduria-serial/",
+      "ja": "https://docs.verifik.co/verifik-ja/identity/colombia-registraduria-serial/",
+      "zh": "https://docs.verifik.co/verifik-zh/identity/colombia-registraduria-serial/"
     },
     "identity/colombia-situacion-militar": {
       "en": "https://docs.verifik.co/identity/colombia-situacion-militar/",
@@ -2160,6 +2196,13 @@
     "https://docs.verifik.co/verifik-ko/identity-validation/colombia/colombian-cedula-premium/": "identity-validation/colombia/colombian-cedula-premium",
     "https://docs.verifik.co/verifik-ja/identity-validation/colombia/colombian-cedula-premium/": "identity-validation/colombia/colombian-cedula-premium",
     "https://docs.verifik.co/verifik-zh/identity-validation/colombia/colombian-cedula-premium/": "identity-validation/colombia/colombian-cedula-premium",
+    "https://docs.verifik.co/identity-validation/colombia/colombian-citizen-by-name/": "identity-validation/colombia/colombian-citizen-by-name",
+    "https://docs.verifik.co/verifik-es/validacion-identidad/colombia/ciudadano-colombiano-por-nombre/": "identity-validation/colombia/colombian-citizen-by-name",
+    "https://docs.verifik.co/verifik-fr/identity-validation/colombia/colombian-citizen-by-name/": "identity-validation/colombia/colombian-citizen-by-name",
+    "https://docs.verifik.co/verifik-pt/identity-validation/colombia/colombian-citizen-by-name/": "identity-validation/colombia/colombian-citizen-by-name",
+    "https://docs.verifik.co/verifik-ko/identity-validation/colombia/colombian-citizen-by-name/": "identity-validation/colombia/colombian-citizen-by-name",
+    "https://docs.verifik.co/verifik-ja/identity-validation/colombia/colombian-citizen-by-name/": "identity-validation/colombia/colombian-citizen-by-name",
+    "https://docs.verifik.co/verifik-zh/identity-validation/colombia/colombian-citizen-by-name/": "identity-validation/colombia/colombian-citizen-by-name",
     "https://docs.verifik.co/identity-validation/colombia/colombian-citizen-with-extra-data/": "identity-validation/colombia/colombian-citizen-with-extra-data",
     "https://docs.verifik.co/verifik-es/validacion-identidad/colombia/ciudadano-colombiano-con-datos-extra/": "identity-validation/colombia/colombian-citizen-with-extra-data",
     "https://docs.verifik.co/identity-validation/colombia/colombian-citizen/": "identity-validation/colombia/colombian-citizen",
@@ -2236,6 +2279,13 @@
     "https://docs.verifik.co/verifik-ko/identity/colombia-ce/": "identity/colombia-ce",
     "https://docs.verifik.co/verifik-ja/identity/colombia-ce/": "identity/colombia-ce",
     "https://docs.verifik.co/verifik-zh/identity/colombia-ce/": "identity/colombia-ce",
+    "https://docs.verifik.co/identity/colombia-cedula-registraduria/": "identity/colombia-cedula-registraduria",
+    "https://docs.verifik.co/verifik-es/identity/colombia-cedula-registraduria/": "identity/colombia-cedula-registraduria",
+    "https://docs.verifik.co/verifik-fr/identity/colombia-cedula-registraduria/": "identity/colombia-cedula-registraduria",
+    "https://docs.verifik.co/verifik-pt/identity/colombia-cedula-registraduria/": "identity/colombia-cedula-registraduria",
+    "https://docs.verifik.co/verifik-ko/identity/colombia-cedula-registraduria/": "identity/colombia-cedula-registraduria",
+    "https://docs.verifik.co/verifik-ja/identity/colombia-cedula-registraduria/": "identity/colombia-cedula-registraduria",
+    "https://docs.verifik.co/verifik-zh/identity/colombia-cedula-registraduria/": "identity/colombia-cedula-registraduria",
     "https://docs.verifik.co/identity/colombia-full-id/": "identity/colombia-full-id",
     "https://docs.verifik.co/verifik-es/identidad/colombia-full-id/": "identity/colombia-full-id",
     "https://docs.verifik.co/verifik-fr/identity/colombia-full-id/": "identity/colombia-full-id",
@@ -2264,6 +2314,20 @@
     "https://docs.verifik.co/verifik-ko/identity/colombia-registraduria-certificate/": "identity/colombia-registraduria-certificate",
     "https://docs.verifik.co/verifik-ja/identity/colombia-registraduria-certificate/": "identity/colombia-registraduria-certificate",
     "https://docs.verifik.co/verifik-zh/identity/colombia-registraduria-certificate/": "identity/colombia-registraduria-certificate",
+    "https://docs.verifik.co/identity/colombia-registraduria-matrimonio/": "identity/colombia-registraduria-matrimonio",
+    "https://docs.verifik.co/verifik-es/identity/colombia-registraduria-matrimonio/": "identity/colombia-registraduria-matrimonio",
+    "https://docs.verifik.co/verifik-fr/identity/colombia-registraduria-matrimonio/": "identity/colombia-registraduria-matrimonio",
+    "https://docs.verifik.co/verifik-pt/identity/colombia-registraduria-matrimonio/": "identity/colombia-registraduria-matrimonio",
+    "https://docs.verifik.co/verifik-ko/identity/colombia-registraduria-matrimonio/": "identity/colombia-registraduria-matrimonio",
+    "https://docs.verifik.co/verifik-ja/identity/colombia-registraduria-matrimonio/": "identity/colombia-registraduria-matrimonio",
+    "https://docs.verifik.co/verifik-zh/identity/colombia-registraduria-matrimonio/": "identity/colombia-registraduria-matrimonio",
+    "https://docs.verifik.co/identity/colombia-registraduria-serial/": "identity/colombia-registraduria-serial",
+    "https://docs.verifik.co/verifik-es/identity/colombia-registraduria-serial/": "identity/colombia-registraduria-serial",
+    "https://docs.verifik.co/verifik-fr/identity/colombia-registraduria-serial/": "identity/colombia-registraduria-serial",
+    "https://docs.verifik.co/verifik-pt/identity/colombia-registraduria-serial/": "identity/colombia-registraduria-serial",
+    "https://docs.verifik.co/verifik-ko/identity/colombia-registraduria-serial/": "identity/colombia-registraduria-serial",
+    "https://docs.verifik.co/verifik-ja/identity/colombia-registraduria-serial/": "identity/colombia-registraduria-serial",
+    "https://docs.verifik.co/verifik-zh/identity/colombia-registraduria-serial/": "identity/colombia-registraduria-serial",
     "https://docs.verifik.co/identity/colombia-situacion-militar/": "identity/colombia-situacion-militar",
     "https://docs.verifik.co/verifik-es/identity/colombia-situacion-militar/": "identity/colombia-situacion-militar",
     "https://docs.verifik.co/verifik-fr/identity/colombia-situacion-militar/": "identity/colombia-situacion-militar",

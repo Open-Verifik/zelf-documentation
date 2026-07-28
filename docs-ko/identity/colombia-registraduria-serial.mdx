@@ -1,0 +1,183 @@
+---
+id: colombia-registraduria-serial
+title: 콜롬비아 — 일련번호로 민사등록 조회 (SCCRC)
+description: GET /v2/co/registraduria/serial(Registraduría SCCRC)로 일련번호를 이용해 콜롬비아 출생 민사등록 기록을 조회합니다.
+slug: /identity/colombia-registraduria-serial
+keywords:
+  - v2/co/registraduria/serial
+  - /v2/co/registraduria/serial
+  - v2 co registraduria serial
+  - api/co/registraduria/serial
+  - /api/co/registraduria/serial
+  - api.verifik.co/v2/co/registraduria/serial
+  - 'https://api.verifik.co/v2/co/registraduria/serial'
+  - GET v2/co/registraduria/serial
+  - GET /v2/co/registraduria/serial
+  - co/registraduria/serial
+  - registraduria/serial
+  - registro civil serial
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "콜롬비아 일련번호로 민사등록 조회 (SCCRC) | Verifik API",
+	description:
+		"Registraduría SCCRC를 통해 출생 민사등록증에 인쇄된 일련번호로 콜롬비아 출생 민사등록 기록을 조회합니다.",
+	articleSection: "API 문서",
+	keywords: "콜롬비아, Registraduría, SCCRC, serial, registro civil, 신원 API",
+	about: {
+		"@type": "Thing",
+		name: "신원 확인 API",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 콜롬비아 — 일련번호로 민사등록 조회 (SCCRC)
+
+등록 문서에 인쇄된 **일련번호**로 **Registraduría Nacional del Estado Civil**(**SCCRC**)의 **출생 민사등록** 기록(*registro civil de nacimiento*)을 조회합니다.
+
+민사등록 일련번호를 이미 알고 있을 때 [문서로 시민 조회](/verifik-ko/identity-validation/colombia/colombian-citizen), [이름으로 조회](/verifik-ko/identity-validation/colombia/colombian-citizen-by-name)를 보완합니다.
+
+## 이 API가 반환하는 내용
+
+- **`documentNumber`**, **`documentType`** — 있을 때 NUIP/CC
+- **`firstName`**, **`lastName`**, **`fullName`**, **`arrayName`**
+- **`sexo`**, **`serial`**
+- 가능할 때 **`oficina`** / **`expeditionPlace`**, **`fecha`** / **`dateOfBirth`**
+- **`recordType`** — `REGISTRO CIVIL DE NACIMIENTO`
+- **서명된** Verifik 응답 래퍼
+
+## API 레퍼런스
+
+### 엔드포인트
+
+```
+GET https://api.verifik.co/v2/co/registraduria/serial
+```
+
+**민사등록 일련번호**가 있고 연결된 신원 필드가 필요할 때 이 엔드포인트를 사용합니다. 동일한 연동은 JSON 본문의 **`POST`**로도 가능합니다. **`GET`**은 아래와 같이 **쿼리 매개변수**를 사용합니다.
+
+### 헤더(Headers)
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### 매개변수(Parameters)
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `serial` | string | yes | 민사등록 일련번호(최대 **10**자리, 선행 0 허용) | `0031058170` |
+
+### 요청(Request)
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/registraduria/serial", {
+	params: {
+		serial: "0031058170",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/registraduria/serial"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"serial": "0031058170"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### 응답(Response)
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"documentType": "CC",
+		"documentNumber": "10000001",
+		"firstName": "ALIXON DAYANA",
+		"lastName": "TORRES MORA",
+		"fullName": "ALIXON DAYANA TORRES MORA",
+		"arrayName": ["ALIXON", "DAYANA", "TORRES", "MORA"],
+		"sexo": "FEMENINO",
+		"serial": "0031058170",
+		"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+		"expeditionPlace": "NOTARIA UNICA - BOGOTA D.C.",
+		"fecha": "15/03/1990",
+		"dateOfBirth": "15/03/1990",
+		"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "missing serial"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 기능
+
+- *registro civil de nacimiento*에 인쇄된 **일련번호**로 조회
+- 단일 기록 응답(`matches` 배열 아님)
+- **GET**과 **POST**가 동일한 핸들러를 공유
+
+## 사용 사례
+
+- 실물 **registro civil** 데이터 디지털화 또는 검증
+- 알려진 민사등록 일련번호로 NUIP/CC 해석
+- 문서 번호 대신 일련번호를 저장하는 감사 추적
+
+### 참고(Notes)
+
+- **`serial`**은 숫자만(선행 0 패딩 허용).
+- **샌드박스 예제 일련번호:** `0031058170`(**`10000001`–`10000010`** 범위의 샌드박스 문서 번호에 매핑).
+- 일시적인 소스 가용성 문제는 **409**(`Endpoint_out_of_service`)로 나타날 수 있습니다.
+- 관련: [Registraduría 증명서](/verifik-ko/identity/colombia-registraduria-certificate), [이름으로 시민 조회](/verifik-ko/identity-validation/colombia/colombian-citizen-by-name), [결혼 등록](/verifik-ko/identity/colombia-registraduria-matrimonio).

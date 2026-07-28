@@ -1,0 +1,183 @@
+---
+id: colombia-registraduria-serial
+title: 哥伦比亚 — 按序列号查询民事登记（SCCRC）
+description: 通过 GET /v2/co/registraduria/serial（Registraduría SCCRC），使用序列号定位哥伦比亚出生民事登记记录。
+slug: /identity/colombia-registraduria-serial
+keywords:
+  - v2/co/registraduria/serial
+  - /v2/co/registraduria/serial
+  - v2 co registraduria serial
+  - api/co/registraduria/serial
+  - /api/co/registraduria/serial
+  - api.verifik.co/v2/co/registraduria/serial
+  - 'https://api.verifik.co/v2/co/registraduria/serial'
+  - GET v2/co/registraduria/serial
+  - GET /v2/co/registraduria/serial
+  - co/registraduria/serial
+  - registraduria/serial
+  - registro civil serial
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "哥伦比亚按序列号查询民事登记（SCCRC）| Verifik API",
+	description:
+		"通过 Registraduría SCCRC，使用出生民事登记证上印制的序列号定位哥伦比亚出生民事登记记录。",
+	articleSection: "API 文档",
+	keywords: "哥伦比亚, Registraduría, SCCRC, serial, registro civil, 身份 API",
+	about: {
+		"@type": "Thing",
+		name: "身份核验 API",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 哥伦比亚 — 按序列号查询民事登记（SCCRC）
+
+使用登记文件上印制的 **序列号**，从 **Registraduría Nacional del Estado Civil**（**SCCRC**）定位 **出生民事登记** 记录（*registro civil de nacimiento*）。
+
+在已掌握民事登记序列号时，可补充[按证件查询公民](/verifik-zh/identity-validation/colombia/colombian-citizen)与[按姓名查询](/verifik-zh/identity-validation/colombia/colombian-citizen-by-name)。
+
+## 此 API 返回的内容
+
+- **`documentNumber`**、**`documentType`** — 存在时的 NUIP/CC
+- **`firstName`**、**`lastName`**、**`fullName`**、**`arrayName`**
+- **`sexo`**、**`serial`**
+- 可用时的 **`oficina`** / **`expeditionPlace`**、**`fecha`** / **`dateOfBirth`**
+- **`recordType`** — `REGISTRO CIVIL DE NACIMIENTO`
+- **已签名**的 Verifik 响应包装
+
+## API 参考
+
+### 端点
+
+```
+GET https://api.verifik.co/v2/co/registraduria/serial
+```
+
+当您拥有 **民事登记序列号** 并需要关联身份字段时使用此端点。同一集成也支持带 JSON 正文的 **`POST`**。**`GET`** 使用如下所示的**查询参数**。
+
+### 请求头（Headers）
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### 参数（Parameters）
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `serial` | string | yes | 民事登记序列号（最多 **10** 位数字；允许前导零） | `0031058170` |
+
+### 请求（Request）
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/registraduria/serial", {
+	params: {
+		serial: "0031058170",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/registraduria/serial"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"serial": "0031058170"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### 响应（Response）
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"documentType": "CC",
+		"documentNumber": "10000001",
+		"firstName": "ALIXON DAYANA",
+		"lastName": "TORRES MORA",
+		"fullName": "ALIXON DAYANA TORRES MORA",
+		"arrayName": ["ALIXON", "DAYANA", "TORRES", "MORA"],
+		"sexo": "FEMENINO",
+		"serial": "0031058170",
+		"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+		"expeditionPlace": "NOTARIA UNICA - BOGOTA D.C.",
+		"fecha": "15/03/1990",
+		"dateOfBirth": "15/03/1990",
+		"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "missing serial"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 功能
+
+- 按 *registro civil de nacimiento* 上印制的 **序列号** 查询
+- 单条记录响应（非 `matches` 数组）
+- **GET** 与 **POST** 共用同一处理程序
+
+## 使用场景
+
+- 数字化或核验实体 **registro civil** 上的数据
+- 根据已知民事登记序列号解析 NUIP/CC
+- 审计轨迹存储序列号而非证件号
+
+### 说明（Notes）
+
+- **`serial`** 仅为数字（接受前导零填充）。
+- **沙箱示例序列号：** `0031058170`（映射到沙箱证件号 **`10000001`–`10000010`** 范围）。
+- 来源暂时不可用时可能表现为 **409**（`Endpoint_out_of_service`）。
+- 相关：[Registraduría 证明](/verifik-zh/identity/colombia-registraduria-certificate)、[按姓名查询公民](/verifik-zh/identity-validation/colombia/colombian-citizen-by-name)、[婚姻登记](/verifik-zh/identity/colombia-registraduria-matrimonio)。

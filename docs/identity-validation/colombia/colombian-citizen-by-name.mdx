@@ -1,0 +1,204 @@
+---
+id: colombian-citizen-by-name
+title: Colombia — Citizen lookup by name (SCCRC)
+description: Reverse-lookup Colombian birth civil registry records by names, sex, and date of birth via GET /v2/co/cedula/by-name (Registraduría SCCRC).
+slug: /identity-validation/colombia/colombian-citizen-by-name
+keywords:
+  - v2/co/cedula/by-name
+  - /v2/co/cedula/by-name
+  - v2 co cedula by-name
+  - api/co/cedula/by-name
+  - /api/co/cedula/by-name
+  - api.verifik.co/v2/co/cedula/by-name
+  - 'https://api.verifik.co/v2/co/cedula/by-name'
+  - GET v2/co/cedula/by-name
+  - GET /v2/co/cedula/by-name
+  - co/cedula/by-name
+  - cedula/by-name
+  - registraduria sccrc by name
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "Colombia Citizen Lookup by Name (SCCRC) | Verifik API",
+	description:
+		"Search Colombian birth civil registry records by names, sex, and date of birth via Registraduría SCCRC. May return multiple matches.",
+	articleSection: "API Documentation",
+	keywords: "Colombia, Registraduría, SCCRC, cédula, by name, identity API",
+	about: {
+		"@type": "Thing",
+		name: "Identity Verification API",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Colombia — Citizen lookup by name (SCCRC)
+
+Search the **Registraduría Nacional del Estado Civil** birth civil registry (**SCCRC**) using **names**, **sex**, and **date of birth**. Unlike [Colombian citizen by document](/identity-validation/colombia/colombian-citizen), this endpoint is a **reverse lookup** and may return **multiple matches**.
+
+Use this when you know personal identity attributes but not the NUIP/CC, or when you need to confirm possible registry hits before a document-based check.
+
+## What this API returns
+
+- **`matches`** — array of civil-registry hits (zero or more)
+- **`documentNumber`**, **`documentType`** — NUIP/CC when present on the record
+- **`firstName`**, **`lastName`**, **`fullName`**, **`arrayName`** — name parts
+- **`sexo`**, **`serial`** — sex and civil-registry serial
+- **`oficina`** / **`expeditionPlace`**, **`fecha`** / **`dateOfBirth`** — when Detalle enrichment is available
+- **`recordType`** — `REGISTRO CIVIL DE NACIMIENTO`
+- A **signed** Verifik response wrapper
+
+## API reference
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/co/cedula/by-name
+```
+
+Use this endpoint when you need to **find birth registry candidates by name**. The same integration is available as **`POST`** with a JSON body. **`GET`** uses **query parameters** as shown below.
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| name | type | required | description | Examples |
+| --- | --- | --- | --- | --- |
+| `primerNombre` | string | yes | First given name | `MARIA` |
+| `primerApellido` | string | yes | First surname | `LOPEZ` |
+| `sexo` | string | yes | Sex as registered. Allowed: `MASCULINO`, `FEMENINO` (also `M` / `F`) | `FEMENINO` |
+| `fecha` | string | yes | Date of birth in **`DD/MM/YYYY`** | `15/03/1990` |
+| `segundoNombre` | string | no | Second given name | `ELENA` |
+| `segundoApellido` | string | no | Second surname | `GARCIA` |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/cedula/by-name", {
+	params: {
+		primerNombre: "MARIA",
+		primerApellido: "LOPEZ",
+		sexo: "FEMENINO",
+		fecha: "15/03/1990",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/cedula/by-name"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {
+	"primerNombre": "MARIA",
+	"primerApellido": "LOPEZ",
+	"sexo": "FEMENINO",
+	"fecha": "15/03/1990",
+}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"matches": [
+			{
+				"documentType": "CC",
+				"documentNumber": "10000001",
+				"firstName": "MARIA ELENA",
+				"lastName": "LOPEZ GARCIA",
+				"fullName": "MARIA ELENA LOPEZ GARCIA",
+				"arrayName": ["MARIA", "ELENA", "LOPEZ", "GARCIA"],
+				"sexo": "FEMENINO",
+				"serial": "0031010001",
+				"oficina": "NOTARIA UNICA - BOGOTA D.C.",
+				"expeditionPlace": "NOTARIA UNICA - BOGOTA D.C.",
+				"fecha": "15/03/1990",
+				"dateOfBirth": "15/03/1990",
+				"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+			}
+		],
+		"recordType": "REGISTRO CIVIL DE NACIMIENTO"
+	},
+	"signature": {
+		"dateTime": "July 20, 2026 12:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "missing primerNombre"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Features
+
+- **Reverse lookup** against Registraduría **SCCRC** birth registry
+- Response is always shaped as **`{ matches: [...] }`** (review every hit)
+- Optional second name / surname improve precision
+- **GET** and **POST** share the same handler
+
+## Use cases
+
+- Recover possible **NUIP/CC** candidates from known name + DOB
+- Pre-screen applicants when only biographic data is available
+- Cross-check name spelling against civil registry hits
+
+### Notes
+
+- Always inspect **`matches`**; name queries can return more than one person.
+- **`fecha`** must be **`DD/MM/YYYY`** (date of birth).
+- **Sandbox:** name queries map to fixed profiles with document numbers **`10000001`–`10000010`**. Example defaults: `MARIA` / `LOPEZ` / `FEMENINO` / `15/03/1990`.
+- Temporary source availability issues may surface as **409** (`Endpoint_out_of_service`).
+- Related: [Colombian citizen by document](/identity-validation/colombia/colombian-citizen), [Civil registry by serial](/identity/colombia-registraduria-serial), [Marriage civil registry](/identity/colombia-registraduria-matrimonio).

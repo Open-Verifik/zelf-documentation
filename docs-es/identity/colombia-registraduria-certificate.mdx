@@ -142,6 +142,6 @@ print(r.json())
 
 - **`date`** es la **fecha de expedición del documento**, no la fecha de nacimiento.
 - Un formato incorrecto suele devolver **409** (`MissingParameter`).
-- Fallas upstream (p. ej. flujo captcha/PDF) pueden aparecer como **409** con códigos como **`Endpoint_out_of_service`**.
+- Problemas temporales de disponibilidad de la fuente pueden aparecer como **409** con códigos como **`Endpoint_out_of_service`**.
 - **`GET`** y **`POST`** comparten el mismo manejador.
 - Trata **pdfBase64** y datos personales como **sensibles**; cumple la normativa colombiana y tus contratos.
