@@ -118,31 +118,26 @@ task.resume()
 ```json
 {
   "data": {
-    "bodyType": "Automóvel",
+    "bodyType": "AU - HATCH PEQUENO",
     "brand": "HYUNDAI",
-    "chassis": "91679",
-    "color": "Branca",
+    "chassis": "9BHBG51CAJP791679",
+    "color": "BRANCA",
     "country": "Brasil",
-    "denatranWarning": "Sem Restrição",
-    "doors": "5",
+    "denatranWarning": "",
+    "doors": "0",
     "engine": "998",
-    "factory": "Nacional",
-    "fipeCodes": [
-      "015088-6",
-      "015126-2",
-      "015150-5",
-      "015092-4"
-    ],
-    "fuelType": "Flex",
+    "factory": "NACIONAL",
+    "fipeCodes": [],
+    "fuelType": "ALCOOL / GASOLINA",
     "irregularitiesCount": 0,
     "irregularityCode": "",
     "manufacturer": "HYUNDAI",
-    "model": "HB20 1.0M COMFOR",
+    "model": "HYUNDAI/HB20 1.0M COMFOR",
     "modelYear": "2018",
     "plate": "PZY7H82",
     "transmission": "",
-    "vehicle": "Automóvel",
-    "version": "HB20 Comf./C.Plus/C.Style 1.0 Flex 12V",
+    "vehicle": "AUTOMOVEL",
+    "version": "HB20",
     "yearOfManufacture": "2017"
   },
   "signature": {
@@ -194,8 +189,8 @@ task.resume()
 | `chassis` | string | Chassi ou VIN retornado pelo registro. |
 | `color` | string | Cor registrada do veículo. |
 | `country` | string | País do registro do veículo. |
-| `denatranWarning` | string | Status ou aviso do Denatran, como `Sem Restrição`. |
-| `doors` | string | Capacidade de passageiros retornada pelo registro. |
+| `denatranWarning` | string | Status ou aviso do Denatran quando disponível; muitas vezes uma string vazia. |
+| `doors` | string | Capacidade de passageiros do registro; pode ser `"0"` quando a fonte não a informa. |
 | `engine` | string | Cilindrada ou referência de motor no registro. |
 | `factory` | string | Origem ou região de fabricação. |
 | `fipeCodes` | string[] | Códigos FIPE relacionados ao veículo quando disponíveis. |
@@ -214,8 +209,8 @@ task.resume()
 ### Notas
 
 - Apenas **`plate`** é obrigatório na query string.
-- Registros obtidos pela fonte registral podem retornar **`transmission`** como uma string vazia.
-- **`doors`** reflete a capacidade de passageiros da fonte registral.
+- Registros obtidos pela fonte registral podem retornar **`transmission`** ou **`denatranWarning`** como string vazia.
+- **`doors`** pode ser `"0"` quando a fonte registral não retorna capacidade de passageiros.
 - **`fipeCodes`** pode ser um array vazio quando não houver correspondência FIPE.
 - Provedores de fallback podem retornar cobertura de campos ligeiramente diferente quando a fonte primária não encontrar dados.
 - Algumas contas também habilitam o produto **ficha técnica estendida por placa**; use a URL do seu catálogo AppFeature quando esse recurso estiver ativo.

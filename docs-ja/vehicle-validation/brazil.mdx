@@ -118,31 +118,26 @@ task.resume()
 ```json
 {
   "data": {
-    "bodyType": "Automóvel",
+    "bodyType": "AU - HATCH PEQUENO",
     "brand": "HYUNDAI",
-    "chassis": "91679",
-    "color": "Branca",
+    "chassis": "9BHBG51CAJP791679",
+    "color": "BRANCA",
     "country": "Brasil",
-    "denatranWarning": "Sem Restrição",
-    "doors": "5",
+    "denatranWarning": "",
+    "doors": "0",
     "engine": "998",
-    "factory": "Nacional",
-    "fipeCodes": [
-      "015088-6",
-      "015126-2",
-      "015150-5",
-      "015092-4"
-    ],
-    "fuelType": "Flex",
+    "factory": "NACIONAL",
+    "fipeCodes": [],
+    "fuelType": "ALCOOL / GASOLINA",
     "irregularitiesCount": 0,
     "irregularityCode": "",
     "manufacturer": "HYUNDAI",
-    "model": "HB20 1.0M COMFOR",
+    "model": "HYUNDAI/HB20 1.0M COMFOR",
     "modelYear": "2018",
     "plate": "PZY7H82",
     "transmission": "",
-    "vehicle": "Automóvel",
-    "version": "HB20 Comf./C.Plus/C.Style 1.0 Flex 12V",
+    "vehicle": "AUTOMOVEL",
+    "version": "HB20",
     "yearOfManufacture": "2017"
   },
   "signature": {
@@ -194,8 +189,8 @@ task.resume()
 | `chassis` | string | 登録機関から返されるシャーシ番号または VIN です。 |
 | `color` | string | 登録されている車両色です。 |
 | `country` | string | 車両レコードの国です。 |
-| `denatranWarning` | string | `Sem Restrição` などの Denatran または登録ステータス通知です。 |
-| `doors` | string | 登録ソースから返される乗車定員です。 |
+| `denatranWarning` | string | 利用可能な場合の Denatran または登録ステータス通知です。空文字になることが多いです。 |
+| `doors` | string | 登録ソースの乗車定員です。ソースが提供しない場合は `"0"` になることがあります。 |
 | `engine` | string | 登録上の排気量またはエンジン参照値です。 |
 | `factory` | string | 原産地または製造地域です。 |
 | `fipeCodes` | string[] | 利用可能な場合の車両に関連する FIPE 参照コードです。 |
@@ -214,8 +209,8 @@ task.resume()
 ### メモ
 
 - クエリ文字列で **必須** なのは **`plate`** のみです。
-- 登録ソース由来のレコードでは **`transmission`** が空文字で返されることがあります。
-- **`doors`** は登録ソースの乗車定員を表します。
+- 登録ソース由来のレコードでは **`transmission`** または **`denatranWarning`** が空文字で返されることがあります。
+- 登録ソースが乗車定員を返さない場合、**`doors`** は `"0"` になることがあります。
 - FIPE の一致がない場合、**`fipeCodes`** は空配列になることがあります。
 - プライマリソースで一致がない場合、fallback プロバイダーでは返されるフィールド範囲が少し異なることがあります。
 - 一部のアカウントでは **ナンバープレート別の拡張データシート** プロダクトが有効になります。その機能が有効なときは AppFeature カタログに記載の URL を使用してください。

@@ -118,31 +118,26 @@ task.resume()
 ```json
 {
   "data": {
-    "bodyType": "Automóvel",
+    "bodyType": "AU - HATCH PEQUENO",
     "brand": "HYUNDAI",
-    "chassis": "91679",
-    "color": "Branca",
+    "chassis": "9BHBG51CAJP791679",
+    "color": "BRANCA",
     "country": "Brasil",
-    "denatranWarning": "Sem Restrição",
-    "doors": "5",
+    "denatranWarning": "",
+    "doors": "0",
     "engine": "998",
-    "factory": "Nacional",
-    "fipeCodes": [
-      "015088-6",
-      "015126-2",
-      "015150-5",
-      "015092-4"
-    ],
-    "fuelType": "Flex",
+    "factory": "NACIONAL",
+    "fipeCodes": [],
+    "fuelType": "ALCOOL / GASOLINA",
     "irregularitiesCount": 0,
     "irregularityCode": "",
     "manufacturer": "HYUNDAI",
-    "model": "HB20 1.0M COMFOR",
+    "model": "HYUNDAI/HB20 1.0M COMFOR",
     "modelYear": "2018",
     "plate": "PZY7H82",
     "transmission": "",
-    "vehicle": "Automóvel",
-    "version": "HB20 Comf./C.Plus/C.Style 1.0 Flex 12V",
+    "vehicle": "AUTOMOVEL",
+    "version": "HB20",
     "yearOfManufacture": "2017"
   },
   "signature": {
@@ -194,8 +189,8 @@ task.resume()
 | `chassis` | string | 등록 기관에서 반환한 차대번호 또는 VIN입니다. |
 | `color` | string | 등록된 차량 색상입니다. |
 | `country` | string | 차량 기록의 국가입니다. |
-| `denatranWarning` | string | `Sem Restrição` 같은 Denatran 또는 등록 상태 알림입니다. |
-| `doors` | string | 등록 소스에서 반환한 승차 정원입니다. |
+| `denatranWarning` | string | 사용 가능한 경우 Denatran 또는 등록 상태 알림이며, 종종 빈 문자열입니다. |
+| `doors` | string | 등록 소스의 승차 정원이며, 소스가 제공하지 않으면 `"0"`일 수 있습니다. |
 | `engine` | string | 등록상의 배기량 또는 엔진 참조값입니다. |
 | `factory` | string | 원산지 또는 제조 지역입니다. |
 | `fipeCodes` | string[] | 사용 가능한 경우 차량과 관련된 FIPE 참조 코드입니다. |
@@ -214,8 +209,8 @@ task.resume()
 ### 참고
 
 - 쿼리 문자열에서 **필수**인 것은 **`plate`** 뿐입니다.
-- 등록 소스 기록은 **`transmission`** 값을 빈 문자열로 반환할 수 있습니다.
-- **`doors`**는 등록 소스의 승차 정원을 의미합니다.
+- 등록 소스 기록은 **`transmission`** 또는 **`denatranWarning`** 값을 빈 문자열로 반환할 수 있습니다.
+- 등록 소스가 승차 정원을 반환하지 않으면 **`doors`**는 `"0"`일 수 있습니다.
 - FIPE 매칭이 없으면 **`fipeCodes`**는 빈 배열일 수 있습니다.
 - 기본 소스에서 데이터를 찾지 못해 fallback 제공자를 사용하는 경우 필드 범위가 조금 달라질 수 있습니다.
 - 일부 계정에서는 **번호판별 확장 기술 시트** 제품이 활성화됩니다. 해당 기능이 켜져 있으면 AppFeature 카탈로그에 안내된 URL을 사용하세요.

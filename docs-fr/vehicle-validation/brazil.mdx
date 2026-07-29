@@ -118,31 +118,26 @@ task.resume()
 ```json
 {
   "data": {
-    "bodyType": "Automóvel",
+    "bodyType": "AU - HATCH PEQUENO",
     "brand": "HYUNDAI",
-    "chassis": "91679",
-    "color": "Branca",
+    "chassis": "9BHBG51CAJP791679",
+    "color": "BRANCA",
     "country": "Brasil",
-    "denatranWarning": "Sem Restrição",
-    "doors": "5",
+    "denatranWarning": "",
+    "doors": "0",
     "engine": "998",
-    "factory": "Nacional",
-    "fipeCodes": [
-      "015088-6",
-      "015126-2",
-      "015150-5",
-      "015092-4"
-    ],
-    "fuelType": "Flex",
+    "factory": "NACIONAL",
+    "fipeCodes": [],
+    "fuelType": "ALCOOL / GASOLINA",
     "irregularitiesCount": 0,
     "irregularityCode": "",
     "manufacturer": "HYUNDAI",
-    "model": "HB20 1.0M COMFOR",
+    "model": "HYUNDAI/HB20 1.0M COMFOR",
     "modelYear": "2018",
     "plate": "PZY7H82",
     "transmission": "",
-    "vehicle": "Automóvel",
-    "version": "HB20 Comf./C.Plus/C.Style 1.0 Flex 12V",
+    "vehicle": "AUTOMOVEL",
+    "version": "HB20",
     "yearOfManufacture": "2017"
   },
   "signature": {
@@ -194,8 +189,8 @@ task.resume()
 | `chassis` | string | Châssis ou VIN retourné par le registre. |
 | `color` | string | Couleur enregistrée du véhicule. |
 | `country` | string | Pays de l'enregistrement du véhicule. |
-| `denatranWarning` | string | Statut ou avis Denatran, par exemple `Sem Restrição`. |
-| `doors` | string | Capacité passagers retournée par le registre. |
+| `denatranWarning` | string | Statut ou avis Denatran lorsqu'il est disponible ; souvent une chaîne vide. |
+| `doors` | string | Capacité passagers du registre ; peut être `"0"` lorsque la source ne la fournit pas. |
 | `engine` | string | Cylindrée ou référence moteur du registre. |
 | `factory` | string | Origine ou région de fabrication. |
 | `fipeCodes` | string[] | Codes de référence FIPE liés au véhicule lorsqu'ils sont disponibles. |
@@ -214,8 +209,8 @@ task.resume()
 ### Remarques
 
 - Seul **`plate`** est obligatoire dans la chaîne de requête.
-- Les enregistrements issus de la source de registre peuvent retourner **`transmission`** sous forme de chaîne vide.
-- **`doors`** correspond à la capacité passagers de la source de registre.
+- Les enregistrements issus de la source de registre peuvent retourner **`transmission`** ou **`denatranWarning`** sous forme de chaîne vide.
+- **`doors`** peut être `"0"` lorsque la source de registre ne renvoie pas la capacité passagers.
 - **`fipeCodes`** peut être un tableau vide lorsqu'aucune correspondance FIPE n'existe.
 - Les fournisseurs de secours peuvent retourner une couverture de champs légèrement différente lorsque la source principale ne trouve aucune donnée.
 - Certains comptes activent une **fiche technique étendue par plaque** ; utilisez l'URL indiquée dans votre catalogue AppFeature lorsque cette fonctionnalité est active.

@@ -118,31 +118,26 @@ task.resume()
 ```json
 {
   "data": {
-    "bodyType": "Automóvel",
+    "bodyType": "AU - HATCH PEQUENO",
     "brand": "HYUNDAI",
-    "chassis": "91679",
-    "color": "Branca",
+    "chassis": "9BHBG51CAJP791679",
+    "color": "BRANCA",
     "country": "Brasil",
-    "denatranWarning": "Sem Restrição",
-    "doors": "5",
+    "denatranWarning": "",
+    "doors": "0",
     "engine": "998",
-    "factory": "Nacional",
-    "fipeCodes": [
-      "015088-6",
-      "015126-2",
-      "015150-5",
-      "015092-4"
-    ],
-    "fuelType": "Flex",
+    "factory": "NACIONAL",
+    "fipeCodes": [],
+    "fuelType": "ALCOOL / GASOLINA",
     "irregularitiesCount": 0,
     "irregularityCode": "",
     "manufacturer": "HYUNDAI",
-    "model": "HB20 1.0M COMFOR",
+    "model": "HYUNDAI/HB20 1.0M COMFOR",
     "modelYear": "2018",
     "plate": "PZY7H82",
     "transmission": "",
-    "vehicle": "Automóvel",
-    "version": "HB20 Comf./C.Plus/C.Style 1.0 Flex 12V",
+    "vehicle": "AUTOMOVEL",
+    "version": "HB20",
     "yearOfManufacture": "2017"
   },
   "signature": {
@@ -194,8 +189,8 @@ task.resume()
 | `chassis` | string | 登记来源返回的底盘号或 VIN。 |
 | `color` | string | 登记的车辆颜色。 |
 | `country` | string | 车辆记录所属国家。 |
-| `denatranWarning` | string | Denatran 或登记状态提示，例如 `Sem Restrição`。 |
-| `doors` | string | 登记来源返回的乘客容量。 |
+| `denatranWarning` | string | 可用时返回 Denatran 或登记状态提示；通常为空字符串。 |
+| `doors` | string | 登记来源中的乘客容量；来源未提供时可能为 `"0"`。 |
 | `engine` | string | 登记中的排量或发动机参考值。 |
 | `factory` | string | 来源或制造地区。 |
 | `fipeCodes` | string[] | 可用时返回与车辆相关的 FIPE 参考代码。 |
@@ -214,8 +209,8 @@ task.resume()
 ### 备注
 
 - 查询字符串中**必填**参数仅为 **`plate`**。
-- 登记来源记录可能将 **`transmission`** 返回为空字符串。
-- **`doors`** 表示登记来源中的乘客容量。
+- 登记来源记录可能将 **`transmission`** 或 **`denatranWarning`** 返回为空字符串。
+- 登记来源未返回乘客容量时，**`doors`** 可能为 `"0"`。
 - 没有 FIPE 匹配时，**`fipeCodes`** 可能为空数组。
 - 当主来源没有匹配并使用备用提供方时，返回字段覆盖范围可能略有不同。
 - 部分账户还会启用**按车牌扩展技术表**产品；启用时请使用 AppFeature 目录中给出的 URL。
