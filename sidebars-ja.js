@@ -169,8 +169,7 @@ const sidebars = {
 					label: "🇺🇸 United States",
 					collapsible: true,
 					items: [
-						{ type: "doc", id: "vehicle-validation/united-states", label: "車両（ナンバー・州）", key: "vehicle-united-states" },
-						{ type: "doc", id: "vehicle-validation/united-states/vehicle-by-vin", label: "車両（VIN）" },
+						{ type: "doc", id: "vehicle-validation/united-states/vehicle-by-vin", label: "車両（VIN）", key: "vehicle-united-states" },
 					],
 				},
 			],

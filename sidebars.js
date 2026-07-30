@@ -748,14 +748,9 @@ const sidebars = {
 					items: [
 						{
 							type: "doc",
-							id: "vehicle-validation/united-states",
-							label: "Vehicle by plate",
-							key: "vehicle-united-states",
-						},
-						{
-							type: "doc",
 							id: "vehicle-validation/united-states/vehicle-by-vin",
 							label: "Vehicle by VIN",
+							key: "vehicle-united-states",
 						},
 					],
 				},

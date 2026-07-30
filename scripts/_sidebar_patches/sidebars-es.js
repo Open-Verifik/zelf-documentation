@@ -573,14 +573,9 @@ const sidebars = {
 					items: [
 						{
 							type: "doc",
-							id: "validacion-vehiculos/estados-unidos",
-							label: "Vehículo por placa",
-							key: "vehiculos-estados-unidos",
-						},
-						{
-							type: "doc",
 							id: "validacion-vehiculos/estados-unidos-vin",
 							label: "Vehículo por VIN",
+							key: "vehiculos-estados-unidos",
 						},
 					],
 				},

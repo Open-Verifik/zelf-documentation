@@ -2666,7 +2666,7 @@ grouped by country or topic. Use it when you have a raw URL fragment (e.g. `v2/c
 
 If the search bar didn't find your endpoint, this page lists every API path along with whitespace-tokenized aliases so it shows up regardless of how you typed the URL.
 
-_Last regenerated: 2026-07-30T18:26:14.568Z_
+_Last regenerated: 2026-07-30T23:46:45.719Z_
 
 ## Argentina
 
@@ -3049,7 +3049,7 @@ _Last regenerated: 2026-07-30T18:26:14.568Z_
 | `v2/usa/florida/driver-license` | v2 usa florida driver-license usa/florida/driver-license /usa/florida/driver-license api/usa/florida/driver-license /api/usa/florida/driver-license api usa florida driver-license florida/driver-license /florida/driver-license api.verifik.co/v2/usa/florida/driver-license https://api.verifik.co/v2/usa/florida/driver-license GET v2/usa/florida/driver-license GET /v2/usa/florida/driver-license | [Florida Driver License](/driver-validation/florida-driver-license) |
 | `v2/usa/kansas/driver-license` | v2 usa kansas driver-license usa/kansas/driver-license /usa/kansas/driver-license api/usa/kansas/driver-license /api/usa/kansas/driver-license api usa kansas driver-license kansas/driver-license /kansas/driver-license api.verifik.co/v2/usa/kansas/driver-license https://api.verifik.co/v2/usa/kansas/driver-license GET v2/usa/kansas/driver-license GET /v2/usa/kansas/driver-license | [Kansas Driver License](/driver-validation/kansas-driver-license) |
 | `v2/usa/ssn` | v2 usa ssn usa/ssn /usa/ssn api/usa/ssn /api/usa/ssn api usa ssn api.verifik.co/v2/usa/ssn https://api.verifik.co/v2/usa/ssn GET v2/usa/ssn GET /v2/usa/ssn | [SSN Verification (Social Security Number)](/identity-validation/united-states/ssn-verification-social-security-number) |
-| `v2/usa/vehicle` | v2 usa vehicle usa/vehicle /usa/vehicle api/usa/vehicle /api/usa/vehicle api usa vehicle api.verifik.co/v2/usa/vehicle https://api.verifik.co/v2/usa/vehicle GET v2/usa/vehicle GET /v2/usa/vehicle | [\U0001F1FA\U0001F1F8 United States - Vehicle Information](/vehicle-validation/united-states) |
+| `v2/usa/vehicle` | v2 usa vehicle usa/vehicle /usa/vehicle api/usa/vehicle /api/usa/vehicle api usa vehicle api.verifik.co/v2/usa/vehicle https://api.verifik.co/v2/usa/vehicle GET v2/usa/vehicle GET /v2/usa/vehicle | [🇺🇸 United States - Vehicle Information](/vehicle-validation/united-states) |
 | `v2/usa/vehicle-by-vin` | v2 usa vehicle-by-vin usa/vehicle-by-vin /usa/vehicle-by-vin api/usa/vehicle-by-vin /api/usa/vehicle-by-vin api usa vehicle-by-vin api.verifik.co/v2/usa/vehicle-by-vin https://api.verifik.co/v2/usa/vehicle-by-vin GET v2/usa/vehicle-by-vin GET /v2/usa/vehicle-by-vin | [United States - Vehicle by VIN](/vehicle-validation/united-states/vehicle-by-vin) |
 
 ## Zelf Proof

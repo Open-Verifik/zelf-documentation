@@ -168,8 +168,7 @@ const sidebars = {
 					label: "🇺🇸 United States",
 					collapsible: true,
 					items: [
-						{ type: "doc", id: "vehicle-validation/united-states", label: "Veículo por placa (estado)", key: "vehicle-united-states" },
-						{ type: "doc", id: "vehicle-validation/united-states/vehicle-by-vin", label: "Veículo por VIN" },
+						{ type: "doc", id: "vehicle-validation/united-states/vehicle-by-vin", label: "Veículo por VIN", key: "vehicle-united-states" },
 					],
 				},
 			],
