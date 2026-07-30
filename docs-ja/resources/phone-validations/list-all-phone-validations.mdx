@@ -1,0 +1,285 @@
+---
+id: list-all-phone-validations
+title: すべての電話番号認証を一覧取得
+slug: /resources/list-all-phone-validations
+description: 任意のフィルタリングとページネーションで、すべての電話番号認証の一覧を取得する
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - GET v2/phone-validations
+  - GET /v2/phone-validations
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/phone-validations
+```
+
+このサービスは、任意のフィルタリングとページネーションで、すべての電話番号認証の一覧を取得します。プロジェクト、ステータス、種類などのパラメータでフィルタし、特定の電話番号認証を見つけられます。
+
+#### Headers
+
+#### `Content-Type`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `application/json`
+
+#### `Authorization`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `Bearer {YOUR_ACCESS_TOKEN}`
+
+#### Query Parameters
+
+#### `page`
+
+**Type:** Number  
+**Required:** No
+
+ページネーション用のページ番号（デフォルト: 1）。
+
+#### `limit`
+
+**Type:** Number  
+**Required:** No
+
+ページあたりのレコード数（デフォルト: 10、最大: 100）。
+
+#### `project`
+
+**Type:** String  
+**Required:** No
+
+プロジェクト ID でフィルタします。
+
+#### `status`
+
+**Type:** String  
+**Required:** No
+
+ステータスでフィルタ: `new`、`sent`、`validated`、`failed`。
+
+#### `type`
+
+**Type:** String  
+**Required:** No
+
+種類でフィルタ: `validation`、`login`、`onboarding`。
+
+#### `countryCode`
+
+**Type:** String  
+**Required:** No
+
+国コードでフィルタします。
+
+#### `phone`
+
+**Type:** String  
+**Required:** No
+
+電話番号でフィルタします。
+
+#### `populates[]`
+
+**Type:** String  
+**Required:** No
+
+含める関連データの任意の配列。利用可能なオプション: `client`、`project`、`projectFlow`。
+
+### Request
+
+<Tabs groupId="language">
+  <TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/phone-validations',
+  params: {
+    page: 1,
+    limit: 10,
+    status: 'validated',
+    type: 'validation',
+    countryCode: '+1',
+    'populates[]': ['client', 'project']
+  },
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer <your_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer <your_token>'
+}
+
+conn.request("GET", "/v2/phone-validations?page=1&limit=10&status=validated&type=validation&countryCode=%2B1&populates[]=client&populates[]=project", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('GET', 'https://api.verifik.co/v2/phone-validations', [
+  'headers' => [
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer <your_token>',
+  ],
+  'query' => [
+    'page' => 1,
+    'limit' => 10,
+    'status' => 'validated',
+    'type' => 'validation',
+    'countryCode' => '+1',
+    'populates[]' => ['client', 'project']
+  ]
+]);
+
+echo $response->getBody();
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import (
+	"fmt"
+	"io"
+	"net/http"
+)
+
+func main() {
+	url := "https://api.verifik.co/v2/phone-validations?page=1&limit=10&status=validated&type=validation&countryCode=%2B1&populates[]=client&populates[]=project"
+
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", "Bearer <your_token>")
+
+	client := &http.Client{}
+	res, _ := client.Do(req)
+	defer res.Body.Close()
+
+	body, _ := io.ReadAll(res.Body)
+	fmt.Println(string(body))
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs groupId="status">
+  <TabItem value="200" label="200">
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "phone_validation_123456789",
+      "client": {
+        "_id": "client_123456789",
+        "name": "Example Client",
+        "email": "client@example.com"
+      },
+      "project": {
+        "_id": "project_123456789",
+        "name": "Example Project",
+        "description": "Example project description"
+      },
+      "status": "validated",
+      "countryCode": "+1",
+      "phone": "1234567890",
+      "type": "validation",
+      "validationMethod": "verificationCode",
+      "expiresAt": "2024-01-15T11:30:00Z",
+      "attempts": 1,
+      "maxAttempts": 3,
+      "createdAt": "2024-01-15T10:30:00Z",
+      "updatedAt": "2024-01-15T10:32:00Z",
+      "validatedAt": "2024-01-15T10:32:00Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 1,
+    "pages": 1
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="400" label="400">
+
+```json
+{
+  "success": false,
+  "error": "Invalid query parameters",
+  "code": "INVALID_PARAMETERS"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Features
+
+- **完全な一覧**: アカウント内のすべての電話番号認証を取得
+- **ページネーション**: page と limit によるページネーションに対応
+- **高度なフィルタリング**: プロジェクト、ステータス、種類、国コード、電話番号でフィルタ
+- **データのポピュレート**: クライアントやプロジェクトなどの関連情報を含める
+- **複数の状態**: ステータス（new、sent、validated、failed）でフィルタ
+- **国コード**: 国際国コードによる具体的なフィルタリング
+- **複数言語**: JavaScript、Python、PHP、Swift に対応
+- **詳細情報**: 試行回数、上限、検証タイムスタンプを含む

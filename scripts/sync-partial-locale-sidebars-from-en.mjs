@@ -17,11 +17,41 @@ const dryRun = args.includes("--dry-run");
 const localeOpt = args.find((a) => a.startsWith("--locale="))?.split("=")[1];
 
 const LOCALES = {
-	fr: { folder: "docs-fr", sidebar: "sidebars-fr.js", intro: "Accueil" },
-	pt: { folder: "docs-pt", sidebar: "sidebars-pt.js", intro: "Início" },
-	ko: { folder: "docs-ko", sidebar: "sidebars-ko.js", intro: "홈" },
-	ja: { folder: "docs-ja", sidebar: "sidebars-ja.js", intro: "ホーム" },
-	zh: { folder: "docs-zh", sidebar: "sidebars-zh.js", intro: "首页" },
+	fr: {
+		folder: "docs-fr",
+		sidebar: "sidebars-fr.js",
+		intro: "Accueil",
+		resourcesLabel: "RESSOURCES",
+		phoneValidationsLabel: "Validations téléphoniques",
+	},
+	pt: {
+		folder: "docs-pt",
+		sidebar: "sidebars-pt.js",
+		intro: "Início",
+		resourcesLabel: "RECURSOS",
+		phoneValidationsLabel: "Validações de telefone",
+	},
+	ko: {
+		folder: "docs-ko",
+		sidebar: "sidebars-ko.js",
+		intro: "홈",
+		resourcesLabel: "리소스",
+		phoneValidationsLabel: "전화 인증",
+	},
+	ja: {
+		folder: "docs-ja",
+		sidebar: "sidebars-ja.js",
+		intro: "ホーム",
+		resourcesLabel: "リソース",
+		phoneValidationsLabel: "電話認証",
+	},
+	zh: {
+		folder: "docs-zh",
+		sidebar: "sidebars-zh.js",
+		intro: "首页",
+		resourcesLabel: "资源",
+		phoneValidationsLabel: "电话验证",
+	},
 };
 
 /** EN categories partial locales mirror (in this order).
@@ -34,10 +64,43 @@ const EN_CATEGORY_LABELS = [
 	"BACKGROUND CHECK",
 ];
 
-/** Partial-only categories appended after BACKGROUND CHECK (before VERIFIK LLC). */
-const PARTIAL_ONLY_AFTER_BACKGROUND = ["Certificados", "Certificates", "Certificats", "証明書", "证书", "증명서"];
+/** Partial-only categories appended after BACKGROUND CHECK (before RESOURCES / VERIFIK LLC). */
+const PARTIAL_ONLY_AFTER_BACKGROUND = [
+	"Certificados",
+	"Certificates",
+	"Certificats",
+	"証明書",
+	"证书",
+	"증명서",
+	"VOTE",
+	"VOTAÇÃO",
+	"투표",
+	"投票",
+];
+
+/** Localized RESOURCES parent labels (and EN) — excluded from generic preserve so we rebuild Phone Validations. */
+const RESOURCES_LABELS = new Set([
+	"RESOURCES",
+	"RESSOURCES",
+	"RECURSOS",
+	"리소스",
+	"リソース",
+	"资源",
+]);
 
 const VERIFIK_LLC_LABEL = "VERIFIK LLC";
+
+/** English Phone Validations sidebar item ids (order must match sidebars.js). */
+const PHONE_VALIDATION_DOC_IDS = [
+	"resources/phone-validations/phone-validations",
+	"resources/phone-validations/the-phone-validation-object",
+	"resources/phone-validations/create-a-manual-phone-validation",
+	"resources/phone-validations/create-a-phone-validation",
+	"resources/phone-validations/retrieve-a-phone-validation",
+	"resources/phone-validations/list-all-phone-validations",
+	"resources/phone-validations/validate-a-phone-validation",
+	"phone-validations/sms-and-whatsapp-prices",
+];
 
 const DOC_EXTENSIONS = [".mdx", ".md"];
 
@@ -280,6 +343,34 @@ const validateSidebarDocIds = (items, localeDocs, missing = []) => {
 	return missing;
 };
 
+const isManagedEnCategoryLabel = (label, localeDocs, enDocs, localeSlugToDocId, enSidebar) => {
+	for (const enLabel of EN_CATEGORY_LABELS) {
+		const enCategory = findEnCategory(enSidebar, enLabel);
+		if (!enCategory) continue;
+		if (label === enLabel || label === enCategory.label) return true;
+	}
+	return false;
+};
+
+const buildPhoneValidationsCategory = (localeDocs, enDocs, localeSlugToDocId, phoneLabel) => {
+	const items = [];
+	for (const enId of PHONE_VALIDATION_DOC_IDS) {
+		const localeId = resolveLocaleDocId(enId, enDocs, localeDocs, localeSlugToDocId);
+		if (localeId && localeDocs.has(localeId)) {
+			items.push(localeId);
+		} else if (localeDocs.has(enId)) {
+			items.push(enId);
+		}
+	}
+	if (!items.length) return null;
+	return {
+		type: "category",
+		label: phoneLabel,
+		collapsible: true,
+		items,
+	};
+};
+
 const buildSidebarForLocale = async (locale, config, enSidebar, partialSidebar, enDocs, localeIndex) => {
 	const byId = indexPartialNodes(partialSidebar.tutorialSidebar);
 	const { docs: localeDocs, slugToDocId: localeSlugToDocId } = localeIndex;
@@ -287,6 +378,27 @@ const buildSidebarForLocale = async (locale, config, enSidebar, partialSidebar, 
 
 	const introNode = partialSidebar.tutorialSidebar.find((e) => e.type === "doc" && e.id === "intro");
 	output.push(introNode || { type: "doc", id: "intro", label: config.intro });
+
+	/** Preserve partial-only categories that appear before Identity (e.g. Services). */
+	for (const entry of partialSidebar.tutorialSidebar) {
+		if (!entry || entry.type !== "category") continue;
+		if (entry.label === VERIFIK_LLC_LABEL) continue;
+		if (RESOURCES_LABELS.has(entry.label)) continue;
+		if (PARTIAL_ONLY_AFTER_BACKGROUND.includes(entry.label)) continue;
+		if (isManagedEnCategoryLabel(entry.label, localeDocs, enDocs, localeSlugToDocId, enSidebar)) {
+			continue;
+		}
+
+		const filtered = filterTree(entry.items, byId, enDocs, localeDocs, localeSlugToDocId);
+		if (!filtered.length) continue;
+		output.push({
+			type: "category",
+			label: entry.label,
+			collapsible: entry.collapsible ?? false,
+			...(entry.link?.id ? { link: { type: "doc", id: entry.link.id } } : {}),
+			items: filtered,
+		});
+	}
 
 	for (const enLabel of EN_CATEGORY_LABELS) {
 		const enCategory = findEnCategory(enSidebar, enLabel);
@@ -312,24 +424,55 @@ const buildSidebarForLocale = async (locale, config, enSidebar, partialSidebar, 
 		});
 	}
 
-	const certificatesCategory = partialSidebar.tutorialSidebar.find(
-		(entry) => entry.type === "category" && PARTIAL_ONLY_AFTER_BACKGROUND.includes(entry.label)
-	);
-	if (certificatesCategory) {
-		const filteredCerts = filterTree(
-			certificatesCategory.items,
-			byId,
-			enDocs,
-			localeDocs,
-			localeSlugToDocId
+	for (const label of PARTIAL_ONLY_AFTER_BACKGROUND) {
+		const category = partialSidebar.tutorialSidebar.find(
+			(entry) => entry.type === "category" && entry.label === label
 		);
-		if (filteredCerts.length) {
-			output.push({
-				type: "category",
-				label: certificatesCategory.label,
-				collapsible: certificatesCategory.collapsible ?? false,
-				items: filteredCerts,
-			});
+		if (!category) continue;
+		const filtered = filterTree(category.items, byId, enDocs, localeDocs, localeSlugToDocId);
+		if (!filtered.length) continue;
+		output.push({
+			type: "category",
+			label: category.label,
+			collapsible: category.collapsible ?? false,
+			items: filtered,
+		});
+	}
+
+	const phoneCategory = buildPhoneValidationsCategory(
+		localeDocs,
+		enDocs,
+		localeSlugToDocId,
+		config.phoneValidationsLabel
+	);
+	if (phoneCategory) {
+		output.push({
+			type: "category",
+			label: config.resourcesLabel,
+			collapsible: false,
+			items: [phoneCategory],
+		});
+	} else {
+		/** Fallback: keep existing RESOURCES block from partial sidebar if present. */
+		const existingResources = partialSidebar.tutorialSidebar.find(
+			(entry) => entry.type === "category" && RESOURCES_LABELS.has(entry.label)
+		);
+		if (existingResources) {
+			const filtered = filterTree(
+				existingResources.items,
+				byId,
+				enDocs,
+				localeDocs,
+				localeSlugToDocId
+			);
+			if (filtered.length) {
+				output.push({
+					type: "category",
+					label: existingResources.label,
+					collapsible: existingResources.collapsible ?? false,
+					items: filtered,
+				});
+			}
 		}
 	}
 

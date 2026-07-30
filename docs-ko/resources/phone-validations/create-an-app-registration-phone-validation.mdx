@@ -1,0 +1,269 @@
+---
+id: resources-phone-validations-create-an-app-registration-phone-validation
+title: 앱 등록 전화번호 검증 생성
+description: 사용자 전화번호를 확인하기 위해 앱 등록용 전화번호 검증을 생성합니다
+slug: /resources/phone-validations/create-an-app-registration-phone-validation
+keywords:
+  - v2/phone-validations/app-registration
+  - /v2/phone-validations/app-registration
+  - v2 phone-validations app-registration
+  - api/phone-validations/app-registration
+  - /api/phone-validations/app-registration
+  - api phone-validations app-registration
+  - api.verifik.co/v2/phone-validations/app-registration
+  - 'https://api.verifik.co/v2/phone-validations/app-registration'
+  - GET v2/phone-validations/app-registration
+  - GET /v2/phone-validations/app-registration
+  - phone-validations/app-registration
+  - /phone-validations/app-registration
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+POST https://api.verifik.co/v2/phone-validations/app-registration
+```
+
+전화번호 검증은 앱 등록 과정에서 전화번호를 처리하고 검증할 수 있게 해주는 Verifik 시스템의 인스턴스입니다. 이 프로세스는 사용자 전화번호의 진위를 보장하며 SMS 또는 WhatsApp 전달 방식을 통해 안전한 확인을 제공합니다.
+
+:::warning
+`App Registration Phone Validations`를 생성할 때 사용해야 하는 JWT 토큰은 `App Registration` 생성 시 제공됩니다. 이 요청을 인증하려면 [App Registration](https://docs.verifik.co/resources/app-registrations/create-an-app-registration)을 생성할 때 반환된 토큰을 사용해야 합니다.
+:::
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `project` | string | Yes | 이 전화번호 검증이 사용될 프로젝트의 고유 식별자 |
+| `validationMethod` | string | Yes | 검증 방법. `verificationCode`여야 함 |
+| `phone` | string | Yes | 검증할 전화번호. 처리 중 공백은 자동으로 제거됨 |
+| `countryCode` | string | Yes | `+XXX` 형식의 전화번호 국가 코드(예: 파나마 `+507`, 미국 `+1`). `+` 뒤에 1~3자리 숫자 형식과 일치해야 함 |
+| `type` | string | Yes | 검증 유형. 다음 중 하나여야 함: `validation`, `login`, `onboarding`, 또는 `oneTimeLink` |
+| `expiresAt` | string | No | 검증 코드의 선택적 만료일. 제공하지 않으면 기본 만료 시간이 설정됨. 형식: ISO 8601(예: `2024-12-31T23:59:59.000Z`) |
+| `redirectUrl` | string | No | 검증 후 리디렉션을 위한 선택적 URL |
+| `webhookUrl` | string | No | 검증 알림을 위한 선택적 웹훅 URL |
+| `identityUrl` | string | No | 선택적 신원 확인 URL |
+| `requires2FA` | boolean | No | 2단계 인증이 필요한지 여부를 나타내는 선택적 플래그. 기본값 `false` |
+| `ipAddress` | string | No | 사용자의 선택적 IP 주소 |
+
+#### Validation Method Values
+
+| Value | Description |
+| --- | --- |
+| `verificationCode` | 확인을 위해 전화번호로 일회용 비밀번호(OTP)를 전송합니다 |
+
+#### Type Values
+
+| Value | Description |
+| --- | --- |
+| `onboarding` | 사용자 등록 중 전화 확인(앱 등록에 권장) |
+| `validation` | 일반 전화번호 검증 |
+| `login` | 사용자 로그인 중 전화 확인 |
+| `oneTimeLink` | 일회용 링크 검증 |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+const fetch = require("node-fetch");
+
+async function run() {
+  const res = await fetch("https://api.verifik.co/v2/phone-validations/app-registration", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+    },
+    body: JSON.stringify({
+      project: "507f1f77bcf86cd799439011",
+      validationMethod: "verificationCode",
+      phone: "62647737",
+      countryCode: "+507",
+      type: "onboarding"
+    }),
+  });
+  console.log(await res.json());
+}
+
+run();
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+$ch = curl_init("https://api.verifik.co/v2/phone-validations/app-registration");
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/json",
+    "Authorization: Bearer " . getenv("VERIFIK_TOKEN")
+]);
+$body = json_encode([
+    "project" => "507f1f77bcf86cd799439011",
+    "validationMethod" => "verificationCode",
+    "phone" => "62647737",
+    "countryCode" => "+507",
+    "type" => "onboarding"
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/phone-validations/app-registration"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"
+}
+payload = {
+    "project": "507f1f77bcf86cd799439011",
+    "validationMethod": "verificationCode",
+    "phone": "62647737",
+    "countryCode": "+507",
+    "type": "onboarding"
+}
+r = requests.post(url, json=payload, headers=headers)
+print(r.json())
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    payload := map[string]interface{}{
+        "project": "507f1f77bcf86cd799439011",
+        "validationMethod": "verificationCode",
+        "phone": "62647737",
+        "countryCode": "+507",
+        "type": "onboarding",
+    }
+    b, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("POST", "https://api.verifik.co/v2/phone-validations/app-registration", bytes.NewBuffer(b))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer "+os.Getenv("VERIFIK_TOKEN"))
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    var out map[string]interface{}
+    json.NewDecoder(resp.Body).Decode(&out)
+    fmt.Println(out)
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+    "data": {
+        "client": "507f1f77bcf86cd799439013",
+        "project": "507f1f77bcf86cd799439011",
+        "projectFlow": "507f1f77bcf86cd799439015",
+        "status": "sent",
+        "countryCode": "+507",
+        "phone": "62647737",
+        "phoneGateway": "whatsapp",
+        "otp": "$2a$10$/v55.1QmwlCdX6zD1jy51OF87POIDZzj30.UmTtp13pZv6uKm.a.m",
+        "expiresAt": "2024-12-02T17:15:35.000Z",
+        "phoneData": {},
+        "type": "validation",
+        "redirectUrl": "https://api.verifik.co",
+        "requires2FA": false,
+        "ipAddress": "172.17.0.1",
+        "language": "en",
+        "_id": "674de8df21c72be3cc42b8a7",
+        "updatedAt": "2024-12-02T17:05:36.788Z",
+        "createdAt": "2024-12-02T17:05:36.788Z",
+        "__v": 0,
+        "new": true
+    }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "missing project\n. missing validationMethod\n. missing phone\n. missing countryCode\n. missing type"
+}
+```
+
+  </TabItem>
+  <TabItem value="409-countrycode" label="409 (Invalid Country Code Format)">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "Invalid countryCode format. CountryCode should be in the format + followed by 1 to 3 digits."
+}
+```
+
+  </TabItem>
+  <TabItem value="404-project" label="404 (Project Not Found)">
+
+```json
+{
+    "code": "project_not_found",
+    "message": "404:project_not_found"
+}
+```
+
+  </TabItem>
+  <TabItem value="404-flow" label="404 (Project Flow Not Found)">
+
+```json
+{
+    "code": "projectFlow_not_found",
+    "message": "404:projectFlow_not_found"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Notes
+
+- **국가 코드 형식**: `countryCode`는 `+XXX` 형식이어야 하며, X는 숫자입니다(최대 1–3자리). 예: `+1`, `+507`, `+52`.
+- **전화번호**: 전화번호의 공백은 처리 중 자동으로 제거됩니다.
+- **OTP 보안**: OTP는 보안을 위해 저장 전 bcrypt로 암호화됩니다.
+- **기본 게이트웨이**: 전화 검증은 프로젝트 플로우 구성에 따라 기본적으로 WhatsApp 전달 방식을 사용합니다.
+- **자동 연결**: app-registration 엔드포인트를 통해 생성되면 전화 검증이 사용자의 앱 등록 레코드에 자동으로 연결됩니다.
+- **크레딧 청구**: 이 엔드포인트는 SmartEnroll 플랜에서 크레딧을 자동으로 차감합니다.
+- **App Registration 필요**: 이 엔드포인트에는 활성 앱 등록 세션이 필요합니다. App Registration 생성 시 반환된 토큰을 사용해야 합니다.

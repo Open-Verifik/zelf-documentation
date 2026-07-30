@@ -1,0 +1,269 @@
+---
+id: resources-phone-validations-create-an-app-registration-phone-validation
+title: 创建 App Registration 手机验证
+description: 为 App Registration 创建手机验证以核实用户手机号码
+slug: /resources/phone-validations/create-an-app-registration-phone-validation
+keywords:
+  - v2/phone-validations/app-registration
+  - /v2/phone-validations/app-registration
+  - v2 phone-validations app-registration
+  - api/phone-validations/app-registration
+  - /api/phone-validations/app-registration
+  - api phone-validations app-registration
+  - api.verifik.co/v2/phone-validations/app-registration
+  - 'https://api.verifik.co/v2/phone-validations/app-registration'
+  - GET v2/phone-validations/app-registration
+  - GET /v2/phone-validations/app-registration
+  - phone-validations/app-registration
+  - /phone-validations/app-registration
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### 端点
+
+```
+POST https://api.verifik.co/v2/phone-validations/app-registration
+```
+
+手机验证是 Verifik 系统中的一个实例，使您能够在 App Registration 过程中处理并验证手机号码。该过程确保用户手机号码的真实性，并通过 SMS 或 WhatsApp 投递方式提供安全验证。
+
+:::warning
+创建 `App Registration Phone Validations` 时应使用的 JWT 令牌来自创建 `App Registration` 时返回的令牌。您必须使用创建 [App Registration](https://docs.verifik.co/resources/app-registrations/create-an-app-registration) 时返回的令牌来验证此请求。
+:::
+
+### 请求头
+
+| 名称 | 值 |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### 参数
+
+| 名称 | 类型 | 必需 | 说明 |
+| --- | --- | --- | --- |
+| `project` | string | 是 | 将使用此手机验证的项目唯一标识符 |
+| `validationMethod` | string | 是 | 验证方法。必须为 `verificationCode` |
+| `phone` | string | 是 | 将要验证的手机号码。处理过程中会自动移除空格 |
+| `countryCode` | string | 是 | 手机号码的国家代码，格式为 `+XXX`（例如巴拿马为 `+507`，美国为 `+1`）。必须匹配 `+` 后跟 1 到 3 位数字的格式 |
+| `type` | string | 是 | 验证类型。必须为以下之一：`validation`、`login`、`onboarding` 或 `oneTimeLink` |
+| `expiresAt` | string | 否 | 验证码的可选过期日期。若未提供，将设置默认过期时间。格式：ISO 8601（例如 `2024-12-31T23:59:59.000Z`） |
+| `redirectUrl` | string | 否 | 验证后重定向的可选 URL |
+| `webhookUrl` | string | 否 | 验证通知的可选 webhook URL |
+| `identityUrl` | string | 否 | 可选的身份验证 URL |
+| `requires2FA` | boolean | 否 | 指示是否需要双因素身份验证的可选标志。默认为 `false` |
+| `ipAddress` | string | 否 | 用户的可选 IP 地址 |
+
+#### 验证方法取值
+
+| 值 | 说明 |
+| --- | --- |
+| `verificationCode` | 向手机号码发送一次性密码（OTP）以进行验证 |
+
+#### 类型取值
+
+| 值 | 说明 |
+| --- | --- |
+| `onboarding` | 用户注册期间的手机验证（推荐用于 App Registration） |
+| `validation` | 通用手机号码验证 |
+| `login` | 用户登录期间的手机验证 |
+| `oneTimeLink` | 一次性链接验证 |
+
+### 请求
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+const fetch = require("node-fetch");
+
+async function run() {
+  const res = await fetch("https://api.verifik.co/v2/phone-validations/app-registration", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+    },
+    body: JSON.stringify({
+      project: "507f1f77bcf86cd799439011",
+      validationMethod: "verificationCode",
+      phone: "62647737",
+      countryCode: "+507",
+      type: "onboarding"
+    }),
+  });
+  console.log(await res.json());
+}
+
+run();
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+$ch = curl_init("https://api.verifik.co/v2/phone-validations/app-registration");
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/json",
+    "Authorization: Bearer " . getenv("VERIFIK_TOKEN")
+]);
+$body = json_encode([
+    "project" => "507f1f77bcf86cd799439011",
+    "validationMethod" => "verificationCode",
+    "phone" => "62647737",
+    "countryCode" => "+507",
+    "type" => "onboarding"
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/phone-validations/app-registration"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"
+}
+payload = {
+    "project": "507f1f77bcf86cd799439011",
+    "validationMethod": "verificationCode",
+    "phone": "62647737",
+    "countryCode": "+507",
+    "type": "onboarding"
+}
+r = requests.post(url, json=payload, headers=headers)
+print(r.json())
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    payload := map[string]interface{}{
+        "project": "507f1f77bcf86cd799439011",
+        "validationMethod": "verificationCode",
+        "phone": "62647737",
+        "countryCode": "+507",
+        "type": "onboarding",
+    }
+    b, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("POST", "https://api.verifik.co/v2/phone-validations/app-registration", bytes.NewBuffer(b))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer "+os.Getenv("VERIFIK_TOKEN"))
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    var out map[string]interface{}
+    json.NewDecoder(resp.Body).Decode(&out)
+    fmt.Println(out)
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### 响应
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+    "data": {
+        "client": "507f1f77bcf86cd799439013",
+        "project": "507f1f77bcf86cd799439011",
+        "projectFlow": "507f1f77bcf86cd799439015",
+        "status": "sent",
+        "countryCode": "+507",
+        "phone": "62647737",
+        "phoneGateway": "whatsapp",
+        "otp": "$2a$10$/v55.1QmwlCdX6zD1jy51OF87POIDZzj30.UmTtp13pZv6uKm.a.m",
+        "expiresAt": "2024-12-02T17:15:35.000Z",
+        "phoneData": {},
+        "type": "validation",
+        "redirectUrl": "https://api.verifik.co",
+        "requires2FA": false,
+        "ipAddress": "172.17.0.1",
+        "language": "en",
+        "_id": "674de8df21c72be3cc42b8a7",
+        "updatedAt": "2024-12-02T17:05:36.788Z",
+        "createdAt": "2024-12-02T17:05:36.788Z",
+        "__v": 0,
+        "new": true
+    }
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "missing project\n. missing validationMethod\n. missing phone\n. missing countryCode\n. missing type"
+}
+```
+
+  </TabItem>
+  <TabItem value="409-countrycode" label="409 (Invalid Country Code Format)">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "Invalid countryCode format. CountryCode should be in the format + followed by 1 to 3 digits."
+}
+```
+
+  </TabItem>
+  <TabItem value="404-project" label="404 (Project Not Found)">
+
+```json
+{
+    "code": "project_not_found",
+    "message": "404:project_not_found"
+}
+```
+
+  </TabItem>
+  <TabItem value="404-flow" label="404 (Project Flow Not Found)">
+
+```json
+{
+    "code": "projectFlow_not_found",
+    "message": "404:projectFlow_not_found"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### 说明
+
+- **国家代码格式**：`countryCode` 必须为 `+XXX` 格式，其中 X 为数字（最多 1–3 位）。例如：`+1`、`+507`、`+52`。
+- **手机号码**：处理过程中会自动移除手机号码中的空格。
+- **OTP 安全**：OTP 在存储前使用 bcrypt 加密以确保安全。
+- **默认网关**：手机验证默认根据您的项目流程配置使用 WhatsApp 投递方式。
+- **自动关联**：通过 app-registration 端点创建时，手机验证会自动关联到用户的 App Registration 记录。
+- **积分扣费**：此端点会自动从您的 SmartEnroll 计划中扣除积分。
+- **需要 App Registration**：此端点需要有效的 App Registration 会话。您必须使用创建 App Registration 时返回的令牌。

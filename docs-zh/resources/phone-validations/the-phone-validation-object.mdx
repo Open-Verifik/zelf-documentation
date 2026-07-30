@@ -1,0 +1,210 @@
+---
+id: the-phone-validation-object
+title: 手机验证对象
+slug: /resources/the-phone-validation-object
+description: 手机验证对象表示在您的 Verifik 项目中验证手机号码的过程
+---
+
+### 概述
+
+手机验证对象表示在您的 Verifik 项目中验证手机号码的过程。该对象包含跟踪和管理手机验证请求所需的全部信息。
+
+### 属性
+
+#### `client`
+
+**类型：** string（引用 id）  
+**必需：** 只读
+
+拥有此手机验证的客户端账户。根据您的身份验证令牌自动设置。
+
+#### `project`
+
+**类型：** string（引用 id）  
+**必需：** 可选
+
+执行此手机验证的项目。对于 **手动 / Smart Tools** 发送（`POST /phone-validations/manual`）为可选。
+
+#### `projectFlow`
+
+**类型：** string（引用 id）  
+**必需：** 可选
+
+执行此手机验证的项目流程。大多数基于项目的流程需要；独立手动发送时可省略。
+
+#### `source`
+
+**类型：** String  
+**必需：** 可选（默认为 `"flow"`）
+
+OTP 的创建方式：
+
+* `"manual"` — 独立 Smart Tools / `POST /phone-validations/manual`
+* `"flow"` — 项目或 App Registration 流程
+
+#### `phoneGateway`
+
+**类型：** String  
+**必需：** 可选
+
+投递渠道：`"sms"`、`"whatsapp"` 或 `"none"`。
+
+#### `phoneData`
+
+**类型：** Object  
+**必需：** 可选
+
+模板元数据。对于 WhatsApp/SMS OTP，`phoneData.title` 是消息中显示的公司 / 区块名称（最多 15 个字符）。
+
+#### `status`
+
+**类型：** String  
+**必需：** 必需
+
+手机验证过程的当前状态。可为：
+
+* `"new"` - 验证请求已创建但尚未处理（默认）
+* `"sent"` - 验证码已发送给用户
+* `"validated"` - 手机已成功验证
+* `"failed"` - 手机验证失败或已过期
+
+#### `countryCode`
+
+**类型：** String  
+**必需：** 必需
+
+手机号码的国际拨号代码（例如美国为 `"+1"`，英国为 `"+44"`，哥伦比亚为 `"+57"`）。
+
+#### `phone`
+
+**类型：** String  
+**必需：** 必需
+
+正在验证的手机号码（空格会自动移除）。
+
+#### `type`
+
+**类型：** String  
+**必需：** 必需
+
+正在执行的手机验证类型：
+
+* `"validation"` - 通用手机号码验证
+* `"login"` - 用户登录期间的手机验证
+* `"onboarding"` - 用户注册期间的手机验证
+
+#### `validationMethod`
+
+**类型：** String  
+**必需：** 必需
+
+用于手机验证的方法：
+
+* `"verificationCode"` - 通过 SMS 发送的 OTP 验证码
+* `"manual"` - 手动验证流程
+
+#### `verificationCode`
+
+**类型：** String  
+**必需：** 可选
+
+为手机验证生成的 OTP 验证码（仅当 `validationMethod` 为 `"verificationCode"` 时存在）。
+
+#### `expiresAt`
+
+**类型：** Date  
+**必需：** 可选
+
+验证码的过期日期和时间。默认在 OTP 发送或重发后 **10 分钟**。可用于在 UI 中显示倒计时；过期后验证会失败并返回 `phoneValidation_has_expired`。
+
+#### `redirectUrl`
+
+**类型：** String  
+**必需：** 可选
+
+验证成功后重定向的 URL。
+
+#### `webhookUrl`
+
+**类型：** String  
+**必需：** 可选
+
+用于验证状态通知的 Webhook URL。
+
+#### `identityUrl`
+
+**类型：** String  
+**必需：** 可选
+
+用于额外验证步骤的身份验证 URL。
+
+#### `requires2FA`
+
+**类型：** Boolean  
+**必需：** 可选
+
+指示是否需要双因素身份验证的标志。
+
+#### `ipAddress`
+
+**类型：** String  
+**必需：** 可选
+
+执行验证的用户的 IP 地址。
+
+#### `attempts`
+
+**类型：** Number  
+**必需：** 可选
+
+已进行的验证尝试次数。
+
+#### `maxAttempts`
+
+**类型：** Number  
+**必需：** 可选
+
+允许的最大验证尝试次数。
+
+#### `createdAt`
+
+**类型：** Date  
+**必需：** 必需
+
+创建手机验证的时间戳。
+
+#### `updatedAt`
+
+**类型：** Date  
+**必需：** 必需
+
+手机验证最后更新的时间戳。
+
+#### `validatedAt`
+
+**类型：** Date  
+**必需：** 可选
+
+手机验证成功完成的时间戳。
+
+### 示例对象
+
+```json
+{
+  "_id": "66f0a1b2c3d4e5f678901234",
+  "client": "66f0a1b2c3d4e5f678900000",
+  "source": "manual",
+  "status": "sent",
+  "countryCode": "+57",
+  "phone": "3001234567",
+  "phoneGateway": "whatsapp",
+  "type": "validation",
+  "phoneData": {
+    "title": "Company ABC"
+  },
+  "language": "en",
+  "expiresAt": "2026-07-29T22:50:00.000Z",
+  "createdAt": "2026-07-29T22:40:00.000Z",
+  "updatedAt": "2026-07-29T22:40:00.000Z"
+}
+```

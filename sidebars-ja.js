@@ -219,6 +219,28 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "リソース",
+			collapsible: false,
+			items: [
+				{
+					type: "category",
+					label: "電話認証",
+					collapsible: true,
+					items: [
+						"resources/phone-validations/phone-validations",
+						"resources/phone-validations/the-phone-validation-object",
+						"resources/phone-validations/create-a-manual-phone-validation",
+						"resources/phone-validations/create-a-phone-validation",
+						"resources/phone-validations/retrieve-a-phone-validation",
+						"resources/phone-validations/list-all-phone-validations",
+						"resources/phone-validations/validate-a-phone-validation",
+						"phone-validations/sms-and-whatsapp-prices",
+					],
+				},
+			],
+		},
+		{
+			type: "category",
 			label: "VERIFIK LLC",
 			collapsible: false,
 			items: [

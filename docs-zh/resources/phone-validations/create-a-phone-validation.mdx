@@ -1,0 +1,241 @@
+---
+id: create-a-phone-validation
+title: 创建手机验证
+slug: /resources/create-a-phone-validation
+description: 创建新的手机验证请求
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - GET v2/phone-validations
+  - GET /v2/phone-validations
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::caution 建议使用专用创建端点
+对于 **Smart Tools / 独立 OTP**（无项目），请使用  
+[`POST /v2/phone-validations/manual`](/verifik-zh/resources/create-a-manual-phone-validation)。
+
+对于 **Smart Enroll / App Registration** 流程，请使用  
+[`POST /v2/phone-validations/app-registration`](/verifik-zh/resources/phone-validations/create-an-app-registration-phone-validation)。
+
+若不确定应使用哪条路径，请从 [手机验证概述](/verifik-zh/resources/phone-validations) 开始。
+:::
+
+### 端点
+
+```
+POST https://api.verifik.co/v2/phone-validations
+```
+
+手机验证是 Verifik 系统中的一个实例，使您能够在身份验证与注册过程中处理并验证手机号码。该过程确保用户手机号码的真实性，并通过 SMS 或 WhatsApp 投递方式提供安全验证。
+
+#### 请求头
+
+#### `Content-Type`
+
+**类型：** String  
+**必需：** 必需  
+**值：** `application/json`
+
+#### `Authorization`
+
+**类型：** String  
+**必需：** 必需  
+**值：** `Bearer {YOUR_ACCESS_TOKEN}`
+
+#### Body 参数
+
+#### `project`
+
+**类型：** String  
+**必需：** 是
+
+将使用此手机验证的项目唯一标识符。
+
+#### `validationMethod`
+
+**类型：** String  
+**必需：** 是
+
+验证方法，设置为 `verificationCode` 或 `manual`。
+
+#### `phone`
+
+**类型：** String  
+**必需：** 是
+
+将要验证的手机号码（空格会自动移除）。
+
+#### `countryCode`
+
+**类型：** String  
+**必需：** 是
+
+手机号码的国家代码，格式为 `+XXX`（例如巴拿马为 `+507`）。
+
+#### `type`
+
+**类型：** String  
+**必需：** 是
+
+验证类型：`validation`、`login`、`onboarding` 或 `oneTimeLink`。
+
+#### `expiresAt`
+
+**类型：** String  
+**必需：** 否
+
+验证码的可选过期日期。
+
+#### `redirectUrl`
+
+**类型：** String  
+**必需：** 否
+
+验证后重定向的可选 URL。
+
+#### `webhookUrl`
+
+**类型：** String  
+**必需：** 否
+
+验证通知的可选 webhook URL。
+
+#### `identityUrl`
+
+**类型：** String  
+**必需：** 否
+
+可选的身份验证 URL。
+
+#### `requires2FA`
+
+**类型：** Boolean  
+**必需：** 否
+
+指示是否需要双因素身份验证的可选标志。
+
+#### `ipAddress`
+
+**类型：** String  
+**必需：** 否
+
+用户的可选 IP 地址。
+
+### `validationMethod` 取值
+
+| 值                 | 说明                                                              |
+| ------------------ | ----------------------------------------------------------------- |
+| `verificationCode` | 向手机号码发送一次性密码（OTP）以进行验证。                       |
+| `manual`           | 不使用 OTP 的手动验证流程。                                       |
+
+### `type` 取值
+
+| 值           | 说明                                                                                                                                                                                                                  |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `validation` | 通用手机号码验证。                                                                                                                                                                                                    |
+| `login`      | 用户登录期间的手机验证。                                                                                                                                                                                              |
+| `onboarding` | 用户注册期间的手机验证。对于 onboarding，您必须使用 create-an-app-registration-phone-validation |
+
+### 请求示例
+
+<Tabs groupId="language">
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+const axios = require("axios");
+
+const config = {
+  method: "post",
+  url: "https://api.verifik.co/v2/phone-validations",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+  },
+  data: {
+    project: "project_123456789",
+    validationMethod: "verificationCode",
+    phone: "1234567890",
+    countryCode: "+1",
+    type: "validation",
+    expiresAt: "2024-01-15T11:30:00Z",
+    redirectUrl: "https://example.com/success",
+    webhookUrl: "https://example.com/webhook",
+    requires2FA: false,
+    ipAddress: "192.168.1.1"
+  }
+};
+
+axios.request(config)
+.then((response) => {
+  console.log(JSON.stringify(response.data));
+})
+.catch((error) => {
+  console.log(error);
+});
+```
+
+</TabItem>
+</Tabs>
+
+### 响应示例
+
+<Tabs groupId="status">
+<TabItem value="200" label="200 OK">
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "phone_validation_123456789",
+    "client": "client_123456789",
+    "project": "project_123456789",
+    "projectFlow": "flow_123456789",
+    "status": "sent",
+    "countryCode": "+1",
+    "phone": "1234567890",
+    "type": "validation",
+    "validationMethod": "verificationCode",
+    "verificationCode": "123456",
+    "expiresAt": "2024-01-15T11:30:00Z",
+    "redirectUrl": "https://example.com/success",
+    "webhookUrl": "https://example.com/webhook",
+    "requires2FA": false,
+    "ipAddress": "192.168.1.1",
+    "attempts": 0,
+    "maxAttempts": 3,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-15T10:30:00Z"
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+</TabItem>
+<TabItem value="error" label="Error">
+
+```json
+{
+  "success": false,
+  "error": "Invalid phone number",
+  "code": "INVALID_PHONE"
+}
+```
+
+</TabItem>
+</Tabs>
+- **多语言**：支持 JavaScript、Python、PHP 和 Swift
+- **错误处理**：针对不同场景的详细错误响应

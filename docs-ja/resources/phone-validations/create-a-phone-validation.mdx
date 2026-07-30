@@ -1,0 +1,241 @@
+---
+id: create-a-phone-validation
+title: 電話番号認証を作成
+slug: /resources/create-a-phone-validation
+description: 新しい電話番号認証リクエストを作成する
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - GET v2/phone-validations
+  - GET /v2/phone-validations
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::caution 専用の作成エンドポイントを推奨
+**Smart Tools / スタンドアロン OTP**（プロジェクトなし）の場合は  
+[`POST /v2/phone-validations/manual`](/verifik-ja/resources/create-a-manual-phone-validation) を使用してください。
+
+**Smart Enroll / App Registration** フローの場合は  
+[`POST /v2/phone-validations/app-registration`](/verifik-ja/resources/phone-validations/create-an-app-registration-phone-validation) を使用してください。
+
+どのパスを使うか不明な場合は、[電話番号認証の概要](/verifik-ja/resources/phone-validations) から始めてください。
+:::
+
+### Endpoint
+
+```
+POST https://api.verifik.co/v2/phone-validations
+```
+
+Phone Validation は、認証および登録プロセス中に電話番号を処理・検証できる、Verifik システム内のインスタンスです。このプロセスによりユーザーの電話番号の真正性が確保され、SMS または WhatsApp の配信方法による安全な確認が可能になります。
+
+#### Headers
+
+#### `Content-Type`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `application/json`
+
+#### `Authorization`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `Bearer {YOUR_ACCESS_TOKEN}`
+
+#### Body Parameters
+
+#### `project`
+
+**Type:** String  
+**Required:** Yes
+
+この電話番号認証が使用されるプロジェクトの一意の識別子。
+
+#### `validationMethod`
+
+**Type:** String  
+**Required:** Yes
+
+検証方法。`verificationCode` または `manual` を設定します。
+
+#### `phone`
+
+**Type:** String  
+**Required:** Yes
+
+検証対象の電話番号（スペースは自動的に除去されます）。
+
+#### `countryCode`
+
+**Type:** String  
+**Required:** Yes
+
+電話番号の国コード。形式は `+XXX`（例: パナマは `+507`）。
+
+#### `type`
+
+**Type:** String  
+**Required:** Yes
+
+検証の種類: `validation`、`login`、`onboarding`、または `oneTimeLink`。
+
+#### `expiresAt`
+
+**Type:** String  
+**Required:** No
+
+検証コードの任意の有効期限。
+
+#### `redirectUrl`
+
+**Type:** String  
+**Required:** No
+
+検証後のリダイレクト用の任意の URL。
+
+#### `webhookUrl`
+
+**Type:** String  
+**Required:** No
+
+検証通知用の任意の Webhook URL。
+
+#### `identityUrl`
+
+**Type:** String  
+**Required:** No
+
+任意のアイデンティティ検証 URL。
+
+#### `requires2FA`
+
+**Type:** Boolean  
+**Required:** No
+
+二要素認証が必要かどうかを示す任意のフラグ。
+
+#### `ipAddress`
+
+**Type:** String  
+**Required:** No
+
+ユーザーの任意の IP アドレス。
+
+### `validationMethod` Values
+
+| Value              | Description                                                           |
+| ------------------ | --------------------------------------------------------------------- |
+| `verificationCode` | 確認用のワンタイムパスワード（OTP）を電話番号に送信します。 |
+| `manual`           | OTP なしの手動検証プロセス。                              |
+
+### `type` Values
+
+| Value        | Description                                                                                                                                                                                                                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `validation` | 一般的な電話番号検証。                                                                                                                                                                                             |
+| `login`      | ユーザーログイン時の電話番号確認。                                                                                                                                                                                        |
+| `onboarding` | ユーザー登録時の電話番号確認。オンボーディングの場合は create-an-app-registration-phone-validation を使用する必要があります |
+
+### Request Example
+
+<Tabs groupId="language">
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+const axios = require("axios");
+
+const config = {
+  method: "post",
+  url: "https://api.verifik.co/v2/phone-validations",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+  },
+  data: {
+    project: "project_123456789",
+    validationMethod: "verificationCode",
+    phone: "1234567890",
+    countryCode: "+1",
+    type: "validation",
+    expiresAt: "2024-01-15T11:30:00Z",
+    redirectUrl: "https://example.com/success",
+    webhookUrl: "https://example.com/webhook",
+    requires2FA: false,
+    ipAddress: "192.168.1.1"
+  }
+};
+
+axios.request(config)
+.then((response) => {
+  console.log(JSON.stringify(response.data));
+})
+.catch((error) => {
+  console.log(error);
+});
+```
+
+</TabItem>
+</Tabs>
+
+### Response Example
+
+<Tabs groupId="status">
+<TabItem value="200" label="200 OK">
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "phone_validation_123456789",
+    "client": "client_123456789",
+    "project": "project_123456789",
+    "projectFlow": "flow_123456789",
+    "status": "sent",
+    "countryCode": "+1",
+    "phone": "1234567890",
+    "type": "validation",
+    "validationMethod": "verificationCode",
+    "verificationCode": "123456",
+    "expiresAt": "2024-01-15T11:30:00Z",
+    "redirectUrl": "https://example.com/success",
+    "webhookUrl": "https://example.com/webhook",
+    "requires2FA": false,
+    "ipAddress": "192.168.1.1",
+    "attempts": 0,
+    "maxAttempts": 3,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-15T10:30:00Z"
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+</TabItem>
+<TabItem value="error" label="Error">
+
+```json
+{
+  "success": false,
+  "error": "Invalid phone number",
+  "code": "INVALID_PHONE"
+}
+```
+
+</TabItem>
+</Tabs>
+- **複数言語**: JavaScript、Python、PHP、Swift に対応
+- **エラーハンドリング**: さまざまなシナリオ向けの詳細なエラーレスポンス

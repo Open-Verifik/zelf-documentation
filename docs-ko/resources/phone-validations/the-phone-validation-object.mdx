@@ -1,0 +1,210 @@
+---
+id: the-phone-validation-object
+title: 전화번호 검증 객체
+slug: /resources/the-phone-validation-object
+description: 전화번호 검증 객체는 Verifik 프로젝트 내에서 전화번호를 확인하는 과정을 나타냅니다
+---
+
+### 개요
+
+전화번호 검증 객체는 Verifik 프로젝트 내에서 전화번호를 확인하는 과정을 나타냅니다. 이 객체에는 전화 확인 요청을 추적하고 관리하는 데 필요한 모든 정보가 포함됩니다.
+
+### 속성
+
+#### `client`
+
+**Type:** string (reference id)  
+**Required:** Read-Only
+
+이 전화번호 검증을 소유한 클라이언트 계정입니다. 인증 토큰을 기준으로 자동 설정됩니다.
+
+#### `project`
+
+**Type:** string (reference id)  
+**Required:** Optional
+
+이 전화번호 검증이 수행되는 프로젝트입니다. **수동 / Smart Tools** 전송(`POST /phone-validations/manual`)에서는 선택 사항입니다.
+
+#### `projectFlow`
+
+**Type:** string (reference id)  
+**Required:** Optional
+
+이 전화번호 검증이 수행되는 프로젝트 플로우입니다. 대부분의 프로젝트 기반 플로우에서는 필요하며, 단독 수동 전송에서는 생략됩니다.
+
+#### `source`
+
+**Type:** String  
+**Required:** Optional (defaults to `"flow"`)
+
+OTP가 생성된 방식:
+
+* `"manual"` — 단독 Smart Tools / `POST /phone-validations/manual`
+* `"flow"` — 프로젝트 또는 앱 등록 플로우
+
+#### `phoneGateway`
+
+**Type:** String  
+**Required:** Optional
+
+전달 채널: `"sms"`, `"whatsapp"`, 또는 `"none"`.
+
+#### `phoneData`
+
+**Type:** Object  
+**Required:** Optional
+
+템플릿 메타데이터입니다. WhatsApp/SMS OTP의 경우 `phoneData.title`은 메시지에 표시되는 회사 / 섹션 이름입니다(최대 15자).
+
+#### `status`
+
+**Type:** String  
+**Required:** Required
+
+전화번호 검증 프로세스의 현재 상태입니다. 가능한 값:
+
+* `"new"` - 검증 요청이 생성되었으나 아직 처리되지 않음(기본값)
+* `"sent"` - 확인 코드가 사용자에게 전송됨
+* `"validated"` - 전화번호가 성공적으로 확인됨
+* `"failed"` - 전화 검증 실패 또는 만료
+
+#### `countryCode`
+
+**Type:** String  
+**Required:** Required
+
+전화번호의 국제 다이얼 코드입니다(예: 미국 `"+1"`, 영국 `"+44"`, 콜롬비아 `"+57"`).
+
+#### `phone`
+
+**Type:** String  
+**Required:** Required
+
+검증 대상 전화번호입니다(공백은 자동으로 제거됨).
+
+#### `type`
+
+**Type:** String  
+**Required:** Required
+
+수행 중인 전화 검증 유형:
+
+* `"validation"` - 일반 전화번호 검증
+* `"login"` - 사용자 로그인 중 전화 확인
+* `"onboarding"` - 사용자 등록 중 전화 확인
+
+#### `validationMethod`
+
+**Type:** String  
+**Required:** Required
+
+전화 검증에 사용된 방법:
+
+* `"verificationCode"` - SMS로 전송된 OTP 코드
+* `"manual"` - 수동 확인 프로세스
+
+#### `verificationCode`
+
+**Type:** String  
+**Required:** Optional
+
+전화 확인을 위해 생성된 OTP 코드입니다(`validationMethod`가 `"verificationCode"`일 때만 존재).
+
+#### `expiresAt`
+
+**Type:** Date  
+**Required:** Optional
+
+검증 코드의 만료 일시입니다. 기본적으로 OTP 전송 또는 재전송 후 **10분**입니다. UI에서 카운트다운을 표시하는 데 사용하며, 이 시간이 지나면 검증이 `phoneValidation_has_expired`로 실패합니다.
+
+#### `redirectUrl`
+
+**Type:** String  
+**Required:** Optional
+
+성공적인 검증 후 리디렉션할 URL입니다.
+
+#### `webhookUrl`
+
+**Type:** String  
+**Required:** Optional
+
+검증 상태 알림용 웹훅 URL입니다.
+
+#### `identityUrl`
+
+**Type:** String  
+**Required:** Optional
+
+추가 확인 단계를 위한 신원 확인 URL입니다.
+
+#### `requires2FA`
+
+**Type:** Boolean  
+**Required:** Optional
+
+2단계 인증이 필요한지 여부를 나타내는 플래그입니다.
+
+#### `ipAddress`
+
+**Type:** String  
+**Required:** Optional
+
+검증을 수행하는 사용자의 IP 주소입니다.
+
+#### `attempts`
+
+**Type:** Number  
+**Required:** Optional
+
+수행된 검증 시도 횟수입니다.
+
+#### `maxAttempts`
+
+**Type:** Number  
+**Required:** Optional
+
+허용되는 최대 검증 시도 횟수입니다.
+
+#### `createdAt`
+
+**Type:** Date  
+**Required:** Required
+
+전화번호 검증이 생성된 타임스탬프입니다.
+
+#### `updatedAt`
+
+**Type:** Date  
+**Required:** Required
+
+전화번호 검증이 마지막으로 업데이트된 타임스탬프입니다.
+
+#### `validatedAt`
+
+**Type:** Date  
+**Required:** Optional
+
+전화번호 검증이 성공적으로 완료된 타임스탬프입니다.
+
+### 예제 객체
+
+```json
+{
+  "_id": "66f0a1b2c3d4e5f678901234",
+  "client": "66f0a1b2c3d4e5f678900000",
+  "source": "manual",
+  "status": "sent",
+  "countryCode": "+57",
+  "phone": "3001234567",
+  "phoneGateway": "whatsapp",
+  "type": "validation",
+  "phoneData": {
+    "title": "Company ABC"
+  },
+  "language": "en",
+  "expiresAt": "2026-07-29T22:50:00.000Z",
+  "createdAt": "2026-07-29T22:40:00.000Z",
+  "updatedAt": "2026-07-29T22:40:00.000Z"
+}
+```

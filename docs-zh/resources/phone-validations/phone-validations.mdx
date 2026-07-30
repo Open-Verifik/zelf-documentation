@@ -1,0 +1,107 @@
+---
+id: phone-validations
+title: 手机验证
+slug: /resources/phone-validations
+description: 通过 SMS 或 WhatsApp 发送并验证手机 OTP — 可独立使用，也可嵌入项目流程
+---
+
+### 什么是手机验证？
+
+**手机验证（Phone Validation）** 是针对一个手机号码的一次 OTP 会话。Verifik 通过 **SMS** 或 **WhatsApp** 发送一次性验证码，然后由您确认用户输入的验证码。
+
+典型生命周期：
+
+1. **发送** — 创建手机验证并投递 OTP  
+2. **验证** — 提交相同的手机号 + OTP，将会话标记为已验证  
+
+完整字段列表见 [手机验证对象](/verifik-zh/resources/the-phone-validation-object)。
+
+### 时间规则
+
+| 规则 | 默认值 |
+| --- | --- |
+| OTP 有效期 | **10 分钟**（发送响应中的 `expiresAt`） |
+| 重发冷却 | 同一手机号 + 网关约 **2 分钟** 内不可重复发送（`409` `otp_recently_sent`） |
+| 绕过冷却 | 手动创建时使用 `"force": true` |
+
+始终同时发送并展示 **`countryCode`** 与国内 **`phone`**（例如 `+57 3001234567`），以便用户知晓消息发往何处。
+
+---
+
+### 选择集成路径
+
+请选择与您调用 API 方式匹配的路径。
+
+#### 路径 A — 独立 / Smart Tools（无项目）
+
+当您从后端或从 **Smart Tools → WhatsApp / SMS Messages** 发送 OTP，且不关联 Smart Enroll 或 Smart Access 项目时使用此路径。
+
+| 步骤 | 端点 |
+| --- | --- |
+| 1. 发送 OTP | [`POST /v2/phone-validations/manual`](/verifik-zh/resources/create-a-manual-phone-validation) |
+| 2. 验证 OTP | [`PUT /v2/phone-validations`](/verifik-zh/resources/validate-a-phone-validation) |
+
+- 无需 `project` / `projectFlow`  
+- 记录的 `source` 为 `"manual"`  
+- 成功发送后按 **计量通信积分** 计费  
+- 可选 `title`（最多 15 个字符）用于设置 WhatsApp/SMS 模板中的公司名称  
+
+```text
+Your app                    Verifik API
+────────                    ───────────
+POST /manual  ───────────►  OTP sent (SMS / WhatsApp)
+                            status: sent
+
+PUT  /phone-validations ─►  OTP checked
+  { phone, countryCode, otp }   status: validated
+```
+
+#### 路径 B — 项目 / App Registration（Smart Enroll 与 Access）
+
+当 OTP 属于与项目绑定的注册或登录流程时使用此路径。
+
+| 步骤 | 端点 |
+| --- | --- |
+| 1. 发送 OTP | [`POST /v2/phone-validations/app-registration`](/verifik-zh/resources/phone-validations/create-an-app-registration-phone-validation) |
+| 2. 验证 OTP | [`PUT /v2/phone-validations`](/verifik-zh/resources/validate-a-phone-validation) |
+
+- 需要项目 / App Registration 上下文  
+- 记录的 `source` 默认为 `"flow"`  
+- 计费可能根据流程使用 Smart Enroll / Smart Access 计划计数器  
+
+---
+
+### API 端点索引
+
+| 操作 | 方法与路径 | 文档 |
+| --- | --- | --- |
+| 发送独立 OTP | `POST /v2/phone-validations/manual` | [创建手动手机验证](/verifik-zh/resources/create-a-manual-phone-validation) |
+| 验证 OTP | `PUT /v2/phone-validations` | [验证手机验证](/verifik-zh/resources/validate-a-phone-validation) |
+| 在 App Registration 中发送 OTP | `POST /v2/phone-validations/app-registration` | [创建 App Registration 手机验证](/verifik-zh/resources/phone-validations/create-an-app-registration-phone-validation) |
+| 列表 | `GET /v2/phone-validations` | [列出所有手机验证](/verifik-zh/resources/list-all-phone-validations) |
+| 检索单条 | `GET /v2/phone-validations/{id}` | [检索手机验证](/verifik-zh/resources/retrieve-a-phone-validation) |
+| SMS 与 WhatsApp 价格 | — | [SMS 与 WhatsApp 价格](/verifik-zh/phone-validations/sms-and-whatsapp-prices) |
+
+:::tip 身份验证
+所有端点均需要 `Authorization: Bearer {YOUR_ACCESS_TOKEN}` 以及 `Content-Type: application/json`。
+:::
+
+---
+
+### 状态值
+
+| 状态 | 含义 |
+| --- | --- |
+| `sent` | OTP 已投递（或已被运营商接受） |
+| `validated` | 用户 OTP 匹配成功 |
+| `failed` | 已过期、被拒绝或发送失败 |
+| `new` | 已创建但尚未成功发送 |
+
+---
+
+### 相关页面
+
+- [手机验证对象](/verifik-zh/resources/the-phone-validation-object)  
+- [创建手动手机验证](/verifik-zh/resources/create-a-manual-phone-validation)  
+- [验证手机验证](/verifik-zh/resources/validate-a-phone-validation)  
+- [SMS 与 WhatsApp 价格](/verifik-zh/phone-validations/sms-and-whatsapp-prices)  

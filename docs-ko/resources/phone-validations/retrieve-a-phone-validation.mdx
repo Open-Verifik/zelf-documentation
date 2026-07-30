@@ -1,0 +1,240 @@
+---
+id: retrieve-a-phone-validation
+title: 전화번호 검증 조회
+slug: /resources/retrieve-a-phone-validation
+description: 고유 식별자를 사용해 특정 전화번호 검증 기록을 조회합니다
+keywords:
+  - 'v2/phone-validations/{id}'
+  - '/v2/phone-validations/{id}'
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - 'v2 phone-validations {id}'
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - 'api.verifik.co/v2/phone-validations/{id}'
+  - 'https://api.verifik.co/v2/phone-validations/{id}'
+  - 'GET v2/phone-validations/{id}'
+  - 'GET /v2/phone-validations/{id}'
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/phone-validations/{id}
+```
+
+이 서비스는 고유 식별자를 사용해 특정 전화번호 검증 기록을 조회합니다. 응답에는 상태, OTP 정보, 연결된 프로젝트 데이터를 포함한 전화 검증 프로세스의 모든 세부 정보가 포함됩니다. 이 엔드포인트는 전화 검증의 현재 상태를 확인하거나 감사 목적으로 세부 정보를 조회할 때 유용합니다.
+
+#### Headers
+
+#### `Content-Type`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `application/json`
+
+#### `Authorization`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `Bearer {YOUR_ACCESS_TOKEN}`
+
+#### Path Parameters
+
+#### `id`
+
+**Type:** String  
+**Required:** Yes
+
+조회하려는 Phone Validation의 고유 식별자입니다.
+
+#### Query Parameters
+
+#### `populates[]`
+
+**Type:** String  
+**Required:** No
+
+선택 사항. 응답에 포함할 관련 객체 목록입니다. 사용 가능한 옵션: `client`, `project`, `projectFlow`.
+
+### Request
+
+<Tabs groupId="language">
+  <TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/phone-validations/phone_validation_123456789',
+  params: {
+    'populates[]': ['client', 'project', 'projectFlow']
+  },
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer <your_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer <your_token>'
+}
+
+conn.request("GET", "/v2/phone-validations/phone_validation_123456789?populates[]=client&populates[]=project&populates[]=projectFlow", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('GET', 'https://api.verifik.co/v2/phone-validations/phone_validation_123456789', [
+  'headers' => [
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer <your_token>',
+  ],
+  'query' => [
+    'populates[]' => ['client', 'project', 'projectFlow']
+  ]
+]);
+
+echo $response->getBody();
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import (
+	"fmt"
+	"io"
+	"net/http"
+)
+
+func main() {
+	url := "https://api.verifik.co/v2/phone-validations/phone_validation_123456789?populates[]=client&populates[]=project&populates[]=projectFlow"
+
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", "Bearer <your_token>")
+
+	client := &http.Client{}
+	res, _ := client.Do(req)
+	defer res.Body.Close()
+
+	body, _ := io.ReadAll(res.Body)
+	fmt.Println(string(body))
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs groupId="status">
+  <TabItem value="200" label="200">
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "phone_validation_123456789",
+    "client": {
+      "_id": "client_123456789",
+      "name": "Example Client",
+      "email": "client@example.com"
+    },
+    "project": {
+      "_id": "project_123456789",
+      "name": "Example Project",
+      "description": "Example project description"
+    },
+    "projectFlow": {
+      "_id": "flow_123456789",
+      "name": "Example Flow",
+      "type": "onboarding"
+    },
+    "status": "validated",
+    "countryCode": "+1",
+    "phone": "1234567890",
+    "type": "validation",
+    "validationMethod": "verificationCode",
+    "verificationCode": "123456",
+    "expiresAt": "2024-01-15T11:30:00Z",
+    "redirectUrl": "https://example.com/success",
+    "webhookUrl": "https://example.com/webhook",
+    "requires2FA": false,
+    "ipAddress": "192.168.1.1",
+    "attempts": 1,
+    "maxAttempts": 3,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-15T10:32:00Z",
+    "validatedAt": "2024-01-15T10:32:00Z"
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+  "success": false,
+  "error": "Phone validation not found",
+  "code": "PHONE_VALIDATION_NOT_FOUND"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Features
+
+- **ID로 조회**: 고유 ID를 사용해 특정 전화 검증을 가져옵니다
+- **완전한 정보**: 검증 프로세스의 모든 세부 정보를 포함합니다
+- **관련 데이터**: 클라이언트, 프로젝트 및 프로젝트 플로우 정보
+- **상세 상태**: 현재 상태, 시도 횟수, 한도 및 타임스탬프
+- **구성**: 리디렉션 URL, 웹훅 및 보안 설정
+- **국가 코드**: 전체 국가 코드 및 번호 정보
+- **다중 언어**: JavaScript, Python, PHP 및 Swift 지원
+- **오류 처리**: 다양한 시나리오에 대한 상세한 오류 응답

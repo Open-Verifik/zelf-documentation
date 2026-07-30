@@ -1,0 +1,180 @@
+---
+id: validate-a-phone-validation
+title: Valider une Phone Validation
+slug: /resources/validate-a-phone-validation
+description: Vérifier un OTP téléphonique avec phone, countryCode et otp
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - PUT v2/phone-validations
+  - PUT /v2/phone-validations
+  - phone-validations validate
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - otp verify phone
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+PUT https://api.verifik.co/v2/phone-validations
+```
+
+Confirme l'OTP reçu par l'utilisateur. Verifik recherche la dernière Phone Validation **envoyée** (et non expirée) pour ce téléphone — y compris les enregistrements **manuels / Smart Tools** et ceux des flux de projet.
+
+:::tip Associer à l'envoi
+Les OTP autonomes sont créés avec [`POST /v2/phone-validations/manual`](/verifik-fr/resources/create-a-manual-phone-validation). Les OTP d'app registration utilisent [`POST /v2/phone-validations/app-registration`](/verifik-fr/resources/phone-validations/create-an-app-registration-phone-validation).
+:::
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer {YOUR_ACCESS_TOKEN}` |
+
+### Body parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `phone` | string | Yes | Même numéro national que lors de l'envoi de l'OTP. |
+| `countryCode` | string | Yes | Indicatif commençant par `+`. |
+| `otp` | number | Yes | Code numérique reçu par l'utilisateur. |
+| `phoneGateway` | string | No | `sms` ou `whatsapp` — affine la recherche lorsque les deux canaux ont été utilisés. |
+| `project` | string | No | Filtre projet optionnel pour les enregistrements basés sur un flux. |
+| `projectFlow` | string | No | Filtre project-flow optionnel (préféré lorsqu'il est disponible). |
+
+### Exemples de requête
+
+<Tabs groupId="language">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X PUT "https://api.verifik.co/v2/phone-validations" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "3001234567",
+    "countryCode": "+57",
+    "otp": 123456,
+    "phoneGateway": "whatsapp"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.put(
+  "https://api.verifik.co/v2/phone-validations",
+  {
+    phone: "3001234567",
+    countryCode: "+57",
+    otp: 123456,
+    phoneGateway: "whatsapp",
+  },
+  {
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+response = requests.put(
+    "https://api.verifik.co/v2/phone-validations",
+    headers={
+        "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+        "Content-Type": "application/json",
+    },
+    json={
+        "phone": "3001234567",
+        "countryCode": "+57",
+        "otp": 123456,
+        "phoneGateway": "whatsapp",
+    },
+)
+
+print(response.json())
+```
+
+</TabItem>
+<TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('PUT', 'https://api.verifik.co/v2/phone-validations', [
+  'headers' => [
+    'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
+    'Content-Type' => 'application/json',
+  ],
+  'json' => [
+    'phone' => '3001234567',
+    'countryCode' => '+57',
+    'otp' => 123456,
+    'phoneGateway' => 'whatsapp',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+</TabItem>
+</Tabs>
+
+### Réponse de succès
+
+```json
+{
+  "data": {
+    "_id": "66f0a1b2c3d4e5f678901234",
+    "status": "validated",
+    "countryCode": "+57",
+    "phone": "3001234567",
+    "phoneGateway": "whatsapp",
+    "source": "manual",
+    "validatedAt": "2026-07-29T22:40:00.000Z"
+  }
+}
+```
+
+### Durée de vie de l'OTP
+
+Les OTP en attente sont valides pendant **10 minutes** à partir du dernier envoi/renvoi réussi (`expiresAt` dans la réponse de création). Après cela, cet endpoint renvoie `412` `phoneValidation_has_expired`. Envoyez un nouvel OTP (en respectant le délai de renvoi d'environ 2 minutes, ou utilisez `force: true` sur la création manuelle) avant de demander à l'utilisateur de réessayer.
+
+### Tentatives OTP
+
+Il n'y a **aucune limite de tentatives côté serveur** aujourd'hui. Les codes incorrects renvoient `403` `otp_does_not_match` jusqu'à l'expiration de l'enregistrement ou l'envoi d'un nouvel OTP. Appliquez un verrouillage ou un plafond de tentatives dans votre client si nécessaire.
+
+### Erreurs courantes
+
+| Status | Message | When |
+| --- | --- | --- |
+| 403 | `otp_does_not_match` | Le code ne correspond pas à l'OTP en attente. |
+| 412 | `phoneValidation_has_expired` | Le TTL de l'OTP en attente (~10 minutes) est écoulé. |
+| 409 | `otp_send_failed` | Le dernier enregistrement pour ce téléphone a échoué à l'envoi (différent de l'expiration). |
+| 409 | `phone_validation_already_validated` | L'OTP a déjà été validé. |
+| 404 | `phone_validation_not_found` | Aucune Phone Validation correspondante pour ce téléphone. |
+| 409 | `MissingParameter` | Champs de corps requis manquants. |
+
+### Associés
+
+- [Créer une Phone Validation manuelle](/verifik-fr/resources/create-a-manual-phone-validation)  
+- [Vue d'ensemble des Phone Validations](/verifik-fr/resources/phone-validations)  

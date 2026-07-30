@@ -1,0 +1,220 @@
+---
+id: create-a-manual-phone-validation
+title: 手動の電話番号認証を作成
+slug: /resources/create-a-manual-phone-validation
+description: プロジェクトなしでスタンドアロンの SMS または WhatsApp OTP を送信する（Smart Tools / API）
+keywords:
+  - v2/phone-validations/manual
+  - /v2/phone-validations/manual
+  - phone-validations/manual
+  - api.verifik.co/v2/phone-validations/manual
+  - 'https://api.verifik.co/v2/phone-validations/manual'
+  - POST v2/phone-validations/manual
+  - POST /v2/phone-validations/manual
+  - standalone phone otp
+  - smart tools whatsapp
+  - smart tools sms
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+POST https://api.verifik.co/v2/phone-validations/manual
+```
+
+**スタンドアロン** の Phone Validation を作成し、SMS または WhatsApp で OTP を送信します。`project` や `projectFlow` は不要です。**Smart Tools → WhatsApp / SMS Messages** が使用するエンドポイントと同じです。
+
+送信成功後は [電話番号認証を検証](/verifik-ja/resources/validate-a-phone-validation) に進んでください。
+
+:::info 請求
+クレジットはメッセージ送信**前**に、国別の SMS / WhatsApp 料金で確認されます。実際に OTP が配信された場合（`sent: true`）にのみ課金されます。
+:::
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer {YOUR_ACCESS_TOKEN}` |
+
+### Body parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `phone` | string | Yes | 国内番号のみ（スペースは除去されます）。ここにダイヤルコードを含めないでください。 |
+| `countryCode` | string | Yes | `+` で始まるダイヤルコード（例: `+57`）。必ず送信し、電話番号と一緒にユーザーへ表示してください（例: `+57 3001234567`）。 |
+| `phoneGateway` | string | Yes | `sms` または `whatsapp`。 |
+| `title` | string | No | テンプレート内の会社名 / 送信者名（1〜15 文字）。デフォルトはクライアント名です。WhatsApp の `flow2` と SMS の文言で使用されます。 |
+| `language` | string | No | テンプレート言語（`en`、`es` など）。`whatsappTemplate` が `flow2` のとき、`flow2_en` / `flow2_es` を選択します。 |
+| `whatsappTemplate` | string | No | WhatsApp のみ。`authentication`（**デフォルト**）または `flow2`。SMS では無視されます。 |
+| `force` | boolean | No | `true` の場合、同一電話番号 + ゲートウェイの約 2 分の再送クールダウンをバイパスします。明示的な「再送信」アクション用です。 |
+| `ipAddress` | string | No | 監査用の任意のクライアント IP。 |
+
+### WhatsApp templates
+
+| `whatsappTemplate` | Meta template | Notes |
+| --- | --- | --- |
+| `authentication` (default) | `authentication` | 本文の OTP + ボタン URL パラメータ。 |
+| `flow2` | `flow2_es` / `flow2_en` | ブランド付きヘッダー / 本文（`title` をセクションとして使用）+ コード + アクション。言語でバリアントを選択。 |
+
+```json
+{
+  "phone": "3001234567",
+  "countryCode": "+57",
+  "phoneGateway": "whatsapp",
+  "title": "Company ABC",
+  "language": "es",
+  "whatsappTemplate": "flow2"
+}
+```
+
+### Request examples
+
+<Tabs groupId="language">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST "https://api.verifik.co/v2/phone-validations/manual" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "3001234567",
+    "countryCode": "+57",
+    "phoneGateway": "whatsapp",
+    "title": "Company ABC",
+    "language": "en"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.post(
+  "https://api.verifik.co/v2/phone-validations/manual",
+  {
+    phone: "3001234567",
+    countryCode: "+57",
+    phoneGateway: "whatsapp",
+    title: "Company ABC",
+    language: "en",
+  },
+  {
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+response = requests.post(
+    "https://api.verifik.co/v2/phone-validations/manual",
+    headers={
+        "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+        "Content-Type": "application/json",
+    },
+    json={
+        "phone": "3001234567",
+        "countryCode": "+57",
+        "phoneGateway": "whatsapp",
+        "title": "Company ABC",
+        "language": "en",
+    },
+)
+
+print(response.json())
+```
+
+</TabItem>
+<TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('POST', 'https://api.verifik.co/v2/phone-validations/manual', [
+  'headers' => [
+    'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
+    'Content-Type' => 'application/json',
+  ],
+  'json' => [
+    'phone' => '3001234567',
+    'countryCode' => '+57',
+    'phoneGateway' => 'whatsapp',
+    'title' => 'Company ABC',
+    'language' => 'en',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+</TabItem>
+</Tabs>
+
+### Success response
+
+```json
+{
+  "data": {
+    "_id": "66f0a1b2c3d4e5f678901234",
+    "client": "66f0a1b2c3d4e5f678900000",
+    "source": "manual",
+    "type": "validation",
+    "status": "sent",
+    "countryCode": "+57",
+    "phone": "3001234567",
+    "phoneGateway": "whatsapp",
+    "phoneData": {
+      "title": "Company ABC"
+    },
+    "language": "en",
+    "expiresAt": "2026-07-29T22:50:00.000Z",
+    "sent": true,
+    "new": true
+  },
+  "signature": "...",
+  "id": "a1b2c"
+}
+```
+
+### OTP の有効期限と再送
+
+| ルール | デフォルト | 備考 |
+| --- | --- | --- |
+| OTP TTL | **10 分** | 送信成功時に `data.expiresAt` として返されます。この時刻を過ぎると、検証は `412` `phoneValidation_has_expired` を返します。 |
+| 再送クールダウン | **約 2 分** | 同一クライアント + 電話番号 + `phoneGateway` への約 2 分以内の再送信は、`409` `otp_recently_sent` を返します（新しいメッセージは送られません）。 |
+| 強制再送 | `"force": true` | 2 分のクールダウンをバイパスし、すぐに新しいコードを送信できます（例: UI の「再送信」）。送信 / 再送が成功するたびに `expiresAt` は +10 分にリセットされます。 |
+
+:::tip UI のガイダンス
+宛先を **`countryCode` + 国内 `phone`**（例: `+57 3001234567`）として表示してください。`expiresAt` から有効期限のカウントダウンを駆動し、「再送信」は 2 分のクールダウン後に有効にするか、常に `force: true` で有効にします。
+:::
+
+### Common errors
+
+| Status | Message / code | When |
+| --- | --- | --- |
+| 403 | `insufficient_credits` | 前払い残高が国別の SMS / WhatsApp 料金を下回っています。何も送信されません。 |
+| 409 | `otp_recently_sent` | クールダウン: この電話番号 + ゲートウェイに対して約 2 分以内に OTP が既に送信されています（かつ `force` が `true` ではありません）。 |
+| 409 | `otp_not_sent` | プロバイダーの送信が失敗しました（メッセージが受理されませんでした）。クールダウンとは別です。 |
+| 409 | `MissingParameter` | 必須のボディフィールドが欠落しているか、`countryCode` が `+digits` 形式ではありません。 |
+| 403 | Forbidden | アカウントでコミュニケーション SMS / WhatsApp 機能が利用できません。 |
+
+### Next step
+
+コードを [`PUT /v2/phone-validations`](/verifik-ja/resources/validate-a-phone-validation) で確認してください。

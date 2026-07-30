@@ -1,0 +1,180 @@
+---
+id: validate-a-phone-validation
+title: 验证手机验证
+slug: /resources/validate-a-phone-validation
+description: 使用 phone、countryCode 和 otp 验证手机 OTP
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - PUT v2/phone-validations
+  - PUT /v2/phone-validations
+  - phone-validations validate
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - otp verify phone
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### 端点
+
+```
+PUT https://api.verifik.co/v2/phone-validations
+```
+
+确认用户收到的 OTP。Verifik 会查找该手机号最新的 **已发送**（且未过期）手机验证记录 — 包括 **手动 / Smart Tools** 记录与项目流程记录。
+
+:::tip 与发送配对
+独立 OTP 通过 [`POST /v2/phone-validations/manual`](/verifik-zh/resources/create-a-manual-phone-validation) 创建。App Registration OTP 使用 [`POST /v2/phone-validations/app-registration`](/verifik-zh/resources/phone-validations/create-an-app-registration-phone-validation)。
+:::
+
+### 请求头
+
+| 名称 | 值 |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer {YOUR_ACCESS_TOKEN}` |
+
+### Body 参数
+
+| 参数 | 类型 | 必需 | 说明 |
+| --- | --- | --- | --- |
+| `phone` | string | 是 | 与发送 OTP 时相同的国内号码。 |
+| `countryCode` | string | 是 | 以 `+` 开头的拨号代码。 |
+| `otp` | number | 是 | 用户收到的数字验证码。 |
+| `phoneGateway` | string | 否 | `sms` 或 `whatsapp` — 在两个渠道都使用过时用于缩小查找范围。 |
+| `project` | string | 否 | 基于流程记录的可选项目筛选。 |
+| `projectFlow` | string | 否 | 可选的项目流程筛选（可用时优先）。 |
+
+### 请求示例
+
+<Tabs groupId="language">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X PUT "https://api.verifik.co/v2/phone-validations" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "3001234567",
+    "countryCode": "+57",
+    "otp": 123456,
+    "phoneGateway": "whatsapp"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.put(
+  "https://api.verifik.co/v2/phone-validations",
+  {
+    phone: "3001234567",
+    countryCode: "+57",
+    otp: 123456,
+    phoneGateway: "whatsapp",
+  },
+  {
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+response = requests.put(
+    "https://api.verifik.co/v2/phone-validations",
+    headers={
+        "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+        "Content-Type": "application/json",
+    },
+    json={
+        "phone": "3001234567",
+        "countryCode": "+57",
+        "otp": 123456,
+        "phoneGateway": "whatsapp",
+    },
+)
+
+print(response.json())
+```
+
+</TabItem>
+<TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('PUT', 'https://api.verifik.co/v2/phone-validations', [
+  'headers' => [
+    'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
+    'Content-Type' => 'application/json',
+  ],
+  'json' => [
+    'phone' => '3001234567',
+    'countryCode' => '+57',
+    'otp' => 123456,
+    'phoneGateway' => 'whatsapp',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+</TabItem>
+</Tabs>
+
+### 成功响应
+
+```json
+{
+  "data": {
+    "_id": "66f0a1b2c3d4e5f678901234",
+    "status": "validated",
+    "countryCode": "+57",
+    "phone": "3001234567",
+    "phoneGateway": "whatsapp",
+    "source": "manual",
+    "validatedAt": "2026-07-29T22:40:00.000Z"
+  }
+}
+```
+
+### OTP 有效期
+
+待验证的 OTP 自上次成功发送/重发起有效 **10 分钟**（创建响应中的 `expiresAt`）。过期后，此端点返回 `412` `phoneValidation_has_expired`。在要求用户再次尝试之前，请发送新的 OTP（遵守约 2 分钟的重发冷却，或在手动创建时使用 `force: true`）。
+
+### OTP 尝试次数
+
+目前 **没有服务端尝试次数限制**。错误验证码会返回 `403` `otp_does_not_match`，直到记录过期或发送新的 OTP。如有需要，请在客户端强制执行锁定或尝试上限。
+
+### 常见错误
+
+| 状态 | 消息 | 何时 |
+| --- | --- | --- |
+| 403 | `otp_does_not_match` | 验证码与待验证 OTP 不匹配。 |
+| 412 | `phoneValidation_has_expired` | 待验证 OTP 的 TTL（约 10 分钟）已过。 |
+| 409 | `otp_send_failed` | 此手机号的最新记录发送失败（与过期不同）。 |
+| 409 | `phone_validation_already_validated` | OTP 已验证过。 |
+| 404 | `phone_validation_not_found` | 未找到匹配此手机号的手机验证。 |
+| 409 | `MissingParameter` | 缺少必需的 body 字段。 |
+
+### 相关
+
+- [创建手动手机验证](/verifik-zh/resources/create-a-manual-phone-validation)  
+- [手机验证概述](/verifik-zh/resources/phone-validations)  

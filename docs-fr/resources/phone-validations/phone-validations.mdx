@@ -1,0 +1,107 @@
+---
+id: phone-validations
+title: Validations téléphoniques
+slug: /resources/phone-validations
+description: Envoyez et vérifiez des OTP téléphoniques via SMS ou WhatsApp — en autonome ou dans un flux de projet
+---
+
+### Qu'est-ce qu'une validation téléphonique ?
+
+Une **validation téléphonique** (Phone Validation) est une session OTP pour un numéro de téléphone. Verifik envoie un code à usage unique par **SMS** ou **WhatsApp**, puis vous confirmez le code saisi par l'utilisateur.
+
+Cycle de vie typique :
+
+1. **Envoi** — créer une Phone Validation et délivrer l'OTP  
+2. **Vérification** — soumettre le même téléphone + OTP pour marquer la session comme validée  
+
+Voir la liste complète des champs dans [L'objet Phone Validation](/verifik-fr/resources/the-phone-validation-object).
+
+### Règles de temporisation
+
+| Règle | Défaut |
+| --- | --- |
+| OTP valide pendant | **10 minutes** (`expiresAt` dans la réponse d'envoi) |
+| Délai de renvoi | **~2 minutes** entre les envois pour le même téléphone + passerelle (`409` `otp_recently_sent`) |
+| Contournement du délai | Création manuelle avec `"force": true` |
+
+Envoyez et affichez toujours le **`countryCode`** avec le **`phone`** national (ex. `+57 3001234567`) afin que les utilisateurs sachent quelle destination a reçu le message.
+
+---
+
+### Choisissez votre chemin d'intégration
+
+Choisissez le chemin qui correspond à la façon dont vous appelez l'API.
+
+#### Chemin A — Autonome / Smart Tools (sans projet)
+
+Utilisez ce chemin lorsque vous envoyez des OTP depuis votre backend ou depuis **Smart Tools → WhatsApp / SMS Messages**, sans projet Smart Enroll ou Smart Access.
+
+| Étape | Endpoint |
+| --- | --- |
+| 1. Envoyer l'OTP | [`POST /v2/phone-validations/manual`](/verifik-fr/resources/create-a-manual-phone-validation) |
+| 2. Vérifier l'OTP | [`PUT /v2/phone-validations`](/verifik-fr/resources/validate-a-phone-validation) |
+
+- Aucun `project` / `projectFlow` requis  
+- Le `source` de l'enregistrement est `"manual"`  
+- Facturé avec des **crédits de communication au compteur** après un envoi réussi  
+- Le `title` optionnel (max 15 caractères) définit le nom de l'entreprise dans le modèle WhatsApp/SMS  
+
+```text
+Your app                    Verifik API
+────────                    ───────────
+POST /manual  ───────────►  OTP sent (SMS / WhatsApp)
+                            status: sent
+
+PUT  /phone-validations ─►  OTP checked
+  { phone, countryCode, otp }   status: validated
+```
+
+#### Chemin B — Projet / App Registration (Smart Enroll & Access)
+
+Utilisez ce chemin lorsque l'OTP fait partie d'un flux d'inscription ou de connexion lié à un projet.
+
+| Étape | Endpoint |
+| --- | --- |
+| 1. Envoyer l'OTP | [`POST /v2/phone-validations/app-registration`](/verifik-fr/resources/phone-validations/create-an-app-registration-phone-validation) |
+| 2. Vérifier l'OTP | [`PUT /v2/phone-validations`](/verifik-fr/resources/validate-a-phone-validation) |
+
+- Nécessite un contexte projet / app registration  
+- Le `source` de l'enregistrement vaut par défaut `"flow"`  
+- La facturation peut utiliser les compteurs des plans Smart Enroll / Smart Access selon le flux  
+
+---
+
+### Index des endpoints API
+
+| Action | Méthode et chemin | Docs |
+| --- | --- | --- |
+| Envoyer un OTP autonome | `POST /v2/phone-validations/manual` | [Créer une Phone Validation manuelle](/verifik-fr/resources/create-a-manual-phone-validation) |
+| Vérifier l'OTP | `PUT /v2/phone-validations` | [Valider une Phone Validation](/verifik-fr/resources/validate-a-phone-validation) |
+| Envoyer un OTP en app registration | `POST /v2/phone-validations/app-registration` | [Créer une Phone Validation App Registration](/verifik-fr/resources/phone-validations/create-an-app-registration-phone-validation) |
+| Lister | `GET /v2/phone-validations` | [Lister toutes les Phone Validations](/verifik-fr/resources/list-all-phone-validations) |
+| Récupérer une | `GET /v2/phone-validations/{id}` | [Récupérer une Phone Validation](/verifik-fr/resources/retrieve-a-phone-validation) |
+| Tarifs SMS et WhatsApp | — | [Tarifs SMS et WhatsApp](/verifik-fr/phone-validations/sms-and-whatsapp-prices) |
+
+:::tip Authentification
+Tous les endpoints exigent `Authorization: Bearer {YOUR_ACCESS_TOKEN}` et `Content-Type: application/json`.
+:::
+
+---
+
+### Valeurs de statut
+
+| Statut | Signification |
+| --- | --- |
+| `sent` | L'OTP a été délivré (ou accepté par le fournisseur) |
+| `validated` | L'OTP utilisateur correspond |
+| `failed` | Expiré, rejeté, ou échec d'envoi |
+| `new` | Créé mais pas encore envoyé avec succès |
+
+---
+
+### Pages associées
+
+- [L'objet Phone Validation](/verifik-fr/resources/the-phone-validation-object)  
+- [Créer une Phone Validation manuelle](/verifik-fr/resources/create-a-manual-phone-validation)  
+- [Valider une Phone Validation](/verifik-fr/resources/validate-a-phone-validation)  
+- [Tarifs SMS et WhatsApp](/verifik-fr/phone-validations/sms-and-whatsapp-prices)  

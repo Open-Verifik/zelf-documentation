@@ -1,0 +1,241 @@
+---
+id: create-a-phone-validation
+title: 전화번호 검증 생성
+slug: /resources/create-a-phone-validation
+description: 새 전화번호 검증 요청을 생성합니다
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - GET v2/phone-validations
+  - GET /v2/phone-validations
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::caution 전용 생성 엔드포인트를 권장합니다
+**Smart Tools / 단독 OTP**(프로젝트 없음)의 경우  
+[`POST /v2/phone-validations/manual`](/verifik-ko/resources/create-a-manual-phone-validation)를 사용하세요.
+
+**Smart Enroll / App Registration** 플로우의 경우  
+[`POST /v2/phone-validations/app-registration`](/verifik-ko/resources/phone-validations/create-an-app-registration-phone-validation)를 사용하세요.
+
+어떤 경로를 써야 할지 확실하지 않으면 [전화번호 검증 개요](/verifik-ko/resources/phone-validations)부터 시작하세요.
+:::
+
+### Endpoint
+
+```
+POST https://api.verifik.co/v2/phone-validations
+```
+
+전화번호 검증은 인증 및 등록 과정에서 전화번호를 처리하고 검증할 수 있게 해주는 Verifik 시스템의 인스턴스입니다. 이 프로세스는 사용자 전화번호의 진위를 보장하며 SMS 또는 WhatsApp 전달 방식을 통해 안전한 확인을 제공합니다.
+
+#### Headers
+
+#### `Content-Type`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `application/json`
+
+#### `Authorization`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `Bearer {YOUR_ACCESS_TOKEN}`
+
+#### Body Parameters
+
+#### `project`
+
+**Type:** String  
+**Required:** Yes
+
+이 전화번호 검증이 사용될 프로젝트의 고유 식별자입니다.
+
+#### `validationMethod`
+
+**Type:** String  
+**Required:** Yes
+
+검증 방법입니다. `verificationCode` 또는 `manual`로 설정합니다.
+
+#### `phone`
+
+**Type:** String  
+**Required:** Yes
+
+검증할 전화번호입니다(공백은 자동으로 제거됨).
+
+#### `countryCode`
+
+**Type:** String  
+**Required:** Yes
+
+`+XXX` 형식의 전화번호 국가 코드입니다(예: 파나마 `+507`).
+
+#### `type`
+
+**Type:** String  
+**Required:** Yes
+
+검증 유형: `validation`, `login`, `onboarding`, 또는 `oneTimeLink`.
+
+#### `expiresAt`
+
+**Type:** String  
+**Required:** No
+
+검증 코드의 선택적 만료일입니다.
+
+#### `redirectUrl`
+
+**Type:** String  
+**Required:** No
+
+검증 후 리디렉션을 위한 선택적 URL입니다.
+
+#### `webhookUrl`
+
+**Type:** String  
+**Required:** No
+
+검증 알림을 위한 선택적 웹훅 URL입니다.
+
+#### `identityUrl`
+
+**Type:** String  
+**Required:** No
+
+선택적 신원 확인 URL입니다.
+
+#### `requires2FA`
+
+**Type:** Boolean  
+**Required:** No
+
+2단계 인증이 필요한지 여부를 나타내는 선택적 플래그입니다.
+
+#### `ipAddress`
+
+**Type:** String  
+**Required:** No
+
+사용자의 선택적 IP 주소입니다.
+
+### `validationMethod` Values
+
+| Value              | Description                                                           |
+| ------------------ | --------------------------------------------------------------------- |
+| `verificationCode` | 확인을 위해 전화번호로 일회용 비밀번호(OTP)를 전송합니다. |
+| `manual`           | OTP 없는 수동 확인 프로세스입니다.                              |
+
+### `type` Values
+
+| Value        | Description                                                                                                                                                                                                                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `validation` | 일반 전화번호 검증입니다.                                                                                                                                                                                             |
+| `login`      | 사용자 로그인 중 전화 확인입니다.                                                                                                                                                                                        |
+| `onboarding` | 사용자 등록 중 전화 확인입니다. 온보딩의 경우 create-an-app-registration-phone-validation을 사용해야 합니다. |
+
+### Request Example
+
+<Tabs groupId="language">
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+const axios = require("axios");
+
+const config = {
+  method: "post",
+  url: "https://api.verifik.co/v2/phone-validations",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+  },
+  data: {
+    project: "project_123456789",
+    validationMethod: "verificationCode",
+    phone: "1234567890",
+    countryCode: "+1",
+    type: "validation",
+    expiresAt: "2024-01-15T11:30:00Z",
+    redirectUrl: "https://example.com/success",
+    webhookUrl: "https://example.com/webhook",
+    requires2FA: false,
+    ipAddress: "192.168.1.1"
+  }
+};
+
+axios.request(config)
+.then((response) => {
+  console.log(JSON.stringify(response.data));
+})
+.catch((error) => {
+  console.log(error);
+});
+```
+
+</TabItem>
+</Tabs>
+
+### Response Example
+
+<Tabs groupId="status">
+<TabItem value="200" label="200 OK">
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "phone_validation_123456789",
+    "client": "client_123456789",
+    "project": "project_123456789",
+    "projectFlow": "flow_123456789",
+    "status": "sent",
+    "countryCode": "+1",
+    "phone": "1234567890",
+    "type": "validation",
+    "validationMethod": "verificationCode",
+    "verificationCode": "123456",
+    "expiresAt": "2024-01-15T11:30:00Z",
+    "redirectUrl": "https://example.com/success",
+    "webhookUrl": "https://example.com/webhook",
+    "requires2FA": false,
+    "ipAddress": "192.168.1.1",
+    "attempts": 0,
+    "maxAttempts": 3,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-15T10:30:00Z"
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+</TabItem>
+<TabItem value="error" label="Error">
+
+```json
+{
+  "success": false,
+  "error": "Invalid phone number",
+  "code": "INVALID_PHONE"
+}
+```
+
+</TabItem>
+</Tabs>
+- **다중 언어**: JavaScript, Python, PHP 및 Swift 지원
+- **오류 처리**: 다양한 시나리오에 대한 상세한 오류 응답

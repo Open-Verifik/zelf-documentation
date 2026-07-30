@@ -1,0 +1,220 @@
+---
+id: create-a-manual-phone-validation
+title: Criar uma Validação de Telefone Manual
+slug: /resources/create-a-manual-phone-validation
+description: Envie um OTP independente por SMS ou WhatsApp sem um projeto (Smart Tools / API)
+keywords:
+  - v2/phone-validations/manual
+  - /v2/phone-validations/manual
+  - phone-validations/manual
+  - api.verifik.co/v2/phone-validations/manual
+  - 'https://api.verifik.co/v2/phone-validations/manual'
+  - POST v2/phone-validations/manual
+  - POST /v2/phone-validations/manual
+  - standalone phone otp
+  - smart tools whatsapp
+  - smart tools sms
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+POST https://api.verifik.co/v2/phone-validations/manual
+```
+
+Cria uma Validação de Telefone **independente** e envia um OTP por SMS ou WhatsApp. Não é necessário `project` ou `projectFlow`. Este é o mesmo endpoint usado por **Smart Tools → WhatsApp / SMS Messages**.
+
+Após um envio bem-sucedido, continue com [Validar uma Validação de Telefone](/verifik-pt/resources/validate-a-phone-validation).
+
+:::info Cobrança
+Os créditos são verificados **antes** do envio da mensagem, usando os preços de SMS/WhatsApp por país. Você é cobrado apenas quando o OTP é realmente entregue (`sent: true`).
+:::
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer {YOUR_ACCESS_TOKEN}` |
+
+### Parâmetros do body
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `phone` | string | Yes | Apenas o número nacional (espaços são removidos). Não inclua o código de discagem aqui. |
+| `countryCode` | string | Yes | Código de discagem começando com `+` (ex.: `+57`). Sempre envie este campo; mostre-o ao usuário junto com o telefone (ex.: `+57 3001234567`). |
+| `phoneGateway` | string | Yes | `sms` ou `whatsapp`. |
+| `title` | string | No | Nome da empresa / remetente no template (1–15 caracteres). O padrão é o nome do seu cliente. Usado pelo WhatsApp `flow2` e pelo texto do SMS. |
+| `language` | string | No | Idioma do template (`en`, `es`, …). Seleciona `flow2_en` / `flow2_es` quando `whatsappTemplate` é `flow2`. |
+| `whatsappTemplate` | string | No | Apenas WhatsApp. `authentication` (**padrão**) ou `flow2`. Ignorado para SMS. |
+| `force` | boolean | No | Quando `true`, ignora o intervalo de ~2 minutos para reenvio do mesmo telefone + gateway. Use para uma ação explícita de “Reenviar”. |
+| `ipAddress` | string | No | IP do cliente opcional para auditoria. |
+
+### Templates de WhatsApp
+
+| `whatsappTemplate` | Meta template | Notes |
+| --- | --- | --- |
+| `authentication` (default) | `authentication` | OTP no corpo + parâmetro de URL do botão. |
+| `flow2` | `flow2_es` / `flow2_en` | Cabeçalho/corpo com marca (`title` como seção) + código + ação; o idioma escolhe a variante. |
+
+```json
+{
+  "phone": "3001234567",
+  "countryCode": "+57",
+  "phoneGateway": "whatsapp",
+  "title": "Company ABC",
+  "language": "es",
+  "whatsappTemplate": "flow2"
+}
+```
+
+### Exemplos de requisição
+
+<Tabs groupId="language">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST "https://api.verifik.co/v2/phone-validations/manual" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "3001234567",
+    "countryCode": "+57",
+    "phoneGateway": "whatsapp",
+    "title": "Company ABC",
+    "language": "en"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.post(
+  "https://api.verifik.co/v2/phone-validations/manual",
+  {
+    phone: "3001234567",
+    countryCode: "+57",
+    phoneGateway: "whatsapp",
+    title: "Company ABC",
+    language: "en",
+  },
+  {
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+response = requests.post(
+    "https://api.verifik.co/v2/phone-validations/manual",
+    headers={
+        "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+        "Content-Type": "application/json",
+    },
+    json={
+        "phone": "3001234567",
+        "countryCode": "+57",
+        "phoneGateway": "whatsapp",
+        "title": "Company ABC",
+        "language": "en",
+    },
+)
+
+print(response.json())
+```
+
+</TabItem>
+<TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('POST', 'https://api.verifik.co/v2/phone-validations/manual', [
+  'headers' => [
+    'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
+    'Content-Type' => 'application/json',
+  ],
+  'json' => [
+    'phone' => '3001234567',
+    'countryCode' => '+57',
+    'phoneGateway' => 'whatsapp',
+    'title' => 'Company ABC',
+    'language' => 'en',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+</TabItem>
+</Tabs>
+
+### Resposta de sucesso
+
+```json
+{
+  "data": {
+    "_id": "66f0a1b2c3d4e5f678901234",
+    "client": "66f0a1b2c3d4e5f678900000",
+    "source": "manual",
+    "type": "validation",
+    "status": "sent",
+    "countryCode": "+57",
+    "phone": "3001234567",
+    "phoneGateway": "whatsapp",
+    "phoneData": {
+      "title": "Company ABC"
+    },
+    "language": "en",
+    "expiresAt": "2026-07-29T22:50:00.000Z",
+    "sent": true,
+    "new": true
+  },
+  "signature": "...",
+  "id": "a1b2c"
+}
+```
+
+### Tempo de vida do OTP e reenvio
+
+| Regra | Padrão | Observações |
+| --- | --- | --- |
+| OTP TTL | **10 minutos** | Retornado como `data.expiresAt` em um envio bem-sucedido. Após esse tempo, a verificação retorna `412` `phoneValidation_has_expired`. |
+| Intervalo de reenvio | **~2 minutos** | Um segundo envio para o mesmo cliente + telefone + `phoneGateway` em ~2 minutos retorna `409` `otp_recently_sent` (sem nova mensagem). |
+| Forçar reenvio | `"force": true` | Ignora o intervalo de 2 minutos para que você possa enviar um novo código imediatamente (ex.: “Reenviar” na UI). Cada envio/reenvio bem-sucedido redefine `expiresAt` para +10 minutos. |
+
+:::tip Orientação de UI
+Mostre o destino como **`countryCode` + `phone` nacional** (ex.: `+57 3001234567`). Use `expiresAt` para a contagem regressiva de expiração e habilite “Reenviar” após o intervalo de 2 minutos (ou sempre com `force: true`).
+:::
+
+### Erros comuns
+
+| Status | Message / code | When |
+| --- | --- | --- |
+| 403 | `insufficient_credits` | O saldo pré-pago está abaixo do preço do país para SMS/WhatsApp. Nada é enviado. |
+| 409 | `otp_recently_sent` | Intervalo: um OTP já foi enviado para este telefone + gateway em ~2 minutos (e `force` não era `true`). |
+| 409 | `otp_not_sent` | Falha no envio pelo provedor (a mensagem não foi aceita). Diferente do intervalo de reenvio. |
+| 409 | `MissingParameter` | Campos obrigatórios do body ausentes ou `countryCode` fora do formato `+digits`. |
+| 403 | Forbidden | O recurso de comunicação SMS/WhatsApp não está disponível na conta. |
+
+### Próximo passo
+
+Verifique o código com [`PUT /v2/phone-validations`](/verifik-pt/resources/validate-a-phone-validation).

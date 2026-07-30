@@ -1,0 +1,180 @@
+---
+id: validate-a-phone-validation
+title: 電話番号認証を検証
+slug: /resources/validate-a-phone-validation
+description: phone、countryCode、otp で電話 OTP を確認する
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - PUT v2/phone-validations
+  - PUT /v2/phone-validations
+  - phone-validations validate
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - otp verify phone
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+PUT https://api.verifik.co/v2/phone-validations
+```
+
+ユーザーが受け取った OTP を確認します。Verifik は、その電話番号に対する最新の **sent**（かつ未期限切れ）の Phone Validation を検索します。これには **手動 / Smart Tools** のレコードとプロジェクトフローのレコードが含まれます。
+
+:::tip 送信とセットで使用
+スタンドアロン OTP は [`POST /v2/phone-validations/manual`](/verifik-ja/resources/create-a-manual-phone-validation) で作成します。App Registration OTP は [`POST /v2/phone-validations/app-registration`](/verifik-ja/resources/phone-validations/create-an-app-registration-phone-validation) を使用します。
+:::
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer {YOUR_ACCESS_TOKEN}` |
+
+### Body parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `phone` | string | Yes | OTP 送信時と同じ国内番号。 |
+| `countryCode` | string | Yes | `+` で始まるダイヤルコード。 |
+| `otp` | number | Yes | ユーザーが受け取った数字コード。 |
+| `phoneGateway` | string | No | `sms` または `whatsapp` — 両チャネルが使われた場合に検索を絞り込みます。 |
+| `project` | string | No | フローベースのレコード用の任意のプロジェクトフィルタ。 |
+| `projectFlow` | string | No | 任意のプロジェクトフローフィルタ（利用可能な場合は推奨）。 |
+
+### Request examples
+
+<Tabs groupId="language">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X PUT "https://api.verifik.co/v2/phone-validations" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "3001234567",
+    "countryCode": "+57",
+    "otp": 123456,
+    "phoneGateway": "whatsapp"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.put(
+  "https://api.verifik.co/v2/phone-validations",
+  {
+    phone: "3001234567",
+    countryCode: "+57",
+    otp: 123456,
+    phoneGateway: "whatsapp",
+  },
+  {
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+response = requests.put(
+    "https://api.verifik.co/v2/phone-validations",
+    headers={
+        "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+        "Content-Type": "application/json",
+    },
+    json={
+        "phone": "3001234567",
+        "countryCode": "+57",
+        "otp": 123456,
+        "phoneGateway": "whatsapp",
+    },
+)
+
+print(response.json())
+```
+
+</TabItem>
+<TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('PUT', 'https://api.verifik.co/v2/phone-validations', [
+  'headers' => [
+    'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
+    'Content-Type' => 'application/json',
+  ],
+  'json' => [
+    'phone' => '3001234567',
+    'countryCode' => '+57',
+    'otp' => 123456,
+    'phoneGateway' => 'whatsapp',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+</TabItem>
+</Tabs>
+
+### Success response
+
+```json
+{
+  "data": {
+    "_id": "66f0a1b2c3d4e5f678901234",
+    "status": "validated",
+    "countryCode": "+57",
+    "phone": "3001234567",
+    "phoneGateway": "whatsapp",
+    "source": "manual",
+    "validatedAt": "2026-07-29T22:40:00.000Z"
+  }
+}
+```
+
+### OTP の有効期限
+
+保留中の OTP は、最後の送信 / 再送の成功から **10 分** 間有効です（作成レスポンスの `expiresAt`）。その後、このエンドポイントは `412` `phoneValidation_has_expired` を返します。ユーザーに再試行を求める前に、新しい OTP を送信してください（約 2 分の再送クールダウンを守るか、手動作成で `force: true` を使用）。
+
+### OTP の試行回数
+
+現時点では **サーバー側の試行回数制限はありません**。誤ったコードは、レコードが期限切れになるか新しい OTP が送信されるまで `403` `otp_does_not_match` を返します。必要に応じて、クライアント側でロックアウトや試行上限を実装してください。
+
+### Common errors
+
+| Status | Message | When |
+| --- | --- | --- |
+| 403 | `otp_does_not_match` | コードが保留中の OTP と一致しません。 |
+| 412 | `phoneValidation_has_expired` | 保留中の OTP の TTL（約 10 分）が経過しました。 |
+| 409 | `otp_send_failed` | この電話番号の最新レコードの送信に失敗しました（期限切れとは異なります）。 |
+| 409 | `phone_validation_already_validated` | OTP はすでに検証済みです。 |
+| 404 | `phone_validation_not_found` | この電話番号に一致する Phone Validation がありません。 |
+| 409 | `MissingParameter` | 必須のボディフィールドが欠落しています。 |
+
+### Related
+
+- [手動の電話番号認証を作成](/verifik-ja/resources/create-a-manual-phone-validation)  
+- [電話番号認証の概要](/verifik-ja/resources/phone-validations)  

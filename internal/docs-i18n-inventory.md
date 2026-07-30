@@ -1,6 +1,6 @@
 # Docs i18n — canonical endpoint inventory
 
-Generated: 2026-07-30T17:15:14.052Z
+Generated: 2026-07-30T18:26:14.516Z
 
 - **Files scanned:** 496
 - **Unique endpoint URLs:** 214

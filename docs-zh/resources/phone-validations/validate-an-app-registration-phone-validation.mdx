@@ -1,0 +1,240 @@
+---
+id: resources-phone-validations-validate-an-app-registration-phone-validation
+title: 验证 App Registration 手机验证
+description: 验证在 App Registration 过程中发送到用户手机号码的 OTP
+slug: /resources/phone-validations/validate-an-app-registration-phone-validation
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - GET v2/phone-validations
+  - GET /v2/phone-validations
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### 端点
+
+```
+PUT https://api.verifik.co/v2/phone-validations
+```
+
+此端点验证在 App Registration（onboarding）过程中发送到用户手机号码的一次性密码（OTP）。它确保用户提供的 OTP 正确，并相应更新验证状态。此路由专为处于 App Registration 流程中的用户设计。
+
+:::warning
+验证 `App Registration Phone Validations` 时应使用的 JWT 令牌来自创建 `App Registration` 时返回的令牌。您必须使用创建 [App Registration](https://docs.verifik.co/resources/app-registrations/create-an-app-registration) 时返回的令牌来验证此请求。
+:::
+
+### 请求头
+
+| 名称 | 值 |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### 参数
+
+| 名称 | 类型 | 必需 | 说明 |
+| --- | --- | --- | --- |
+| `phone` | string | 是 | 创建手机验证时使用的手机号码。处理过程中会自动移除空格 |
+| `countryCode` | string | 是 | 手机号码的国家代码，格式为 `+XXX`（例如巴拿马为 `+507`，美国为 `+1`）。必须匹配 `+` 后跟 1 到 3 位数字的格式 |
+| `otp` | number | 是 | 发送到用户手机号码的一次性密码（OTP） |
+| `project` | string | 否 | 项目的唯一标识符。可选，有助于缩小验证范围 |
+| `projectFlow` | string | 否 | 项目流程的唯一标识符。可选，有助于缩小验证范围 |
+| `phoneGateway` | string | 否 | 使用的投递方式：`sms`、`whatsapp` 或 `none` |
+
+### 请求
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+const fetch = require("node-fetch");
+
+async function run() {
+  const res = await fetch("https://api.verifik.co/v2/phone-validations", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+    },
+    body: JSON.stringify({
+      phone: "62647737",
+      countryCode: "+507",
+      otp: 123456
+    }),
+  });
+  console.log(await res.json());
+}
+
+run();
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+$ch = curl_init("https://api.verifik.co/v2/phone-validations");
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/json",
+    "Authorization: Bearer " . getenv("VERIFIK_TOKEN")
+]);
+$body = json_encode([
+    "phone" => "62647737",
+    "countryCode" => "+507",
+    "otp" => 123456
+]);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/phone-validations"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"
+}
+payload = {
+    "phone": "62647737",
+    "countryCode": "+507",
+    "otp": 123456
+}
+r = requests.put(url, json=payload, headers=headers)
+print(r.json())
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    url := "https://api.verifik.co/v2/phone-validations"
+    payload := map[string]interface{}{
+        "phone": "62647737",
+        "countryCode": "+507",
+        "otp": 123456,
+    }
+    b, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("PUT", url, bytes.NewBuffer(b))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer "+os.Getenv("VERIFIK_TOKEN"))
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    var out map[string]interface{}
+    json.NewDecoder(resp.Body).Decode(&out)
+    fmt.Println(out)
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### 响应
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+    "data": {
+        "_id": "674de8df21c72be3cc42b8a7",
+        "status": "validated",
+        "countryCode": "+507",
+        "phone": "62647737",
+        "type": "onboarding",
+        "showFaceLivenessRecommendation": false
+    }
+}
+```
+
+  </TabItem>
+  <TabItem value="403" label="403">
+
+```json
+{
+    "code": "otp_does_not_match",
+    "message": "403:otp_does_not_match"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+    "code": "phone_validation_not_found",
+    "message": "404:phone_validation_not_found"
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "missing phone\n. missing countryCode\n. missing otp"
+}
+```
+
+  </TabItem>
+  <TabItem value="409-countrycode" label="409 (Invalid Country Code Format)">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "Invalid countryCode format. CountryCode should be in the format + followed by 1 to 3 digits."
+}
+```
+
+  </TabItem>
+  <TabItem value="412" label="412">
+
+```json
+{
+    "code": "phoneValidation_has_expired",
+    "message": "412:phoneValidation_has_expired"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### 说明
+
+- **Onboarding 流程**：此端点专为处于 App Registration 过程中的用户设计，其中手机验证是 onboarding 旅程的一部分。
+- **OTP 过期**：OTP 有有限的有效期（通常为 10 分钟），会在预定时间后过期。已过期的 OTP 无法验证。
+- **状态更新**：验证成功会自动将手机验证状态更新为 `"validated"`，并可能触发额外的 onboarding 步骤。
+- **Webhook 事件**：验证事件会触发 webhook 通知，用于跟踪与集成。
+- **人脸活体**：部分项目流程可能在手机验证后建议进行人脸活体验证，作为 onboarding 过程的一部分。
+- **App Registration 关联**：通过此端点验证时，手机验证会自动关联到用户的 App Registration 记录。
+- **手机号码格式**：处理过程中会自动移除手机号码中的空格。
+- **国家代码格式**：国家代码必须为 `+XXX` 格式，其中 X 为数字（最多 1–3 位）。

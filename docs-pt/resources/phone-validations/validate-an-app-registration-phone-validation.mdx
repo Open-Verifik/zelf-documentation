@@ -1,0 +1,240 @@
+---
+id: resources-phone-validations-validate-an-app-registration-phone-validation
+title: Validar uma Validação de Telefone de App Registration
+description: Valide um OTP enviado ao número de telefone de um usuário durante o processo de app registration
+slug: /resources/phone-validations/validate-an-app-registration-phone-validation
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - GET v2/phone-validations
+  - GET /v2/phone-validations
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+PUT https://api.verifik.co/v2/phone-validations
+```
+
+Este endpoint valida uma senha de uso único (OTP) enviada ao número de telefone de um usuário durante o processo de app registration (onboarding). Ele garante que o OTP informado pelo usuário está correto e atualiza o status de verificação de acordo. Esta rota é projetada especificamente para usuários que estão no meio de um fluxo de app registration.
+
+:::warning
+O token JWT que você deve usar ao validar `App Registration Phone Validations` é fornecido na criação do `App Registration`. Você deve usar o token retornado ao criar um [App Registration](https://docs.verifik.co/resources/app-registrations/create-an-app-registration) para autenticar esta requisição.
+:::
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Params
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `phone` | string | Yes | O número de telefone usado para criar a validação de telefone. Espaços serão removidos automaticamente durante o processamento |
+| `countryCode` | string | Yes | O código do país do número de telefone no formato `+XXX` (ex.: `+507` para o Panamá, `+1` para os Estados Unidos). Deve corresponder ao formato `+` seguido de 1 a 3 dígitos |
+| `otp` | number | Yes | A senha de uso único (OTP) que foi enviada ao número de telefone do usuário |
+| `project` | string | No | O identificador único do projeto. Opcional, ajuda a restringir a validação |
+| `projectFlow` | string | No | O identificador único do fluxo de projeto. Opcional, ajuda a restringir a validação |
+| `phoneGateway` | string | No | O método de entrega usado: `sms`, `whatsapp` ou `none` |
+
+### Request
+
+<Tabs>
+  <TabItem value="node" label="Node.js">
+
+```javascript
+const fetch = require("node-fetch");
+
+async function run() {
+  const res = await fetch("https://api.verifik.co/v2/phone-validations", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+    },
+    body: JSON.stringify({
+      phone: "62647737",
+      countryCode: "+507",
+      otp: 123456
+    }),
+  });
+  console.log(await res.json());
+}
+
+run();
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+$ch = curl_init("https://api.verifik.co/v2/phone-validations");
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/json",
+    "Authorization: Bearer " . getenv("VERIFIK_TOKEN")
+]);
+$body = json_encode([
+    "phone" => "62647737",
+    "countryCode" => "+507",
+    "otp" => 123456
+]);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/phone-validations"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"
+}
+payload = {
+    "phone": "62647737",
+    "countryCode": "+507",
+    "otp": 123456
+}
+r = requests.put(url, json=payload, headers=headers)
+print(r.json())
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    url := "https://api.verifik.co/v2/phone-validations"
+    payload := map[string]interface{}{
+        "phone": "62647737",
+        "countryCode": "+507",
+        "otp": 123456,
+    }
+    b, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("PUT", url, bytes.NewBuffer(b))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer "+os.Getenv("VERIFIK_TOKEN"))
+    resp, _ := http.DefaultClient.Do(req)
+    defer resp.Body.Close()
+    var out map[string]interface{}
+    json.NewDecoder(resp.Body).Decode(&out)
+    fmt.Println(out)
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+    "data": {
+        "_id": "674de8df21c72be3cc42b8a7",
+        "status": "validated",
+        "countryCode": "+507",
+        "phone": "62647737",
+        "type": "onboarding",
+        "showFaceLivenessRecommendation": false
+    }
+}
+```
+
+  </TabItem>
+  <TabItem value="403" label="403">
+
+```json
+{
+    "code": "otp_does_not_match",
+    "message": "403:otp_does_not_match"
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+    "code": "phone_validation_not_found",
+    "message": "404:phone_validation_not_found"
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "missing phone\n. missing countryCode\n. missing otp"
+}
+```
+
+  </TabItem>
+  <TabItem value="409-countrycode" label="409 (Invalid Country Code Format)">
+
+```json
+{
+    "code": "MissingParameter",
+    "message": "Invalid countryCode format. CountryCode should be in the format + followed by 1 to 3 digits."
+}
+```
+
+  </TabItem>
+  <TabItem value="412" label="412">
+
+```json
+{
+    "code": "phoneValidation_has_expired",
+    "message": "412:phoneValidation_has_expired"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Observações
+
+- **Fluxo de onboarding**: Este endpoint é projetado especificamente para usuários no processo de app registration, em que a validação de telefone faz parte da jornada de onboarding.
+- **Expiração do OTP**: Os OTPs têm vida útil limitada (normalmente 10 minutos) e expiram após o tempo predefinido. OTPs expirados não podem ser validados.
+- **Atualizações de status**: A validação bem-sucedida atualiza automaticamente o status da validação de telefone para "validated" e pode acionar etapas adicionais de onboarding.
+- **Eventos de webhook**: Eventos de validação disparam notificações de webhook para rastreamento e integração.
+- **Face Liveness**: Alguns fluxos de projeto podem recomendar verificação de face liveness após a validação de telefone como parte do processo de onboarding.
+- **Vinculação ao App Registration**: Quando validada por este endpoint, a validação de telefone é vinculada automaticamente ao registro de app registration do usuário.
+- **Formatação do número de telefone**: Espaços nos números de telefone são removidos automaticamente durante o processamento.
+- **Formato do Country Code**: O código do país deve estar no formato `+XXX`, em que X são dígitos (máximo de 1 a 3 dígitos).

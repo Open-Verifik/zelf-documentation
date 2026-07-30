@@ -1,0 +1,241 @@
+---
+id: create-a-phone-validation
+title: Criar uma Validação de Telefone
+slug: /resources/create-a-phone-validation
+description: Crie uma nova solicitação de validação de telefone
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - GET v2/phone-validations
+  - GET /v2/phone-validations
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::caution Prefira os endpoints dedicados de criação
+Para **Smart Tools / OTPs independentes** (sem projeto), use  
+[`POST /v2/phone-validations/manual`](/verifik-pt/resources/create-a-manual-phone-validation).
+
+Para fluxos de **Smart Enroll / App Registration**, use  
+[`POST /v2/phone-validations/app-registration`](/verifik-pt/resources/phone-validations/create-an-app-registration-phone-validation).
+
+Comece pela [visão geral de Validações de Telefone](/verifik-pt/resources/phone-validations) se não tiver certeza de qual caminho usar.
+:::
+
+### Endpoint
+
+```
+POST https://api.verifik.co/v2/phone-validations
+```
+
+Uma Validação de Telefone é uma instância no sistema da Verifik que permite processar e validar números de telefone durante processos de autenticação e cadastro. Esse processo garante a autenticidade dos números de telefone dos usuários e oferece verificação segura por meio de métodos de entrega SMS ou WhatsApp.
+
+#### Headers
+
+#### `Content-Type`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `application/json`
+
+#### `Authorization`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `Bearer {YOUR_ACCESS_TOKEN}`
+
+#### Body Parameters
+
+#### `project`
+
+**Type:** String  
+**Required:** Yes
+
+O identificador único do projeto em que esta validação de telefone será usada.
+
+#### `validationMethod`
+
+**Type:** String  
+**Required:** Yes
+
+O método de validação, definido como `verificationCode` ou `manual`.
+
+#### `phone`
+
+**Type:** String  
+**Required:** Yes
+
+O número de telefone que será validado (espaços serão removidos automaticamente).
+
+#### `countryCode`
+
+**Type:** String  
+**Required:** Yes
+
+O código do país do número de telefone no formato `+XXX` (ex.: `+507` para o Panamá).
+
+#### `type`
+
+**Type:** String  
+**Required:** Yes
+
+Tipo de validação: `validation`, `login`, `onboarding` ou `oneTimeLink`.
+
+#### `expiresAt`
+
+**Type:** String  
+**Required:** No
+
+Data de expiração opcional para o código de validação.
+
+#### `redirectUrl`
+
+**Type:** String  
+**Required:** No
+
+URL opcional para redirecionamento após a validação.
+
+#### `webhookUrl`
+
+**Type:** String  
+**Required:** No
+
+URL de webhook opcional para notificações de validação.
+
+#### `identityUrl`
+
+**Type:** String  
+**Required:** No
+
+URL opcional de verificação de identidade.
+
+#### `requires2FA`
+
+**Type:** Boolean  
+**Required:** No
+
+Flag opcional que indica se a autenticação de dois fatores é necessária.
+
+#### `ipAddress`
+
+**Type:** String  
+**Required:** No
+
+Endereço IP opcional do usuário.
+
+### Valores de `validationMethod`
+
+| Value              | Description                                                           |
+| ------------------ | --------------------------------------------------------------------- |
+| `verificationCode` | Envia uma senha de uso único (OTP) ao número de telefone para verificação. |
+| `manual`           | Processo de verificação manual sem OTP.                              |
+
+### Valores de `type`
+
+| Value        | Description                                                                                                                                                                                                                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `validation` | Validação geral de número de telefone.                                                                                                                                                                                             |
+| `login`      | Verificação de telefone durante o login do usuário.                                                                                                                                                                                        |
+| `onboarding` | Verificação de telefone durante o cadastro do usuário. Para onboarding — você deve usar create-an-app-registration-phone-validation |
+
+### Exemplo de requisição
+
+<Tabs groupId="language">
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+const axios = require("axios");
+
+const config = {
+  method: "post",
+  url: "https://api.verifik.co/v2/phone-validations",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+  },
+  data: {
+    project: "project_123456789",
+    validationMethod: "verificationCode",
+    phone: "1234567890",
+    countryCode: "+1",
+    type: "validation",
+    expiresAt: "2024-01-15T11:30:00Z",
+    redirectUrl: "https://example.com/success",
+    webhookUrl: "https://example.com/webhook",
+    requires2FA: false,
+    ipAddress: "192.168.1.1"
+  }
+};
+
+axios.request(config)
+.then((response) => {
+  console.log(JSON.stringify(response.data));
+})
+.catch((error) => {
+  console.log(error);
+});
+```
+
+</TabItem>
+</Tabs>
+
+### Exemplo de resposta
+
+<Tabs groupId="status">
+<TabItem value="200" label="200 OK">
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "phone_validation_123456789",
+    "client": "client_123456789",
+    "project": "project_123456789",
+    "projectFlow": "flow_123456789",
+    "status": "sent",
+    "countryCode": "+1",
+    "phone": "1234567890",
+    "type": "validation",
+    "validationMethod": "verificationCode",
+    "verificationCode": "123456",
+    "expiresAt": "2024-01-15T11:30:00Z",
+    "redirectUrl": "https://example.com/success",
+    "webhookUrl": "https://example.com/webhook",
+    "requires2FA": false,
+    "ipAddress": "192.168.1.1",
+    "attempts": 0,
+    "maxAttempts": 3,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-15T10:30:00Z"
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+</TabItem>
+<TabItem value="error" label="Error">
+
+```json
+{
+  "success": false,
+  "error": "Invalid phone number",
+  "code": "INVALID_PHONE"
+}
+```
+
+</TabItem>
+</Tabs>
+- **Vários idiomas**: Suporte a JavaScript, Python, PHP e Swift
+- **Tratamento de erros**: Respostas de erro detalhadas para diferentes cenários

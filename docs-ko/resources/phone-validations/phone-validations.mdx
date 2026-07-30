@@ -1,0 +1,107 @@
+---
+id: phone-validations
+title: 전화번호 검증
+slug: /resources/phone-validations
+description: SMS 또는 WhatsApp으로 전화 OTP를 전송하고 검증합니다 — 단독으로 또는 프로젝트 플로우 안에서
+---
+
+### 전화번호 검증이란?
+
+**전화번호 검증(Phone Validation)**은 전화번호에 대한 하나의 OTP 세션입니다. Verifik가 **SMS** 또는 **WhatsApp**으로 일회용 코드를 보낸 뒤, 사용자가 입력한 코드를 확인합니다.
+
+일반적인 수명 주기:
+
+1. **전송** — Phone Validation을 생성하고 OTP를 전달합니다  
+2. **검증** — 동일한 전화번호 + OTP를 제출하여 세션을 검증 완료로 표시합니다  
+
+전체 필드 목록은 [전화번호 검증 객체](/verifik-ko/resources/the-phone-validation-object)를 참고하세요.
+
+### 타이밍 규칙
+
+| 규칙 | 기본값 |
+| --- | --- |
+| OTP 유효 기간 | **10분** (전송 응답의 `expiresAt`) |
+| 재전송 쿨다운 | 동일 전화번호 + 게이트웨이 기준 전송 간 **약 2분** (`409` `otp_recently_sent`) |
+| 쿨다운 우회 | `"force": true`로 수동 생성 |
+
+메시지를 받은 대상을 사용자가 알 수 있도록 항상 **`countryCode`**와 국내 **`phone`**을 함께 보내고 표시하세요 (예: `+57 3001234567`).
+
+---
+
+### 연동 경로 선택
+
+API를 호출하는 방식에 맞는 경로를 선택하세요.
+
+#### 경로 A — 단독 / Smart Tools (프로젝트 없음)
+
+백엔드 또는 **Smart Tools → WhatsApp / SMS Messages**에서 OTP를 보내며, Smart Enroll 또는 Smart Access 프로젝트 없이 사용할 때 선택합니다.
+
+| 단계 | 엔드포인트 |
+| --- | --- |
+| 1. OTP 전송 | [`POST /v2/phone-validations/manual`](/verifik-ko/resources/create-a-manual-phone-validation) |
+| 2. OTP 검증 | [`PUT /v2/phone-validations`](/verifik-ko/resources/validate-a-phone-validation) |
+
+- `project` / `projectFlow` 불필요  
+- 레코드 `source`는 `"manual"`  
+- 전송 성공 후 **종량제 커뮤니케이션 크레딧**으로 청구  
+- 선택적 `title`(최대 15자)은 WhatsApp/SMS 템플릿의 회사명으로 사용됩니다  
+
+```text
+Your app                    Verifik API
+────────                    ───────────
+POST /manual  ───────────►  OTP sent (SMS / WhatsApp)
+                            status: sent
+
+PUT  /phone-validations ─►  OTP checked
+  { phone, countryCode, otp }   status: validated
+```
+
+#### 경로 B — 프로젝트 / App Registration (Smart Enroll & Access)
+
+등록 또는 로그인 플로우의 일부로 OTP를 사용하며 프로젝트에 연결된 경우입니다.
+
+| 단계 | 엔드포인트 |
+| --- | --- |
+| 1. OTP 전송 | [`POST /v2/phone-validations/app-registration`](/verifik-ko/resources/phone-validations/create-an-app-registration-phone-validation) |
+| 2. OTP 검증 | [`PUT /v2/phone-validations`](/verifik-ko/resources/validate-a-phone-validation) |
+
+- 프로젝트 / 앱 등록 컨텍스트 필요  
+- 레코드 `source` 기본값은 `"flow"`  
+- 청구는 플로우에 따라 Smart Enroll / Smart Access 플랜 카운터를 사용할 수 있습니다  
+
+---
+
+### API 엔드포인트 목록
+
+| 작업 | 메서드 & 경로 | 문서 |
+| --- | --- | --- |
+| 단독 OTP 전송 | `POST /v2/phone-validations/manual` | [수동 전화번호 검증 생성](/verifik-ko/resources/create-a-manual-phone-validation) |
+| OTP 검증 | `PUT /v2/phone-validations` | [전화번호 검증 확인](/verifik-ko/resources/validate-a-phone-validation) |
+| 앱 등록에서 OTP 전송 | `POST /v2/phone-validations/app-registration` | [앱 등록 전화번호 검증 생성](/verifik-ko/resources/phone-validations/create-an-app-registration-phone-validation) |
+| 목록 | `GET /v2/phone-validations` | [모든 전화번호 검증 목록](/verifik-ko/resources/list-all-phone-validations) |
+| 단건 조회 | `GET /v2/phone-validations/{id}` | [전화번호 검증 조회](/verifik-ko/resources/retrieve-a-phone-validation) |
+| SMS & WhatsApp 요금 | — | [SMS & WhatsApp 요금](/verifik-ko/phone-validations/sms-and-whatsapp-prices) |
+
+:::tip 인증
+모든 엔드포인트에는 `Authorization: Bearer {YOUR_ACCESS_TOKEN}`과 `Content-Type: application/json`이 필요합니다.
+:::
+
+---
+
+### 상태 값
+
+| 상태 | 의미 |
+| --- | --- |
+| `sent` | OTP가 전달됨(또는 제공자가 수락함) |
+| `validated` | 사용자 OTP가 일치함 |
+| `failed` | 만료, 거부 또는 전송 실패 |
+| `new` | 생성되었으나 아직 성공적으로 전송되지 않음 |
+
+---
+
+### 관련 페이지
+
+- [전화번호 검증 객체](/verifik-ko/resources/the-phone-validation-object)  
+- [수동 전화번호 검증 생성](/verifik-ko/resources/create-a-manual-phone-validation)  
+- [전화번호 검증 확인](/verifik-ko/resources/validate-a-phone-validation)  
+- [SMS & WhatsApp 요금](/verifik-ko/phone-validations/sms-and-whatsapp-prices)  

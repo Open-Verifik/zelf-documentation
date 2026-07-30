@@ -1,0 +1,220 @@
+---
+id: create-a-manual-phone-validation
+title: 创建手动手机验证
+slug: /resources/create-a-manual-phone-validation
+description: 无需项目即可发送独立的 SMS 或 WhatsApp OTP（Smart Tools / API）
+keywords:
+  - v2/phone-validations/manual
+  - /v2/phone-validations/manual
+  - phone-validations/manual
+  - api.verifik.co/v2/phone-validations/manual
+  - 'https://api.verifik.co/v2/phone-validations/manual'
+  - POST v2/phone-validations/manual
+  - POST /v2/phone-validations/manual
+  - standalone phone otp
+  - smart tools whatsapp
+  - smart tools sms
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### 端点
+
+```
+POST https://api.verifik.co/v2/phone-validations/manual
+```
+
+创建一次 **独立** 手机验证，并通过 SMS 或 WhatsApp 发送 OTP。无需 `project` 或 `projectFlow`。这与 **Smart Tools → WhatsApp / SMS Messages** 使用的端点相同。
+
+成功发送后，请继续使用 [验证手机验证](/verifik-zh/resources/validate-a-phone-validation)。
+
+:::info 计费
+在消息发送 **之前** 会按国家 SMS/WhatsApp 价格检查积分。仅当 OTP 实际投递成功（`sent: true`）时才会扣费。
+:::
+
+### 请求头
+
+| 名称 | 值 |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer {YOUR_ACCESS_TOKEN}` |
+
+### Body 参数
+
+| 参数 | 类型 | 必需 | 说明 |
+| --- | --- | --- | --- |
+| `phone` | string | 是 | 仅国内号码（空格会被去除）。请勿在此包含拨号代码。 |
+| `countryCode` | string | 是 | 以 `+` 开头的拨号代码（例如 `+57`）。必须始终发送；并向用户展示手机号（例如 `+57 3001234567`）。 |
+| `phoneGateway` | string | 是 | `sms` 或 `whatsapp`。 |
+| `title` | string | 否 | 模板中的公司 / 发件人名称（1–15 个字符）。默认为您的客户端名称。用于 WhatsApp `flow2` 与 SMS 文案。 |
+| `language` | string | 否 | 模板语言（`en`、`es` 等）。当 `whatsappTemplate` 为 `flow2` 时选择 `flow2_en` / `flow2_es`。 |
+| `whatsappTemplate` | string | 否 | 仅 WhatsApp。`authentication`（**默认**）或 `flow2`。对 SMS 忽略。 |
+| `force` | boolean | 否 | 为 `true` 时，绕过同一手机号 + 网关约 2 分钟的重发冷却。用于显式的「重新发送」操作。 |
+| `ipAddress` | string | 否 | 可选的客户端 IP，用于审计。 |
+
+### WhatsApp 模板
+
+| `whatsappTemplate` | Meta 模板 | 说明 |
+| --- | --- | --- |
+| `authentication`（默认） | `authentication` | 正文中的 OTP + 按钮 URL 参数。 |
+| `flow2` | `flow2_es` / `flow2_en` | 品牌化页眉/正文（`title` 作为区块）+ 验证码 + 操作；语言选择变体。 |
+
+```json
+{
+  "phone": "3001234567",
+  "countryCode": "+57",
+  "phoneGateway": "whatsapp",
+  "title": "Company ABC",
+  "language": "es",
+  "whatsappTemplate": "flow2"
+}
+```
+
+### 请求示例
+
+<Tabs groupId="language">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST "https://api.verifik.co/v2/phone-validations/manual" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "3001234567",
+    "countryCode": "+57",
+    "phoneGateway": "whatsapp",
+    "title": "Company ABC",
+    "language": "en"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.post(
+  "https://api.verifik.co/v2/phone-validations/manual",
+  {
+    phone: "3001234567",
+    countryCode: "+57",
+    phoneGateway: "whatsapp",
+    title: "Company ABC",
+    language: "en",
+  },
+  {
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+response = requests.post(
+    "https://api.verifik.co/v2/phone-validations/manual",
+    headers={
+        "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+        "Content-Type": "application/json",
+    },
+    json={
+        "phone": "3001234567",
+        "countryCode": "+57",
+        "phoneGateway": "whatsapp",
+        "title": "Company ABC",
+        "language": "en",
+    },
+)
+
+print(response.json())
+```
+
+</TabItem>
+<TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('POST', 'https://api.verifik.co/v2/phone-validations/manual', [
+  'headers' => [
+    'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
+    'Content-Type' => 'application/json',
+  ],
+  'json' => [
+    'phone' => '3001234567',
+    'countryCode' => '+57',
+    'phoneGateway' => 'whatsapp',
+    'title' => 'Company ABC',
+    'language' => 'en',
+  ],
+]);
+
+echo $response->getBody();
+```
+
+</TabItem>
+</Tabs>
+
+### 成功响应
+
+```json
+{
+  "data": {
+    "_id": "66f0a1b2c3d4e5f678901234",
+    "client": "66f0a1b2c3d4e5f678900000",
+    "source": "manual",
+    "type": "validation",
+    "status": "sent",
+    "countryCode": "+57",
+    "phone": "3001234567",
+    "phoneGateway": "whatsapp",
+    "phoneData": {
+      "title": "Company ABC"
+    },
+    "language": "en",
+    "expiresAt": "2026-07-29T22:50:00.000Z",
+    "sent": true,
+    "new": true
+  },
+  "signature": "...",
+  "id": "a1b2c"
+}
+```
+
+### OTP 有效期与重发
+
+| 规则 | 默认值 | 说明 |
+| --- | --- | --- |
+| OTP TTL | **10 分钟** | 成功发送时作为 `data.expiresAt` 返回。过期后验证返回 `412` `phoneValidation_has_expired`。 |
+| 重发冷却 | **约 2 分钟** | 同一客户端 + 手机号 + `phoneGateway` 在约 2 分钟内再次发送会返回 `409` `otp_recently_sent`（不会发送新消息）。 |
+| 强制重发 | `"force": true` | 绕过 2 分钟冷却，可立即发送新验证码（例如 UI「重新发送」）。每次成功发送/重发都会将 `expiresAt` 重置为 +10 分钟。 |
+
+:::tip UI 指引
+将目标展示为 **`countryCode` + 国内 `phone`**（例如 `+57 3001234567`）。根据 `expiresAt` 驱动过期倒计时，并在 2 分钟冷却后启用「重新发送」（或始终使用 `force: true`）。
+:::
+
+### 常见错误
+
+| 状态 | 消息 / 代码 | 何时 |
+| --- | --- | --- |
+| 403 | `insufficient_credits` | 预付余额低于该国家 SMS/WhatsApp 价格。不会发送任何消息。 |
+| 409 | `otp_recently_sent` | 冷却中：约 2 分钟内已针对此手机号 + 网关发送过 OTP（且 `force` 不为 `true`）。 |
+| 409 | `otp_not_sent` | 运营商发送失败（消息未被接受）。与冷却不同。 |
+| 409 | `MissingParameter` | 缺少必需的 body 字段，或 `countryCode` 不是 `+digits` 形式。 |
+| 403 | Forbidden | 账户上不可用通信 SMS/WhatsApp 功能。 |
+
+### 下一步
+
+使用 [`PUT /v2/phone-validations`](/verifik-zh/resources/validate-a-phone-validation) 验证验证码。

@@ -1,0 +1,285 @@
+---
+id: list-all-phone-validations
+title: Listar Todas as Validações de Telefone
+slug: /resources/list-all-phone-validations
+description: Recupere uma lista de todas as validações de telefone com filtragem e paginação opcionais
+keywords:
+  - v2/phone-validations
+  - /v2/phone-validations
+  - v2 phone-validations
+  - api/phone-validations
+  - /api/phone-validations
+  - api phone-validations
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - GET v2/phone-validations
+  - GET /v2/phone-validations
+  - phone-validations
+  - /phone-validations
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/phone-validations
+```
+
+Este serviço recupera uma lista de todas as validações de telefone com filtragem e paginação opcionais. Você pode filtrar por projeto, status, tipo e outros parâmetros para encontrar validações de telefone específicas.
+
+#### Headers
+
+#### `Content-Type`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `application/json`
+
+#### `Authorization`
+
+**Type:** String  
+**Required:** Required  
+**Value:** `Bearer {YOUR_ACCESS_TOKEN}`
+
+#### Query Parameters
+
+#### `page`
+
+**Type:** Number  
+**Required:** No
+
+Número da página para paginação (padrão: 1).
+
+#### `limit`
+
+**Type:** Number  
+**Required:** No
+
+Número de registros por página (padrão: 10, máx.: 100).
+
+#### `project`
+
+**Type:** String  
+**Required:** No
+
+Filtrar por ID do projeto.
+
+#### `status`
+
+**Type:** String  
+**Required:** No
+
+Filtrar por status: `new`, `sent`, `validated`, `failed`.
+
+#### `type`
+
+**Type:** String  
+**Required:** No
+
+Filtrar por tipo: `validation`, `login`, `onboarding`.
+
+#### `countryCode`
+
+**Type:** String  
+**Required:** No
+
+Filtrar por código do país.
+
+#### `phone`
+
+**Type:** String  
+**Required:** No
+
+Filtrar por número de telefone.
+
+#### `populates[]`
+
+**Type:** String  
+**Required:** No
+
+Array opcional de dados relacionados a incluir. Opções disponíveis: `client`, `project`, `projectFlow`.
+
+### Request
+
+<Tabs groupId="language">
+  <TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://api.verifik.co/v2/phone-validations',
+  params: {
+    page: 1,
+    limit: 10,
+    status: 'validated',
+    type: 'validation',
+    countryCode: '+1',
+    'populates[]': ['client', 'project']
+  },
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer <your_token>'
+  }
+};
+
+try {
+  const { data } = await axios.request(options);
+  console.log(data);
+} catch (error) {
+  console.error(error);
+}
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.verifik.co")
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer <your_token>'
+}
+
+conn.request("GET", "/v2/phone-validations?page=1&limit=10&status=validated&type=validation&countryCode=%2B1&populates[]=client&populates[]=project", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$client = new \GuzzleHttp\Client();
+
+$response = $client->request('GET', 'https://api.verifik.co/v2/phone-validations', [
+  'headers' => [
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer <your_token>',
+  ],
+  'query' => [
+    'page' => 1,
+    'limit' => 10,
+    'status' => 'validated',
+    'type' => 'validation',
+    'countryCode' => '+1',
+    'populates[]' => ['client', 'project']
+  ]
+]);
+
+echo $response->getBody();
+```
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```go
+package main
+
+import (
+	"fmt"
+	"io"
+	"net/http"
+)
+
+func main() {
+	url := "https://api.verifik.co/v2/phone-validations?page=1&limit=10&status=validated&type=validation&countryCode=%2B1&populates[]=client&populates[]=project"
+
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", "Bearer <your_token>")
+
+	client := &http.Client{}
+	res, _ := client.Do(req)
+	defer res.Body.Close()
+
+	body, _ := io.ReadAll(res.Body)
+	fmt.Println(string(body))
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs groupId="status">
+  <TabItem value="200" label="200">
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "phone_validation_123456789",
+      "client": {
+        "_id": "client_123456789",
+        "name": "Example Client",
+        "email": "client@example.com"
+      },
+      "project": {
+        "_id": "project_123456789",
+        "name": "Example Project",
+        "description": "Example project description"
+      },
+      "status": "validated",
+      "countryCode": "+1",
+      "phone": "1234567890",
+      "type": "validation",
+      "validationMethod": "verificationCode",
+      "expiresAt": "2024-01-15T11:30:00Z",
+      "attempts": 1,
+      "maxAttempts": 3,
+      "createdAt": "2024-01-15T10:30:00Z",
+      "updatedAt": "2024-01-15T10:32:00Z",
+      "validatedAt": "2024-01-15T10:32:00Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 1,
+    "pages": 1
+  },
+  "signature": {
+    "dateTime": "April 11, 2023 12:25 PM",
+    "message": "Certified by Verifik.co"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="400" label="400">
+
+```json
+{
+  "success": false,
+  "error": "Invalid query parameters",
+  "code": "INVALID_PARAMETERS"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Recursos
+
+- **Listagem completa**: Recupera todas as validações de telefone da sua conta
+- **Paginação**: Suporte a paginação com controle de página e limite
+- **Filtragem avançada**: Filtre por projeto, status, tipo, código do país e número de telefone
+- **População de dados**: Inclua informações relacionadas, como dados de cliente e projeto
+- **Vários estados**: Filtre por status (new, sent, validated, failed)
+- **Códigos de país**: Filtragem específica por código internacional do país
+- **Vários idiomas**: Suporte a JavaScript, Python, PHP e Swift
+- **Informações detalhadas**: Inclui tentativas, limites e timestamps de validação

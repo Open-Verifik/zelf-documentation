@@ -1,0 +1,107 @@
+---
+id: phone-validations
+title: 電話番号認証
+slug: /resources/phone-validations
+description: SMS または WhatsApp で電話 OTP を送信・確認する — スタンドアロンまたはプロジェクトフロー内で利用
+---
+
+### 電話番号認証とは？
+
+**電話番号認証（Phone Validation）** は、電話番号に対する 1 回の OTP セッションです。Verifik は **SMS** または **WhatsApp** でワンタイムコードを送信し、ユーザーが入力したコードを確認します。
+
+一般的なライフサイクル:
+
+1. **送信** — Phone Validation を作成し、OTP を配信する  
+2. **確認** — 同じ電話番号 + OTP を送信して、セッションを認証済みにする  
+
+フィールド一覧は [電話番号認証オブジェクト](/verifik-ja/resources/the-phone-validation-object) を参照してください。
+
+### タイミングルール
+
+| ルール | デフォルト |
+| --- | --- |
+| OTP 有効期限 | **10 分**（送信レスポンスの `expiresAt`） |
+| 再送クールダウン | 同一電話番号 + ゲートウェイへの送信間隔は **約 2 分**（`409` `otp_recently_sent`） |
+| クールダウンのバイパス | 手動作成時に `"force": true` |
+
+常に **`countryCode`** と国内番号の **`phone`** をセットで送信・表示してください（例: `+57 3001234567`）。ユーザーがどの宛先にメッセージが届いたかを把握できます。
+
+---
+
+### 連携パスの選択
+
+API の呼び出し方に合ったパスを選んでください。
+
+#### パス A — スタンドアロン / Smart Tools（プロジェクトなし）
+
+バックエンド、または **Smart Tools → WhatsApp / SMS Messages** から OTP を送信し、Smart Enroll や Smart Access のプロジェクトに紐づけない場合に使用します。
+
+| ステップ | エンドポイント |
+| --- | --- |
+| 1. OTP 送信 | [`POST /v2/phone-validations/manual`](/verifik-ja/resources/create-a-manual-phone-validation) |
+| 2. OTP 確認 | [`PUT /v2/phone-validations`](/verifik-ja/resources/validate-a-phone-validation) |
+
+- `project` / `projectFlow` は不要  
+- レコードの `source` は `"manual"`  
+- 送信成功後に **従量課金のコミュニケーションクレジット** で課金  
+- 任意の `title`（最大 15 文字）で WhatsApp / SMS テンプレート内の会社名を設定  
+
+```text
+Your app                    Verifik API
+────────                    ───────────
+POST /manual  ───────────►  OTP sent (SMS / WhatsApp)
+                            status: sent
+
+PUT  /phone-validations ─►  OTP checked
+  { phone, countryCode, otp }   status: validated
+```
+
+#### パス B — プロジェクト / App Registration（Smart Enroll & Access）
+
+登録またはログインフローの一部として OTP を使い、プロジェクトに紐づける場合に使用します。
+
+| ステップ | エンドポイント |
+| --- | --- |
+| 1. OTP 送信 | [`POST /v2/phone-validations/app-registration`](/verifik-ja/resources/phone-validations/create-an-app-registration-phone-validation) |
+| 2. OTP 確認 | [`PUT /v2/phone-validations`](/verifik-ja/resources/validate-a-phone-validation) |
+
+- プロジェクト / app registration のコンテキストが必要  
+- レコードの `source` のデフォルトは `"flow"`  
+- フローに応じて Smart Enroll / Smart Access のプランカウンターで課金される場合があります  
+
+---
+
+### API エンドポイント一覧
+
+| アクション | メソッドとパス | ドキュメント |
+| --- | --- | --- |
+| スタンドアロン OTP 送信 | `POST /v2/phone-validations/manual` | [手動の電話番号認証を作成](/verifik-ja/resources/create-a-manual-phone-validation) |
+| OTP 確認 | `PUT /v2/phone-validations` | [電話番号認証を検証](/verifik-ja/resources/validate-a-phone-validation) |
+| App Registration で OTP 送信 | `POST /v2/phone-validations/app-registration` | [App Registration の電話番号認証を作成](/verifik-ja/resources/phone-validations/create-an-app-registration-phone-validation) |
+| 一覧 | `GET /v2/phone-validations` | [すべての電話番号認証を一覧取得](/verifik-ja/resources/list-all-phone-validations) |
+| 1 件取得 | `GET /v2/phone-validations/{id}` | [電話番号認証を取得](/verifik-ja/resources/retrieve-a-phone-validation) |
+| SMS & WhatsApp 料金 | — | [SMS & WhatsApp 料金](/verifik-ja/phone-validations/sms-and-whatsapp-prices) |
+
+:::tip 認証
+すべてのエンドポイントには `Authorization: Bearer {YOUR_ACCESS_TOKEN}` と `Content-Type: application/json` が必要です。
+:::
+
+---
+
+### ステータス値
+
+| ステータス | 意味 |
+| --- | --- |
+| `sent` | OTP が配信された（またはプロバイダーに受理された） |
+| `validated` | ユーザーの OTP が一致した |
+| `failed` | 期限切れ、拒否、または送信失敗 |
+| `new` | 作成済みだが、まだ正常に送信されていない |
+
+---
+
+### 関連ページ
+
+- [電話番号認証オブジェクト](/verifik-ja/resources/the-phone-validation-object)  
+- [手動の電話番号認証を作成](/verifik-ja/resources/create-a-manual-phone-validation)  
+- [電話番号認証を検証](/verifik-ja/resources/validate-a-phone-validation)  
+- [SMS & WhatsApp 料金](/verifik-ja/phone-validations/sms-and-whatsapp-prices)  

@@ -1,0 +1,210 @@
+---
+id: the-phone-validation-object
+title: L'objet Phone Validation
+slug: /resources/the-phone-validation-object
+description: L'objet Phone Validation représente le processus de vérification des numéros de téléphone dans vos projets Verifik
+---
+
+### Vue d'ensemble
+
+L'objet Phone Validation représente le processus de vérification des numéros de téléphone dans vos projets Verifik. Cet objet contient toutes les informations nécessaires pour suivre et gérer les demandes de vérification téléphonique.
+
+### Attributs
+
+#### `client`
+
+**Type:** string (reference id)  
+**Required:** Read-Only
+
+Le compte client propriétaire de cette validation téléphonique. Il est défini automatiquement à partir de votre jeton d'authentification.
+
+#### `project`
+
+**Type:** string (reference id)  
+**Required:** Optional
+
+Le projet dans lequel cette validation téléphonique est effectuée. Optionnel pour les envois **manuels / Smart Tools** (`POST /phone-validations/manual`).
+
+#### `projectFlow`
+
+**Type:** string (reference id)  
+**Required:** Optional
+
+Le flux de projet dans lequel cette validation téléphonique est effectuée. Requis pour la plupart des flux basés sur un projet ; omis pour les envois manuels autonomes.
+
+#### `source`
+
+**Type:** String  
+**Required:** Optional (defaults to `"flow"`)
+
+Comment l'OTP a été créé :
+
+* `"manual"` — Smart Tools autonome / `POST /phone-validations/manual`
+* `"flow"` — Flux projet ou app-registration
+
+#### `phoneGateway`
+
+**Type:** String  
+**Required:** Optional
+
+Canal de livraison : `"sms"`, `"whatsapp"`, ou `"none"`.
+
+#### `phoneData`
+
+**Type:** Object  
+**Required:** Optional
+
+Métadonnées du modèle. Pour les OTP WhatsApp/SMS, `phoneData.title` est le nom de l'entreprise / de la section affiché dans le message (max 15 caractères).
+
+#### `status`
+
+**Type:** String  
+**Required:** Required
+
+Le statut actuel du processus de validation téléphonique. Peut être :
+
+* `"new"` - Demande de validation créée mais pas encore traitée (défaut)
+* `"sent"` - Le code de vérification a été envoyé à l'utilisateur
+* `"validated"` - Le téléphone a été vérifié avec succès
+* `"failed"` - La validation téléphonique a échoué ou a expiré
+
+#### `countryCode`
+
+**Type:** String  
+**Required:** Required
+
+L'indicatif international du numéro de téléphone (ex. `"+1"` pour les États-Unis, `"+44"` pour le Royaume-Uni, `"+57"` pour la Colombie).
+
+#### `phone`
+
+**Type:** String  
+**Required:** Required
+
+Le numéro de téléphone en cours de validation (les espaces sont automatiquement supprimés).
+
+#### `type`
+
+**Type:** String  
+**Required:** Required
+
+Le type de validation téléphonique effectuée :
+
+* `"validation"` - Validation générale du numéro de téléphone
+* `"login"` - Vérification téléphonique lors de la connexion utilisateur
+* `"onboarding"` - Vérification téléphonique lors de l'inscription utilisateur
+
+#### `validationMethod`
+
+**Type:** String  
+**Required:** Required
+
+La méthode utilisée pour la validation téléphonique :
+
+* `"verificationCode"` - Code OTP envoyé par SMS
+* `"manual"` - Processus de vérification manuelle
+
+#### `verificationCode`
+
+**Type:** String  
+**Required:** Optional
+
+Le code OTP généré pour la vérification téléphonique (présent uniquement lorsque `validationMethod` est `"verificationCode"`).
+
+#### `expiresAt`
+
+**Type:** Date  
+**Required:** Optional
+
+La date et l'heure d'expiration du code de validation. Par défaut, c'est **10 minutes** après l'envoi ou le renvoi de l'OTP. Utilisez-le pour afficher un compte à rebours dans votre interface ; après ce délai, la vérification échoue avec `phoneValidation_has_expired`.
+
+#### `redirectUrl`
+
+**Type:** String  
+**Required:** Optional
+
+URL de redirection après une validation réussie.
+
+#### `webhookUrl`
+
+**Type:** String  
+**Required:** Optional
+
+URL de webhook pour les notifications de statut de validation.
+
+#### `identityUrl`
+
+**Type:** String  
+**Required:** Optional
+
+URL de vérification d'identité pour des étapes de vérification supplémentaires.
+
+#### `requires2FA`
+
+**Type:** Boolean  
+**Required:** Optional
+
+Indicateur précisant si l'authentification à deux facteurs est requise.
+
+#### `ipAddress`
+
+**Type:** String  
+**Required:** Optional
+
+Adresse IP de l'utilisateur effectuant la validation.
+
+#### `attempts`
+
+**Type:** Number  
+**Required:** Optional
+
+Nombre de tentatives de validation effectuées.
+
+#### `maxAttempts`
+
+**Type:** Number  
+**Required:** Optional
+
+Nombre maximum de tentatives de validation autorisées.
+
+#### `createdAt`
+
+**Type:** Date  
+**Required:** Required
+
+Horodatage de création de la validation téléphonique.
+
+#### `updatedAt`
+
+**Type:** Date  
+**Required:** Required
+
+Horodatage de la dernière mise à jour de la validation téléphonique.
+
+#### `validatedAt`
+
+**Type:** Date  
+**Required:** Optional
+
+Horodatage de la validation réussie de la validation téléphonique.
+
+### Exemple d'objet
+
+```json
+{
+  "_id": "66f0a1b2c3d4e5f678901234",
+  "client": "66f0a1b2c3d4e5f678900000",
+  "source": "manual",
+  "status": "sent",
+  "countryCode": "+57",
+  "phone": "3001234567",
+  "phoneGateway": "whatsapp",
+  "type": "validation",
+  "phoneData": {
+    "title": "Company ABC"
+  },
+  "language": "en",
+  "expiresAt": "2026-07-29T22:50:00.000Z",
+  "createdAt": "2026-07-29T22:40:00.000Z",
+  "updatedAt": "2026-07-29T22:40:00.000Z"
+}
+```

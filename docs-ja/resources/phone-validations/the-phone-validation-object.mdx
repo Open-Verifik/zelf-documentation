@@ -1,0 +1,210 @@
+---
+id: the-phone-validation-object
+title: 電話番号認証オブジェクト
+slug: /resources/the-phone-validation-object
+description: 電話番号認証オブジェクトは、Verifik プロジェクト内で電話番号を検証するプロセスを表します
+---
+
+### 概要
+
+電話番号認証オブジェクトは、Verifik プロジェクト内で電話番号を検証するプロセスを表します。このオブジェクトには、電話番号の検証リクエストを追跡・管理するために必要な情報がすべて含まれます。
+
+### 属性
+
+#### `client`
+
+**型:** string（参照 ID）  
+**必須:** 読み取り専用
+
+この電話番号認証を所有するクライアントアカウント。認証トークンに基づいて自動的に設定されます。
+
+#### `project`
+
+**型:** string（参照 ID）  
+**必須:** 任意
+
+この電話番号認証が実行されるプロジェクト。**手動 / Smart Tools** 送信（`POST /phone-validations/manual`）では任意です。
+
+#### `projectFlow`
+
+**型:** string（参照 ID）  
+**必須:** 任意
+
+この電話番号認証が実行されるプロジェクトフロー。ほとんどのプロジェクトベースのフローでは必須で、スタンドアロンの手動送信では省略されます。
+
+#### `source`
+
+**型:** String  
+**必須:** 任意（デフォルトは `"flow"`）
+
+OTP の作成方法:
+
+* `"manual"` — スタンドアロン Smart Tools / `POST /phone-validations/manual`
+* `"flow"` — プロジェクトまたは app-registration フロー
+
+#### `phoneGateway`
+
+**型:** String  
+**必須:** 任意
+
+配信チャネル: `"sms"`、`"whatsapp"`、または `"none"`。
+
+#### `phoneData`
+
+**型:** Object  
+**必須:** 任意
+
+テンプレートのメタデータ。WhatsApp / SMS OTP では、`phoneData.title` がメッセージ内に表示される会社名 / セクション名です（最大 15 文字）。
+
+#### `status`
+
+**型:** String  
+**必須:** 必須
+
+電話番号認証プロセスの現在のステータス。次のいずれかです:
+
+* `"new"` - 検証リクエストは作成されたが、まだ処理されていない（デフォルト）
+* `"sent"` - 確認コードがユーザーに送信された
+* `"validated"` - 電話番号の検証に成功した
+* `"failed"` - 電話番号認証が失敗した、または期限切れになった
+
+#### `countryCode`
+
+**型:** String  
+**必須:** 必須
+
+電話番号の国際ダイヤルコード（例: 米国は `"+1"`、英国は `"+44"`、コロンビアは `"+57"`）。
+
+#### `phone`
+
+**型:** String  
+**必須:** 必須
+
+検証対象の電話番号（スペースは自動的に除去されます）。
+
+#### `type`
+
+**型:** String  
+**必須:** 必須
+
+実行する電話番号認証の種類:
+
+* `"validation"` - 一般的な電話番号検証
+* `"login"` - ユーザーログイン時の電話番号確認
+* `"onboarding"` - ユーザー登録時の電話番号確認
+
+#### `validationMethod`
+
+**型:** String  
+**必須:** 必須
+
+電話番号認証に使用する方法:
+
+* `"verificationCode"` - SMS 経由で送信される OTP コード
+* `"manual"` - 手動検証プロセス
+
+#### `verificationCode`
+
+**型:** String  
+**必須:** 任意
+
+電話番号確認用に生成された OTP コード（`validationMethod` が `"verificationCode"` の場合のみ存在します）。
+
+#### `expiresAt`
+
+**型:** Date  
+**必須:** 任意
+
+検証コードの有効期限日時。デフォルトでは、OTP の送信または再送から **10 分** 後です。UI でカウントダウンを表示するために使用します。この時刻を過ぎると、検証は `phoneValidation_has_expired` で失敗します。
+
+#### `redirectUrl`
+
+**型:** String  
+**必須:** 任意
+
+検証成功後にリダイレクトする URL。
+
+#### `webhookUrl`
+
+**型:** String  
+**必須:** 任意
+
+検証ステータス通知用の Webhook URL。
+
+#### `identityUrl`
+
+**型:** String  
+**必須:** 任意
+
+追加の本人確認ステップ用のアイデンティティ検証 URL。
+
+#### `requires2FA`
+
+**型:** Boolean  
+**必須:** 任意
+
+二要素認証が必要かどうかを示すフラグ。
+
+#### `ipAddress`
+
+**型:** String  
+**必須:** 任意
+
+検証を実行しているユーザーの IP アドレス。
+
+#### `attempts`
+
+**型:** Number  
+**必須:** 任意
+
+検証試行回数。
+
+#### `maxAttempts`
+
+**型:** Number  
+**必須:** 任意
+
+許可される最大検証試行回数。
+
+#### `createdAt`
+
+**型:** Date  
+**必須:** 必須
+
+電話番号認証が作成されたタイムスタンプ。
+
+#### `updatedAt`
+
+**型:** Date  
+**必須:** 必須
+
+電話番号認証が最後に更新されたタイムスタンプ。
+
+#### `validatedAt`
+
+**型:** Date  
+**必須:** 任意
+
+電話番号認証が正常に完了したタイムスタンプ。
+
+### オブジェクト例
+
+```json
+{
+  "_id": "66f0a1b2c3d4e5f678901234",
+  "client": "66f0a1b2c3d4e5f678900000",
+  "source": "manual",
+  "status": "sent",
+  "countryCode": "+57",
+  "phone": "3001234567",
+  "phoneGateway": "whatsapp",
+  "type": "validation",
+  "phoneData": {
+    "title": "Company ABC"
+  },
+  "language": "en",
+  "expiresAt": "2026-07-29T22:50:00.000Z",
+  "createdAt": "2026-07-29T22:40:00.000Z",
+  "updatedAt": "2026-07-29T22:40:00.000Z"
+}
+```
