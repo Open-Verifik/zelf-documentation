@@ -87,9 +87,17 @@ console.log(data);
   </TabItem>
 </Tabs>
 
+### Intentos de OTP
+
+Hoy **no hay límite de intentos en el servidor**. Un código incorrecto responde `403` `otp_does_not_match` hasta que expire el registro o se envíe un OTP nuevo. Si necesitan bloqueo o tope de intentos, impleméntenlo en su cliente.
+
 ### Errores comunes
 
 | Status | Mensaje | Cuándo |
 | --- | --- | --- |
 | 403 | `otp_does_not_match` | El código no coincide. |
-| 412 | `phoneValidation_has_expired` | No hay un registro `sent` vigente. |
+| 412 | `phoneValidation_has_expired` | Expiró el TTL del OTP pendiente. |
+| 409 | `otp_send_failed` | El último registro falló al enviarse (no es lo mismo que expiración). |
+| 409 | `phone_validation_already_validated` | El OTP ya fue validado. |
+| 404 | `phone_validation_not_found` | No hay Phone Validation para este teléfono. |
+| 409 | `MissingParameter` | Faltan campos requeridos. |

@@ -155,12 +155,19 @@ echo $response->getBody();
 }
 ```
 
+### OTP attempts
+
+There is **no server-side attempt limit** today. Wrong codes return `403` `otp_does_not_match` until the record expires or a new OTP is sent. Enforce lockout or attempt caps in your client if needed.
+
 ### Common errors
 
 | Status | Message | When |
 | --- | --- | --- |
 | 403 | `otp_does_not_match` | Code does not match the pending OTP. |
-| 412 | `phoneValidation_has_expired` | No non-expired `sent` record found, or the session expired. |
+| 412 | `phoneValidation_has_expired` | The pending OTP TTL has elapsed. |
+| 409 | `otp_send_failed` | Latest record for this phone failed to send (not the same as expiry). |
+| 409 | `phone_validation_already_validated` | OTP was already validated. |
+| 404 | `phone_validation_not_found` | No matching Phone Validation for this phone. |
 | 409 | `MissingParameter` | Required body fields missing. |
 
 ### Related

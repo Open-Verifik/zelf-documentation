@@ -47,9 +47,29 @@ Credits are checked **before** the message is sent, using country SMS/WhatsApp p
 | `phone` | string | Yes | National number (spaces are stripped). |
 | `countryCode` | string | Yes | Dial code starting with `+` (e.g. `+57`). |
 | `phoneGateway` | string | Yes | `sms` or `whatsapp`. |
-| `title` | string | No | Company / sender name in the template (1–15 characters). Defaults to your client name. |
-| `language` | string | No | Template language (`en`, `es`, …). |
+| `title` | string | No | Company / sender name in the template (1–15 characters). Defaults to your client name. Used by WhatsApp `flow2` and SMS copy. |
+| `language` | string | No | Template language (`en`, `es`, …). Selects `flow2_en` / `flow2_es` when `whatsappTemplate` is `flow2`. |
+| `whatsappTemplate` | string | No | WhatsApp only. `authentication` (**default**) or `flow2`. Ignored for SMS. |
+| `force` | boolean | No | When `true`, bypasses the ~2 minute resend cooldown for the same phone + gateway. Use for an explicit “Resend” action. |
 | `ipAddress` | string | No | Optional client IP for auditing. |
+
+### WhatsApp templates
+
+| `whatsappTemplate` | Meta template | Notes |
+| --- | --- | --- |
+| `authentication` (default) | `authentication` | OTP in body + button URL parameter. |
+| `flow2` | `flow2_es` / `flow2_en` | Branded header/body (`title` as section) + code + action; language picks the variant. |
+
+```json
+{
+  "phone": "3001234567",
+  "countryCode": "+57",
+  "phoneGateway": "whatsapp",
+  "title": "Company ABC",
+  "language": "es",
+  "whatsappTemplate": "flow2"
+}
+```
 
 ### Request examples
 
@@ -172,13 +192,19 @@ echo $response->getBody();
 }
 ```
 
+### Resend / cooldown
+
+If a **sent** OTP already exists for the same client, phone, and `phoneGateway` and was updated within about **2 minutes**, the API returns `409` with code `otp_recently_sent` and does **not** send again.
+
+To force a new code before that window (e.g. UI “Resend”), send the same body with `"force": true`.
+
 ### Common errors
 
 | Status | Message / code | When |
 | --- | --- | --- |
 | 403 | `insufficient_credits` | Prepaid balance is below the country price for SMS/WhatsApp. Nothing is sent. |
-| 409 | `otp_recently_sent` | An OTP was already sent to this phone for the same gateway within the cooldown window. |
-| 409 | `otp_not_sent` | The provider did not accept the message. |
+| 409 | `otp_recently_sent` | Cooldown: an OTP was already sent for this phone + gateway within ~2 minutes (and `force` was not `true`). |
+| 409 | `otp_not_sent` | Provider send failed (message was not accepted). Distinct from cooldown. |
 | 409 | `MissingParameter` | Required body fields missing or `countryCode` not in `+digits` form. |
 | 403 | Forbidden | Communication SMS/WhatsApp feature not available on the account. |
 
