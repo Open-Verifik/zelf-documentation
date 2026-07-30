@@ -9,18 +9,18 @@ slug: /legal/service-level-agreement
 
 ### **Service Level Agreement**
 
-#### **I. Service Channels. The User shall have access to the following Verifik service channels:**
+#### **1. Service Channels. The User shall have access to the following Verifik service channels:**
 
 1. Chat available on [Verifik.co](http://verifik.co)
 2. Email: support@verifik.co
 3. Customer service WhatsApp channel.
 4. Customer service Discord channel.
 
-#### **II. Hours of Operation**
+#### **2. Hours of Operation**
 
 The User will be able to access the support provided by Verifik, Monday through Friday (business days) from 8:00 AM to 5:00 PM Colombia time.
 
-#### **III. Criticality Levels**
+#### **3. Criticality Levels**
 
 The requests or requirements raised by Users to the support team will be classified according to the impact they have on the User's operation, as follows:
 
@@ -30,7 +30,7 @@ The requests or requirements raised by Users to the support team will be classif
 | **Medium:**   | Loss of functionality in specific cases.                                     |
 | **Normal:**   | Other requests or general inquiries that do not affect Service Availability. |
 
-#### **IV. Response Times**
+#### **4. Response Times**
 
 1. **Definitions:** Terms used in this section, shall have the following meanings:
 
@@ -54,7 +54,7 @@ The response time varies according to the criticality of the requirement, as fol
 
 Response times will be counted from the last message sent by the user.
 
-#### **V. Platform Availability**
+#### **5. Platform Availability**
 
 The Platform will be available at least:
 
@@ -64,7 +64,24 @@ The Platform will be available at least:
 | smartACCESS  | 99.0% > Email/Tel<br/>98.0% > Biometrics                                                    |                                                                        |
 | smartENROLL  | 99.0% > Email/Tel<br/>98.0% > Biometrics<br/>98.0% > Document Scanning<br/>90.0% > Data API | Data API depends on connections with Government Sources                |
 
-#### **VI. Downtime Compensation**
+##### **5.1. 特定端点可用性排除条款**
+
+由于某些外部数据源在运营可用性方面历史上具有不可预测的特性，特定端点被排除在本协议的平台可用性承诺和停机补偿规定之外。
+
+以下端点被排除：
+
+- 墨西哥 – INE 验证
+- 墨西哥 – 车辆牌照验证
+
+影响这些端点的中断、维护期、性能下降、响应延迟或暂时不可用，均不得：
+
+- 被视为平台停机时间；
+- 纳入平台可用性计算；
+- 有权获得服务抵免或本协议项下的任何其他补偿。
+
+Verifik 将继续尽商业上合理的努力以保持连接并在可能时恢复服务；但对上述所列端点不提供任何正常运行时间保证。
+
+#### **6. Downtime Compensation**
 
 Credit Compensation awarded for the affected month will be provided in the form of a credit equivalent to the cost of the failed service call. If the service unavailability is caused by **Internal Issues** of Verifik (database, servers, internal API issues) and is not effectively resolved by the Company, Verifik will compensate as follows:
 
@@ -77,7 +94,7 @@ Credit Compensation awarded for the affected month will be provided in the form 
 
 **Internal Issues** of the Data API service (Data Query) excludes issues considered Force Majeure (Fortuitous Events), whether due to migration, disconnection, or external intervention by the governments that manage the databases. Verifik is an intermediary and therefore does NOT have control over the queried databases.
 
-#### **VII. Charging Scheme for smartCHECK**
+#### **7. Charging Scheme for smartCHECK**
 
 The charging scheme applies to the smartCHECK solution, which enables queries to government databases. Verifik does not own, manage, or bear responsibility for (does not control or update) the government databases of the various countries we serve; therefore, Verifik reserves the right not to offer guarantees regarding Response Time, Average Up Time, or Data Accuracy.
 
@@ -91,7 +108,7 @@ If the query returns a **200** or **404**, it will be charged. Otherwise, if the
 |             | 422             |
 |             | 500             |
 
-#### **VIII. smartCHECK 服务动态查询**
+#### **8. smartCHECK 服务动态查询**
 
 作为 smartCHECK 服务标准架构的一部分，Verifik 实施了动态查询（Dynamic Query）机制，旨在最大化受支持端点的服务可用性、覆盖范围和可靠性。
 
@@ -113,13 +130,13 @@ d) Verifik 保留在其唯一裁量权下修改、优先排序或替换动态查
 
 动态查询应被视为 smartCHECK 服务的固有功能，并应自动适用于使用符合条件端点的所有客户，除非 Verifik 另有书面规定。
 
-#### **VIII.A 动态定价（计费）**
+#### **8.1 动态定价（计费）** {#dynamic-pricing-billing}
 
 当动态查询在符合条件的端点上使用扩展验证路径并返回成功匹配（**HTTP 200**）时，可能适用**动态定价**。此时，积分按该端点系列的**高级层级**扣除，而非与基础路由关联的标准层级。
 
 动态定价目前适用于标准哥伦比亚身份证端点（**`GET/POST /v2/co/cedula`**），即在标准路径未返回匹配且扩展验证路径成功完成时。积分数量取决于**客户配置的功能定价**（该端点系列的标准费率 vs. 高级费率）。
 
-动态定价**不会**改变**VII**节的计费规则：验证和服务器错误（**403**、**409**、**412**、**422**、**500**）不收费；在适用路径均未返回成功匹配时，**404** 响应按标准层级计费。
+动态定价**不会**改变**7**节的计费规则：验证和服务器错误（**403**、**409**、**412**、**422**、**500**）不收费；在适用路径均未返回成功匹配时，**404** 响应按标准层级计费。
 
 为便于透明，客户可在符合条件的请求中传递 **`includeCost=true`**，在扣除积分时（包括适用动态定价时）接收 **`billing`** 对象。API 请求历史会记录调整元数据（例如标准金额 vs. 实际扣费金额）。
 
@@ -127,10 +144,10 @@ d) Verifik 保留在其唯一裁量权下修改、优先排序或替换动态查
 
 API 详情见[哥伦比亚身份证（基础）](/verifik-zh/identity-validation/colombia/colombian-citizen#dynamic-pricing)。
 
-#### **IX. 平台不可用**
+#### **9. 平台不可用**
 
 Scheduled maintenance windows will take place at night and/or on weekends, with prior notification via email to users.
 
-#### **X. 新适配或开发**
+#### **10. 新适配或开发**
 
 The timeframes for developing new adaptations due to unexpected changes from User systems integrating via API with the Platform will vary according to the changes required by the User and will not count as Platform Downtime.

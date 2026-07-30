@@ -9,18 +9,18 @@ slug: /acuerdo-de-niveles-de-servicio
 
 ### **Acuerdo de Niveles de Servicio**
 
-#### **I. Canales de Atención. El usuario tendrá acceso a los siguientes canales de atención de Verifik:**
+#### **1. Canales de Atención. El usuario tendrá acceso a los siguientes canales de atención de Verifik:**
 
 1. Chat disponible en la pagina [Verifik.co](http://verifik.co)
 2. Correo electrónico: support@verifik.co
 3. Canal de Whatsapp de servicio al cliente.
 4. Canal de Discord de servicio al cliente.
 
-#### **II. Horarios de Atención**
+#### **2. Horarios de Atención**
 
 El Usuario podrá acceder al soporte brindado por Verifik, de lunes a viernes (días hábiles) en horario de 8:00 AM a 5:00 PM hora Colombia.
 
-#### **III. Niveles de criticidad**
+#### **3. Niveles de criticidad**
 
 Las solicitudes o requerimientos elevados por los usuarios al equipo de soporte, serán clasificados en función del impacto que tienen en la operación del usuario, de la siguiente manera:
 
@@ -30,7 +30,7 @@ Las solicitudes o requerimientos elevados por los usuarios al equipo de soporte,
 | **Medio:**   | Pérdida de funcionalidad en casos específicos.                                     |
 | **Normal:**  | Otras solicitudes o dudas generales que no afectan la Disponibilidad del Servicio. |
 
-#### **IV. Tiempos de respuesta**
+#### **4. Tiempos de respuesta**
 
 1. **Definiciones:** Los términos que se usan en esta sección, tendrán los siguientes significados:
 
@@ -54,7 +54,7 @@ El tiempo de respuesta varía según la criticidad del requerimiento, de la sigu
 
 Los tiempos de respuesta contarán a partir del último mensaje enviado por el usuario.
 
-#### **V. Disponibilidad de la Plataforma**
+#### **5. Disponibilidad de la Plataforma**
 
 La Plataforma estará disponible al menos:
 
@@ -64,7 +64,24 @@ La Plataforma estará disponible al menos:
 | smartACCESS  | 99.0% > Email/Tel<br/>98.0% > Biometrics                                          |                                                                 |
 | smartENROLL  | 99.0% > Email/Tel<br/>98.0% > Biometrics<br/>98.0% > Scaneo de Docs<br/>90.0% > Data API | Data API, depende de las conexiones con Fuentes Gubernamentales |
 
-#### **VI. Compensación por Tiempos de Inactividad**
+##### **5.1. Exclusiones de disponibilidad específicas para puntos finales de Verifik**
+
+Debido a la imprevisibilidad histórica de la disponibilidad operativa de ciertas fuentes de datos externas, algunos endpoints quedan excluidos de los compromisos de disponibilidad de la plataforma y de las disposiciones de compensación por tiempo de inactividad de este Acuerdo.
+
+Los siguientes endpoints quedan excluidos:
+
+- México: Validación del INE
+- México: Validación de placas vehiculares
+
+Las interrupciones, los periodos de mantenimiento, el rendimiento degradado, las demoras en la respuesta o la indisponibilidad temporal que afecten a estos endpoint no:
+
+- se considerarán tiempo de inactividad de la plataforma;
+- se incluirán en los cálculos de disponibilidad de la plataforma;
+- darán derecho a créditos de servicio ni a ninguna otra compensación en virtud de este Acuerdo.
+
+Verifik seguirá realizando esfuerzos comercialmente razonables para mantener la conectividad y restablecer el servicio siempre que sea posible; sin embargo, no se ofrece ninguna garantía de tiempo de actividad para los puntos finales mencionados anteriormente.
+
+#### **6. Compensación por Tiempos de Inactividad**
 
 La Compensación en Crédito adjudicado para el mes afectado se proporcionará en forma de un crédito equivalente al costo de la llamada de inefectiva del servicio . Si la indisponibilidad del servicio es causado por **Problemas Internos** de Verifik (base de datos, servidores, problemas internos de las API) y no es solucionada efectivamente por la Compañía, Verifik compensará de la siguiente manera:
 
@@ -77,7 +94,7 @@ La Compensación en Crédito adjudicado para el mes afectado se proporcionará e
 
 **Problemas Internos** del servicio de Data API (Consulta de Datos) excluye problemas considerados por Fuerza Mayor (Casos Fortuitos) ya sea por migración, desconexión, o intervención externa de los gobiernos que custodian las bases de datos. Verifik es un intermediario, por lo tanto, NO posee la potestad y control de las bases de datos consultadas.
 
-#### VII. Esquema de Cobro por Servicio de smartCHECK
+#### **7. Esquema de Cobro por Servicio de smartCHECK**
 
 El esquema de cobro aplica para la solución de smartCHECK, el cual permite la consulta de bases de datos gubernamentales. Verifik no es dueña, gestora, o responsable (no controla o actualiza) de las bases de datos gubernamentales de los distintos paises que ofrecemos; por lo tanto Verifik se reserva ofrecer garantias respecto a "Tiempo de respuesta" (Reponse Time), "Tiempo promedio de disponibilidad" (Average Up Time), "Precisión de los datos" (Data Accuracy).
 
@@ -91,7 +108,7 @@ Si la consulta retorna un **200** o **404** esta se cobrará. De lo contrario, s
 |           | 422                  |
 |           | 500                  |
 
-#### **VIII. Consulta Dinámica para el Servicio smartCHECK**
+#### **8. Consulta Dinámica para el Servicio smartCHECK**
 
 Como parte de la arquitectura estándar del servicio smartCHECK, Verifik implementa un mecanismo de Consulta Dinámica (Dynamic Query) diseñado para maximizar la disponibilidad, cobertura y confiabilidad del servicio en los endpoints soportados.
 
@@ -113,13 +130,13 @@ d) Verifik se reserva el derecho de modificar, priorizar o sustituir las fuentes
 
 La Consulta Dinámica será considerada una funcionalidad inherente del servicio smartCHECK y aplicará automáticamente a todos los Clientes que utilicen endpoints elegibles, salvo que Verifik disponga lo contrario por escrito.
 
-#### **VIII.A Precio dinámico (facturación)**
+#### **8.1 Precio dinámico (facturación)** {#dynamic-pricing-billing}
 
 Cuando la Consulta Dinámica utiliza una ruta de verificación extendida en un endpoint elegible y devuelve una coincidencia exitosa (**HTTP 200**), puede aplicar **precio dinámico**. En ese caso, los créditos se deducen en el **nivel premium** de esa familia de endpoints, no en el nivel estándar asociado a la ruta base.
 
 El precio dinámico aplica hoy al endpoint estándar de cédula colombiana (**`GET/POST /v2/co/cedula`**) cuando una ruta de verificación extendida se completa con éxito después de que las rutas estándar no devuelven coincidencia. Los montos de crédito dependen de la **tarificación configurada para el Cliente** (tarifa estándar vs. tarifa premium para esa familia de endpoints).
 
-El precio dinámico **no** modifica las reglas de cobro de la sección **VII**: los errores de validación y del servidor (**403**, **409**, **412**, **422**, **500**) no se cobran; las respuestas **404** se cobran a tarifa estándar cuando no se obtiene coincidencia exitosa en las rutas aplicables.
+El precio dinámico **no** modifica las reglas de cobro de la sección **7**: los errores de validación y del servidor (**403**, **409**, **412**, **422**, **500**) no se cobran; las respuestas **404** se cobran a tarifa estándar cuando no se obtiene coincidencia exitosa en las rutas aplicables.
 
 Para transparencia, el Cliente puede enviar **`includeCost=true`** en solicitudes elegibles para recibir un objeto **`billing`** cuando se cobren créditos (incluido cuando aplica precio dinámico). El historial de solicitudes API registra metadatos del ajuste (por ejemplo, montos estándar vs. cobrados).
 
@@ -127,10 +144,10 @@ Llamar directamente a **`/v2/co/cedula/premium`** siempre usa tarificación prem
 
 Consulte [Cédula colombiana (básica)](/verifik-es/validacion-identidad/colombia/ciudadano-colombiano#dynamic-pricing) para detalles de la API.
 
-#### **IX. No disponibilidad de la Plataforma**
+#### **9. No disponibilidad de la Plataforma**
 
 Los tiempos de Mantenimiento programado se realizarán en las noches y/o fines de semana, con previa comunicación vía e-mail a los usuarios.
 
-#### **X. Adaptaciones o desarrollos nuevos**
+#### **10. Adaptaciones o desarrollos nuevos**
 
 Los tiempos para el desarrollo de adaptaciones nuevas, por cambios inesperados por parte de los sistemas de los Usuarios que se integran vía API con la Plataforma, serán variables de acuerdo a los cambios requeridos por el Usuario y no contarán como Tiempos de Inactividad de la Plataforma.

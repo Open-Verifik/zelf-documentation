@@ -2,96 +2,69 @@
 id: validaciones-telefono
 title: Validaciones de Teléfono
 slug: /resources/validaciones-telefono
-description: Sistema central de verificación que procesa y valida números de teléfono de usuarios
+description: Envía y verifica OTPs por SMS o WhatsApp — de forma independiente o dentro de un flujo de proyecto
 ---
 
-### Descripción
+### ¿Qué es una Validación de Teléfono?
 
-Las Validaciones de Teléfono son el sistema central de verificación en Verifik que procesa y valida números de teléfono de usuarios durante el proceso de autenticación y registro. Piénsalas como el punto de control de seguridad que garantiza que los usuarios son quienes dicen ser, verificando la propiedad del teléfono mediante códigos de verificación seguros.
+Una **Validación de Teléfono** es una sesión OTP para un número. Verifik envía un código de un solo uso por **SMS** o **WhatsApp**, y luego confirmas el código que ingresa el usuario.
 
-### Cómo funcionan las Validaciones de Teléfono
+Ciclo típico:
 
-Cada Validación de Teléfono representa una sesión única de verificación que procesa los números ingresados por el usuario. Cuando alguien introduce su teléfono durante el registro, inicio de sesión o verificación de cuenta, Verifik crea una Validación de Teléfono para enviar un código de verificación seguro por SMS y confirmar la propiedad del teléfono del usuario.
+1. **Enviar** — crear una Phone Validation y entregar el OTP  
+2. **Verificar** — enviar el mismo teléfono + OTP para marcar la sesión como validada  
 
-Actualmente, las Validaciones de Teléfono soportan estos tipos:
+Consulta todos los campos en [El objeto Validación de Teléfono](./el-objeto-validacion-telefono.mdx).
 
--   **validation** - Proceso estándar de verificación de teléfono
--   **login** - Verificación de teléfono para autenticación de usuarios
--   **onboarding** - Verificación de teléfono para registro de nuevos usuarios
--   **twoFactor** - Autenticación de dos factores vía SMS
+---
 
-### Qué registran las Validaciones de Teléfono
+### Elige tu ruta de integración
 
-Las Validaciones de Teléfono son sistemas de verificación integrales que procesan todos los aspectos de la verificación telefónica:
+#### Ruta A — Independiente / Smart Tools (sin proyecto)
 
-#### Información del teléfono
+Úsala cuando envías OTPs desde tu backend o desde **Smart Tools → Mensajes de WhatsApp / SMS**, sin un proyecto de Smart Enroll o Smart Access.
 
--   Número de teléfono y verificación de propiedad
--   Código de país e información del operador
--   Nombre del usuario y datos de contacto
--   Asociación con proyecto y cliente
+| Paso | Endpoint |
+| --- | --- |
+| 1. Enviar OTP | [`POST /v2/phone-validations/manual`](./crear-una-validacion-telefono-manual.mdx) |
+| 2. Verificar OTP | [`PUT /v2/phone-validations`](./validar-una-validacion-telefono.mdx) |
 
-#### Proceso de verificación
+- No requiere `project` / `projectFlow`  
+- El `source` del registro es `"manual"`  
+- Se cobran **créditos de comunicación** tras un envío exitoso  
+- `title` opcional (máx. 15 caracteres) define el nombre de empresa en la plantilla  
 
--   Generación y envío de contraseñas de un solo uso (OTP)
--   Estado de envío por SMS y confirmación de entrega
--   Validación del código e intentos de verificación
--   Gestión de expiración y seguridad
+```text
+Tu app                      API Verifik
+──────                      ───────────
+POST /manual  ───────────►  OTP enviado
+                            status: sent
 
-#### Características de seguridad
-
--   Limitación de tasa y prevención de abuso
--   Generación y validación segura de códigos
--   Seguimiento de entrega y confirmación
--   Detección y prevención de fraude
-
-### Endpoints de la API
-
-#### Crear una Validación de Teléfono
-
-```http
-POST https://api.verifik.co/v2/phone-validations
+PUT  /phone-validations ─►  OTP verificado
+  { phone, countryCode, otp }   status: validated
 ```
 
-#### Listar todas las Validaciones de Teléfono
+#### Ruta B — Proyecto / App Registration (Smart Enroll y Access)
 
-```http
-GET https://api.verifik.co/v2/phone-validations
-```
+Úsala cuando el OTP forma parte de un flujo de registro o login ligado a un proyecto.
 
-#### Recuperar una Validación de Teléfono
+| Paso | Endpoint |
+| --- | --- |
+| 1. Enviar OTP | [`POST /v2/phone-validations/app-registration`](/resources/phone-validations/create-an-app-registration-phone-validation) |
+| 2. Verificar OTP | [`PUT /v2/phone-validations`](./validar-una-validacion-telefono.mdx) |
 
-```http
-GET https://api.verifik.co/v2/phone-validations/{validationId}
-```
+---
 
-#### Validar una Validación de Teléfono
+### Índice de endpoints
 
-```http
-POST https://api.verifik.co/v2/phone-validations/{validationId}/validate
-```
+| Acción | Método y ruta | Docs |
+| --- | --- | --- |
+| Enviar OTP independiente | `POST /v2/phone-validations/manual` | [Crear una Validación de Teléfono manual](./crear-una-validacion-telefono-manual.mdx) |
+| Verificar OTP | `PUT /v2/phone-validations` | [Validar una Validación de Teléfono](./validar-una-validacion-telefono.mdx) |
+| Listar | `GET /v2/phone-validations` | [Listar todas las Validaciones de Teléfono](./listar-todas-las-validaciones-telefono.mdx) |
+| Obtener una | `GET /v2/phone-validations/{id}` | [Recuperar una Validación de Teléfono](./recuperar-una-validacion-telefono.mdx) |
+| Precios SMS y WhatsApp | — | [Precios SMS y WhatsApp](/phone-validations/sms-and-whatsapp-prices) |
 
-### Estructura del Objeto Validación de Teléfono
-
-```json
-{
-    "id": "phone_validation_123456789",
-    "phoneNumber": "+1234567890",
-    "status": "completed",
-    "type": "validation",
-    "verificationCode": "123456",
-    "attempts": 1,
-    "maxAttempts": 3,
-    "expiresAt": "2024-01-15T11:30:00Z",
-    "deliveryStatus": "delivered",
-    "validatedAt": "2024-01-15T10:32:00Z",
-    "createdAt": "2024-01-15T10:30:00Z"
-}
-```
-
-### Casos de uso
-
--   **Autenticación de usuarios**: Verifica la propiedad del teléfono para un inicio de sesión seguro
--   **Registro de cuentas**: Confirma números de teléfono durante el registro
--   **Autenticación de dos factores**: Mejora la seguridad con verificación por SMS
--   **Seguridad**: Fortalece la seguridad de la cuenta mediante verificación telefónica
+:::tip Autenticación
+Todos los endpoints requieren `Authorization: Bearer {YOUR_ACCESS_TOKEN}` y `Content-Type: application/json`.
+:::

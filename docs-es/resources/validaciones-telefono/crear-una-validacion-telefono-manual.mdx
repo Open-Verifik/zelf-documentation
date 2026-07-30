@@ -1,0 +1,106 @@
+---
+id: crear-una-validacion-telefono-manual
+title: Crear una Validación de Teléfono manual
+slug: /resources/crear-una-validacion-telefono-manual
+description: Envía un OTP independiente por SMS o WhatsApp sin proyecto (Smart Tools / API)
+keywords:
+  - v2/phone-validations/manual
+  - /v2/phone-validations/manual
+  - phone-validations/manual
+  - api.verifik.co/v2/phone-validations/manual
+  - POST /v2/phone-validations/manual
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Endpoint
+
+```
+POST https://api.verifik.co/v2/phone-validations/manual
+```
+
+Crea una Phone Validation **independiente** y envía un OTP por SMS o WhatsApp. No se requiere `project` ni `projectFlow`. Es el mismo endpoint que usa **Smart Tools → Mensajes de WhatsApp / SMS**.
+
+Tras un envío exitoso, continúa con [Validar una Validación de Teléfono](./validar-una-validacion-telefono.mdx).
+
+:::info Facturación
+Los créditos se verifican **antes** de enviar el mensaje, según el precio del país. Solo se cobran cuando el OTP se entrega (`sent: true`).
+:::
+
+### Headers
+
+| Nombre | Valor |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer {YOUR_ACCESS_TOKEN}` |
+
+### Parámetros del body
+
+| Parámetro | Tipo | Requerido | Descripción |
+| --- | --- | --- | --- |
+| `phone` | string | Sí | Número nacional (se eliminan espacios). |
+| `countryCode` | string | Sí | Código con `+` (ej. `+57`). |
+| `phoneGateway` | string | Sí | `sms` o `whatsapp`. |
+| `title` | string | No | Nombre de empresa en la plantilla (1–15 caracteres). |
+| `language` | string | No | Idioma de la plantilla (`en`, `es`, …). |
+| `ipAddress` | string | No | IP opcional para auditoría. |
+
+### Ejemplos de solicitud
+
+<Tabs groupId="language">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST "https://api.verifik.co/v2/phone-validations/manual" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "3001234567",
+    "countryCode": "+57",
+    "phoneGateway": "whatsapp",
+    "title": "Company ABC",
+    "language": "es"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.post(
+  "https://api.verifik.co/v2/phone-validations/manual",
+  {
+    phone: "3001234567",
+    countryCode: "+57",
+    phoneGateway: "whatsapp",
+    title: "Company ABC",
+    language: "es",
+  },
+  {
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+console.log(data);
+```
+
+</TabItem>
+</Tabs>
+
+### Errores comunes
+
+| Status | Mensaje | Cuándo |
+| --- | --- | --- |
+| 403 | `insufficient_credits` | Saldo insuficiente. No se envía el mensaje. |
+| 409 | `otp_recently_sent` | Ya se envió un OTP a este teléfono en la ventana de espera. |
+| 409 | `otp_not_sent` | El proveedor no aceptó el mensaje. |
+
+### Siguiente paso
+
+Verifica el código con [`PUT /v2/phone-validations`](./validar-una-validacion-telefono.mdx).

@@ -1,8 +1,8 @@
 # Docs i18n — canonical endpoint inventory
 
-Generated: 2026-07-29T19:50:57.441Z
+Generated: 2026-07-30T00:08:08.602Z
 
-- **Files scanned:** 495
+- **Files scanned:** 496
 - **Unique endpoint URLs:** 214
 - **Duplicate URL groups (SEO / aliases):** 55
 - **Docs without `### Endpoint` block:** 205
@@ -155,6 +155,7 @@ Generated: 2026-07-29T19:50:57.441Z
   - `resources/app-registrations/validate-an-app-registration-phone-validation.mdx`
   - `resources/phone-validations/create-a-phone-validation.mdx`
   - `resources/phone-validations/list-all-phone-validations.mdx`
+  - `resources/phone-validations/validate-a-phone-validation.mdx`
   - `resources/phone-validations/validate-an-app-registration-phone-validation.mdx`
 - `v2/phone-validations/app-registration`
   - `resources/app-registrations/create-an-app-registration-phone-validation.mdx`
@@ -387,8 +388,8 @@ Generated: 2026-07-29T19:50:57.441Z
 | P1 | `v2/pe/vehiculo/soat` | `vehicle-validation/peru/peruvian-vehicle-insurance.mdx` |
 | P2 | `v2/phone-validations` | `resources/app-registrations/validate-an-app-registration-phone-validation.mdx` |
 | P2 | `v2/phone-validations/{id}` | `resources/phone-validations/retrieve-a-phone-validation.mdx` |
-| P2 | `v2/phone-validations/{id}/validate` | `resources/phone-validations/validate-a-phone-validation.mdx` |
 | P2 | `v2/phone-validations/app-registration` | `resources/app-registrations/create-an-app-registration-phone-validation.mdx` |
+| P2 | `v2/phone-validations/manual` | `resources/phone-validations/create-a-manual-phone-validation.mdx` |
 | P2 | `v2/project-flows` | `resources/project-flows/create-a-project-flow/smart-enroll-project-flow.mdx` |
 | P2 | `v2/projects/email-login` | `accounts/authentication/api-key-access-via-email.mdx` |
 | P2 | `v2/projects/phone-login` | `authentication/api-key-access-via-phone.mdx` |

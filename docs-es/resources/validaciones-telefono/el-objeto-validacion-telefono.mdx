@@ -23,14 +23,38 @@ La cuenta de cliente a la que pertenece esta validación de teléfono. Se establ
 **Tipo:** string (reference id)  
 **Requerido:** Opcional
 
-El proyecto donde se realiza esta validación de teléfono. Es el `_id` generado al crear un proyecto.
+El proyecto donde se realiza esta validación. Opcional para envíos **manuales / Smart Tools** (`POST /phone-validations/manual`).
 
 #### `projectFlow`
 
 **Tipo:** string (reference id)  
-**Requerido:** Sí
+**Requerido:** Opcional
 
-El flujo de proyecto donde se realiza esta validación de teléfono. Es el `_id` generado al crear un flujo de proyecto.
+El flujo de proyecto. Requerido en la mayoría de flujos con proyecto; se omite en envíos manuales independientes.
+
+#### `source`
+
+**Tipo:** String  
+**Requerido:** Opcional (por defecto `"flow"`)
+
+Cómo se creó el OTP:
+
+-   `"manual"` — Smart Tools / `POST /phone-validations/manual`
+-   `"flow"` — Flujo de proyecto o app registration
+
+#### `phoneGateway`
+
+**Tipo:** String  
+**Requerido:** Opcional
+
+Canal de entrega: `"sms"`, `"whatsapp"` o `"none"`.
+
+#### `phoneData`
+
+**Tipo:** Object  
+**Requerido:** Opcional
+
+Metadatos de plantilla. `phoneData.title` es el nombre de empresa / sección en el mensaje (máx. 15 caracteres).
 
 #### `status`
 

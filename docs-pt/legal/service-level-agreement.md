@@ -9,18 +9,18 @@ slug: /legal/service-level-agreement
 
 ### **Service Level Agreement**
 
-#### **I. Service Channels. The User shall have access to the following Verifik service channels:**
+#### **1. Service Channels. The User shall have access to the following Verifik service channels:**
 
 1. Chat available on [Verifik.co](http://verifik.co)
 2. Email: support@verifik.co
 3. Customer service WhatsApp channel.
 4. Customer service Discord channel.
 
-#### **II. Hours of Operation**
+#### **2. Hours of Operation**
 
 The User will be able to access the support provided by Verifik, Monday through Friday (business days) from 8:00 AM to 5:00 PM Colombia time.
 
-#### **III. Criticality Levels**
+#### **3. Criticality Levels**
 
 The requests or requirements raised by Users to the support team will be classified according to the impact they have on the User's operation, as follows:
 
@@ -30,7 +30,7 @@ The requests or requirements raised by Users to the support team will be classif
 | **Medium:**   | Loss of functionality in specific cases.                                     |
 | **Normal:**   | Other requests or general inquiries that do not affect Service Availability. |
 
-#### **IV. Response Times**
+#### **4. Response Times**
 
 1. **Definitions:** Terms used in this section, shall have the following meanings:
 
@@ -54,7 +54,7 @@ The response time varies according to the criticality of the requirement, as fol
 
 Response times will be counted from the last message sent by the user.
 
-#### **V. Platform Availability**
+#### **5. Platform Availability**
 
 The Platform will be available at least:
 
@@ -64,7 +64,24 @@ The Platform will be available at least:
 | smartACCESS  | 99.0% > Email/Tel<br/>98.0% > Biometrics                                                    |                                                                        |
 | smartENROLL  | 99.0% > Email/Tel<br/>98.0% > Biometrics<br/>98.0% > Document Scanning<br/>90.0% > Data API | Data API depends on connections with Government Sources                |
 
-#### **VI. Downtime Compensation**
+##### **5.1. Exclusões de disponibilidade específicas por endpoint**
+
+Devido às características históricas de imprevisibilidade da disponibilidade operacional de certas fontes de dados externas, endpoints específicos são excluídos dos compromissos de Disponibilidade da Plataforma e das disposições de Compensação por Tempo de Inatividade deste Acordo.
+
+Os seguintes endpoints são excluídos:
+
+- México – Validação do INE
+- México – Validação de placas veiculares
+
+Interrupções, períodos de manutenção, desempenho degradado, respostas atrasadas ou indisponibilidade temporária que afetem esses endpoints não deverão:
+
+- ser considerados Tempo de Inatividade da Plataforma;
+- ser incluídos nos cálculos de Disponibilidade da Plataforma;
+- qualificar para Créditos de Serviço ou qualquer outra compensação nos termos deste Acordo.
+
+A Verifik continuará a envidar esforços comercialmente razoáveis para manter a conectividade e restaurar o serviço sempre que possível; no entanto, nenhuma garantia de tempo de atividade é fornecida para os endpoints listados acima.
+
+#### **6. Downtime Compensation**
 
 Credit Compensation awarded for the affected month will be provided in the form of a credit equivalent to the cost of the failed service call. If the service unavailability is caused by **Internal Issues** of Verifik (database, servers, internal API issues) and is not effectively resolved by the Company, Verifik will compensate as follows:
 
@@ -77,7 +94,7 @@ Credit Compensation awarded for the affected month will be provided in the form 
 
 **Internal Issues** of the Data API service (Data Query) excludes issues considered Force Majeure (Fortuitous Events), whether due to migration, disconnection, or external intervention by the governments that manage the databases. Verifik is an intermediary and therefore does NOT have control over the queried databases.
 
-#### **VII. Charging Scheme for smartCHECK**
+#### **7. Charging Scheme for smartCHECK**
 
 The charging scheme applies to the smartCHECK solution, which enables queries to government databases. Verifik does not own, manage, or bear responsibility for (does not control or update) the government databases of the various countries we serve; therefore, Verifik reserves the right not to offer guarantees regarding Response Time, Average Up Time, or Data Accuracy.
 
@@ -91,7 +108,7 @@ If the query returns a **200** or **404**, it will be charged. Otherwise, if the
 |             | 422             |
 |             | 500             |
 
-#### **VIII. Consulta Dinâmica para o Serviço smartCHECK**
+#### **8. Consulta Dinâmica para o Serviço smartCHECK**
 
 Como parte da arquitetura padrão do serviço smartCHECK, a Verifik implementa um mecanismo de Consulta Dinâmica (Dynamic Query) projetado para maximizar a disponibilidade, cobertura e confiabilidade do serviço nos endpoints suportados.
 
@@ -113,13 +130,13 @@ d) A Verifik reserva-se o direito de modificar, priorizar ou substituir as fonte
 
 A Consulta Dinâmica será considerada uma funcionalidade inerente ao serviço smartCHECK e aplicará automaticamente a todos os Clientes que utilizem endpoints elegíveis, salvo disposição em contrário por escrito da Verifik.
 
-#### **VIII.A Preço dinâmico (faturamento)**
+#### **8.1 Preço dinâmico (faturamento)** {#dynamic-pricing-billing}
 
 Quando a Consulta Dinâmica utiliza um caminho de verificação estendido em um endpoint elegível e retorna uma correspondência bem-sucedida (**HTTP 200**), pode aplicar-se **preço dinâmico**. Nesse caso, os créditos são deduzidos no **nível premium** dessa família de endpoints, e não no nível padrão associado à rota base.
 
 O preço dinâmico aplica-se hoje ao endpoint padrão de cédula colombiana (**`GET/POST /v2/co/cedula`**) quando um caminho de verificação estendido é concluído com sucesso após os caminhos padrão não retornarem correspondência. Os valores de crédito dependem da **precificação configurada para o Cliente** (tarifa padrão vs. tarifa premium para essa família de endpoints).
 
-O preço dinâmico **não altera** as regras de cobrança da seção **VII**: erros de validação e de servidor (**403**, **409**, **412**, **422**, **500**) não são cobrados; respostas **404** são cobradas na tarifa padrão quando nenhuma correspondência bem-sucedida é obtida nos caminhos aplicáveis.
+O preço dinâmico **não altera** as regras de cobrança da seção **7**: erros de validação e de servidor (**403**, **409**, **412**, **422**, **500**) não são cobrados; respostas **404** são cobradas na tarifa padrão quando nenhuma correspondência bem-sucedida é obtida nos caminhos aplicáveis.
 
 Para transparência, o Cliente pode enviar **`includeCost=true`** em solicitações elegíveis para receber um objeto **`billing`** quando créditos forem cobrados (incluindo quando o preço dinâmico se aplica). O histórico de solicitações API registra metadados de ajuste (por exemplo, valores padrão vs. cobrados).
 
@@ -127,10 +144,10 @@ Chamar diretamente **`/v2/co/cedula/premium`** sempre usa precificação premium
 
 Consulte [Cédula colombiana premium](/verifik-pt/identity-validation/colombia/colombian-cedula-premium#dynamic-pricing) para detalhes da API.
 
-#### **IX. Indisponibilidade da Plataforma**
+#### **9. Indisponibilidade da Plataforma**
 
 Scheduled maintenance windows will take place at night and/or on weekends, with prior notification via email to users.
 
-#### **X. Novas Adaptações ou Desenvolvimentos**
+#### **10. Novas Adaptações ou Desenvolvimentos**
 
 The timeframes for developing new adaptations due to unexpected changes from User systems integrating via API with the Platform will vary according to the changes required by the User and will not count as Platform Downtime.

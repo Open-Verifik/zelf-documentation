@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-29T19:50:57.440Z",
+  "generatedAt": "2026-07-30T00:08:08.600Z",
   "docsRoot": "docs/",
-  "totalFilesScanned": 495,
+  "totalFilesScanned": 496,
   "filesWithEndpoint": 214,
   "uniqueEndpointUrls": 214,
   "duplicateUrlGroups": 55,
@@ -1169,6 +1169,7 @@
       "duplicatePaths": [
         "resources/phone-validations/create-a-phone-validation.mdx",
         "resources/phone-validations/list-all-phone-validations.mdx",
+        "resources/phone-validations/validate-a-phone-validation.mdx",
         "resources/phone-validations/validate-an-app-registration-phone-validation.mdx"
       ],
       "priority": "P2"
@@ -1180,17 +1181,17 @@
       "priority": "P2"
     },
     {
-      "endpointUrl": "v2/phone-validations/{id}/validate",
-      "primaryPath": "resources/phone-validations/validate-a-phone-validation.mdx",
-      "duplicatePaths": [],
-      "priority": "P2"
-    },
-    {
       "endpointUrl": "v2/phone-validations/app-registration",
       "primaryPath": "resources/app-registrations/create-an-app-registration-phone-validation.mdx",
       "duplicatePaths": [
         "resources/phone-validations/create-an-app-registration-phone-validation.mdx"
       ],
+      "priority": "P2"
+    },
+    {
+      "endpointUrl": "v2/phone-validations/manual",
+      "primaryPath": "resources/phone-validations/create-a-manual-phone-validation.mdx",
+      "duplicatePaths": [],
       "priority": "P2"
     },
     {
@@ -1724,6 +1725,7 @@
         "resources/app-registrations/validate-an-app-registration-phone-validation.mdx",
         "resources/phone-validations/create-a-phone-validation.mdx",
         "resources/phone-validations/list-all-phone-validations.mdx",
+        "resources/phone-validations/validate-a-phone-validation.mdx",
         "resources/phone-validations/validate-an-app-registration-phone-validation.mdx"
       ]
     },
@@ -2251,6 +2253,7 @@
         "duplicatePaths": [
           "resources/phone-validations/create-a-phone-validation.mdx",
           "resources/phone-validations/list-all-phone-validations.mdx",
+          "resources/phone-validations/validate-a-phone-validation.mdx",
           "resources/phone-validations/validate-an-app-registration-phone-validation.mdx"
         ],
         "priority": "P2"
@@ -3467,8 +3470,8 @@
         "priority": "P2"
       },
       {
-        "endpointUrl": "v2/phone-validations/{id}/validate",
-        "primaryPath": "resources/phone-validations/validate-a-phone-validation.mdx",
+        "endpointUrl": "v2/phone-validations/manual",
+        "primaryPath": "resources/phone-validations/create-a-manual-phone-validation.mdx",
         "duplicatePaths": [],
         "priority": "P2"
       }

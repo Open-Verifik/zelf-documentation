@@ -2261,21 +2261,6 @@ keywords:
   - "https://api.verifik.co/v2/phone-validations/{id}"
   - "GET v2/phone-validations/{id}"
   - "GET /v2/phone-validations/{id}"
-  - "v2/phone-validations/{id}/validate"
-  - "/v2/phone-validations/{id}/validate"
-  - "v2/phone-validations/validate"
-  - "/v2/phone-validations/validate"
-  - "v2 phone-validations validate"
-  - "v2 phone-validations {id} validate"
-  - "phone-validations/validate"
-  - "/phone-validations/validate"
-  - "api/phone-validations/validate"
-  - "/api/phone-validations/validate"
-  - "api phone-validations validate"
-  - "api.verifik.co/v2/phone-validations/{id}/validate"
-  - "https://api.verifik.co/v2/phone-validations/{id}/validate"
-  - "GET v2/phone-validations/{id}/validate"
-  - "GET /v2/phone-validations/{id}/validate"
   - "v2/phone-validations/app-registration"
   - "/v2/phone-validations/app-registration"
   - "v2 phone-validations app-registration"
@@ -2288,6 +2273,18 @@ keywords:
   - "https://api.verifik.co/v2/phone-validations/app-registration"
   - "GET v2/phone-validations/app-registration"
   - "GET /v2/phone-validations/app-registration"
+  - "v2/phone-validations/manual"
+  - "/v2/phone-validations/manual"
+  - "v2 phone-validations manual"
+  - "phone-validations/manual"
+  - "/phone-validations/manual"
+  - "api/phone-validations/manual"
+  - "/api/phone-validations/manual"
+  - "api phone-validations manual"
+  - "api.verifik.co/v2/phone-validations/manual"
+  - "https://api.verifik.co/v2/phone-validations/manual"
+  - "GET v2/phone-validations/manual"
+  - "GET /v2/phone-validations/manual"
   - "v2/project-flows"
   - "/v2/project-flows"
   - "v2 project-flows"
@@ -2669,7 +2666,7 @@ grouped by country or topic. Use it when you have a raw URL fragment (e.g. `v2/c
 
 If the search bar didn't find your endpoint, this page lists every API path along with whitespace-tokenized aliases so it shows up regardless of how you typed the URL.
 
-_Last regenerated: 2026-07-29T19:50:57.490Z_
+_Last regenerated: 2026-07-30T00:08:08.655Z_
 
 ## Argentina
 
@@ -3028,8 +3025,8 @@ _Last regenerated: 2026-07-29T19:50:57.490Z_
 | --- | --- | --- |
 | `v2/phone-validations` | v2 phone-validations phone-validations /phone-validations api/phone-validations /api/phone-validations api phone-validations api.verifik.co/v2/phone-validations https://api.verifik.co/v2/phone-validations GET v2/phone-validations GET /v2/phone-validations | [Validate an App Registration Phone Validation](/resources/app-registrations/validate-an-app-registration-phone-validation) |
 | `v2/phone-validations/{id}` | v2/phone-validations /v2/phone-validations v2 phone-validations phone-validations /phone-validations api/phone-validations /api/phone-validations api phone-validations | [Retrieve a Phone Validation](/resources/retrieve-a-phone-validation) |
-| `v2/phone-validations/{id}/validate` | v2/phone-validations/validate /v2/phone-validations/validate v2 phone-validations validate phone-validations/validate /phone-validations/validate api/phone-validations/validate /api/phone-validations/validate api phone-validations validate | [Validate a Phone Validation](/resources/validate-a-phone-validation) |
 | `v2/phone-validations/app-registration` | v2 phone-validations app-registration phone-validations/app-registration /phone-validations/app-registration api/phone-validations/app-registration /api/phone-validations/app-registration api phone-validations app-registration api.verifik.co/v2/phone-validations/app-registration https://api.verifik.co/v2/phone-validations/app-registration GET v2/phone-validations/app-registration GET /v2/phone-validations/app-registration | [Create an App Registration Phone Validation](/resources/app-registrations/create-an-app-registration-phone-validation) |
+| `v2/phone-validations/manual` | v2 phone-validations manual phone-validations/manual /phone-validations/manual api/phone-validations/manual /api/phone-validations/manual api phone-validations manual api.verifik.co/v2/phone-validations/manual https://api.verifik.co/v2/phone-validations/manual GET v2/phone-validations/manual GET /v2/phone-validations/manual | [Create a Manual Phone Validation](/resources/create-a-manual-phone-validation) |
 
 ## Project Flows
 

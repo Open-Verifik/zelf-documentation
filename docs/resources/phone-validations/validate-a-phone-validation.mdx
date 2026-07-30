@@ -2,23 +2,16 @@
 id: validate-a-phone-validation
 title: Validate a Phone Validation
 slug: /resources/validate-a-phone-validation
-description: Validate a phone validation by providing the verification code
+description: Verify a phone OTP with phone, countryCode, and otp
 keywords:
-  - 'v2/phone-validations/{id}/validate'
-  - '/v2/phone-validations/{id}/validate'
-  - v2/phone-validations/validate
-  - /v2/phone-validations/validate
-  - v2 phone-validations validate
-  - 'v2 phone-validations {id} validate'
-  - api/phone-validations/validate
-  - /api/phone-validations/validate
-  - api phone-validations validate
-  - 'api.verifik.co/v2/phone-validations/{id}/validate'
-  - 'https://api.verifik.co/v2/phone-validations/{id}/validate'
-  - 'GET v2/phone-validations/{id}/validate'
-  - 'GET /v2/phone-validations/{id}/validate'
-  - phone-validations/validate
-  - /phone-validations/validate
+  - v2/phone-validations
+  - /v2/phone-validations
+  - PUT v2/phone-validations
+  - PUT /v2/phone-validations
+  - phone-validations validate
+  - api.verifik.co/v2/phone-validations
+  - 'https://api.verifik.co/v2/phone-validations'
+  - otp verify phone
 ---
 
 import Tabs from '@theme/Tabs';
@@ -27,233 +20,150 @@ import TabItem from '@theme/TabItem';
 ### Endpoint
 
 ```
-POST https://api.verifik.co/v2/phone-validations/{id}/validate
+PUT https://api.verifik.co/v2/phone-validations
 ```
 
-This service validates a phone validation by providing the verification code. The system will check the code against the stored verification code and update the validation status accordingly.
+Confirms the OTP the user received. Verifik looks up the latest **sent** (and not expired) Phone Validation for that phone — including **manual / Smart Tools** records and project-flow records.
 
-#### Headers
+:::tip Pair with send
+Standalone OTPs are created with [`POST /v2/phone-validations/manual`](/resources/create-a-manual-phone-validation). App registration OTPs use [`POST /v2/phone-validations/app-registration`](/resources/phone-validations/create-an-app-registration-phone-validation).
+:::
 
-#### `Content-Type`
+### Headers
 
-**Type:** String  
-**Required:** Required  
-**Value:** `application/json`
+| Name | Value |
+| --- | --- |
+| Content-Type | `application/json` |
+| Authorization | `Bearer {YOUR_ACCESS_TOKEN}` |
 
-#### `Authorization`
+### Body parameters
 
-**Type:** String  
-**Required:** Required  
-**Value:** `Bearer {YOUR_ACCESS_TOKEN}`
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `phone` | string | Yes | Same national number used when sending the OTP. |
+| `countryCode` | string | Yes | Dial code starting with `+`. |
+| `otp` | number | Yes | Numeric code the user received. |
+| `phoneGateway` | string | No | `sms` or `whatsapp` — narrows the lookup when both channels were used. |
+| `project` | string | No | Optional project filter for flow-based records. |
+| `projectFlow` | string | No | Optional project-flow filter (preferred when available). |
 
-#### Path Parameters
-
-#### `id`
-
-**Type:** String  
-**Required:** Yes
-
-The unique identifier of the phone validation record you want to validate.
-
-#### Body Parameters
-
-#### `verificationCode`
-
-**Type:** String  
-**Required:** Yes
-
-The verification code received via SMS.
-
-### Request
+### Request examples
 
 <Tabs groupId="language">
-  <TabItem value="nodejs" label="Node.js">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X PUT "https://api.verifik.co/v2/phone-validations" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "3001234567",
+    "countryCode": "+57",
+    "otp": 123456,
+    "phoneGateway": "whatsapp"
+  }'
+```
+
+</TabItem>
+<TabItem value="nodejs" label="Node.js">
 
 ```javascript
-import axios from 'axios';
+import axios from "axios";
 
-const options = {
-  method: 'POST',
-  url: 'https://api.verifik.co/v2/phone-validations/phone_validation_123456789/validate',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer <your_token>'
+const { data } = await axios.put(
+  "https://api.verifik.co/v2/phone-validations",
+  {
+    phone: "3001234567",
+    countryCode: "+57",
+    otp: 123456,
+    phoneGateway: "whatsapp",
   },
-  data: {
-    verificationCode: '123456'
+  {
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
   }
-};
+);
 
-try {
-  const { data } = await axios.request(options);
-  console.log(data);
-} catch (error) {
-  console.error(error);
-}
+console.log(data);
 ```
 
-  </TabItem>
-  <TabItem value="python" label="Python">
+</TabItem>
+<TabItem value="python" label="Python">
 
 ```python
-import http.client
-import json
+import requests
 
-conn = http.client.HTTPSConnection("api.verifik.co")
+response = requests.put(
+    "https://api.verifik.co/v2/phone-validations",
+    headers={
+        "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+        "Content-Type": "application/json",
+    },
+    json={
+        "phone": "3001234567",
+        "countryCode": "+57",
+        "otp": 123456,
+        "phoneGateway": "whatsapp",
+    },
+)
 
-payload = json.dumps({
-  "verificationCode": "123456"
-})
-
-headers = {
-  'Content-Type': 'application/json',
-  'Authorization': 'Bearer <your_token>'
-}
-
-conn.request("POST", "/v2/phone-validations/phone_validation_123456789/validate", payload, headers)
-
-res = conn.getresponse()
-data = res.read()
-
-print(data.decode("utf-8"))
+print(response.json())
 ```
 
-  </TabItem>
-  <TabItem value="php" label="PHP">
+</TabItem>
+<TabItem value="php" label="PHP">
 
 ```php
 <?php
 
 $client = new \GuzzleHttp\Client();
 
-$response = $client->request('POST', 'https://api.verifik.co/v2/phone-validations/phone_validation_123456789/validate', [
+$response = $client->request('PUT', 'https://api.verifik.co/v2/phone-validations', [
   'headers' => [
+    'Authorization' => 'Bearer YOUR_ACCESS_TOKEN',
     'Content-Type' => 'application/json',
-    'Authorization' => 'Bearer <your_token>',
   ],
   'json' => [
-    'verificationCode' => '123456'
-  ]
+    'phone' => '3001234567',
+    'countryCode' => '+57',
+    'otp' => 123456,
+    'phoneGateway' => 'whatsapp',
+  ],
 ]);
 
 echo $response->getBody();
 ```
 
-  </TabItem>
-  <TabItem value="go" label="Go">
-
-```go
-package main
-
-import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
-)
-
-func main() {
-	url := "https://api.verifik.co/v2/phone-validations/phone_validation_123456789/validate"
-
-	payload := map[string]interface{}{
-		"verificationCode": "123456",
-	}
-
-	jsonData, _ := json.Marshal(payload)
-
-	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", "Bearer <your_token>")
-
-	client := &http.Client{}
-	res, _ := client.Do(req)
-	defer res.Body.Close()
-
-	body, _ := io.ReadAll(res.Body)
-	fmt.Println(string(body))
-}
-```
-
-  </TabItem>
+</TabItem>
 </Tabs>
 
-### Response
-
-<Tabs groupId="status">
-  <TabItem value="200" label="200">
+### Success response
 
 ```json
 {
-  "success": true,
   "data": {
-    "_id": "phone_validation_123456789",
-    "client": "client_123456789",
-    "project": "project_123456789",
-    "projectFlow": "flow_123456789",
+    "_id": "66f0a1b2c3d4e5f678901234",
     "status": "validated",
-    "countryCode": "+1",
-    "phone": "1234567890",
-    "type": "validation",
-    "validationMethod": "verificationCode",
-    "verificationCode": "123456",
-    "expiresAt": "2024-01-15T11:30:00Z",
-    "attempts": 1,
-    "maxAttempts": 3,
-    "createdAt": "2024-01-15T10:30:00Z",
-    "updatedAt": "2024-01-15T10:32:00Z",
-    "validatedAt": "2024-01-15T10:32:00Z"
-  },
-  "signature": {
-    "dateTime": "April 11, 2023 12:25 PM",
-    "message": "Certified by Verifik.co"
+    "countryCode": "+57",
+    "phone": "3001234567",
+    "phoneGateway": "whatsapp",
+    "source": "manual",
+    "validatedAt": "2026-07-29T22:40:00.000Z"
   }
 }
 ```
 
-  </TabItem>
-  <TabItem value="400" label="400">
+### Common errors
 
-```json
-{
-  "success": false,
-  "error": "Invalid verification code",
-  "code": "INVALID_CODE"
-}
-```
+| Status | Message | When |
+| --- | --- | --- |
+| 403 | `otp_does_not_match` | Code does not match the pending OTP. |
+| 412 | `phoneValidation_has_expired` | No non-expired `sent` record found, or the session expired. |
+| 409 | `MissingParameter` | Required body fields missing. |
 
-  </TabItem>
-  <TabItem value="409" label="409">
+### Related
 
-```json
-{
-  "success": false,
-  "error": "Verification code expired",
-  "code": "CODE_EXPIRED"
-}
-```
-
-  </TabItem>
-  <TabItem value="410" label="410">
-
-```json
-{
-  "success": false,
-  "error": "Maximum attempts exceeded",
-  "code": "MAX_ATTEMPTS_EXCEEDED"
-}
-```
-
-  </TabItem>
-</Tabs>
-
-## Features
-
-- **Code Validation**: Validates 6-digit OTP codes sent via SMS
-- **Attempt Control**: Tracks validation attempts and maximum limits
-- **Expiration**: Handles expired codes with appropriate responses
-- **Status Update**: Updates validation status after successful verification
-- **Timestamps**: Records when validation was completed
-- **Country Codes**: Maintains country code information during validation
-- **Multiple Languages**: Support for JavaScript, Python, PHP and Swift
-- **Error Handling**: Detailed error responses for different scenarios
+- [Create a Manual Phone Validation](/resources/create-a-manual-phone-validation)  
+- [Phone Validations overview](/resources/phone-validations)  

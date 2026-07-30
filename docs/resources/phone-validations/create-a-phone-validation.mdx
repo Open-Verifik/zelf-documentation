@@ -21,6 +21,16 @@ keywords:
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+:::caution Prefer the dedicated create endpoints
+For **Smart Tools / standalone OTPs** (no project), use  
+[`POST /v2/phone-validations/manual`](/resources/create-a-manual-phone-validation).
+
+For **Smart Enroll / App Registration** flows, use  
+[`POST /v2/phone-validations/app-registration`](/resources/phone-validations/create-an-app-registration-phone-validation).
+
+Start from the [Phone Validations overview](/resources/phone-validations) if you are unsure which path to use.
+:::
+
 ### Endpoint
 
 ```

@@ -9,18 +9,18 @@ slug: /legal/service-level-agreement
 
 ### **Service Level Agreement**
 
-#### **I. Service Channels. The User shall have access to the following Verifik service channels:**
+#### **1. Service Channels. The User shall have access to the following Verifik service channels:**
 
 1. Chat available on [Verifik.co](http://verifik.co)
 2. Email: support@verifik.co
 3. Customer service WhatsApp channel.
 4. Customer service Discord channel.
 
-#### **II. Hours of Operation**
+#### **2. Hours of Operation**
 
 The User will be able to access the support provided by Verifik, Monday through Friday (business days) from 8:00 AM to 5:00 PM Colombia time.
 
-#### **III. Criticality Levels**
+#### **3. Criticality Levels**
 
 The requests or requirements raised by Users to the support team will be classified according to the impact they have on the User's operation, as follows:
 
@@ -30,7 +30,7 @@ The requests or requirements raised by Users to the support team will be classif
 | **Medium:**   | Loss of functionality in specific cases.                                     |
 | **Normal:**   | Other requests or general inquiries that do not affect Service Availability. |
 
-#### **IV. Response Times**
+#### **4. Response Times**
 
 1. **Definitions:** Terms used in this section, shall have the following meanings:
 
@@ -54,7 +54,7 @@ The response time varies according to the criticality of the requirement, as fol
 
 Response times will be counted from the last message sent by the user.
 
-#### **V. Platform Availability**
+#### **5. Platform Availability**
 
 The Platform will be available at least:
 
@@ -64,7 +64,24 @@ The Platform will be available at least:
 | smartACCESS  | 99.0% > Email/Tel<br/>98.0% > Biometrics                                                    |                                                                        |
 | smartENROLL  | 99.0% > Email/Tel<br/>98.0% > Biometrics<br/>98.0% > Document Scanning<br/>90.0% > Data API | Data API depends on connections with Government Sources                |
 
-#### **VI. Downtime Compensation**
+##### **5.1. 엔드포인트별 가용성 제외 사항**
+
+특정 외부 데이터 소스의 역사적으로 예측 불가능한 운영 가용성 특성으로 인해, 특정 엔드포인트는 본 계약의 플랫폼 가용성 약정 및 다운타임 보상 조항에서 제외됩니다.
+
+다음 엔드포인트는 제외됩니다:
+
+- 멕시코 – INE 검증
+- 멕시코 – 차량 번호판 검증
+
+이러한 엔드포인트에 영향을 미치는 중단, 유지보수 기간, 성능 저하, 응답 지연 또는 일시적 이용 불가는 다음으로 간주되지 않습니다:
+
+- 플랫폼 다운타임으로 간주되지 않음;
+- 플랫폼 가용성 계산에 포함되지 않음;
+- 본 계약에 따른 서비스 크레딧 또는 기타 보상의 대상이 되지 않음.
+
+Verifik는 가능한 한 연결성을 유지하고 서비스를 복구하기 위해 상업적으로 합리적인 노력을 계속할 것이나, 위에 나열된 엔드포인트에 대해서는 가동 시간 보장이 제공되지 않습니다.
+
+#### **6. Downtime Compensation**
 
 Credit Compensation awarded for the affected month will be provided in the form of a credit equivalent to the cost of the failed service call. If the service unavailability is caused by **Internal Issues** of Verifik (database, servers, internal API issues) and is not effectively resolved by the Company, Verifik will compensate as follows:
 
@@ -77,7 +94,7 @@ Credit Compensation awarded for the affected month will be provided in the form 
 
 **Internal Issues** of the Data API service (Data Query) excludes issues considered Force Majeure (Fortuitous Events), whether due to migration, disconnection, or external intervention by the governments that manage the databases. Verifik is an intermediary and therefore does NOT have control over the queried databases.
 
-#### **VII. Charging Scheme for smartCHECK**
+#### **7. Charging Scheme for smartCHECK**
 
 The charging scheme applies to the smartCHECK solution, which enables queries to government databases. Verifik does not own, manage, or bear responsibility for (does not control or update) the government databases of the various countries we serve; therefore, Verifik reserves the right not to offer guarantees regarding Response Time, Average Up Time, or Data Accuracy.
 
@@ -91,7 +108,7 @@ If the query returns a **200** or **404**, it will be charged. Otherwise, if the
 |             | 422             |
 |             | 500             |
 
-#### **VIII. smartCHECK 서비스 동적 쿼리**
+#### **8. smartCHECK 서비스 동적 쿼리**
 
 smartCHECK 서비스의 표준 아키텍처의 일부로, Verifik은 지원되는 엔드포인트에서 서비스 가용성, 커버리지 및 신뢰성을 극대화하도록 설계된 동적 쿼리(Dynamic Query) 메커니즘을 구현합니다.
 
@@ -113,13 +130,13 @@ d) Verifik은 서비스 연속성 유지, 커버리지 최적화 및 검증 성�
 
 동적 쿼리는 smartCHECK 서비스의 고유 기능으로 간주되며, Verifik이 서면으로 달리 명시하지 않는 한 적격 엔드포인트를 사용하는 모든 클라이언트에 자동으로 적용됩니다.
 
-#### **VIII.A 동적 가격 (청구)**
+#### **8.1 동적 가격 (청구)** {#dynamic-pricing-billing}
 
 동적 쿼리가 적격 엔드포인트에서 확장 검증 경로를 사용하여 성공적인 일치(**HTTP 200**)를 반환하는 경우 **동적 가격**이 적용될 수 있습니다. 이 경우 크레딧은 기본 경로의 표준 등급이 아닌 해당 엔드포인트 패밀리의 **프리미엄 등급**으로 차감됩니다.
 
 동적 가격은 오늘날 표준 경로가 일치를 반환하지 않은 후 확장 검증 경로가 성공적으로 완료될 때 표준 콜롬비아 신분증 엔드포인트(**`GET/POST /v2/co/cedula`**)에 적용됩니다. 크레딧 금액은 **클라이언트에 구성된 기능 가격**(해당 엔드포인트 패밀리의 표준 요금 vs. 프리미엄 요금)에 따라 달라집니다.
 
-동적 가격은 **VII**절의 청구 규칙을 변경하지 **않습니다**: 유효성 검사 및 서버 오류(**403**, **409**, **412**, **422**, **500**)는 청구되지 않으며, 적용 가능한 경로에서 성공적인 일치가 반환되지 않을 때 **404** 응답은 표준 등급으로 청구됩니다.
+동적 가격은 **7**절의 청구 규칙을 변경하지 **않습니다**: 유효성 검사 및 서버 오류(**403**, **409**, **412**, **422**, **500**)는 청구되지 않으며, 적용 가능한 경로에서 성공적인 일치가 반환되지 않을 때 **404** 응답은 표준 등급으로 청구됩니다.
 
 투명성을 위해 클라이언트는 적격 요청에 **`includeCost=true`**를 전달하여 크레딧이 청구될 때(동적 가격이 적용될 때 포함) **`billing`** 객체를 받을 수 있습니다. API 요청 기록에는 조정 메타데이터(예: 표준 vs. 청구 금액)가 저장됩니다.
 
@@ -127,10 +144,10 @@ d) Verifik은 서비스 연속성 유지, 커버리지 최적화 및 검증 성�
 
 API 세부 정보는 [콜롬비아 신분증(기본)](/verifik-ko/identity-validation/colombia/colombian-citizen#dynamic-pricing)을 참조하세요.
 
-#### **IX. 플랫폼 이용 불가**
+#### **9. 플랫폼 이용 불가**
 
 Scheduled maintenance windows will take place at night and/or on weekends, with prior notification via email to users.
 
-#### **X. 신규 적응 또는 개발**
+#### **10. 신규 적응 또는 개발**
 
 The timeframes for developing new adaptations due to unexpected changes from User systems integrating via API with the Platform will vary according to the changes required by the User and will not count as Platform Downtime.

@@ -9,18 +9,18 @@ slug: /legal/service-level-agreement
 
 ### **Contrat de niveau de service**
 
-#### **JE. Canaux de services. L'utilisateur aura accès aux canaux de service Verifik suivants :**
+#### **1. Canaux de services. L'utilisateur aura accès aux canaux de service Verifik suivants :**
 
 1. Chat disponible sur [Verifik.co](http://verifik.co)
 2. E-mail : support@verifik.co
 3. Canal WhatsApp du service client.
 4. Canal Discord du service client.
 
-#### **II. Heures d'ouverture**
+#### **2. Heures d'ouverture**
 
 L'utilisateur pourra accéder au support fourni par Verifik du lundi au vendredi (jours ouvrables) de 8h00 à 17h00, heure de Colombie.
 
-#### **III. Niveaux de criticité**
+#### **3. Niveaux de criticité**
 
 Les demandes ou exigences soulevées par les Utilisateurs auprès de l'équipe d'assistance seront classées en fonction de leur impact sur le fonctionnement de l'Utilisateur, comme suit :
 
@@ -30,7 +30,7 @@ Les demandes ou exigences soulevées par les Utilisateurs auprès de l'équipe d
 | **Medium:**   | Loss of functionality in specific cases.                                     |
 | **Normal:**   | Other requests or general inquiries that do not affect Service Availability. |
 
-#### **IV. Temps de réponse**
+#### **4. Temps de réponse**
 
 1. **Définitions :** Les termes utilisés dans cette section auront les significations suivantes :
 
@@ -54,7 +54,7 @@ Le délai de réponse varie en fonction de la criticité du besoin, comme suit :
 
 Les délais de réponse seront comptés à partir du dernier message envoyé par l'utilisateur.
 
-#### **V. Disponibilité de la plateforme**
+#### **5. Disponibilité de la plateforme**
 
 La Plateforme sera disponible au minimum :
 
@@ -64,7 +64,24 @@ La Plateforme sera disponible au minimum :
 | smartACCESS  | 99.0% > Email/Tel<br/>98.0% > Biometrics                                                    |                                                                        |
 | smartENROLL  | 99.0% > Email/Tel<br/>98.0% > Biometrics<br/>98.0% > Document Scanning<br/>90.0% > Data API | Data API depends on connections with Government Sources                |
 
-#### **VI. Compensation des temps d'arrêt**
+##### **5.1. Exclusions de disponibilité spécifiques aux points de terminaison**
+
+En raison des caractéristiques historiques d'imprévisibilité de la disponibilité opérationnelle de certaines sources de données externes, des points de terminaison spécifiques sont exclus des engagements de Disponibilité de la plateforme et des dispositions de Compensation des temps d'arrêt du présent Accord.
+
+Les points de terminaison suivants sont exclus :
+
+- Mexique – Validation INE
+- Mexique – Validation de plaques d'immatriculation
+
+Les interruptions, périodes de maintenance, performances dégradées, réponses retardées ou indisponibilité temporaire affectant ces points de terminaison ne devront pas :
+
+- être considérées comme Temps d'indisponibilité de la plateforme ;
+- être incluses dans les calculs de Disponibilité de la plateforme ;
+- ouvrir droit à des Crédits de service ni à toute autre compensation au titre du présent Accord.
+
+Verifik continuera de faire des efforts commercialement raisonnables pour maintenir la connectivité et rétablir le service chaque fois que possible ; toutefois, aucune garantie de disponibilité n'est fournie pour les points de terminaison listés ci-dessus.
+
+#### **6. Compensation des temps d'arrêt**
 
 La compensation de crédit accordée pour le mois concerné sera fournie sous la forme d'un crédit équivalent au coût de l'appel de service échoué. Si l'indisponibilité du service est causée par des **Problèmes internes** de Verifik (base de données, serveurs, problèmes d'API internes) et n'est pas efficacement résolue par la Société, Verifik compensera comme suit :
 
@@ -77,7 +94,7 @@ La compensation de crédit accordée pour le mois concerné sera fournie sous la
 
 Les **Problèmes internes** du service Data API (Data Query) excluent les problèmes considérés comme de force majeure (Événements fortuits), qu'ils soient dus à une migration, une déconnexion ou une intervention externe des gouvernements qui gèrent les bases de données. Verifik est un intermédiaire et n'a donc PAS de contrôle sur les bases de données interrogées.
 
-#### **VII. Schéma de facturation pour smartCHECK**
+#### **7. Schéma de facturation pour smartCHECK**
 
 Le système de tarification s'applique à la solution smartCHECK, qui permet d'interroger les bases de données gouvernementales. Verifik ne possède, ne gère ni n'assume la responsabilité (ne contrôle ni ne met à jour) les bases de données gouvernementales des différents pays que nous servons ; par conséquent, Verifik se réserve le droit de ne pas offrir de garanties concernant le temps de réponse, le temps de disponibilité moyen ou l'exactitude des données.
 
@@ -91,7 +108,7 @@ Si la requête renvoie un **200** ou un **404**, elle sera facturée. Sinon, si 
 |             | 422             |
 |             | 500             |
 
-#### **VIII. Requête dynamique pour le service smartCHECK**
+#### **8. Requête dynamique pour le service smartCHECK**
 
 Dans le cadre de l'architecture standard du service smartCHECK, Verifik met en œuvre un mécanisme de Requête dynamique (Dynamic Query) conçu pour maximiser la disponibilité, la couverture et la fiabilité du service sur les points de terminaison pris en charge.
 
@@ -113,13 +130,13 @@ d) Verifik se réserve le droit de modifier, prioriser ou substituer les sources
 
 La Requête dynamique sera considérée comme une fonctionnalité inhérente au service smartCHECK et s'appliquera automatiquement à tous les Clients utilisant des points de terminaison éligibles, sauf disposition contraire écrite de Verifik.
 
-#### **VIII.A Tarification dynamique (facturation)**
+#### **8.1 Tarification dynamique (facturation)** {#dynamic-pricing-billing}
 
 Lorsque la Requête dynamique utilise un chemin de vérification étendu sur un point de terminaison éligible et renvoie une correspondance réussie (**HTTP 200**), une **tarification dynamique** peut s'appliquer. Dans ce cas, les crédits sont déduits au **niveau premium** de cette famille de points de terminaison, et non au niveau standard associé à la route de base.
 
 La tarification dynamique s'applique aujourd'hui au point de terminaison standard de la carte d'identité colombienne (**`GET/POST /v2/co/cedula`**) lorsqu'un chemin de vérification étendu aboutit avec succès après l'échec des chemins standard. Les montants de crédits dépendent de la **tarification configurée pour le Client** (tarif standard vs. tarif premium pour cette famille de points de terminaison).
 
-La tarification dynamique **ne modifie pas** les règles de facturation de la section **VII** : les erreurs de validation et serveur (**403**, **409**, **412**, **422**, **500**) ne sont pas facturées ; les réponses **404** sont facturées au tarif standard lorsqu'aucune correspondance réussie n'est obtenue sur les chemins applicables.
+La tarification dynamique **ne modifie pas** les règles de facturation de la section **7** : les erreurs de validation et serveur (**403**, **409**, **412**, **422**, **500**) ne sont pas facturées ; les réponses **404** sont facturées au tarif standard lorsqu'aucune correspondance réussie n'est obtenue sur les chemins applicables.
 
 Pour plus de transparence, le Client peut transmettre **`includeCost=true`** sur les requêtes éligibles pour recevoir un objet **`billing`** lorsque des crédits sont facturés (y compris en cas de tarification dynamique). L'historique des requêtes API enregistre les métadonnées d'ajustement (par exemple, montants standard vs. facturés).
 
@@ -127,10 +144,10 @@ Appeler directement **`/v2/co/cedula/premium`** utilise toujours la tarification
 
 Voir [Cédula colombienne premium](/verifik-fr/identity-validation/colombia/colombian-cedula-premium#dynamic-pricing) pour les détails de l'API.
 
-#### **IX. Indisponibilité de la plateforme**
+#### **9. Indisponibilité de la plateforme**
 
 Les fenêtres de maintenance programmées auront lieu la nuit et/ou le week-end, avec notification préalable par e-mail aux utilisateurs.
 
-#### **X. Nouvelles adaptations ou développements**
+#### **10. Nouvelles adaptations ou développements**
 
 Les délais de développement de nouvelles adaptations dus à des changements inattendus des systèmes de l'Utilisateur intégrant via l'API à la Plateforme varieront en fonction des modifications requises par l'Utilisateur et ne compteront pas comme Temps d'Indisponibilité de la Plateforme.

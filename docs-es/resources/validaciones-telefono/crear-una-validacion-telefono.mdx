@@ -8,6 +8,16 @@ description: Crea una nueva solicitud de validación de teléfono
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
+:::caution Usa los endpoints de creación dedicados
+Para **Smart Tools / OTPs independientes** (sin proyecto), usa  
+[`POST /v2/phone-validations/manual`](./crear-una-validacion-telefono-manual.mdx).
+
+Para flujos de **Smart Enroll / App Registration**, usa  
+[`POST /v2/phone-validations/app-registration`](/resources/phone-validations/create-an-app-registration-phone-validation).
+
+Si no estás seguro, empieza por la [visión general de Validaciones de Teléfono](./validaciones-telefono.mdx).
+:::
+
 ### Endpoint
 
 ```
