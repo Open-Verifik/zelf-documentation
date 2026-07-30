@@ -155,6 +155,10 @@ echo $response->getBody();
 }
 ```
 
+### OTP lifetime
+
+Pending OTPs are valid for **10 minutes** from the last successful send/resend (`expiresAt` on the create response). After that, this endpoint returns `412` `phoneValidation_has_expired`. Send a new OTP (respecting the ~2-minute resend cooldown, or use `force: true` on manual create) before asking the user to try again.
+
 ### OTP attempts
 
 There is **no server-side attempt limit** today. Wrong codes return `403` `otp_does_not_match` until the record expires or a new OTP is sent. Enforce lockout or attempt caps in your client if needed.
@@ -164,7 +168,7 @@ There is **no server-side attempt limit** today. Wrong codes return `403` `otp_d
 | Status | Message | When |
 | --- | --- | --- |
 | 403 | `otp_does_not_match` | Code does not match the pending OTP. |
-| 412 | `phoneValidation_has_expired` | The pending OTP TTL has elapsed. |
+| 412 | `phoneValidation_has_expired` | The pending OTP TTL (~10 minutes) has elapsed. |
 | 409 | `otp_send_failed` | Latest record for this phone failed to send (not the same as expiry). |
 | 409 | `phone_validation_already_validated` | OTP was already validated. |
 | 404 | `phone_validation_not_found` | No matching Phone Validation for this phone. |

@@ -39,8 +39,8 @@ Los créditos se verifican **antes** de enviar el mensaje, según el precio del 
 
 | Parámetro | Tipo | Requerido | Descripción |
 | --- | --- | --- | --- |
-| `phone` | string | Sí | Número nacional (se eliminan espacios). |
-| `countryCode` | string | Sí | Código con `+` (ej. `+57`). |
+| `phone` | string | Sí | Solo número nacional (se eliminan espacios). No incluyas el código de país aquí. |
+| `countryCode` | string | Sí | Código con `+` (ej. `+57`). Envíalo siempre y muéstralo al usuario junto al teléfono (ej. `+57 3001234567`). |
 | `phoneGateway` | string | Sí | `sms` o `whatsapp`. |
 | `title` | string | No | Nombre de empresa en la plantilla (1–15 caracteres). Se usa en WhatsApp `flow2` y en el texto SMS. |
 | `language` | string | No | Idioma de la plantilla (`en`, `es`, …). Elige `flow2_en` / `flow2_es` cuando `whatsappTemplate` es `flow2`. |
@@ -113,11 +113,17 @@ console.log(data);
 </TabItem>
 </Tabs>
 
-### Reenvío / ventana de espera
+### Vigencia del OTP y reenvío
 
-Si ya existe un OTP en estado **sent** para el mismo cliente, teléfono y `phoneGateway` actualizado en los últimos ~**2 minutos**, la API responde `409` con código `otp_recently_sent` y **no** vuelve a enviar.
+| Regla | Valor por defecto | Notas |
+| --- | --- | --- |
+| TTL del OTP | **10 minutos** | Se devuelve en `data.expiresAt` tras un envío exitoso. Después, la verificación responde `412` `phoneValidation_has_expired`. |
+| Ventana de reenvío | **~2 minutos** | Un segundo envío para el mismo cliente + teléfono + `phoneGateway` en ~2 minutos responde `409` `otp_recently_sent` (sin mensaje nuevo). |
+| Forzar reenvío | `"force": true` | Omite la ventana de 2 minutos para enviar un código nuevo de inmediato (p. ej. botón “Reenviar”). Cada envío/reenvío exitoso reinicia `expiresAt` a +10 minutos. |
 
-Para forzar un código nuevo antes de esa ventana (p. ej. “Reenviar”), envía el mismo body con `"force": true`.
+:::tip Guía de UI
+Muestra el destino como **`countryCode` + `phone` nacional** (ej. `+57 3001234567`). Usa `expiresAt` para la cuenta regresiva de expiración y habilita “Reenviar” tras la ventana de 2 minutos (o siempre con `force: true`).
+:::
 
 ### Errores comunes
 

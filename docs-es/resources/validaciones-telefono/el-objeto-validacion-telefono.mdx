@@ -115,7 +115,7 @@ El código OTP generado para la verificación de teléfono (solo presente cuando
 **Tipo:** Date  
 **Requerido:** Opcional
 
-La fecha y hora de expiración del código de validación.
+La fecha y hora de expiración del código de validación. Por defecto es **10 minutos** después de enviar o reenviar el OTP. Úsala para mostrar una cuenta regresiva en tu UI; después de ese momento, la verificación falla con `phoneValidation_has_expired`.
 
 #### `redirectUrl`
 

@@ -16,6 +16,16 @@ Ciclo típico:
 
 Consulta todos los campos en [El objeto Validación de Teléfono](./el-objeto-validacion-telefono.mdx).
 
+### Reglas de tiempo
+
+| Regla | Valor por defecto |
+| --- | --- |
+| OTP válido durante | **10 minutos** (`expiresAt` en la respuesta de envío) |
+| Ventana de reenvío | **~2 minutos** entre envíos para el mismo teléfono + gateway (`409` `otp_recently_sent`) |
+| Omitir ventana | Create manual con `"force": true` |
+
+Envía y muestra siempre el **`countryCode`** junto al **`phone`** nacional (ej. `+57 3001234567`) para que el usuario sepa a qué destino llegó el mensaje.
+
 ---
 
 ### Elige tu ruta de integración

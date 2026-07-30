@@ -16,6 +16,16 @@ Typical lifecycle:
 
 See the full field list in [The Phone Validation Object](/resources/the-phone-validation-object).
 
+### Timing rules
+
+| Rule | Default |
+| --- | --- |
+| OTP valid for | **10 minutes** (`expiresAt` on the send response) |
+| Resend cooldown | **~2 minutes** between sends for the same phone + gateway (`409` `otp_recently_sent`) |
+| Bypass cooldown | Manual create with `"force": true` |
+
+Always send and display **`countryCode`** with the national **`phone`** (e.g. `+57 3001234567`) so users know which destination received the message.
+
 ---
 
 ### Choose your integration path

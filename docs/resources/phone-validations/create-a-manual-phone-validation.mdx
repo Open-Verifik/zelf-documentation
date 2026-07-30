@@ -44,8 +44,8 @@ Credits are checked **before** the message is sent, using country SMS/WhatsApp p
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| `phone` | string | Yes | National number (spaces are stripped). |
-| `countryCode` | string | Yes | Dial code starting with `+` (e.g. `+57`). |
+| `phone` | string | Yes | National number only (spaces are stripped). Do not include the dial code here. |
+| `countryCode` | string | Yes | Dial code starting with `+` (e.g. `+57`). Always send this; show it to the user with the phone (e.g. `+57 3001234567`). |
 | `phoneGateway` | string | Yes | `sms` or `whatsapp`. |
 | `title` | string | No | Company / sender name in the template (1–15 characters). Defaults to your client name. Used by WhatsApp `flow2` and SMS copy. |
 | `language` | string | No | Template language (`en`, `es`, …). Selects `flow2_en` / `flow2_es` when `whatsappTemplate` is `flow2`. |
@@ -184,6 +184,7 @@ echo $response->getBody();
       "title": "Company ABC"
     },
     "language": "en",
+    "expiresAt": "2026-07-29T22:50:00.000Z",
     "sent": true,
     "new": true
   },
@@ -192,11 +193,17 @@ echo $response->getBody();
 }
 ```
 
-### Resend / cooldown
+### OTP lifetime and resend
 
-If a **sent** OTP already exists for the same client, phone, and `phoneGateway` and was updated within about **2 minutes**, the API returns `409` with code `otp_recently_sent` and does **not** send again.
+| Rule | Default | Notes |
+| --- | --- | --- |
+| OTP TTL | **10 minutes** | Returned as `data.expiresAt` on a successful send. After this time, verify returns `412` `phoneValidation_has_expired`. |
+| Resend cooldown | **~2 minutes** | A second send for the same client + phone + `phoneGateway` within ~2 minutes returns `409` `otp_recently_sent` (no new message). |
+| Force resend | `"force": true` | Bypasses the 2-minute cooldown so you can send a new code immediately (e.g. UI “Resend”). Each successful send/resend resets `expiresAt` to +10 minutes. |
 
-To force a new code before that window (e.g. UI “Resend”), send the same body with `"force": true`.
+:::tip UI guidance
+Show the destination as **`countryCode` + national `phone`** (e.g. `+57 3001234567`). Drive an expiry countdown from `expiresAt`, and enable “Resend” after the 2-minute cooldown (or always with `force: true`).
+:::
 
 ### Common errors
 
