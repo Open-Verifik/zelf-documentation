@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-30T23:46:45.667Z",
+  "generatedAt": "2026-08-04T16:06:56.385Z",
   "docsRoot": "docs/",
-  "totalFilesScanned": 496,
+  "totalFilesScanned": 497,
   "filesWithEndpoint": 214,
   "uniqueEndpointUrls": 214,
   "duplicateUrlGroups": 55,
-  "noEndpointCount": 205,
+  "noEndpointCount": 206,
   "canonical": [
     {
       "endpointUrl": "api/clients",
@@ -1987,6 +1987,7 @@
     "resources/webhooks/list-all-webhooks.mdx",
     "resources/webhooks/retrieve-a-webhook.mdx",
     "resources/webhooks/smart-enroll-kyc-webhooks.mdx",
+    "resources/webhooks/smart-fleet-webhooks.mdx",
     "resources/webhooks/supported-events.mdx",
     "resources/webhooks/the-webhook-object.mdx",
     "resources/webhooks/update-a-webhook.mdx",

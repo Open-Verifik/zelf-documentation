@@ -2,9 +2,6 @@
  * GitBook-inspired styling for Zelf Documentation
  */
 
-/* Import Inter font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 /* CSS Variables for GitBook-style design */
 :root {
   /* Colors matching GitBook design */
@@ -29,8 +26,8 @@
   --ifm-border-color: #E1E4E8;
   --ifm-border-color-light: #F1F3F4;
   
-  /* Font family */
-  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  /* System UI stack — avoids render-blocking Google Fonts request */
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
   
   /* Font sizes */
   --ifm-font-size-base: 16px;

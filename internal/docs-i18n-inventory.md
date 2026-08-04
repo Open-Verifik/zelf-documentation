@@ -1,11 +1,11 @@
 # Docs i18n — canonical endpoint inventory
 
-Generated: 2026-07-30T23:46:45.668Z
+Generated: 2026-08-04T16:06:56.387Z
 
-- **Files scanned:** 496
+- **Files scanned:** 497
 - **Unique endpoint URLs:** 214
 - **Duplicate URL groups (SEO / aliases):** 55
-- **Docs without `### Endpoint` block:** 205
+- **Docs without `### Endpoint` block:** 206
 
 ## Summary by priority (canonical primary path only)
 
@@ -581,6 +581,7 @@ These files have no `### Endpoint` + fenced URL block (guides, intros, duplicate
 - `resources/webhooks/list-all-webhooks.mdx`
 - `resources/webhooks/retrieve-a-webhook.mdx`
 - `resources/webhooks/smart-enroll-kyc-webhooks.mdx`
+- `resources/webhooks/smart-fleet-webhooks.mdx`
 - `resources/webhooks/supported-events.mdx`
 - `resources/webhooks/the-webhook-object.mdx`
 - `resources/webhooks/update-a-webhook.mdx`

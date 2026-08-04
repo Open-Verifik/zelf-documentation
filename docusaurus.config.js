@@ -213,6 +213,10 @@ const config = {
 	// Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
 	future: {
 		v4: true, // Improve compatibility with the upcoming Docusaurus v4
+		// Large multi-plugin docs tree: worker SSG can hang locally; keep other Faster flags.
+		faster: {
+			ssgWorkerThreads: false,
+		},
 	},
 
 	// Set the production url of your site here
@@ -364,6 +368,8 @@ const config = {
 		],
 		// Plugin to generate sitemap_index.xml for SEO requirements
 		require.resolve("./src/plugins/sitemap-index.js"),
+		// Inject hreflang into built HTML (keeps hreflang-manifest.json out of the client bundle)
+		require.resolve("./src/plugins/hreflang-inject.js"),
 	],
 
 	themes: [
@@ -374,14 +380,14 @@ const config = {
 				hashed: true,
 				indexBlog: true,
 				indexPages: false,
-				docsRouteBasePath: ["/", "verifik-es", "docs-es", "doc-es", "verifik-fr", "verifik-pt", "verifik-ko", "verifik-ja", "verifik-zh", "recursos"],
+				docsRouteBasePath: ["/", "verifik-es", "verifik-fr", "verifik-pt", "verifik-ko", "verifik-ja", "verifik-zh"],
 				language: ["en", "es"],
 				highlightSearchTermsOnTargetPage: true,
 				explicitSearchResultPath: true,
 				searchResultLimits: 12,
 				searchResultContextMaxLength: 60,
 				removeDefaultStopWordFilter: ["en"],
-				searchContextByPaths: ["verifik-es", "docs-es", "doc-es", "verifik-fr", "verifik-pt", "verifik-ko", "verifik-ja", "verifik-zh", "recursos"],
+				searchContextByPaths: ["verifik-es", "verifik-fr", "verifik-pt", "verifik-ko", "verifik-ja", "verifik-zh"],
 			},
 		],
 	],

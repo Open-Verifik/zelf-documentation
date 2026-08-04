@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T23:46:45.610Z",
+  "generatedAt": "2026-08-04T16:06:56.324Z",
   "siteUrl": "https://docs.verifik.co",
   "clusters": {
     "intro": {
@@ -537,6 +537,10 @@
     "resources/webhooks/smart-enroll-kyc-webhooks": {
       "en": "https://docs.verifik.co/resources/smart-enroll-kyc-webhooks/",
       "es": "https://docs.verifik.co/verifik-es/resources/smart-enroll-kyc-webhooks/"
+    },
+    "resources/webhooks/smart-fleet-webhooks": {
+      "en": "https://docs.verifik.co/resources/smart-fleet-webhooks/",
+      "es": "https://docs.verifik.co/verifik-es/resources/smart-fleet-webhooks/"
     },
     "resources/webhooks/webhooks": {
       "en": "https://docs.verifik.co/resources/webhooks/",
@@ -2087,6 +2091,8 @@
     "https://docs.verifik.co/verifik-es/escaneo-inteligente/": "smart-scan/smart-scan",
     "https://docs.verifik.co/resources/smart-enroll-kyc-webhooks/": "resources/webhooks/smart-enroll-kyc-webhooks",
     "https://docs.verifik.co/verifik-es/resources/smart-enroll-kyc-webhooks/": "resources/webhooks/smart-enroll-kyc-webhooks",
+    "https://docs.verifik.co/resources/smart-fleet-webhooks/": "resources/webhooks/smart-fleet-webhooks",
+    "https://docs.verifik.co/verifik-es/resources/smart-fleet-webhooks/": "resources/webhooks/smart-fleet-webhooks",
     "https://docs.verifik.co/resources/webhooks/": "resources/webhooks/webhooks",
     "https://docs.verifik.co/verifik-es/resources/webhooks/": "resources/webhooks/webhooks",
     "https://docs.verifik.co/resources/project-flows/project-flows/": "resources/project-flows/project-flows",

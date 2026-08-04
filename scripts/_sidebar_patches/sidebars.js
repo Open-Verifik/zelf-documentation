@@ -1126,6 +1126,7 @@ const sidebars = {
 						"resources/webhooks/webhooks",
 						"resources/webhooks/webhook-integration",
 						"resources/webhooks/smart-enroll-kyc-webhooks",
+						"resources/webhooks/smart-fleet-webhooks",
 						"resources/webhooks/supported-events",
 						"resources/webhooks/the-webhook-object",
 						"resources/webhooks/create-a-webhook",
