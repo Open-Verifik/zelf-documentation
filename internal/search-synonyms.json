@@ -106,11 +106,6 @@
 			"aliases": ["Registro Único Nacional del Talento Humano en Salud", "health professional registry"]
 		},
 		{
-			"canonical": "SISBEN",
-			"countries": ["CO"],
-			"aliases": ["Sistema de Identificación de Potenciales Beneficiarios", "social score"]
-		},
-		{
 			"canonical": "SIGEP",
 			"countries": ["CO"],
 			"aliases": ["Sistema de Información y Gestión del Empleo Público", "public servants registry"]

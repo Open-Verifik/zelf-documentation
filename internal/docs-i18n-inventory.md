@@ -1,9 +1,9 @@
 # Docs i18n — canonical endpoint inventory
 
-Generated: 2026-08-04T16:06:56.387Z
+Generated: 2026-08-10T17:18:52.093Z
 
-- **Files scanned:** 497
-- **Unique endpoint URLs:** 214
+- **Files scanned:** 496
+- **Unique endpoint URLs:** 213
 - **Duplicate URL groups (SEO / aliases):** 55
 - **Docs without `### Endpoint` block:** 206
 
@@ -13,7 +13,7 @@ Generated: 2026-08-04T16:06:56.387Z
 | --- | ---: | --- |
 | P0 | 23 | vehicle-validation/colombia |
 | P1 | 23 | vehicle-validation (other countries) |
-| P2 | 168 | identity, biometrics, resources, etc. |
+| P2 | 167 | identity, biometrics, resources, etc. |
 
 ## Duplicate URLs (keep one canonical; others are usually SEO)
 
@@ -322,7 +322,6 @@ Generated: 2026-08-04T16:06:56.387Z
 | P0 | `v2/co/simit/consultar/placa` | `vehicle-validation/colombia/general-query-of-simit-by-license-plate.mdx` |
 | P0 | `v2/co/simit/resoluciones` | `vehicle-validation/colombia/simit-resolutions.mdx` |
 | P0 | `v2/co/simit/suspensiones` | `vehicle-validation/colombia/simit-suspensiones.mdx` |
-| P2 | `v2/co/sisben` | `background-check/colombia-sisben-score.mdx` |
 | P0 | `v2/co/sisconmp/trainings` | `vehicle-validation/colombia/sisconmp-trainings.mdx` |
 | P2 | `v2/co/situacion-militar` | `identity/colombia-situacion-militar.mdx` |
 | P0 | `v2/co/vehiculo/pico-y-placa` | `vehicle-validation/colombia/bogota-pico-y-placa.mdx` |

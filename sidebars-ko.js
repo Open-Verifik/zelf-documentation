@@ -175,7 +175,6 @@ const sidebars = {
 				{ type: "doc", id: "background-check/colombia-comptroller-certificate", label: "🇨🇴 감사원 증명" },
 				{ type: "doc", id: "background-check/colombia-disciplinary-records-attorneys-office", label: "🇨🇴 징계 기록" },
 				{ type: "doc", id: "background-check/colombia-inpec", label: "🇨🇴 INPEC" },
-				{ type: "doc", id: "background-check/colombia-sisben-score", label: "🇨🇴 SISBEN 점수" },
 				{ type: "doc", id: "background-check/dea-background-check", label: "🌐 DEA" },
 				{ type: "doc", id: "background-check/europol-background-check", label: "🌐 Europol" },
 				{ type: "doc", id: "background-check/fbi-background-check", label: "🌐 FBI" },

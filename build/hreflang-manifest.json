@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T16:06:56.324Z",
+  "generatedAt": "2026-08-10T17:18:52.030Z",
   "siteUrl": "https://docs.verifik.co",
   "clusters": {
     "intro": {
@@ -1606,15 +1606,6 @@
       "ja": "https://docs.verifik.co/verifik-ja/background-check/colombia-public-contracts/",
       "zh": "https://docs.verifik.co/verifik-zh/background-check/colombia-public-contracts/"
     },
-    "background-check/colombia-sisben-score": {
-      "en": "https://docs.verifik.co/background-check/colombia-sisben-score/",
-      "es": "https://docs.verifik.co/verifik-es/verificacion-antecendentes/verificacion-antecendentes-colombia-sisben/",
-      "fr": "https://docs.verifik.co/verifik-fr/background-check/colombia-sisben-score/",
-      "pt": "https://docs.verifik.co/verifik-pt/background-check/colombia-sisben-score/",
-      "ko": "https://docs.verifik.co/verifik-ko/background-check/colombia-sisben-score/",
-      "ja": "https://docs.verifik.co/verifik-ja/background-check/colombia-sisben-score/",
-      "zh": "https://docs.verifik.co/verifik-zh/background-check/colombia-sisben-score/"
-    },
     "background-check/dea-background-check": {
       "en": "https://docs.verifik.co/background-check/international/dea-background-check/",
       "es": "https://docs.verifik.co/verifik-es/verificacion-antecendentes/verificacion-antecendentes-dea/",
@@ -2841,13 +2832,6 @@
     "https://docs.verifik.co/verifik-ko/background-check/colombia-public-contracts/": "background-check/colombia-public-contracts",
     "https://docs.verifik.co/verifik-ja/background-check/colombia-public-contracts/": "background-check/colombia-public-contracts",
     "https://docs.verifik.co/verifik-zh/background-check/colombia-public-contracts/": "background-check/colombia-public-contracts",
-    "https://docs.verifik.co/background-check/colombia-sisben-score/": "background-check/colombia-sisben-score",
-    "https://docs.verifik.co/verifik-es/verificacion-antecendentes/verificacion-antecendentes-colombia-sisben/": "background-check/colombia-sisben-score",
-    "https://docs.verifik.co/verifik-fr/background-check/colombia-sisben-score/": "background-check/colombia-sisben-score",
-    "https://docs.verifik.co/verifik-pt/background-check/colombia-sisben-score/": "background-check/colombia-sisben-score",
-    "https://docs.verifik.co/verifik-ko/background-check/colombia-sisben-score/": "background-check/colombia-sisben-score",
-    "https://docs.verifik.co/verifik-ja/background-check/colombia-sisben-score/": "background-check/colombia-sisben-score",
-    "https://docs.verifik.co/verifik-zh/background-check/colombia-sisben-score/": "background-check/colombia-sisben-score",
     "https://docs.verifik.co/background-check/international/dea-background-check/": "background-check/dea-background-check",
     "https://docs.verifik.co/verifik-es/verificacion-antecendentes/verificacion-antecendentes-dea/": "background-check/dea-background-check",
     "https://docs.verifik.co/verifik-fr/background-check/international/dea-background-check/": "background-check/dea-background-check",

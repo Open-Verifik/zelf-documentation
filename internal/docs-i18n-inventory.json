@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-04T16:06:56.385Z",
+  "generatedAt": "2026-08-10T17:18:52.091Z",
   "docsRoot": "docs/",
-  "totalFilesScanned": 497,
-  "filesWithEndpoint": 214,
-  "uniqueEndpointUrls": 214,
+  "totalFilesScanned": 496,
+  "filesWithEndpoint": 213,
+  "uniqueEndpointUrls": 213,
   "duplicateUrlGroups": 55,
   "noEndpointCount": 206,
   "canonical": [
@@ -725,12 +725,6 @@
       "primaryPath": "vehicle-validation/colombia/simit-suspensiones.mdx",
       "duplicatePaths": [],
       "priority": "P0"
-    },
-    {
-      "endpointUrl": "v2/co/sisben",
-      "primaryPath": "background-check/colombia-sisben-score.mdx",
-      "duplicatePaths": [],
-      "priority": "P2"
     },
     {
       "endpointUrl": "v2/co/sisconmp/trainings",
@@ -2675,12 +2669,6 @@
       {
         "endpointUrl": "v2/co/procuraduria/antecedentes",
         "primaryPath": "background-check/colombia-disciplinary-records-attorneys-office.mdx",
-        "duplicatePaths": [],
-        "priority": "P2"
-      },
-      {
-        "endpointUrl": "v2/co/sisben",
-        "primaryPath": "background-check/colombia-sisben-score.mdx",
         "duplicatePaths": [],
         "priority": "P2"
       },

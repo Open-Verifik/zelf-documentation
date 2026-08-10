@@ -841,11 +841,6 @@ const sidebars = {
 				},
 				{
 					type: "doc",
-					id: "background-check/colombia-sisben-score",
-					label: "🇨🇴 Colombia - SISBEN score",
-				},
-				{
-					type: "doc",
 					id: "background-check/dea-background-check",
 					label: "🌐 DEA Background Check",
 				},

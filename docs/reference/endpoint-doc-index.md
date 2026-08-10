@@ -1458,18 +1458,6 @@ keywords:
   - "https://api.verifik.co/v2/co/simit/suspensiones"
   - "GET v2/co/simit/suspensiones"
   - "GET /v2/co/simit/suspensiones"
-  - "v2/co/sisben"
-  - "/v2/co/sisben"
-  - "v2 co sisben"
-  - "co/sisben"
-  - "/co/sisben"
-  - "api/co/sisben"
-  - "/api/co/sisben"
-  - "api co sisben"
-  - "api.verifik.co/v2/co/sisben"
-  - "https://api.verifik.co/v2/co/sisben"
-  - "GET v2/co/sisben"
-  - "GET /v2/co/sisben"
   - "v2/co/sisconmp/trainings"
   - "/v2/co/sisconmp/trainings"
   - "v2 co sisconmp trainings"
@@ -2661,12 +2649,12 @@ keywords:
 
 # Endpoint URL → documentation page
 
-This page lists every Verifik API endpoint that has a canonical doc page (214 entries),
+This page lists every Verifik API endpoint that has a canonical doc page (213 entries),
 grouped by country or topic. Use it when you have a raw URL fragment (e.g. `v2/co/cedula`) and want to jump to the documentation.
 
 If the search bar didn't find your endpoint, this page lists every API path along with whitespace-tokenized aliases so it shows up regardless of how you typed the URL.
 
-_Last regenerated: 2026-08-04T16:06:56.441Z_
+_Last regenerated: 2026-08-10T17:18:52.143Z_
 
 ## Argentina
 
@@ -2773,7 +2761,6 @@ _Last regenerated: 2026-08-04T16:06:56.441Z_
 | `v2/co/simit/consultar/placa` | v2 co simit consultar placa co/simit/consultar/placa /co/simit/consultar/placa api/co/simit/consultar/placa /api/co/simit/consultar/placa api co simit consultar placa simit/consultar/placa /simit/consultar/placa consultar/placa /consultar/placa api.verifik.co/v2/co/simit/consultar/placa https://api.verifik.co/v2/co/simit/consultar/placa GET v2/co/simit/consultar/placa GET /v2/co/simit/consultar/placa | [SIMIT - General query by plate number](/vehicle-validation/colombia/general-query-of-simit-by-license-plate) |
 | `v2/co/simit/resoluciones` | v2 co simit resoluciones co/simit/resoluciones /co/simit/resoluciones api/co/simit/resoluciones /api/co/simit/resoluciones api co simit resoluciones simit/resoluciones /simit/resoluciones api.verifik.co/v2/co/simit/resoluciones https://api.verifik.co/v2/co/simit/resoluciones GET v2/co/simit/resoluciones GET /v2/co/simit/resoluciones | [SIMIT - Resolutions](/vehicle-validation/colombia/simit-resolutions) |
 | `v2/co/simit/suspensiones` | v2 co simit suspensiones co/simit/suspensiones /co/simit/suspensiones api/co/simit/suspensiones /api/co/simit/suspensiones api co simit suspensiones simit/suspensiones /simit/suspensiones api.verifik.co/v2/co/simit/suspensiones https://api.verifik.co/v2/co/simit/suspensiones GET v2/co/simit/suspensiones GET /v2/co/simit/suspensiones | [SIMIT - License suspensions](/vehicle-validation/colombia/simit-suspensiones) |
-| `v2/co/sisben` | v2 co sisben co/sisben /co/sisben api/co/sisben /api/co/sisben api co sisben api.verifik.co/v2/co/sisben https://api.verifik.co/v2/co/sisben GET v2/co/sisben GET /v2/co/sisben | [Colombia — SISBEN score](/background-check/colombia-sisben-score) |
 | `v2/co/sisconmp/trainings` | v2 co sisconmp trainings co/sisconmp/trainings /co/sisconmp/trainings api/co/sisconmp/trainings /api/co/sisconmp/trainings api co sisconmp trainings sisconmp/trainings /sisconmp/trainings api.verifik.co/v2/co/sisconmp/trainings https://api.verifik.co/v2/co/sisconmp/trainings GET v2/co/sisconmp/trainings GET /v2/co/sisconmp/trainings | [SISCONMP Training Records](/vehicle-validation/colombia/sisconmp-trainings) |
 | `v2/co/situacion-militar` | v2 co situacion-militar co/situacion-militar /co/situacion-militar api/co/situacion-militar /api/co/situacion-militar api co situacion-militar api.verifik.co/v2/co/situacion-militar https://api.verifik.co/v2/co/situacion-militar GET v2/co/situacion-militar GET /v2/co/situacion-militar | [Colombia — Military service status](/identity/colombia-situacion-militar) |
 | `v2/co/vehiculo/pico-y-placa` | v2 co vehiculo pico-y-placa co/vehiculo/pico-y-placa /co/vehiculo/pico-y-placa api/co/vehiculo/pico-y-placa /api/co/vehiculo/pico-y-placa api co vehiculo pico-y-placa vehiculo/pico-y-placa /vehiculo/pico-y-placa api.verifik.co/v2/co/vehiculo/pico-y-placa https://api.verifik.co/v2/co/vehiculo/pico-y-placa GET v2/co/vehiculo/pico-y-placa GET /v2/co/vehiculo/pico-y-placa | [Pico y Placa](/vehicle-validation/colombia/vehicle-validation-colombia-bogota-pico-y-placa) |
