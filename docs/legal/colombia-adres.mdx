@@ -1,0 +1,177 @@
+---
+id: colombia-adres
+title: Colombia — ADRES (BDUA affiliation)
+description: Query Colombian ADRES / BDUA health affiliation status via GET /v2/co/adres.
+slug: /legal/colombia-adres
+keywords:
+  - v2/co/adres
+  - /v2/co/adres
+  - v2 co adres
+  - api/co/adres
+  - /api/co/adres
+  - api co adres
+  - api.verifik.co/v2/co/adres
+  - 'https://api.verifik.co/v2/co/adres'
+  - GET v2/co/adres
+  - GET /v2/co/adres
+  - co/adres
+  - /co/adres
+  - ADRES
+  - BDUA
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "Colombia ADRES BDUA Affiliation | Verifik API",
+	description:
+		"Query Colombian ADRES / BDUA affiliation status by document type and number; returns regime, EPS entity, affiliation status, and location when available.",
+	articleSection: "API Documentation",
+	keywords: "Colombia, ADRES, BDUA, EPS, affiliation, Verifik API",
+	about: {
+		"@type": "Thing",
+		name: "Health Verification API",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Colombia — ADRES (BDUA affiliation)
+
+Verifik queries **ADRES** (*Administradora de los Recursos del Sistema General de Seguridad Social en Salud*) / **BDUA** affiliation status using **`documentType`** and **`documentNumber`**.
+
+Use this endpoint when you need **EPS affiliation**, **regime**, and **status** from ADRES/BDUA. It is **not** the same as [`GET /v2/co/afiliaciones`](/legal/verify-colombian-affiliations), which returns a broader RUAF/SISPRO social-security bundle (EPS, ARL, pension, cajas, cesantías) and requires a document issue **`date`**.
+
+## What this API returns
+
+- **Identity** fields when present (`firstName`, `lastName`, `fullName`, `arrayName`, document type/number)
+- **Location** (`department`, `municipality`) when returned by the source
+- **`affiliations`** — array of affiliation rows with `status`, `entity` (EPS), `regime`, `effectiveDate`, `endDate`, `affiliationType`
+- A **signed** Verifik response
+
+## API reference
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/co/adres
+```
+
+This endpoint is **GET-only** (query parameters).
+
+### Headers
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parameters
+
+| name | type | required | description |
+| --- | --- | --- | --- |
+| `documentType` | string | yes | One of **`CC`**, **`CE`**, **`PA`**, **`PE`**, **`PEP`**, **`PPT`**. |
+| `documentNumber` | string | yes | Document number without spaces or punctuation. |
+
+### Request
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/adres", {
+	params: {
+		documentType: "CC",
+		documentNumber: "123456789",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/adres"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CC", "documentNumber": "123456789"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Response
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"affiliations": [
+			{
+				"affiliationType": "COTIZANTE",
+				"effectiveDate": "01/02/2025",
+				"endDate": "31/12/2999",
+				"entity": "EPS EJEMPLO S.A.",
+				"regime": "CONTRIBUTIVO",
+				"status": "ACTIVO"
+			}
+		],
+		"arrayName": ["NOMBRE", "EJEMPLO"],
+		"department": "CUNDINAMARCA",
+		"documentNumber": "123456789",
+		"documentType": "CC",
+		"firstName": "NOMBRE",
+		"fullName": "NOMBRE EJEMPLO",
+		"lastName": "EJEMPLO",
+		"municipality": "BOGOTA D.C."
+	},
+	"signature": {
+		"dateTime": "August 10, 2026 3:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "documentType must be one of [CC, CE, PA, PE, PEP, PPT]"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Notes
+
+- **`affiliations`** may be empty or contain inactive historical rows depending on the source.
+- Treat responses as **sensitive personal / health data**; comply with Colombian privacy rules.
+- For the multi-block RUAF/SISPRO product (EPS + ARL + pension + …), use [`GET /v2/co/afiliaciones`](/legal/verify-colombian-affiliations) instead.

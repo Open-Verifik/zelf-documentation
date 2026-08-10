@@ -893,7 +893,12 @@ const sidebars = {
 			type: "category",
 			label: "HEALTH",
 			collapsible: false,
-			items: ["legal/health", "legal/colombia-rethus", "legal/verify-colombian-affiliations"],
+			items: [
+				"legal/health",
+				"legal/colombia-rethus",
+				"legal/colombia-adres",
+				"legal/verify-colombian-affiliations",
+			],
 		},
 		{
 			type: "category",
