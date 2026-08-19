@@ -139,7 +139,7 @@ const sidebars = {
 				{ type: "doc", id: "identity/guatemala-extra", label: "🇬🇹 Guatemala - Extra" },
 				{ type: "doc", id: "identity/honduras", label: "🇭🇳 Honduras" },
 				{ type: "doc", id: "identidad/honduras/votacion", label: "🇭🇳 Honduras — Lugar de Votación" },
-				{ type: "doc", id: "identity/india-epic", label: "🇮🇳 India — EPIC (Voter ID) consulta de nombres", key: "identity-india-epic" },
+				{ type: "doc", id: "identity/india-epic", label: "🇮🇳 India", key: "identity-india-epic" },
 				{ type: "doc", id: "identity/mexico", label: "🇲🇽 México", key: "identity-mexico" },
 				{ type: "doc", id: "identity/mexico-ine", label: "🇲🇽 México — Validación INE" },
 				{ type: "doc", id: "identity/mexico-ine-ocr", label: "🇲🇽 México — OCR INE" },

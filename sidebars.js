@@ -282,7 +282,7 @@ const sidebars = {
 				{
 					type: "doc",
 					id: "identity/india-epic",
-					label: "🇮🇳 India — EPIC (Voter ID) name lookup",
+					label: "🇮🇳 India",
 					key: "identity-india-epic",
 				},
 				{
@@ -892,7 +892,11 @@ const sidebars = {
 			label: "VOTING",
 			collapsible: false,
 			items: [
-				"legal/voting",
+				{
+					type: "doc",
+					id: "legal/voting",
+					label: "🇨🇴 Colombia — Voting Information",
+				},
 				{
 					type: "doc",
 					id: "legal/epic-eci",
@@ -909,7 +913,23 @@ const sidebars = {
 			type: "category",
 			label: "HEALTH",
 			collapsible: false,
-			items: ["legal/health", "legal/colombia-rethus", "legal/verify-colombian-affiliations"],
+			items: [
+				{
+					type: "doc",
+					id: "legal/health",
+					label: "🇨🇴 Colombia — Health APIs",
+				},
+				{
+					type: "doc",
+					id: "legal/colombia-rethus",
+					label: "🇨🇴 Colombia — RETHUS",
+				},
+				{
+					type: "doc",
+					id: "legal/verify-colombian-affiliations",
+					label: "🇨🇴 Colombia — Health & Social Security",
+				},
+			],
 		},
 		{
 			type: "category",
