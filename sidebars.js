@@ -281,6 +281,12 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "identity/india-epic",
+					label: "🇮🇳 India — EPIC (Voter ID) name lookup",
+					key: "identity-india-epic",
+				},
+				{
+					type: "doc",
 					id: "identity/mexico",
 					label: "🇲🇽 Mexico",
 					key: "identity-mexico",
