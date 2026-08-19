@@ -34,6 +34,7 @@ const ES_REL_PATH_TO_CANONICAL = {
 	"validacion-empresarial/spain": "business-validation/spain",
 	"verificacion-antecendentes/verificacion-antecendentes-brasil": "background-check/brazil",
 	"verificacion-antecendentes/verificacion-antecendentes-colombia-inpec": "background-check/colombia-inpec",
+	"verificacion-antecendentes/verificacion-antecendentes-colombia-rui": "background-check/colombia-rui",
 	"verificacion-antecendentes/verificacion-antecendentes-colombia-procuraduria":
 		"background-check/colombia-disciplinary-records-attorneys-office",
 	"verificacion-antecendentes/verificacion-antecendentes-colombia-cumplimiento-policial":

@@ -1,0 +1,175 @@
+---
+id: verificacion-antecendentes-colombia-rui
+title: Colombia — Clasificación RUI
+description: Consulta la clasificación del Registro Universal de Ingresos (RUI) en Ventanilla Social DNP vía GET /v2/co/rui.
+slug: /verificacion-antecendentes/verificacion-antecendentes-colombia-rui
+keywords:
+  - v2/co/rui
+  - /v2/co/rui
+  - v2 co rui
+  - api/co/rui
+  - /api/co/rui
+  - api co rui
+  - api.verifik.co/v2/co/rui
+  - 'https://api.verifik.co/v2/co/rui'
+  - GET v2/co/rui
+  - GET /v2/co/rui
+  - co/rui
+  - /co/rui
+  - RUI
+  - Registro Universal de Ingresos
+  - Ventanilla Social
+  - SISBEN
+---
+
+export const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: "Colombia Clasificación RUI | Verifik API",
+	description:
+		"Consulta la clasificación del Registro Universal de Ingresos (RUI) de Ventanilla Social DNP por tipo y número de documento; retorna grupo de ingresos, nivel RUI y ubicación.",
+	articleSection: "Documentación API",
+	keywords: "Colombia, RUI, Registro Universal de Ingresos, Ventanilla Social, DNP, Verifik API",
+	about: {
+		"@type": "Thing",
+		name: "API de verificación de antecedentes",
+	},
+};
+
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Colombia — Clasificación RUI
+
+Verifik consulta el **Registro Universal de Ingresos (RUI)** en **Ventanilla Social DNP** usando **`documentType`** y **`documentNumber`**.
+
+:::info Reemplaza SISBEN
+Este producto reemplaza la consulta SISBEN retirada (`GET /v2/co/sisben`). Use **`GET /v2/co/rui`** para la clasificación actual de grupo de ingresos en Ventanilla Social.
+:::
+
+## Qué retorna esta API
+
+- **`grupoIngresos`** — descripción del grupo de ingresos cuando la fuente la entrega
+- **`grupRui`** / **`nivelRui`** — letra de grupo y nivel RUI (por ejemplo `A` / `A01`)
+- **Ubicación** — `municipio`, `departamento`, `codMpio`
+- **Datos de la persona** — `nombre`, `sexo`, `edad` cuando existen
+- Identificadores del documento (`documentType`, `documentNumber`) y una respuesta **firmada** de Verifik
+
+## Referencia de la API
+
+### Endpoint
+
+```
+GET https://api.verifik.co/v2/co/rui
+```
+
+Este endpoint es **solo GET** (parámetros de consulta). También se acepta `POST` con los mismos campos en el body.
+
+### Encabezados
+
+| Name | Value |
+| --- | --- |
+| Accept | `application/json` |
+| Authorization | `Bearer <token>` |
+
+### Parámetros
+
+| name | type | required | description |
+| --- | --- | --- | --- |
+| `documentType` | string | sí | Uno de **`CC`**, **`CE`**, **`TI`**, **`PPT`**, **`PEP`**, **`RC`**. |
+| `documentNumber` | string | sí | Número de documento sin espacios ni puntuación (5–15 caracteres). |
+
+### Solicitud
+
+<Tabs>
+  <TabItem value="javascript" label="JavaScript">
+
+```javascript
+import axios from "axios";
+
+const { data } = await axios.get("https://api.verifik.co/v2/co/rui", {
+	params: {
+		documentType: "CC",
+		documentNumber: "10000001",
+	},
+	headers: {
+		Accept: "application/json",
+		Authorization: `Bearer ${process.env.VERIFIK_TOKEN}`,
+	},
+});
+console.log(data);
+```
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+
+```python
+import os, requests
+
+url = "https://api.verifik.co/v2/co/rui"
+headers = {"Accept": "application/json", "Authorization": f"Bearer {os.getenv('VERIFIK_TOKEN')}"}
+params = {"documentType": "CC", "documentNumber": "10000001"}
+r = requests.get(url, headers=headers, params=params)
+print(r.json())
+```
+
+  </TabItem>
+</Tabs>
+
+### Respuesta
+
+<Tabs>
+  <TabItem value="200" label="200">
+
+```json
+{
+	"data": {
+		"codMpio": "11001",
+		"departamento": "BOGOTA D.C.",
+		"documentNumber": "10000001",
+		"documentType": "CC",
+		"edad": "26",
+		"grupRui": "A",
+		"grupoIngresos": "Solo ingreso estimado",
+		"municipio": "BOGOTA",
+		"nivelRui": "A01",
+		"nombre": "MARIA ELENA LOPEZ GARCIA",
+		"sexo": "Femenino"
+	},
+	"signature": {
+		"dateTime": "August 10, 2026 8:00 PM",
+		"message": "Certified by Verifik.co"
+	}
+}
+```
+
+  </TabItem>
+  <TabItem value="404" label="404">
+
+```json
+{
+	"code": "NotFound",
+	"message": "Record not found."
+}
+```
+
+  </TabItem>
+  <TabItem value="409" label="409">
+
+```json
+{
+	"code": "MissingParameter",
+	"message": "documentType must be one of [CC, CE, TI, PPT, PEP, RC]"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Notas
+
+- **Sandbox**: use los números de documento **`10000001`–`10000010`** (y los fixtures de error estándar del sandbox) para probar clasificaciones sin llamar a la fuente en vivo.
+- Trate las respuestas como **datos personales sensibles**; cumpla las normas de privacidad de Colombia.
+- La presencia de campos puede variar según la fuente; maneje siempre valores nulos en campos opcionales.

@@ -633,6 +633,11 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "verificacion-antecendentes/verificacion-antecendentes-colombia-rui",
+					label: "🇨🇴 Colombia - Clasificación RUI",
+				},
+				{
+					type: "doc",
 					id: "verificacion-antecendentes/verificacion-antecendentes-europol",
 					label: "🌐 Europol - Antecedentes",
 				},

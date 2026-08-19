@@ -75,6 +75,7 @@ const sidebars = {
 			label: "BIOMETRICS API'S",
 			collapsible: false,
 			items: [
+				"biometrics/face-image-requirements",
 				"biometrics/liveness",
 				"biometrics/liveness-score",
 				{
@@ -838,6 +839,11 @@ const sidebars = {
 					type: "doc",
 					id: "background-check/colombia-inpec",
 					label: "🇨🇴 Colombia - INPEC Prison Records",
+				},
+				{
+					type: "doc",
+					id: "background-check/colombia-rui",
+					label: "🇨🇴 Colombia - RUI Classification",
 				},
 				{
 					type: "doc",

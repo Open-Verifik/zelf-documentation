@@ -1,0 +1,111 @@
+---
+id: face-image-requirements
+title: Exigences relatives à l'image du visage
+description: Règles de qualité de capture, seuils de score et motifs de rejet communs aux endpoints de détection du vivant et de recherche faciale
+slug: /biometrics/face-image-requirements
+keywords:
+  - exigences image visage
+  - qualité image visage
+  - seuil détection du vivant
+  - liveness_min_score
+  - min_score
+  - max_results
+  - search_mode
+  - taille du cadre du visage
+  - distance entre les pupilles
+  - face occluded
+  - multiple faces detected
+  - no face detected
+  - face rotation angle is too large
+  - anti-spoofing
+  - détection des attaques par présentation
+  - iBeta Niveau 2
+  - ISO 30107-3
+---
+
+Chaque appel de détection du vivant et de recherche faciale ne vaut que la qualité de l'image envoyée. Cette page rassemble les règles de capture, les seuils de score appliqués par Verifik et les motifs de rejet exacts que vous pouvez recevoir, afin d'ajuster votre interface de capture avant la mise en production.
+
+Elle s'applique aux endpoints de détection du vivant (`/liveness`, `/liveness-score`), aux endpoints de recherche faciale (`/search`, `/search-live-face`, `/search-active-user`, `/search-crops`) et aux endpoints de comparaison faciale (`/compare`, `/compare-live`, `/compare-with-liveness`). SmartEnroll applique les mêmes règles en interne : cette guidance améliore donc aussi les taux de complétion de l'onboarding.
+
+La documentation détaillée de ces endpoints est disponible en anglais : [Liveness Detection](/biometrics/liveness), [Face Search (1:N)](/biometrics/search).
+
+### Exigences de l'image pour la détection du vivant
+
+La détection du vivant est plus stricte que la simple comparaison faciale. Pour garantir que des impressions haute résolution, des masques ou des rediffusions vidéo ne puissent pas usurper le contrôle, l'image envoyée doit satisfaire à toutes les conditions suivantes :
+
+- L'image ne doit comporter qu'un seul visage principal. Il doit être entièrement visible dans le cadre et entièrement dégagé, sans aucune occlusion. Aucun recadrage n'est autorisé. Les petits visages en arrière-plan ne sont pas pris en compte.
+- La taille minimale du cadre de visage pouvant être traité est de **224x224 pixels**.
+- La marge entre le cadre du visage et les bords de l'image doit être d'au moins **25 pixels**.
+- La distance entre les pupilles doit être d'au moins **80 pixels**.
+- L'angle de rotation hors plan (inclinaison et rotation du visage) ne doit pas dépasser **±30 degrés**.
+- Les objectifs fisheye et les lunettes de soleil ne sont pas pris en charge.
+
+Une image qui enfreint l'une de ces règles est rejetée pour un motif de qualité avant même d'être notée. Ce résultat diffère d'un score faible, et il vaut la peine de les traiter différemment dans votre interface : l'utilisateur peut corriger un problème de qualité en recommençant la capture, alors qu'un score faible signifie que l'image était exploitable mais n'a pas paru réelle.
+
+### Détection des attaques par présentation
+
+La détection du vivant de Verifik s'appuie sur la détection des attaques par présentation (PAD) et bénéficie de la **certification iBeta Niveau 2**, conforme à la norme **ISO 30107-3**. Le moteur sous-jacent rapporte un taux d'erreur de classification des attaques par présentation (APCER) de 0 % face au jeu d'attaques iBeta Niveau 2, qui couvre les photographies imprimées, la rediffusion sur écran et vidéo, ainsi que les masques 3D.
+
+### Seuils
+
+Verifik applique ses propres seuils au-dessus du moteur de reconnaissance ; les valeurs ci-dessous sont donc celles qui régissent réellement vos requêtes.
+
+#### Détection du vivant
+
+| Comportement | Valeur |
+| --- | --- |
+| Paramètre | `liveness_min_score` |
+| Valeur par défaut | `0.6` |
+| Plage acceptée | `0.5` – `1.0` |
+| Règle de réussite | `liveness_score > liveness_min_score` (strictement supérieur) |
+| Valeur par défaut SmartEnroll | `0.65`, configurable par flux de projet |
+
+Notez que la règle de réussite est une comparaison stricte. Un score exactement égal à `0.6` face à un seuil de `0.6` constitue un échec, et non une réussite.
+
+Le moteur sous-jacent considère qu'un score `>= 0.5` correspond à une personne réelle. La valeur par défaut de Verifik, `0.6`, est délibérément plus stricte, et le plancher de `0.5` signifie que vous ne pouvez pas configurer un seuil plus permissif que celui du moteur lui-même. Une exception : `/compare-live` relève ce plancher à `0.52`.
+
+#### Recherche faciale
+
+| Paramètre | Obligatoire | Valeur par défaut | Plage |
+| --- | --- | --- | --- |
+| `min_score` | Oui | Aucune — vous devez l'envoyer | `0.2` – `1.0` sur `/search`, `0.5` – `1.0` sur les variantes avec visage en direct |
+| `search_mode` | Oui | Aucune — vous devez l'envoyer | `FAST` ou `ACCURATE` |
+| `max_results` | Non | `10` | Jusqu'à `100` |
+
+Les résultats sont renvoyés par score de similarité décroissant, et seules les entrées supérieures à `min_score` sont incluses. Le score est un nombre entre 0 et 1, où 1 correspond à une correspondance parfaite et 0 à une absence totale de correspondance.
+
+Deux spécificités de Verifik sont faciles à manquer. Premièrement, `min_score` **n'a pas de valeur par défaut** : la requête échoue avec `409 MissingParameter` si vous l'omettez, alors que le moteur sous-jacent aurait appliqué `0.81`. Deuxièmement, `search_mode` est obligatoire et n'a pas d'équivalent dans le moteur : utilisez `ACCURATE` pour une précision supérieure au prix de la latence, et `FAST` lorsque la réactivité prime.
+
+### Motifs de rejet
+
+Lorsqu'une capture est rejetée pour un motif de qualité, la réponse contient un code de motif stable. Chacun correspond à une exigence précise ci-dessus, ce qui permet d'afficher à l'utilisateur une correction ciblée plutôt qu'un message d'erreur générique.
+
+| Motif | Exigence non respectée | Message à afficher à l'utilisateur |
+| --- | --- | --- |
+| `no_face_detected` | Un visage entièrement visible | Placez votre visage dans le cadre, dans un endroit bien éclairé |
+| `multiple_faces_detected` | Un seul visage principal | Assurez-vous d'être la seule personne dans le cadre |
+| `face_occluded` | Visage dégagé, sans occlusion | Retirez tout ce qui masque votre visage : masque, lunettes ou chapeau |
+| `face_close_to_border` | Marge de 25 pixels avec les bords | Reculez un peu et centrez votre visage dans le cadre |
+| `face_not_centered` | Marge de 25 pixels avec les bords | Alignez votre visage sur le centre du cadre |
+| `face_too_far` | Cadre de visage 224x224, 80 pixels entre les pupilles | Rapprochez la caméra pour que votre visage occupe davantage le cadre |
+| `face_too_close` | Aucun recadrage, marge de 25 pixels avec les bords | Éloignez légèrement la caméra |
+| `face_rotation_too_large` | ±30 degrés d'inclinaison et de rotation | Regardez droit vers la caméra et gardez la tête droite |
+| `poor_lighting` | Visage entièrement visible | Placez-vous dans un endroit plus lumineux et évitez une forte lumière derrière vous |
+
+Deux autres motifs ne correspondent pas à des problèmes de capture :
+
+- `liveness_failed` — l'image était exploitable et a été notée, mais le score n'a pas atteint le seuil. Le score est inclus dans la réponse pour que vous puissiez l'afficher.
+- `liveness_error` — le contrôle n'a pas pu être mené à bien pour une raison non imputable à la capture. Traitez ce cas comme réessayable.
+
+### Traitement des données
+
+Un appel de détection du vivant ou de recherche est une classification ponctuelle. Il **n'enregistre pas** le visage dans une collection : un visage envoyé uniquement à `/liveness` ou `/search` n'apparaîtra donc jamais dans un résultat de recherche ultérieur. Pour rendre un visage recherchable, enregistrez-le explicitement via l'endpoint `/person`.
+
+Verifik conserve en revanche un enregistrement d'audit de chaque appel — le score, le résultat, le seuil appliqué et les métadonnées de la requête — afin que les résultats restent vérifiables et facturables a posteriori. La conservation de l'image elle-même dépend du produit : les images capturées via SmartEnroll sont stockées dans le cadre du dossier d'onboarding, tandis que les images envoyées directement aux endpoints publics de détection du vivant et de recherche ne sont pas conservées après le traitement de la requête.
+
+### Notes
+
+- Il est utile de distinguer les rejets pour qualité des rejets pour score dans votre interface. Un rejet pour qualité doit inviter à recommencer immédiatement avec une indication précise ; un rejet pour score constitue un véritable résultat négatif.
+- Les exigences sont exprimées en pixels du cadre du visage, non de l'image. Une photo en 4K dont le visage mesure 100 pixels de large échoue toujours à la règle des `224x224`.
+- Envoyer une image plus grande n'améliore pas le résultat dès lors que le cadre du visage dépasse le minimum. Privilégiez un bon éclairage et une pose centrée et de face plutôt que la résolution brute.
+- Si vos utilisateurs sont sur des webcams de bureau, attendez-vous à davantage de rejets pour qualité que sur mobile : les webcams à faible résolution produisent fréquemment des cadres de visage inférieurs au minimum.

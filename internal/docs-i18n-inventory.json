@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-10T17:18:52.091Z",
+  "generatedAt": "2026-08-19T20:15:38.132Z",
   "docsRoot": "docs/",
-  "totalFilesScanned": 496,
-  "filesWithEndpoint": 213,
-  "uniqueEndpointUrls": 213,
+  "totalFilesScanned": 500,
+  "filesWithEndpoint": 215,
+  "uniqueEndpointUrls": 215,
   "duplicateUrlGroups": 55,
-  "noEndpointCount": 206,
+  "noEndpointCount": 208,
   "canonical": [
     {
       "endpointUrl": "api/clients",
@@ -380,6 +380,12 @@
       "priority": "P2"
     },
     {
+      "endpointUrl": "v2/co/adres",
+      "primaryPath": "legal/colombia-adres.mdx",
+      "duplicatePaths": [],
+      "priority": "P2"
+    },
+    {
       "endpointUrl": "v2/co/afiliaciones",
       "primaryPath": "legal/verify-colombian-affiliations.mdx",
       "duplicatePaths": [],
@@ -621,6 +627,12 @@
     {
       "endpointUrl": "v2/co/rues/complete",
       "primaryPath": "business-validation/colombia-rues-complete-v2.mdx",
+      "duplicatePaths": [],
+      "priority": "P2"
+    },
+    {
+      "endpointUrl": "v2/co/rui",
+      "primaryPath": "background-check/colombia-rui.mdx",
       "duplicatePaths": [],
       "priority": "P2"
     },
@@ -1843,6 +1855,7 @@
     "background-check/colombia/disciplinary-records-in-colombia-attorneys-office.md",
     "background-check/colombia/verify-police-compliance-with-corrective-measures.mdx",
     "background-check/document-types.mdx",
+    "biometrics/face-image-requirements.mdx",
     "biometrics/humanauthn-vs-ur-codes.md",
     "biometrics/zero-knowledge-face-proofs-overview.mdx",
     "business-validation/business-verification.mdx",
@@ -1864,6 +1877,7 @@
     "getting-started/privacy-preserving.md",
     "getting-started/use-cases.md",
     "getting-started/zelf-proofs-vs-others.md",
+    "health/colombia-adres.mdx",
     "health/verify-colombian-affiliations.mdx",
     "identity-validation.mdx",
     "identity-validation/brazil.mdx",
@@ -2673,6 +2687,12 @@
         "priority": "P2"
       },
       {
+        "endpointUrl": "v2/co/rui",
+        "primaryPath": "background-check/colombia-rui.mdx",
+        "duplicatePaths": [],
+        "priority": "P2"
+      },
+      {
         "endpointUrl": "v2/dea",
         "primaryPath": "background-check/dea-background-check.mdx",
         "duplicatePaths": [],
@@ -2894,6 +2914,12 @@
       }
     ],
     "legal": [
+      {
+        "endpointUrl": "v2/co/adres",
+        "primaryPath": "legal/colombia-adres.mdx",
+        "duplicatePaths": [],
+        "priority": "P2"
+      },
       {
         "endpointUrl": "v2/co/afiliaciones",
         "primaryPath": "legal/verify-colombian-affiliations.mdx",

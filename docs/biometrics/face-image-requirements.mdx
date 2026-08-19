@@ -1,0 +1,109 @@
+---
+id: face-image-requirements
+title: Face Image Requirements
+description: Capture quality rules, score thresholds and rejection reasons shared by the liveness and face search endpoints
+keywords:
+  - face image requirements
+  - liveness image requirements
+  - face image quality
+  - liveness threshold
+  - liveness_min_score
+  - min_score
+  - max_results
+  - search_mode
+  - face box size
+  - pupil distance
+  - face occluded
+  - multiple faces detected
+  - no face detected
+  - face rotation angle is too large
+  - anti-spoofing
+  - presentation attack detection
+  - iBeta Level 2
+  - ISO 30107-3
+---
+
+Every liveness and face search call is only as good as the image you send. This page collects the capture rules, the score thresholds Verifik enforces, and the exact rejection reasons you can expect back, so you can tune your capture UI before you go live.
+
+It applies to the liveness endpoints ([`/liveness`](/biometrics/liveness), [`/liveness-score`](/biometrics/liveness-score)), the face search endpoints ([`/search`](/biometrics/search), [`/search-live-face`](/biometrics/search-live-face), [`/search-active-user`](/biometrics/search-active-user), [`/search-crops`](/biometrics/search-crops)) and the face comparison endpoints ([`/compare`](/biometrics/compare), [`/compare-live`](/biometrics/compare-live), [`/compare-with-liveness`](/biometrics/compare-with-liveness)). SmartEnroll applies the same rules internally, so the same guidance improves onboarding completion rates.
+
+### Liveness image requirements
+
+Liveness is stricter than plain face matching. To make sure high-resolution printouts, masks and video playbacks cannot spoof the check, the submitted frame must satisfy all of the following:
+
+- There should only be one main face in the image. It must be fully visible within the frame and fully open, without any occlusions. No crop is allowed. Small faces in the background are not taken into account.
+- The minimum size of a face box that can be processed is **224x224 pixels**.
+- The padding between the face box and the image borders should be at least **25 pixels**.
+- The distance between the pupils should be at least **80 pixels**.
+- The out-of-plane rotation angle (face pitch and yaw) should be no more than **±30 degrees**.
+- Fish-eye lenses and sunglasses are not supported.
+
+A frame that breaks any of these rules is rejected on quality grounds before it is ever scored. That is a different outcome from a low score, and it is worth handling differently in your UI: the user can fix a quality problem by recapturing, whereas a low score means the frame was usable but did not look live.
+
+### Presentation attack detection
+
+Verifik's face liveness uses presentation attack detection (PAD) and is **iBeta Level 2 certified**, aligned with **ISO 30107-3**. The underlying engine reports an Attack Presentation Classification Error Rate (APCER) of 0% against the iBeta Level 2 attack set, covering printed photos, screen and video replay, and 3D masks.
+
+### Thresholds
+
+Verifik enforces its own thresholds on top of the recognition engine, so the values below are the ones that actually govern your requests.
+
+#### Liveness
+
+| Behaviour | Value |
+| --- | --- |
+| Parameter | `liveness_min_score` |
+| Default | `0.6` |
+| Accepted range | `0.5` – `1.0` |
+| Pass rule | `liveness_score > liveness_min_score` (strictly greater than) |
+| SmartEnroll default | `0.65`, configurable per project flow |
+
+Note that the pass rule is a strict comparison. A score of exactly `0.6` against a threshold of `0.6` is a failure, not a pass.
+
+The underlying engine treats `>= 0.5` as live. Verifik's default of `0.6` is deliberately stricter, and the floor of `0.5` means you cannot configure a threshold looser than the engine's own. One exception: [`/compare-live`](/biometrics/compare-live) raises that floor to `0.52`.
+
+#### Face search
+
+| Parameter | Required | Default | Range |
+| --- | --- | --- | --- |
+| `min_score` | Yes | None — you must send it | `0.2` – `1.0` on `/search`, `0.5` – `1.0` on the live-face variants |
+| `search_mode` | Yes | None — you must send it | `FAST` or `ACCURATE` |
+| `max_results` | No | `10` | Up to `100` |
+
+Results come back ordered by descending similarity score, and only entries above `min_score` are returned. A score is a number between 0 and 1, where 1 is a perfect match and 0 is a perfect mismatch.
+
+Two Verifik specifics are easy to miss. First, `min_score` has **no default** — the request is rejected with `409 MissingParameter` if you omit it, whereas the underlying engine would have applied `0.81`. Second, `search_mode` is required and has no engine equivalent: use `ACCURATE` for higher precision at the cost of latency, and `FAST` when responsiveness matters more.
+
+### Rejection reasons
+
+When a capture is rejected on quality grounds, the response carries a stable reason code. Each one maps to a specific requirement above, which makes it straightforward to show the user a targeted correction instead of a generic failure message.
+
+| Reason | Requirement violated | What to tell the user |
+| --- | --- | --- |
+| `no_face_detected` | One fully visible face | Position your face inside the frame in a well-lit area |
+| `multiple_faces_detected` | Only one main face | Make sure you are the only person in the frame |
+| `face_occluded` | Fully open, no occlusions | Remove anything covering your face, such as a mask, glasses or hat |
+| `face_close_to_border` | 25 pixel border padding | Move back a little and centre your face in the frame |
+| `face_not_centered` | 25 pixel border padding | Line your face up with the middle of the frame |
+| `face_too_far` | 224x224 face box, 80 pixel pupil distance | Bring the camera closer so your face fills more of the frame |
+| `face_too_close` | No crop, 25 pixel border padding | Hold the camera a little further away |
+| `face_rotation_too_large` | ±30 degrees pitch and yaw | Look straight at the camera and keep your head upright |
+| `poor_lighting` | Fully visible face | Move somewhere brighter and avoid strong light behind you |
+
+Two further reasons are not capture problems:
+
+- `liveness_failed` — the frame was usable and was scored, but the score did not clear the threshold. The score is included in the response so you can show it.
+- `liveness_error` — the check could not be completed for a reason that cannot be attributed to the capture. Treat this as retryable.
+
+### Data handling
+
+A liveness or search call is a one-time classification. It does **not** enrol the face into a collection, so a face you only ever send to `/liveness` or `/search` will never turn up in a later search result. To make a face searchable, register it explicitly with [`/person`](/resources/create-a-person-with-liveness).
+
+Verifik does keep an audit record of every call — the score, the outcome, the threshold applied and request metadata — so that results remain verifiable and billable after the fact. Whether the submitted image itself is retained depends on the product: images captured through SmartEnroll are stored as part of the enrolment record, while images sent directly to the public liveness and search endpoints are not retained after the request is served.
+
+### Notes
+
+- Quality rejections and score rejections are worth separating in your UI. A quality rejection should invite an immediate retry with specific guidance; a score rejection is a genuine negative result.
+- The requirements are expressed in pixels of the face box, not of the image. A 4K photo of a face 100 pixels wide still fails the `224x224` rule.
+- Sending a larger image does not improve the outcome once the face box clears the minimum. Favour good lighting and a centred, front-facing pose over raw resolution.
+- If your users are on desktop webcams, expect more quality rejections than on mobile: low-resolution webcams frequently produce face boxes below the minimum.

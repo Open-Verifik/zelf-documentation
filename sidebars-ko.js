@@ -13,6 +13,12 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "생체 인증",
+			collapsible: false,
+			items: [{ type: "doc", id: "biometrics/face-image-requirements", label: "얼굴 이미지 요건" }],
+		},
+		{
+			type: "category",
 			label: "신원",
 			collapsible: false,
 			items: [

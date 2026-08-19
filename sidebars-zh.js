@@ -13,6 +13,12 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "生物识别",
+			collapsible: false,
+			items: [{ type: "doc", id: "biometrics/face-image-requirements", label: "人脸图像要求" }],
+		},
+		{
+			type: "category",
 			label: "身份核验",
 			collapsible: false,
 			items: [

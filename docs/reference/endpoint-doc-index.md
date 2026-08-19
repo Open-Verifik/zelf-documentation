@@ -697,6 +697,18 @@ keywords:
   - "https://api.verifik.co/v2/clients/me"
   - "GET v2/clients/me"
   - "GET /v2/clients/me"
+  - "v2/co/adres"
+  - "/v2/co/adres"
+  - "v2 co adres"
+  - "co/adres"
+  - "/co/adres"
+  - "api/co/adres"
+  - "/api/co/adres"
+  - "api co adres"
+  - "api.verifik.co/v2/co/adres"
+  - "https://api.verifik.co/v2/co/adres"
+  - "GET v2/co/adres"
+  - "GET /v2/co/adres"
   - "v2/co/afiliaciones"
   - "/v2/co/afiliaciones"
   - "v2 co afiliaciones"
@@ -1246,6 +1258,18 @@ keywords:
   - "https://api.verifik.co/v2/co/rues/complete"
   - "GET v2/co/rues/complete"
   - "GET /v2/co/rues/complete"
+  - "v2/co/rui"
+  - "/v2/co/rui"
+  - "v2 co rui"
+  - "co/rui"
+  - "/co/rui"
+  - "api/co/rui"
+  - "/api/co/rui"
+  - "api co rui"
+  - "api.verifik.co/v2/co/rui"
+  - "https://api.verifik.co/v2/co/rui"
+  - "GET v2/co/rui"
+  - "GET /v2/co/rui"
   - "v2/co/runt/conductor"
   - "/v2/co/runt/conductor"
   - "v2 co runt conductor"
@@ -2649,12 +2673,12 @@ keywords:
 
 # Endpoint URL → documentation page
 
-This page lists every Verifik API endpoint that has a canonical doc page (213 entries),
+This page lists every Verifik API endpoint that has a canonical doc page (215 entries),
 grouped by country or topic. Use it when you have a raw URL fragment (e.g. `v2/co/cedula`) and want to jump to the documentation.
 
 If the search bar didn't find your endpoint, this page lists every API path along with whitespace-tokenized aliases so it shows up regardless of how you typed the URL.
 
-_Last regenerated: 2026-08-10T17:18:52.143Z_
+_Last regenerated: 2026-08-19T20:15:38.181Z_
 
 ## Argentina
 
@@ -2707,6 +2731,7 @@ _Last regenerated: 2026-08-10T17:18:52.143Z_
 
 | Endpoint | Aliases | Page |
 | --- | --- | --- |
+| `v2/co/adres` | v2 co adres co/adres /co/adres api/co/adres /api/co/adres api co adres api.verifik.co/v2/co/adres https://api.verifik.co/v2/co/adres GET v2/co/adres GET /v2/co/adres | [Colombia — ADRES (BDUA affiliation)](/legal/colombia-adres) |
 | `v2/co/afiliaciones` | v2 co afiliaciones co/afiliaciones /co/afiliaciones api/co/afiliaciones /api/co/afiliaciones api co afiliaciones api.verifik.co/v2/co/afiliaciones https://api.verifik.co/v2/co/afiliaciones GET v2/co/afiliaciones GET /v2/co/afiliaciones | [Colombia — Health & social security affiliations](/legal/verify-colombian-affiliations) |
 | `v2/co/bogota/taxi-drivers/card/{controlcardnumber}` | v2/co/bogota/taxi-drivers/card /v2/co/bogota/taxi-drivers/card v2 co bogota taxi-drivers card co/bogota/taxi-drivers/card /co/bogota/taxi-drivers/card api/co/bogota/taxi-drivers/card /api/co/bogota/taxi-drivers/card api co bogota taxi-drivers card bogota/taxi-drivers/card /bogota/taxi-drivers/card taxi-drivers/card /taxi-drivers/card | [Bogotá Taxi Driver Information by Control Card](/vehicle-validation/colombia/vehicle-validation-colombia-bogota-taxi-drivers-by-control-card) |
 | `v2/co/bogota/taxi-drivers/plate` | v2 co bogota taxi-drivers plate co/bogota/taxi-drivers/plate /co/bogota/taxi-drivers/plate api/co/bogota/taxi-drivers/plate /api/co/bogota/taxi-drivers/plate api co bogota taxi-drivers plate bogota/taxi-drivers/plate /bogota/taxi-drivers/plate taxi-drivers/plate /taxi-drivers/plate api.verifik.co/v2/co/bogota/taxi-drivers/plate https://api.verifik.co/v2/co/bogota/taxi-drivers/plate GET v2/co/bogota/taxi-drivers/plate GET /v2/co/bogota/taxi-drivers/plate | [Bogotá Taxi Driver Information by Plate](/vehicle-validation/colombia/vehicle-validation-colombia-bogota-taxi-drivers-by-plate) |
@@ -2746,6 +2771,7 @@ _Last regenerated: 2026-08-10T17:18:52.143Z_
 | `v2/co/registraduria/votacion` | v2 co registraduria votacion co/registraduria/votacion /co/registraduria/votacion api/co/registraduria/votacion /api/co/registraduria/votacion api co registraduria votacion registraduria/votacion /registraduria/votacion api.verifik.co/v2/co/registraduria/votacion https://api.verifik.co/v2/co/registraduria/votacion GET v2/co/registraduria/votacion GET /v2/co/registraduria/votacion | [Retrieve Voting Information for Colombian Citizens](/legal/voting) |
 | `v2/co/rues` | v2 co rues co/rues /co/rues api/co/rues /api/co/rues api co rues api.verifik.co/v2/co/rues https://api.verifik.co/v2/co/rues GET v2/co/rues GET /v2/co/rues | [Colombia — RUES business lookup (v2, legacy)](/business-validation/colombia-rues-v2) |
 | `v2/co/rues/complete` | v2 co rues complete co/rues/complete /co/rues/complete api/co/rues/complete /api/co/rues/complete api co rues complete rues/complete /rues/complete api.verifik.co/v2/co/rues/complete https://api.verifik.co/v2/co/rues/complete GET v2/co/rues/complete GET /v2/co/rues/complete | [Colombia — RUES complete lookup (v2, legacy)](/business-validation/colombia-rues-complete-v2) |
+| `v2/co/rui` | v2 co rui co/rui /co/rui api/co/rui /api/co/rui api co rui api.verifik.co/v2/co/rui https://api.verifik.co/v2/co/rui GET v2/co/rui GET /v2/co/rui | [Colombia — RUI Classification](/background-check/colombia-rui) |
 | `v2/co/runt/conductor` | v2 co runt conductor co/runt/conductor /co/runt/conductor api/co/runt/conductor /api/co/runt/conductor api co runt conductor runt/conductor /runt/conductor api.verifik.co/v2/co/runt/conductor https://api.verifik.co/v2/co/runt/conductor GET v2/co/runt/conductor GET /v2/co/runt/conductor | [Driver's License](/vehicle-validation/colombia/driver-s-license) |
 | `v2/co/runt/vehicle-by-plate` | v2 co runt vehicle-by-plate co/runt/vehicle-by-plate /co/runt/vehicle-by-plate api/co/runt/vehicle-by-plate /api/co/runt/vehicle-by-plate api co runt vehicle-by-plate runt/vehicle-by-plate /runt/vehicle-by-plate api.verifik.co/v2/co/runt/vehicle-by-plate https://api.verifik.co/v2/co/runt/vehicle-by-plate GET v2/co/runt/vehicle-by-plate GET /v2/co/runt/vehicle-by-plate | [Vehicle Records by Plate](/vehicle-validation/colombia/runt-vehicle-by-plate) |
 | `v2/co/runt/vehicle-by-plate-simplified` | v2 co runt vehicle-by-plate-simplified co/runt/vehicle-by-plate-simplified /co/runt/vehicle-by-plate-simplified api/co/runt/vehicle-by-plate-simplified /api/co/runt/vehicle-by-plate-simplified api co runt vehicle-by-plate-simplified runt/vehicle-by-plate-simplified /runt/vehicle-by-plate-simplified api.verifik.co/v2/co/runt/vehicle-by-plate-simplified https://api.verifik.co/v2/co/runt/vehicle-by-plate-simplified GET v2/co/runt/vehicle-by-plate-simplified GET /v2/co/runt/vehicle-by-plate-simplified | [Simplified Vehicle Records by Plate in RUNT](/vehicle-validation/colombia/runt-vehicle-by-plate-simplified) |

@@ -101,6 +101,18 @@
 			"aliases": ["Instituto Nacional Penitenciario", "criminal record check", "antecedentes penales"]
 		},
 		{
+			"canonical": "RUI",
+			"countries": ["CO"],
+			"aliases": [
+				"Registro Universal de Ingresos",
+				"Ventanilla Social",
+				"DNP RUI",
+				"clasificación RUI",
+				"SISBEN replacement",
+				"reemplazo SISBEN"
+			]
+		},
+		{
 			"canonical": "RETHUS",
 			"countries": ["CO"],
 			"aliases": ["Registro Único Nacional del Talento Humano en Salud", "health professional registry"]

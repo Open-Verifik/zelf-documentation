@@ -45,6 +45,12 @@ Compares a probe image against one or more gallery images and returns a similari
 | `search_mode` | string | Yes | One of `FAST` or `ACCURATE`. |
 | `compare_min_score` | number | No | Pass threshold for the comparison score (`0.67`–`0.95`). Default: `0.85`. |
 
+### Image requirements
+
+Match scores degrade when either face is small, cropped, heavily rotated or occluded. Comparison is more forgiving than liveness, but the same capture guidance still raises your match rates.
+
+See [Face Image Requirements](/biometrics/face-image-requirements) for the capture rules and threshold reference shared by the comparison, liveness and search endpoints.
+
 ### Request
 
 <Tabs>

@@ -1,11 +1,11 @@
 # Docs i18n — canonical endpoint inventory
 
-Generated: 2026-08-10T17:18:52.093Z
+Generated: 2026-08-19T20:15:38.133Z
 
-- **Files scanned:** 496
-- **Unique endpoint URLs:** 213
+- **Files scanned:** 500
+- **Unique endpoint URLs:** 215
 - **Duplicate URL groups (SEO / aliases):** 55
-- **Docs without `### Endpoint` block:** 206
+- **Docs without `### Endpoint` block:** 208
 
 ## Summary by priority (canonical primary path only)
 
@@ -13,7 +13,7 @@ Generated: 2026-08-10T17:18:52.093Z
 | --- | ---: | --- |
 | P0 | 23 | vehicle-validation/colombia |
 | P1 | 23 | vehicle-validation (other countries) |
-| P2 | 167 | identity, biometrics, resources, etc. |
+| P2 | 169 | identity, biometrics, resources, etc. |
 
 ## Duplicate URLs (keep one canonical; others are usually SEO)
 
@@ -268,6 +268,7 @@ Generated: 2026-08-10T17:18:52.093Z
 | P1 | `v2/cl/vehicle-soap` | `vehicle-validation/chile/vehicle-soap.mdx` |
 | P1 | `v2/cl/vehicle-soap-plate` | `vehicle-validation/chile/vehicle-soap-plate.mdx` |
 | P2 | `v2/clients/me` | `accounts/clients/account-information.mdx` |
+| P2 | `v2/co/adres` | `legal/colombia-adres.mdx` |
 | P2 | `v2/co/afiliaciones` | `legal/verify-colombian-affiliations.mdx` |
 | P0 | `v2/co/bogota/taxi-drivers/card/{controlcardnumber}` | `vehicle-validation/colombia/bogota-taxi-drivers-by-control-card.mdx` |
 | P0 | `v2/co/bogota/taxi-drivers/plate` | `vehicle-validation/colombia/bogota-taxi-drivers-by-plate.mdx` |
@@ -307,6 +308,7 @@ Generated: 2026-08-10T17:18:52.093Z
 | P2 | `v2/co/registraduria/votacion` | `legal/voting.md` |
 | P2 | `v2/co/rues` | `business-validation/colombia-rues-v2.mdx` |
 | P2 | `v2/co/rues/complete` | `business-validation/colombia-rues-complete-v2.mdx` |
+| P2 | `v2/co/rui` | `background-check/colombia-rui.mdx` |
 | P0 | `v2/co/runt/conductor` | `vehicle-validation/colombia/driver-s-license.mdx` |
 | P0 | `v2/co/runt/vehicle-by-plate` | `vehicle-validation/colombia/runt-vehicle-by-plate.mdx` |
 | P0 | `v2/co/runt/vehicle-by-plate-simplified` | `vehicle-validation/colombia/runt-vehicle-by-plate-simplified.mdx` |
@@ -442,6 +444,7 @@ These files have no `### Endpoint` + fenced URL block (guides, intros, duplicate
 - `background-check/colombia/disciplinary-records-in-colombia-attorneys-office.md`
 - `background-check/colombia/verify-police-compliance-with-corrective-measures.mdx`
 - `background-check/document-types.mdx`
+- `biometrics/face-image-requirements.mdx`
 - `biometrics/humanauthn-vs-ur-codes.md`
 - `biometrics/zero-knowledge-face-proofs-overview.mdx`
 - `business-validation/business-verification.mdx`
@@ -463,6 +466,7 @@ These files have no `### Endpoint` + fenced URL block (guides, intros, duplicate
 - `getting-started/privacy-preserving.md`
 - `getting-started/use-cases.md`
 - `getting-started/zelf-proofs-vs-others.md`
+- `health/colombia-adres.mdx`
 - `health/verify-colombian-affiliations.mdx`
 - `identity-validation.mdx`
 - `identity-validation/brazil.mdx`

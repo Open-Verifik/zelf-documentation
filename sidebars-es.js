@@ -53,6 +53,7 @@ const sidebars = {
 			label: "BIOMETRICS API'S",
 			collapsible: false,
 			items: [
+				"biometrics/requisitos-imagen-facial",
 				"biometrics/deteccion-vitalidad",
 				"biometrics/puntaje-vitalidad",
 				{
@@ -630,6 +631,11 @@ const sidebars = {
 					type: "doc",
 					id: "verificacion-antecendentes/verificacion-antecendentes-colombia-inpec",
 					label: "🇨🇴 Colombia - INPEC",
+				},
+				{
+					type: "doc",
+					id: "verificacion-antecendentes/verificacion-antecendentes-colombia-rui",
+					label: "🇨🇴 Colombia - Clasificación RUI",
 				},
 				{
 					type: "doc",

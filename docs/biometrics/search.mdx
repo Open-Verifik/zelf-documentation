@@ -41,9 +41,15 @@ Searches one or more images against a face collection and returns potential matc
 | --- | --- | --- | --- |
 | `images` | string[] | Yes | Array of base64 images (max suggested: 3) of the same person. |
 | `collection_id` | string | No | Restrict search to this collection. |
-| `max_results` | number | No | Maximum results to return. |
-| `min_score` | number | Yes | Match threshold (0.2–1.0). |
+| `max_results` | number | No | Maximum results to return. Default `10`, up to `100`. |
+| `min_score` | number | Yes | Match threshold (0.2–1.0). No default — the request fails with `409 MissingParameter` if omitted. |
 | `search_mode` | string | Yes | One of `FAST` or `ACCURATE`. |
+
+### Image requirements
+
+Results are ranked by descending similarity score, and only entries above `min_score` are returned. Recall depends on the quality of the probe image: a face that is small, cropped, heavily rotated or occluded will match poorly even against a good enrolment.
+
+See [Face Image Requirements](/biometrics/face-image-requirements) for the capture rules and threshold reference shared by the search, liveness and comparison endpoints.
 
 ### Request
 

@@ -1,0 +1,110 @@
+---
+id: requisitos-imagen-facial
+title: Requisitos de la imagen facial
+description: Reglas de calidad de captura, umbrales de puntaje y motivos de rechazo compartidos por los endpoints de vitalidad y búsqueda facial
+slug: /requisitos-imagen-facial
+keywords:
+  - requisitos imagen facial
+  - requisitos imagen vitalidad
+  - calidad imagen facial
+  - umbral vitalidad
+  - liveness_min_score
+  - min_score
+  - max_results
+  - search_mode
+  - tamaño del recuadro facial
+  - distancia entre pupilas
+  - face occluded
+  - multiple faces detected
+  - no face detected
+  - face rotation angle is too large
+  - anti-spoofing
+  - detección de ataques de presentación
+  - iBeta Nivel 2
+  - ISO 30107-3
+---
+
+Cada llamada de vitalidad y de búsqueda facial es tan buena como la imagen que envías. Esta página reúne las reglas de captura, los umbrales de puntaje que Verifik aplica y los motivos de rechazo exactos que puedes esperar, para que ajustes tu interfaz de captura antes de salir a producción.
+
+Aplica a los endpoints de vitalidad ([`/liveness`](/verifik-es/deteccion-vitalidad), [`/liveness-score`](/verifik-es/puntaje-vitalidad)), a los endpoints de búsqueda facial ([`/search`](/verifik-es/buscar), [`/search-live-face`](/verifik-es/buscar-cara-en-vivo), [`/search-active-user`](/verifik-es/buscar-usuario-activo), [`/search-crops`](/verifik-es/buscar-recortes)) y a los endpoints de comparación facial ([`/compare`](/verifik-es/comparar), [`/compare-live`](/verifik-es/comparar-en-vivo), [`/compare-with-liveness`](/verifik-es/comparar-con-deteccion-vitalidad)). SmartEnroll aplica las mismas reglas internamente, así que esta guía también mejora las tasas de finalización del onboarding.
+
+### Requisitos de la imagen para vitalidad
+
+La vitalidad es más estricta que la simple comparación facial. Para asegurar que impresiones en alta resolución, máscaras y reproducciones de video no puedan suplantar la verificación, el fotograma enviado debe cumplir todo lo siguiente:
+
+- Debe haber solo un rostro principal en la imagen. Debe estar completamente visible dentro del encuadre y totalmente descubierto, sin oclusiones. No se permite recorte. Los rostros pequeños del fondo no se tienen en cuenta.
+- El tamaño mínimo del recuadro facial que se puede procesar es de **224x224 píxeles**.
+- El margen entre el recuadro facial y los bordes de la imagen debe ser de al menos **25 píxeles**.
+- La distancia entre las pupilas debe ser de al menos **80 píxeles**.
+- El ángulo de rotación fuera del plano (inclinación y giro del rostro) no debe superar los **±30 grados**.
+- No se admiten lentes de ojo de pez ni gafas de sol.
+
+Un fotograma que incumpla cualquiera de estas reglas se rechaza por calidad antes de recibir un puntaje. Ese resultado es distinto de un puntaje bajo, y conviene tratarlos de forma diferente en tu interfaz: el usuario puede corregir un problema de calidad volviendo a capturar, mientras que un puntaje bajo significa que el fotograma era utilizable pero no pareció real.
+
+### Detección de ataques de presentación
+
+La vitalidad facial de Verifik utiliza detección de ataques de presentación (PAD) y cuenta con **certificación iBeta Nivel 2**, alineada con **ISO 30107-3**. El motor subyacente reporta una Tasa de Error de Clasificación de Ataques de Presentación (APCER) del 0% frente al conjunto de ataques de iBeta Nivel 2, que cubre fotografías impresas, reproducción en pantalla y video, y máscaras 3D.
+
+### Umbrales
+
+Verifik aplica sus propios umbrales por encima del motor de reconocimiento, por lo que los valores siguientes son los que realmente rigen tus solicitudes.
+
+#### Vitalidad
+
+| Comportamiento | Valor |
+| --- | --- |
+| Parámetro | `liveness_min_score` |
+| Valor por defecto | `0.6` |
+| Rango aceptado | `0.5` – `1.0` |
+| Regla de aprobación | `liveness_score > liveness_min_score` (estrictamente mayor que) |
+| Valor por defecto en SmartEnroll | `0.65`, configurable por flujo de proyecto |
+
+Observa que la regla de aprobación es una comparación estricta. Un puntaje de exactamente `0.6` frente a un umbral de `0.6` es un rechazo, no una aprobación.
+
+El motor subyacente considera real un puntaje `>= 0.5`. El valor por defecto de Verifik de `0.6` es deliberadamente más estricto, y el piso de `0.5` implica que no puedes configurar un umbral más laxo que el del propio motor. Una excepción: [`/compare-live`](/verifik-es/comparar-en-vivo) eleva ese piso a `0.52`.
+
+#### Búsqueda facial
+
+| Parámetro | Obligatorio | Valor por defecto | Rango |
+| --- | --- | --- | --- |
+| `min_score` | Sí | Ninguno — debes enviarlo | `0.2` – `1.0` en `/search`, `0.5` – `1.0` en las variantes con rostro en vivo |
+| `search_mode` | Sí | Ninguno — debes enviarlo | `FAST` o `ACCURATE` |
+| `max_results` | No | `10` | Hasta `100` |
+
+Los resultados se devuelven ordenados por puntaje de similitud descendente, y solo se incluyen las coincidencias por encima de `min_score`. El puntaje es un número entre 0 y 1, donde 1 es una coincidencia perfecta y 0 es una discrepancia total.
+
+Hay dos particularidades de Verifik fáciles de pasar por alto. Primero, `min_score` **no tiene valor por defecto**: la solicitud se rechaza con `409 MissingParameter` si lo omites, mientras que el motor subyacente habría aplicado `0.81`. Segundo, `search_mode` es obligatorio y no tiene equivalente en el motor: usa `ACCURATE` para mayor precisión a costa de latencia, y `FAST` cuando la rapidez importa más.
+
+### Motivos de rechazo
+
+Cuando una captura se rechaza por calidad, la respuesta incluye un código de motivo estable. Cada uno corresponde a un requisito concreto de los anteriores, lo que facilita mostrar al usuario una corrección puntual en lugar de un mensaje de error genérico.
+
+| Motivo | Requisito incumplido | Qué decirle al usuario |
+| --- | --- | --- |
+| `no_face_detected` | Un rostro completamente visible | Ubica tu rostro dentro del encuadre en un lugar bien iluminado |
+| `multiple_faces_detected` | Solo un rostro principal | Asegúrate de ser la única persona en el encuadre |
+| `face_occluded` | Rostro descubierto, sin oclusiones | Retira cualquier cosa que cubra tu rostro, como mascarilla, gafas o gorra |
+| `face_close_to_border` | Margen de 25 píxeles con los bordes | Aléjate un poco y centra tu rostro en el encuadre |
+| `face_not_centered` | Margen de 25 píxeles con los bordes | Alinea tu rostro con el centro del encuadre |
+| `face_too_far` | Recuadro facial de 224x224, 80 píxeles entre pupilas | Acerca la cámara para que tu rostro ocupe más del encuadre |
+| `face_too_close` | Sin recorte, margen de 25 píxeles con los bordes | Aleja un poco la cámara |
+| `face_rotation_too_large` | ±30 grados de inclinación y giro | Mira de frente a la cámara y mantén la cabeza recta |
+| `poor_lighting` | Rostro completamente visible | Ubícate en un lugar más iluminado y evita luces fuertes detrás de ti |
+
+Otros dos motivos no corresponden a problemas de captura:
+
+- `liveness_failed` — el fotograma era utilizable y recibió un puntaje, pero no superó el umbral. El puntaje se incluye en la respuesta para que puedas mostrarlo.
+- `liveness_error` — la verificación no pudo completarse por una razón que no se puede atribuir a la captura. Trátalo como reintentable.
+
+### Tratamiento de los datos
+
+Una llamada de vitalidad o de búsqueda es una clasificación puntual. **No** registra el rostro en una colección, por lo que un rostro que solo envías a `/liveness` o `/search` nunca aparecerá en un resultado de búsqueda posterior. Para hacer que un rostro sea buscable, regístralo explícitamente con el endpoint `/person`.
+
+Verifik sí conserva un registro de auditoría de cada llamada — el puntaje, el resultado, el umbral aplicado y metadatos de la solicitud — para que los resultados sigan siendo verificables y facturables después del hecho. Que la imagen enviada se conserve depende del producto: las imágenes capturadas a través de SmartEnroll se almacenan como parte del registro de onboarding, mientras que las imágenes enviadas directamente a los endpoints públicos de vitalidad y búsqueda no se conservan una vez atendida la solicitud.
+
+### Notas
+
+- Conviene separar los rechazos por calidad de los rechazos por puntaje en tu interfaz. Un rechazo por calidad debe invitar a reintentar de inmediato con una indicación concreta; un rechazo por puntaje es un resultado negativo real.
+- Los requisitos se expresan en píxeles del recuadro facial, no de la imagen. Una foto en 4K con un rostro de 100 píxeles de ancho sigue incumpliendo la regla de `224x224`.
+- Enviar una imagen más grande no mejora el resultado una vez que el recuadro facial supera el mínimo. Prioriza buena iluminación y una pose centrada y frontal sobre la resolución bruta.
+- Si tus usuarios usan cámaras web de escritorio, espera más rechazos por calidad que en móvil: las cámaras web de baja resolución producen con frecuencia recuadros faciales por debajo del mínimo.

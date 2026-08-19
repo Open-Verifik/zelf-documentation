@@ -45,6 +45,12 @@ Performs comparison first and, if the comparison meets `compare_min_score` (or i
 | `liveness_min_score` | number | No | Liveness threshold; default 0.6 if not provided. |
 | `compare_min_score` | number | No | Optional comparison threshold (`0.67`–`0.95`). Hosted SmartEnroll default is `0.85`. |
 
+### Image requirements
+
+This endpoint runs a liveness check as well as a comparison, so the stricter liveness capture rules apply to the live frame: a single fully visible face, a face box of at least `224x224` pixels, at least 25 pixels of border padding, at least 80 pixels between the pupils, and no more than ±30 degrees of pitch or yaw.
+
+See [Face Image Requirements](/biometrics/face-image-requirements) for the full rules, the rejection reason codes and the threshold reference.
+
 ### Request
 
 <Tabs>

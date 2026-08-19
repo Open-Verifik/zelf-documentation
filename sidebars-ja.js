@@ -13,6 +13,12 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "生体認証",
+			collapsible: false,
+			items: [{ type: "doc", id: "biometrics/face-image-requirements", label: "顔画像の要件" }],
+		},
+		{
+			type: "category",
 			label: "本人確認",
 			collapsible: false,
 			items: [

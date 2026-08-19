@@ -1,0 +1,111 @@
+---
+id: face-image-requirements
+title: Requisitos da imagem facial
+description: Regras de qualidade de captura, limites de pontuação e motivos de rejeição compartilhados pelos endpoints de prova de vida e busca facial
+slug: /biometrics/face-image-requirements
+keywords:
+  - requisitos imagem facial
+  - qualidade imagem facial
+  - limite prova de vida
+  - liveness_min_score
+  - min_score
+  - max_results
+  - search_mode
+  - tamanho da caixa do rosto
+  - distância entre as pupilas
+  - face occluded
+  - multiple faces detected
+  - no face detected
+  - face rotation angle is too large
+  - anti-spoofing
+  - detecção de ataques de apresentação
+  - iBeta Nível 2
+  - ISO 30107-3
+---
+
+Cada chamada de prova de vida e de busca facial vale apenas o que vale a imagem enviada. Esta página reúne as regras de captura, os limites de pontuação que a Verifik aplica e os motivos exatos de rejeição que você pode receber, para ajustar sua interface de captura antes de entrar em produção.
+
+Aplica-se aos endpoints de prova de vida (`/liveness`, `/liveness-score`), aos endpoints de busca facial (`/search`, `/search-live-face`, `/search-active-user`, `/search-crops`) e aos endpoints de comparação facial (`/compare`, `/compare-live`, `/compare-with-liveness`). O SmartEnroll aplica as mesmas regras internamente, portanto esta orientação também melhora as taxas de conclusão do onboarding.
+
+A documentação detalhada desses endpoints está disponível em inglês: [Liveness Detection](/biometrics/liveness), [Face Search (1:N)](/biometrics/search).
+
+### Requisitos da imagem para prova de vida
+
+A prova de vida é mais rigorosa do que a simples comparação facial. Para garantir que impressões em alta resolução, máscaras e reproduções de vídeo não consigam fraudar a verificação, o quadro enviado deve atender a todos os requisitos abaixo:
+
+- Deve haver apenas um rosto principal na imagem. Ele precisa estar totalmente visível dentro do enquadramento e completamente descoberto, sem oclusões. Não é permitido recorte. Rostos pequenos ao fundo não são considerados.
+- O tamanho mínimo da caixa de rosto que pode ser processada é de **224x224 pixels**.
+- A margem entre a caixa do rosto e as bordas da imagem deve ser de no mínimo **25 pixels**.
+- A distância entre as pupilas deve ser de no mínimo **80 pixels**.
+- O ângulo de rotação fora do plano (inclinação e giro do rosto) não deve exceder **±30 graus**.
+- Lentes olho de peixe e óculos de sol não são suportados.
+
+Um quadro que viole qualquer uma dessas regras é rejeitado por qualidade antes mesmo de receber pontuação. Esse resultado é diferente de uma pontuação baixa, e vale tratá-los de forma distinta na sua interface: o usuário pode corrigir um problema de qualidade repetindo a captura, enquanto uma pontuação baixa significa que o quadro era utilizável mas não pareceu real.
+
+### Detecção de ataques de apresentação
+
+A prova de vida facial da Verifik usa detecção de ataques de apresentação (PAD) e possui **certificação iBeta Nível 2**, alinhada à norma **ISO 30107-3**. O motor subjacente reporta uma Taxa de Erro de Classificação de Ataques de Apresentação (APCER) de 0% contra o conjunto de ataques do iBeta Nível 2, que abrange fotografias impressas, reprodução em tela e vídeo, e máscaras 3D.
+
+### Limites
+
+A Verifik aplica seus próprios limites acima do motor de reconhecimento, portanto os valores abaixo são os que realmente governam suas solicitações.
+
+#### Prova de vida
+
+| Comportamento | Valor |
+| --- | --- |
+| Parâmetro | `liveness_min_score` |
+| Valor padrão | `0.6` |
+| Faixa aceita | `0.5` – `1.0` |
+| Regra de aprovação | `liveness_score > liveness_min_score` (estritamente maior que) |
+| Valor padrão no SmartEnroll | `0.65`, configurável por fluxo de projeto |
+
+Observe que a regra de aprovação é uma comparação estrita. Uma pontuação de exatamente `0.6` contra um limite de `0.6` é uma reprovação, não uma aprovação.
+
+O motor subjacente considera real uma pontuação `>= 0.5`. O padrão da Verifik de `0.6` é deliberadamente mais rigoroso, e o piso de `0.5` significa que você não pode configurar um limite mais permissivo do que o do próprio motor. Uma exceção: `/compare-live` eleva esse piso para `0.52`.
+
+#### Busca facial
+
+| Parâmetro | Obrigatório | Valor padrão | Faixa |
+| --- | --- | --- | --- |
+| `min_score` | Sim | Nenhum — você precisa enviá-lo | `0.2` – `1.0` em `/search`, `0.5` – `1.0` nas variantes com rosto ao vivo |
+| `search_mode` | Sim | Nenhum — você precisa enviá-lo | `FAST` ou `ACCURATE` |
+| `max_results` | Não | `10` | Até `100` |
+
+Os resultados são retornados em ordem decrescente de pontuação de similaridade, e apenas as entradas acima de `min_score` são incluídas. A pontuação é um número entre 0 e 1, onde 1 é uma correspondência perfeita e 0 é uma divergência total.
+
+Duas particularidades da Verifik passam facilmente despercebidas. Primeiro, `min_score` **não tem valor padrão**: a solicitação falha com `409 MissingParameter` se você o omitir, enquanto o motor subjacente teria aplicado `0.81`. Segundo, `search_mode` é obrigatório e não tem equivalente no motor: use `ACCURATE` para maior precisão ao custo de latência, e `FAST` quando a agilidade importa mais.
+
+### Motivos de rejeição
+
+Quando uma captura é rejeitada por qualidade, a resposta traz um código de motivo estável. Cada um corresponde a um requisito específico acima, o que facilita mostrar ao usuário uma correção direcionada em vez de uma mensagem de erro genérica.
+
+| Motivo | Requisito violado | O que dizer ao usuário |
+| --- | --- | --- |
+| `no_face_detected` | Um rosto totalmente visível | Posicione seu rosto dentro do enquadramento em um local bem iluminado |
+| `multiple_faces_detected` | Apenas um rosto principal | Certifique-se de ser a única pessoa no enquadramento |
+| `face_occluded` | Rosto descoberto, sem oclusões | Remova qualquer coisa que cubra seu rosto, como máscara, óculos ou boné |
+| `face_close_to_border` | Margem de 25 pixels das bordas | Afaste-se um pouco e centralize seu rosto no enquadramento |
+| `face_not_centered` | Margem de 25 pixels das bordas | Alinhe seu rosto com o centro do enquadramento |
+| `face_too_far` | Caixa de rosto 224x224, 80 pixels entre as pupilas | Aproxime a câmera para que seu rosto ocupe mais do enquadramento |
+| `face_too_close` | Sem recorte, margem de 25 pixels das bordas | Afaste um pouco a câmera |
+| `face_rotation_too_large` | ±30 graus de inclinação e giro | Olhe diretamente para a câmera e mantenha a cabeça reta |
+| `poor_lighting` | Rosto totalmente visível | Vá para um local mais iluminado e evite luz forte atrás de você |
+
+Outros dois motivos não correspondem a problemas de captura:
+
+- `liveness_failed` — o quadro era utilizável e foi pontuado, mas a pontuação não alcançou o limite. A pontuação vem na resposta para que você possa exibi-la.
+- `liveness_error` — a verificação não pôde ser concluída por um motivo que não se pode atribuir à captura. Trate como passível de nova tentativa.
+
+### Tratamento dos dados
+
+Uma chamada de prova de vida ou de busca é uma classificação pontual. Ela **não** cadastra o rosto em uma coleção, portanto um rosto que você envia apenas para `/liveness` ou `/search` nunca aparecerá em um resultado de busca posterior. Para tornar um rosto pesquisável, cadastre-o explicitamente pelo endpoint `/person`.
+
+A Verifik mantém, sim, um registro de auditoria de cada chamada — a pontuação, o resultado, o limite aplicado e metadados da solicitação — para que os resultados permaneçam verificáveis e faturáveis posteriormente. A retenção da imagem em si depende do produto: as imagens capturadas pelo SmartEnroll são armazenadas como parte do registro de onboarding, enquanto as imagens enviadas diretamente aos endpoints públicos de prova de vida e busca não são retidas após o atendimento da solicitação.
+
+### Notas
+
+- Vale separar rejeições por qualidade de rejeições por pontuação na sua interface. Uma rejeição por qualidade deve convidar a uma nova tentativa imediata com orientação específica; uma rejeição por pontuação é um resultado negativo real.
+- Os requisitos são expressos em pixels da caixa do rosto, não da imagem. Uma foto em 4K com um rosto de 100 pixels de largura ainda viola a regra de `224x224`.
+- Enviar uma imagem maior não melhora o resultado depois que a caixa do rosto supera o mínimo. Priorize boa iluminação e uma pose centralizada e frontal em vez de resolução bruta.
+- Se seus usuários usam webcams de desktop, espere mais rejeições por qualidade do que no celular: webcams de baixa resolução frequentemente produzem caixas de rosto abaixo do mínimo.

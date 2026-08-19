@@ -841,6 +841,11 @@ const sidebars = {
 				},
 				{
 					type: "doc",
+					id: "background-check/colombia-rui",
+					label: "🇨🇴 Colombia - RUI Classification",
+				},
+				{
+					type: "doc",
 					id: "background-check/dea-background-check",
 					label: "🌐 DEA Background Check",
 				},

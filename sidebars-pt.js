@@ -13,6 +13,12 @@ const sidebars = {
 		},
 		{
 			type: "category",
+			label: "Biometria",
+			collapsible: false,
+			items: [{ type: "doc", id: "biometrics/face-image-requirements", label: "Requisitos da imagem facial" }],
+		},
+		{
+			type: "category",
 			label: "Identidade",
 			collapsible: false,
 			items: [

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T17:18:52.030Z",
+  "generatedAt": "2026-08-19T20:15:38.073Z",
   "siteUrl": "https://docs.verifik.co",
   "clusters": {
     "intro": {
@@ -1508,6 +1508,15 @@
       "en": "https://docs.verifik.co/biometrics/compare/",
       "es": "https://docs.verifik.co/verifik-es/comparar/"
     },
+    "biometrics/face-image-requirements": {
+      "en": "https://docs.verifik.co/biometrics/face-image-requirements/",
+      "es": "https://docs.verifik.co/verifik-es/requisitos-imagen-facial/",
+      "fr": "https://docs.verifik.co/verifik-fr/biometrics/face-image-requirements/",
+      "pt": "https://docs.verifik.co/verifik-pt/biometrics/face-image-requirements/",
+      "ko": "https://docs.verifik.co/verifik-ko/biometrics/face-image-requirements/",
+      "ja": "https://docs.verifik.co/verifik-ja/biometrics/face-image-requirements/",
+      "zh": "https://docs.verifik.co/verifik-zh/biometrics/face-image-requirements/"
+    },
     "biometrics/humanauthn-vs-ur-codes": {
       "en": "https://docs.verifik.co/biometrics/humanauthn-vs-ur-codes/",
       "es": "https://docs.verifik.co/verifik-es/biometrics/humanauthn-vs-ur-codes/"
@@ -1605,6 +1614,10 @@
       "ko": "https://docs.verifik.co/verifik-ko/background-check/colombia-public-contracts/",
       "ja": "https://docs.verifik.co/verifik-ja/background-check/colombia-public-contracts/",
       "zh": "https://docs.verifik.co/verifik-zh/background-check/colombia-public-contracts/"
+    },
+    "background-check/colombia-rui": {
+      "en": "https://docs.verifik.co/background-check/colombia-rui/",
+      "es": "https://docs.verifik.co/verifik-es/verificacion-antecendentes/verificacion-antecendentes-colombia-rui/"
     },
     "background-check/dea-background-check": {
       "en": "https://docs.verifik.co/background-check/international/dea-background-check/",
@@ -2764,6 +2777,13 @@
     "https://docs.verifik.co/verifik-es/comparar-con-deteccion-vitalidad/": "biometrics/compare-with-liveness",
     "https://docs.verifik.co/biometrics/compare/": "biometrics/compare",
     "https://docs.verifik.co/verifik-es/comparar/": "biometrics/compare",
+    "https://docs.verifik.co/biometrics/face-image-requirements/": "biometrics/face-image-requirements",
+    "https://docs.verifik.co/verifik-es/requisitos-imagen-facial/": "biometrics/face-image-requirements",
+    "https://docs.verifik.co/verifik-fr/biometrics/face-image-requirements/": "biometrics/face-image-requirements",
+    "https://docs.verifik.co/verifik-pt/biometrics/face-image-requirements/": "biometrics/face-image-requirements",
+    "https://docs.verifik.co/verifik-ko/biometrics/face-image-requirements/": "biometrics/face-image-requirements",
+    "https://docs.verifik.co/verifik-ja/biometrics/face-image-requirements/": "biometrics/face-image-requirements",
+    "https://docs.verifik.co/verifik-zh/biometrics/face-image-requirements/": "biometrics/face-image-requirements",
     "https://docs.verifik.co/biometrics/humanauthn-vs-ur-codes/": "biometrics/humanauthn-vs-ur-codes",
     "https://docs.verifik.co/verifik-es/biometrics/humanauthn-vs-ur-codes/": "biometrics/humanauthn-vs-ur-codes",
     "https://docs.verifik.co/biometrics/liveness-score/": "biometrics/liveness-score",
@@ -2832,6 +2852,8 @@
     "https://docs.verifik.co/verifik-ko/background-check/colombia-public-contracts/": "background-check/colombia-public-contracts",
     "https://docs.verifik.co/verifik-ja/background-check/colombia-public-contracts/": "background-check/colombia-public-contracts",
     "https://docs.verifik.co/verifik-zh/background-check/colombia-public-contracts/": "background-check/colombia-public-contracts",
+    "https://docs.verifik.co/background-check/colombia-rui/": "background-check/colombia-rui",
+    "https://docs.verifik.co/verifik-es/verificacion-antecendentes/verificacion-antecendentes-colombia-rui/": "background-check/colombia-rui",
     "https://docs.verifik.co/background-check/international/dea-background-check/": "background-check/dea-background-check",
     "https://docs.verifik.co/verifik-es/verificacion-antecendentes/verificacion-antecendentes-dea/": "background-check/dea-background-check",
     "https://docs.verifik.co/verifik-fr/background-check/international/dea-background-check/": "background-check/dea-background-check",
