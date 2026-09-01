@@ -32,8 +32,8 @@
 					    document.head.appendChild(s);
 					  }catch(e){}
 					})();</script><link rel="stylesheet" href="/es/assets/css/styles.2f01f1c7.css">
-<script src="/es/assets/js/runtime~main.b68a5b15.js" defer="defer"></script>
-<script src="/es/assets/js/main.231e525d.js" defer="defer"></script>
+<script src="/es/assets/js/runtime~main.37af900c.js" defer="defer"></script>
+<script src="/es/assets/js/main.b5338774.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -51,7 +51,10 @@
 <li><code>GET https://v3.zelf.world/api/license?includeThemeSettings=1</code> (all licenses, when each record has <code>domainConfig</code> loaded)</li>
 <li><code>GET https://v3.zelf.world/api/tags/domains?includeThemeSettings=1</code></li>
 <li><code>GET https://v3.zelf.world/api/tags/domains/:domain?includeThemeSettings=1</code></li>
+<li><code>GET https://v4.zelf.world/api/zelf-ids/domains?includeThemeSettings=1</code></li>
+<li><code>GET https://v4.zelf.world/api/zelf-ids/domains/:domain?includeThemeSettings=1</code></li>
 </ul>
+<p>See <a href="/es/docs/api/licenses/license-object">The License Object</a> for the full domain/license JSON.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="official-license-json-ipfs">Official license JSON (IPFS)<a href="#official-license-json-ipfs" class="hash-link" aria-label="Enlace directo al Official license JSON (IPFS)" title="Enlace directo al Official license JSON (IPFS)">​</a></h2>
 <p>Optional field on the <strong>primary</strong> domain license document:</p>
 <table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>themeSettingsUrl</code></td><td>string (URL)</td><td>Gateway or IPFS URL of a JSON document. If absent, <code>includeThemeSettings</code> does not trigger a second fetch.</td></tr></tbody></table>

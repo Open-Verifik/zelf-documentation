@@ -33,5 +33,6 @@ Changelogs are organized chronologically with the most recent entries at the top
 
 ## Recent Entries
 
+- [2026-08-31 - Zelf ID Migration v4](./2026-08-31-zelf-id-migration-v4.md)
 - [2025-01-05 - Transaction Amount Preservation Fix](./2025-01-05-transaction-amount-preservation.md)
 

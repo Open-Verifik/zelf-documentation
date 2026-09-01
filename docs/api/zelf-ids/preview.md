@@ -7,12 +7,14 @@ image: /img/social-card.png
 
 # Preview Zelf ID
 
-Preview a Zelf ID to see its public data — wallet addresses, password status, and lease details — without biometric decryption.
+Preview a Zelf ID to see its public data — wallet addresses, password status, `plan`, and lease details — without biometric decryption. Preview runs on **ZelfEncrypt v4**.
+
+Unexpired short-name holds and confirmed mainnet records return `available: false`. An expired unpaid hold is released the same way as [Search](/docs/api/zelf-ids/search). An expired confirmed year stays the name and reads as `plan: "free"`.
 
 ## Endpoint
 
 ```
-GET {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview
+GET https://v4.zelf.world/api/zelf-ids/preview
 ```
 
 ## Authentication
@@ -49,7 +51,11 @@ import TabItem from '@theme/TabItem';
         "solanaAddress": "5nKCBsij6qPYLMqVMQUXikgnAvnUSYCKEi8uS91Rg1dr",
         "zelfName": "migueltrevino.zelf",
         "hasPassword": "true",
-        "leaseExpiresAt": "2026-01-15 01:31:07"
+        "type": "mainnet",
+        "origin": "online",
+        "v": "4",
+        "plan": "premium",
+        "expiresAt": "2026-01-15 01:31:07"
       },
       "zelfProof": "[ZELFPROOF_BASE64]",
       "zelfProofQRCode": "data:image/png;base64,[QR_CODE_BASE64]"
@@ -113,6 +119,9 @@ import TabItem from '@theme/TabItem';
 |-------|------|-------------|
 | `available` | boolean | Whether the name is available |
 | `tagObject` | object | Full storage record |
+| `tagObject.publicData.v` | string | `"4"` on Zelf ID v4 records |
+| `tagObject.publicData.plan` | string | `"free"`, `"premium"`, or `"unlimited"` on confirmed v4 records |
+| `tagObject.publicData.type` | string | `"hold"` or `"mainnet"` |
 | `preview.passwordLayer` | boolean | Whether a password layer exists |
 | `preview.publicData` | object | Subset of public wallet data |
 
@@ -122,7 +131,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview?tagName=username&domain=zelf&os=DESKTOP" \
+curl -X GET "https://v4.zelf.world/api/zelf-ids/preview?tagName=username&domain=zelf&os=DESKTOP" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
@@ -133,7 +142,7 @@ curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview?tagName=username&do
 ```javascript
 const axios = require('axios');
 
-const response = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview', {
+const response = await axios.get('https://v4.zelf.world/api/zelf-ids/preview', {
   params: { tagName: 'username', domain: 'zelf', os: 'DESKTOP' },
   headers: { 'Authorization': `Bearer ${token}`, 'Origin': 'https://yourdomain.com' }
 });
@@ -147,7 +156,7 @@ console.log('Preview:', response.data.data.preview);
 ```python
 import requests
 
-response = requests.get("{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview",
+response = requests.get("https://v4.zelf.world/api/zelf-ids/preview",
     params={"tagName": "username", "domain": "zelf", "os": "DESKTOP"},
     headers={"Authorization": f"Bearer {token}", "Origin": "https://yourdomain.com"}
 )

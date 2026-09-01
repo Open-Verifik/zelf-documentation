@@ -7,12 +7,12 @@ image: /img/social-card.png
 
 # Lease Recovery
 
-Recover a Zelf ID by re-registering an existing ZelfProof under a domain name. This is used when the user has their ZelfProof but needs to re-pin it to storage.
+Recover a Zelf ID by re-registering an existing ZelfProof under a domain name. Recovery uses the same **v4 persist path** as [Lease](/docs/api/zelf-ids/lease): names of 6+ characters confirm as `free` for one year; only names of 5 characters or fewer that still owe payment become a 5-hour `.hold`. Pins are IPFS plus Arweave when enabled — never Walrus.
 
 ## Endpoint
 
 ```
-POST {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/lease-recovery
+POST https://v4.zelf.world/api/zelf-ids/lease-recovery
 ```
 
 ## Authentication
@@ -51,7 +51,9 @@ import TabItem from '@theme/TabItem';
           "domain": "zelf",
           "ethAddress": "0xb4296e8aFaE20242C1004Eb2c09Bf58A79C26bA5",
           "btcAddress": "bc1q9x0zeau8sd05vs5zt5hyxc7tgahd028v2t695y",
-          "solanaAddress": "DnpBkSJiMNxok1TrQRufMryLysbj7Fhh1HEQ8h2hqZdb"
+          "solanaAddress": "DnpBkSJiMNxok1TrQRufMryLysbj7Fhh1HEQ8h2hqZdb",
+          "origin": "online",
+          "v": "4"
         }
       }
     ],
@@ -62,7 +64,9 @@ import TabItem from '@theme/TabItem';
       "publicData": {
         "ethAddress": "0xb4296e8aFaE20242C1004Eb2c09Bf58A79C26bA5",
         "btcAddress": "bc1q9x0zeau8sd05vs5zt5hyxc7tgahd028v2t695y",
-        "solanaAddress": "DnpBkSJiMNxok1TrQRufMryLysbj7Fhh1HEQ8h2hqZdb"
+        "solanaAddress": "DnpBkSJiMNxok1TrQRufMryLysbj7Fhh1HEQ8h2hqZdb",
+        "origin": "online",
+        "v": "4"
       },
       "zelfProof": "[ZELFPROOF_BASE64]",
       "zelfProofQRCode": "data:image/png;base64,[QR_CODE_BASE64]"
@@ -98,7 +102,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/lease-recovery" \
+curl -X POST "https://v4.zelf.world/api/zelf-ids/lease-recovery" \
   -H "Content-Type: application/json" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
@@ -118,7 +122,7 @@ curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/lease-recovery" \
 ```javascript
 const axios = require('axios');
 
-const response = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/lease-recovery', {
+const response = await axios.post('https://v4.zelf.world/api/zelf-ids/lease-recovery', {
   zelfProof: '[ZELFPROOF_BASE64_DATA]',
   tagName: 'myname',
   domain: 'zelf',

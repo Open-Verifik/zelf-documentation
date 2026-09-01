@@ -7,12 +7,12 @@ image: /img/social-card.png
 
 # Decrypt Zelf ID
 
-Decrypt a Zelf ID using biometric face verification to access wallet data, mnemonic phrases, and private keys.
+Decrypt a stored Zelf ID on **ZelfEncrypt v4**. The face must match the original lease. Confirmed records may include `plan`; unpaid reservations still decrypt while the 5-hour hold is active.
 
 ## Endpoint
 
 ```
-POST {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/decrypt
+POST https://v4.zelf.world/api/zelf-ids/decrypt
 ```
 
 ## Authentication
@@ -58,10 +58,12 @@ import TabItem from '@theme/TabItem';
       "blockDAGAddress": "0x...",
       "avalancheAddress": "0x...",
       "hasPassword": "true",
-      "type": "hold",
+      "type": "mainnet",
       "origin": "online",
-      "registeredAt": "2026-05-13 12:00:00",
-      "expiresAt": "2027-05-13 12:00:00"
+      "v": "4",
+      "plan": "premium",
+      "registeredAt": "2026-08-31 12:00:00",
+      "expiresAt": "2027-08-31 12:00:00"
     },
     "zelfProofQRCode": "data:image/png;base64,[QR_CODE_BASE64]",
     "zelfProof": "[ZELFPROOF_BASE64]",
@@ -106,8 +108,10 @@ import TabItem from '@theme/TabItem';
 | `publicData.btcAddress` | string | Bitcoin wallet address |
 | `publicData.solanaAddress` | string | Solana wallet address |
 | `publicData.suiAddress` | string | Sui wallet address |
+| `publicData.v` | string | `"4"` for ZelfEncrypt v4 |
+| `publicData.plan` | string | `"free"`, `"premium"`, or `"unlimited"` on confirmed records |
 | `publicData.registeredAt` | string | Registration timestamp |
-| `publicData.expiresAt` | string | Expiration timestamp |
+| `publicData.expiresAt` | string | Hold window or confirmed year expiry |
 | `zelfProof` | string | ZelfProof data |
 | `zelfProofQRCode` | string | Base64 QR code image |
 | `metadata.mnemonic` | string | BIP39 mnemonic recovery phrase |
@@ -122,7 +126,7 @@ The `metadata.mnemonic` field contains the wallet recovery phrase. Handle with e
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/decrypt" \
+curl -X POST "https://v4.zelf.world/api/zelf-ids/decrypt" \
   -H "Content-Type: application/json" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
@@ -144,7 +148,7 @@ const fs = require('fs');
 
 const faceBase64 = fs.readFileSync('./selfie.jpg', 'base64');
 
-const response = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/decrypt', {
+const response = await axios.post('https://v4.zelf.world/api/zelf-ids/decrypt', {
   tagName: 'myname',
   domain: 'zelf',
   faceBase64,
@@ -168,7 +172,7 @@ import requests, base64
 with open("selfie.jpg", "rb") as f:
     face_base64 = base64.b64encode(f.read()).decode()
 
-response = requests.post("{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/decrypt", json={
+response = requests.post("https://v4.zelf.world/api/zelf-ids/decrypt", json={
     "tagName": "myname",
     "domain": "zelf",
     "faceBase64": face_base64,

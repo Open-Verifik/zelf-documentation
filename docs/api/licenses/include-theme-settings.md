@@ -25,6 +25,10 @@ Automated checks (local HTTP tests, no Mongo): `tests/integration/license-zelf-t
 - `GET {{ZELF_PUBLIC_API_ORIGIN}}/api/license?includeThemeSettings=1` (all licenses, when each record has `domainConfig` loaded)
 - `GET {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/domains?includeThemeSettings=1`
 - `GET {{ZELF_PUBLIC_API_ORIGIN}}/api/tags/domains/:domain?includeThemeSettings=1`
+- `GET https://v4.zelf.world/api/zelf-ids/domains?includeThemeSettings=1`
+- `GET https://v4.zelf.world/api/zelf-ids/domains/:domain?includeThemeSettings=1`
+
+See [The License Object](/docs/api/licenses/license-object) for the full domain/license JSON.
 
 ## Official license JSON (IPFS)
 

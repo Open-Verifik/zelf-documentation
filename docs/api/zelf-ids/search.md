@@ -7,21 +7,21 @@ image: /img/social-card.png
 
 # Search Zelf ID
 
-Search for a Zelf ID across any supported domain (Zelf, Avax, BDAG, or other licensed domains).
+Search for a Zelf ID across any supported domain (Zelf, Avax, BDAG, or other licensed domains). This API is on **`https://v4.zelf.world`**, not `https://v3.zelf.world`.
 
 ## Endpoint
 
 ```
-GET {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/search
+GET https://v4.zelf.world/api/zelf-ids/search
 ```
 
 ## Description
 
-This endpoint allows you to search for a Zelf ID across multiple domains and storage systems (IPFS and Arweave). The system supports multiple domains including Zelf, Avax, BDAG, and other licensed domains.
+Search looks up a name on IPFS and Arweave. An **expired unpaid reservation** (`type: "hold"` or `"reserved"` whose window has passed) is unpinned and returned as available. Those holds only exist for names of 5 characters or fewer. **Mainnet** records are never deleted by search. When a confirmed year has passed, the same name is returned with `plan: "free"`.
 
 **Response Types:**
-1. **Zelf ID Found**: Returns the object with public wallet data and storage references
-2. **Zelf ID Available**: Returns pricing information for leasing the name
+1. **Zelf ID Found**: Returns the object with public wallet data, `plan` on v4 records, and storage references
+2. **Zelf ID Available**: Returns pricing information for leasing the name, including after an expired hold was released
 
 ## Authentication
 
@@ -63,6 +63,9 @@ import TabItem from '@theme/TabItem';
           "solanaAddress": "5nKCBsij6qPYLMqVMQUXikgnAvnUSYCKEi8uS91Rg1dr",
           "hasPassword": "true",
           "type": "mainnet",
+          "origin": "online",
+          "v": "4",
+          "plan": "premium",
           "tagName": "migueltrevino.zelf",
           "registeredAt": "2025-01-15 01:31:07",
           "expiresAt": "2026-01-15 01:31:07"
@@ -166,7 +169,9 @@ import TabItem from '@theme/TabItem';
 | `tagObject.publicData.btcAddress` | string | Bitcoin wallet address |
 | `tagObject.publicData.solanaAddress` | string | Solana wallet address |
 | `tagObject.publicData.hasPassword` | string | Whether password-protected |
-| `tagObject.publicData.leaseExpiresAt` | string | Lease expiration date |
+| `tagObject.publicData.v` | string | `"4"` on Zelf ID v4 records |
+| `tagObject.publicData.plan` | string | `"free"`, `"premium"`, or `"unlimited"` on confirmed v4 records |
+| `tagObject.publicData.expiresAt` | string | Hold window or confirmed year expiry |
 | `tagObject.zelfProof` | string | ZelfProof data |
 | `tagObject.zelfProofQRCode` | string | Base64 QR code image |
 
@@ -187,7 +192,7 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 # First, create a session to get JWT token
-curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions" \
+curl -X POST "https://v4.zelf.world/api/sessions" \
   -H "Content-Type: application/json" \
   -H "Origin: https://yourdomain.com" \
   -d '{
@@ -197,7 +202,7 @@ curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions" \
   }'
 
 # Search for a Zelf ID
-curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/search?tagName=username&domain=zelf&os=DESKTOP" \
+curl -X GET "https://v4.zelf.world/api/zelf-ids/search?tagName=username&domain=zelf&os=DESKTOP" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
@@ -210,7 +215,7 @@ const axios = require('axios');
 
 async function searchZelfId() {
   // Create a session
-  const session = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions', {
+  const session = await axios.post('https://v4.zelf.world/api/sessions', {
     identifier: 'my_session_123',
     type: 'createWallet',
     isWebExtension: false
@@ -219,7 +224,7 @@ async function searchZelfId() {
   const token = session.data.data.token;
 
   // Search for a Zelf ID
-  const response = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/search', {
+  const response = await axios.get('https://v4.zelf.world/api/zelf-ids/search', {
     params: { tagName: 'username', domain: 'zelf', os: 'DESKTOP' },
     headers: { 'Authorization': `Bearer ${token}`, 'Origin': 'https://yourdomain.com' }
   });
@@ -241,7 +246,7 @@ searchZelfId();
 import requests
 
 # Create session
-session = requests.post("{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions", json={
+session = requests.post("https://v4.zelf.world/api/sessions", json={
     "identifier": "my_session_123",
     "type": "createWallet",
     "isWebExtension": False
@@ -250,7 +255,7 @@ session = requests.post("{{ZELF_PUBLIC_API_ORIGIN}}/api/sessions", json={
 token = session.json()["data"]["token"]
 
 # Search for a Zelf ID
-response = requests.get("{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/search",
+response = requests.get("https://v4.zelf.world/api/zelf-ids/search",
     params={"tagName": "username", "domain": "zelf", "os": "DESKTOP"},
     headers={"Authorization": f"Bearer {token}", "Origin": "https://yourdomain.com"}
 )

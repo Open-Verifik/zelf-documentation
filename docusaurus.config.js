@@ -42,6 +42,8 @@ const config = {
 	customFields: {
 		zelfPublicApiOrigin: zelfPublicApi.origin,
 		zelfPublicApiHost: zelfPublicApi.hostname,
+		zelfV4ApiOrigin: zelfPublicApi.v4Origin,
+		zelfV4ApiHost: zelfPublicApi.v4Hostname,
 	},
 
 	onBrokenLinks: "throw",

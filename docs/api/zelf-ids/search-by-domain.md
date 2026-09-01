@@ -9,10 +9,12 @@ image: /img/social-card.png
 
 Search all Zelf IDs registered under a specific domain and storage system.
 
+`storage` may be `"IPFS"`, `"Arweave"`, or `"Walrus"` so the list query can read existing indexes. **Zelf ID leases never write Walrus.** New v4 names appear on IPFS and, when the domain enables it, Arweave.
+
 ## Endpoint
 
 ```
-GET {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/search-by-domain
+GET https://v4.zelf.world/api/zelf-ids/search-by-domain
 ```
 
 ## Authentication
@@ -74,7 +76,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/search-by-domain?domain=zelf&storage=IPFS" \
+curl -X GET "https://v4.zelf.world/api/zelf-ids/search-by-domain?domain=zelf&storage=IPFS" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
@@ -85,7 +87,7 @@ curl -X GET "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/search-by-domain?domain=zel
 ```javascript
 const axios = require('axios');
 
-const response = await axios.get('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/search-by-domain', {
+const response = await axios.get('https://v4.zelf.world/api/zelf-ids/search-by-domain', {
   params: { domain: 'zelf', storage: 'IPFS' },
   headers: { 'Authorization': `Bearer ${token}`, 'Origin': 'https://yourdomain.com' }
 });

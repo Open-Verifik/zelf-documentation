@@ -7,7 +7,7 @@ image: /img/social-card.png
 
 # Create License
 
-Create or update a license for a domain with comprehensive configuration settings.
+Create or update a license for a domain with comprehensive configuration settings. The payload is [The License Object](/docs/api/licenses/license-object): one JSON document per TLD.
 
 ## Endpoint
 

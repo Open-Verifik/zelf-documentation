@@ -7,12 +7,12 @@ image: /img/social-card.png
 
 # Preview ZelfProof
 
-Preview a raw ZelfProof string to inspect its public data without performing a domain lookup. Useful for validating a ZelfProof before registering it.
+Preview a raw ZelfProof string on **ZelfEncrypt v4** without a domain lookup. Useful for validating a proof before [Lease Recovery](/docs/api/zelf-ids/lease-recovery). For a QR image, use [Preview Zelf ID QR](/docs/api/zelf-ids/preview-zelf-id-qr).
 
 ## Endpoint
 
 ```
-POST {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview-zelfproof
+POST https://v4.zelf.world/api/zelf-ids/preview-zelfproof
 ```
 
 ## Authentication
@@ -42,7 +42,9 @@ import TabItem from '@theme/TabItem';
       "ethAddress": "0xb4296e8aFaE20242C1004Eb2c09Bf58A79C26bA5",
       "btcAddress": "bc1q9x0zeau8sd05vs5zt5hyxc7tgahd028v2t695y",
       "solanaAddress": "DnpBkSJiMNxok1TrQRufMryLysbj7Fhh1HEQ8h2hqZdb",
-      "hasPassword": "true"
+      "hasPassword": "true",
+      "origin": "online",
+      "v": "4"
     },
     "passwordLayer": true,
     "zelfProof": "[ZELFPROOF_BASE64]"
@@ -77,7 +79,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview-zelfproof" \
+curl -X POST "https://v4.zelf.world/api/zelf-ids/preview-zelfproof" \
   -H "Content-Type: application/json" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
@@ -93,7 +95,7 @@ curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview-zelfproof" \
 ```javascript
 const axios = require('axios');
 
-const response = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/preview-zelfproof', {
+const response = await axios.post('https://v4.zelf.world/api/zelf-ids/preview-zelfproof', {
   zelfProof: '[ZELFPROOF_BASE64_DATA]',
   os: 'DESKTOP'
 }, {

@@ -7,12 +7,18 @@ image: /img/social-card.png
 
 # Lease Zelf ID
 
-Lease (register) a new Zelf ID. The system generates multi-chain wallet addresses and encrypts them with your biometric face data into a ZelfProof stored on IPFS and Arweave.
+Lease (register) a new Zelf ID. The system generates multi-chain wallet addresses and encrypts them with your biometric face data into a **ZelfEncrypt v4** proof. Pins go to IPFS always, and to Arweave when the domain enables it. Zelf ID leases never write Walrus.
+
+Names of **6 to 27 characters** lease immediately as mainnet `plan: "free"` for one year if you do not pay. They never use `.hold`. You can later buy a yearly **premium** or **unlimited** subscription from the same license price table. When that year ends, the name stays yours and the plan reads as `free` again — not a hold.
+
+Names of **5 characters or fewer** are **unlimited only**. The yearly price comes from the **domain license** pricing table (`domainConfig.getPrice`). They cannot be `premium`. If they still owe that license price, they become a **5-hour** unpaid reservation pinned as `name.domain.hold` (for example `alice.zelf.hold`). A referral that zeros the quote confirms immediately as a complimentary year of `unlimited`. Then call [Payment Options](/docs/api/zelf-ids/payment-options) and [Payment Confirmation](/docs/api/zelf-ids/payment-confirmation).
+
+New records stamp `origin: "online"` and `v: 4`. See [Migration v4](/docs/changelog/2026-08-31-zelf-id-migration-v4).
 
 ## Endpoint
 
 ```
-POST {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/lease
+POST https://v4.zelf.world/api/zelf-ids/lease
 ```
 
 ## Authentication
@@ -37,7 +43,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-<TabItem value="200" label="200 OK" default>
+<TabItem value="200-free" label="200 OK - Free (6+ chars)" default>
 
 ```json
 {
@@ -73,10 +79,12 @@ import TabItem from '@theme/TabItem';
         "blockDAGAddress": "0x...",
         "avalancheAddress": "0x...",
         "hasPassword": "true",
-        "type": "hold",
+        "type": "mainnet",
+        "plan": "free",
         "origin": "online",
-        "registeredAt": "2026-05-13 12:00:00",
-        "expiresAt": "2027-05-13 12:00:00"
+        "v": "4",
+        "registeredAt": "2026-08-31 12:00:00",
+        "expiresAt": "2027-08-31 12:00:00"
       },
       "zelfProof": "[ZELFPROOF_BASE64]",
       "zelfProofQRCode": "data:image/png;base64,[QR_CODE_BASE64]"
@@ -87,6 +95,32 @@ import TabItem from '@theme/TabItem';
     },
     "metadata": {
       "mnemonic": "word1 word2 word3 ... word24"
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem value="200-hold" label="200 OK - Short hold">
+
+Short names (5 characters or fewer) that still owe unlimited pin as `alice.zelf.hold` for 5 hours.
+
+```json
+{
+  "data": {
+    "available": false,
+    "name": "alice.zelf.hold",
+    "domain": "zelf",
+    "tagObject": {
+      "publicData": {
+        "tagName": "alice.zelf.hold",
+        "domain": "zelf",
+        "type": "hold",
+        "origin": "online",
+        "v": "4",
+        "registeredAt": "2026-08-31 12:00:00",
+        "expiresAt": "2026-08-31 17:00:00"
+      }
     }
   }
 }
@@ -132,8 +166,12 @@ import TabItem from '@theme/TabItem';
 | `tagObject.publicData.suiAddress` | string | Sui address |
 | `tagObject.publicData.blockDAGAddress` | string | BlockDAG address |
 | `tagObject.publicData.avalancheAddress` | string | Avalanche address |
+| `tagObject.publicData.origin` | string | `"online"` on `/api/zelf-ids` |
+| `tagObject.publicData.v` | string | `"4"` for ZelfEncrypt v4 |
+| `tagObject.publicData.type` | string | `"hold"` for a 5-hour unpaid reservation; `"mainnet"` after a free year or paid confirm |
+| `tagObject.publicData.plan` | string | Present on confirmed records: `"free"`, `"premium"`, or `"unlimited"` |
 | `tagObject.publicData.registeredAt` | string | Registration timestamp |
-| `tagObject.publicData.expiresAt` | string | Expiration timestamp |
+| `tagObject.publicData.expiresAt` | string | 5 hours later on a paid hold; 1 year later on a confirmed year |
 | `tagObject.zelfProof` | string | ZelfProof data (biometric-encrypted) |
 | `tagObject.zelfProofQRCode` | string | Base64 QR code image |
 | `pgp` | object | PGP key pair (if not removed) |
@@ -149,7 +187,7 @@ The `metadata.mnemonic` field contains the wallet recovery phrase. Never log, st
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X POST "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/lease" \
+curl -X POST "https://v4.zelf.world/api/zelf-ids/lease" \
   -H "Content-Type: application/json" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
@@ -173,7 +211,7 @@ const fs = require('fs');
 // Convert face image to base64
 const faceBase64 = fs.readFileSync('./selfie.jpg', 'base64');
 
-const response = await axios.post('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/lease', {
+const response = await axios.post('https://v4.zelf.world/api/zelf-ids/lease', {
   tagName: 'myname',
   domain: 'zelf',
   faceBase64,
@@ -202,7 +240,7 @@ import base64
 with open("selfie.jpg", "rb") as f:
     face_base64 = base64.b64encode(f.read()).decode()
 
-response = requests.post("{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/lease", json={
+response = requests.post("https://v4.zelf.world/api/zelf-ids/lease", json={
     "tagName": "myname",
     "domain": "zelf",
     "faceBase64": face_base64,

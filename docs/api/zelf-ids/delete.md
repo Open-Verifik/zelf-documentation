@@ -7,12 +7,12 @@ image: /img/social-card.png
 
 # Delete Zelf ID
 
-Delete a Zelf ID by verifying ownership through biometric face verification. This unpins the data from IPFS.
+Delete a Zelf ID by verifying ownership through biometric face verification. This unpins the **v4** IPFS record (and continuation pins). Arweave data is permanent and cannot be deleted.
 
 ## Endpoint
 
 ```
-DELETE {{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/delete
+DELETE https://v4.zelf.world/api/zelf-ids/delete
 ```
 
 ## Authentication
@@ -83,7 +83,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="cURL" default>
 
 ```bash
-curl -X DELETE "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/delete" \
+curl -X DELETE "https://v4.zelf.world/api/zelf-ids/delete" \
   -H "Content-Type: application/json" \
   -H "Origin: https://yourdomain.com" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
@@ -101,7 +101,7 @@ curl -X DELETE "{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/delete" \
 ```javascript
 const axios = require('axios');
 
-const response = await axios.delete('{{ZELF_PUBLIC_API_ORIGIN}}/api/zelf-ids/delete', {
+const response = await axios.delete('https://v4.zelf.world/api/zelf-ids/delete', {
   data: {
     tagName: 'myname',
     domain: 'zelf',
