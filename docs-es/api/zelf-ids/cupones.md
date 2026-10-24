@@ -225,6 +225,7 @@ import TabItem from '@theme/TabItem';
     "confirmed": true,
     "paymentMethod": "coupon",
     "couponId": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    "planExpiresAt": "2027-10-24 18:00:00",
     "amountReceived": 0,
     "tagObject": {
       "publicData": {
@@ -232,14 +233,14 @@ import TabItem from '@theme/TabItem';
         "origin": "online",
         "v": "4",
         "plan": "premium",
-        "expiresAt": "2027-10-24 18:00:00"
+        "expiresAt": "2126-10-24 18:00:00"
       }
     }
   }
 }
 ```
 
-El lease guarda `payment.method` `"coupon"` y `payment.couponId`.
+En un nombre Free, `publicData.expiresAt` es el lease del nombre a 100 años. `planExpiresAt` y `paymentMethod` se guardan en el servidor y se mezclan en esta respuesta al leerla. No son campos del registro público. El lease guarda `payment.method` `"coupon"` y `payment.couponId`.
 
 </TabItem>
 <TabItem value="create" label="201 Created">

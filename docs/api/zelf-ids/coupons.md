@@ -225,6 +225,7 @@ import TabItem from '@theme/TabItem';
     "confirmed": true,
     "paymentMethod": "coupon",
     "couponId": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    "planExpiresAt": "2027-10-24 18:00:00",
     "amountReceived": 0,
     "tagObject": {
       "publicData": {
@@ -232,14 +233,14 @@ import TabItem from '@theme/TabItem';
         "origin": "online",
         "v": "4",
         "plan": "premium",
-        "expiresAt": "2027-10-24 18:00:00"
+        "expiresAt": "2126-10-24 18:00:00"
       }
     }
   }
 }
 ```
 
-The lease record stores `payment.method` `"coupon"` and `payment.couponId`.
+On a Free name, `publicData.expiresAt` is the 100-year name lease. `planExpiresAt` and `paymentMethod` are stored server-side and merged onto this response when it is read. They are not fields of the public record. The lease record stores `payment.method` `"coupon"` and `payment.couponId`.
 
 </TabItem>
 <TabItem value="create" label="201 Created">
