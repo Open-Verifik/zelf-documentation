@@ -87,7 +87,7 @@ Stripe and crypto charge `amountDue`. Crypto quotes in `prices` and the `signedD
 
 ## Plan term and the name lease
 
-A Free name that buys **premium** or **unlimited** for `1y` or longer, paid by Stripe, crypto, coupon, or whitelist, keeps its **100-year Free lease**. The paid plan ends at `planExpiresAt`. The name ends at `leaseExpiresAt`. When the paid term ends, the effective plan is `free` again and Free limits apply. The name does not expire. A renewal or an upgrade changes only the plan term. An Unlimited `lifetime` plan has no `planExpiresAt`. Names of **1–5** characters still only buy **unlimited**.
+A Free name that buys **premium** or **unlimited** for `1y` or longer, paid by Stripe, crypto, coupon, or whitelist, keeps its **100-year Free lease**. The paid plan ends at `planExpiresAt`. The name ends at `leaseExpiresAt`. When the paid term ends, `plan` is `free` and `planExpiresAt` stays on that past end date. Free limits apply again. The name does not expire. A renewal or an upgrade changes only the plan term. An Unlimited `lifetime` plan has no `planExpiresAt`. Names of **1–5** characters still only buy **unlimited**.
 
 ## Upgrading a plan
 
@@ -104,6 +104,7 @@ The caller must be the verified owner. On the session, `verifiedTagName` must eq
   "duration": "1y",
   "planExpiresAt": "2027-10-24T18:00:00.000Z",
   "leaseExpiresAt": "2126-10-24T18:00:00.000Z",
+  "expiresAt": "2126-10-24T18:00:00.000Z",
   "paymentMethod": "coupon",
   "nextPlans": ["unlimited"],
   "upgrade": {
@@ -113,7 +114,7 @@ The caller must be the verified owner. On the session, `verifiedTagName` must eq
 }
 ```
 
-`plan` is the effective plan right now: `free`, `premium`, or `unlimited`. After `planExpiresAt` it is `free`. `expiresAt`, when returned, is an alias of `planExpiresAt`. `paymentMethod` is `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, `revenuecat`, or `whitelist`. A `$0` license whitelist checkout stores `paymentMethod` `whitelist`. `nextPlans` lists what this name can still buy. `upgrade.url` is present only when the action has a link.
+`plan` is the effective plan right now: `free`, `premium`, or `unlimited`. After a paid term lapses, `plan` is `free` and `planExpiresAt` is that past end date. `leaseExpiresAt` is the name lease. `expiresAt` is that same name-lease expiry, kept for older clients. `paymentMethod` is `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, `revenuecat`, or `whitelist`. A `$0` license whitelist checkout stores `paymentMethod` `whitelist`. `nextPlans` lists what this name can still buy. `upgrade.url` is present only when the action has a link.
 
 Zelf ID Stripe checkout is a one-off payment today. `stripe_portal` applies only when the lease stores `paymentMethod` `stripe_subscription`. Upgrade links use `https://zelf.world` unless `LANDING_URL` overrides that host.
 

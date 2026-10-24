@@ -87,7 +87,7 @@ Stripe y crypto cobran `amountDue`. Las cotizaciones crypto de `prices` y el JWT
 
 ## Plazo del plan y lease del nombre
 
-Un nombre Free que compra **premium** o **unlimited** por `1y` o más, pagado con Stripe, crypto, cupón o whitelist, conserva su **lease Free de 100 años**. El plan de pago termina en `planExpiresAt`. El nombre termina en `leaseExpiresAt`. Cuando acaba el plazo de pago, el plan efectivo vuelve a `free` y aplican otra vez los límites de Free. El nombre no vence. Una renovación o una subida cambia solo el plazo del plan. Un plan Unlimited `lifetime` no tiene `planExpiresAt`. Los nombres de **1–5** caracteres siguen comprando solo **unlimited**.
+Un nombre Free que compra **premium** o **unlimited** por `1y` o más, pagado con Stripe, crypto, cupón o whitelist, conserva su **lease Free de 100 años**. El plan de pago termina en `planExpiresAt`. El nombre termina en `leaseExpiresAt`. Cuando acaba el plazo de pago, `plan` es `free` y `planExpiresAt` se queda en esa fecha de fin ya pasada. Vuelven a aplicar los límites de Free. El nombre no vence. Una renovación o una subida cambia solo el plazo del plan. Un plan Unlimited `lifetime` no tiene `planExpiresAt`. Los nombres de **1–5** caracteres siguen comprando solo **unlimited**.
 
 ## Subir de plan
 
@@ -104,6 +104,7 @@ Quien llama tiene que ser el dueño verificado. En la sesión, `verifiedTagName`
   "duration": "1y",
   "planExpiresAt": "2027-10-24T18:00:00.000Z",
   "leaseExpiresAt": "2126-10-24T18:00:00.000Z",
+  "expiresAt": "2126-10-24T18:00:00.000Z",
   "paymentMethod": "coupon",
   "nextPlans": ["unlimited"],
   "upgrade": {
@@ -113,7 +114,7 @@ Quien llama tiene que ser el dueño verificado. En la sesión, `verifiedTagName`
 }
 ```
 
-`plan` es el plan efectivo ahora mismo: `free`, `premium` o `unlimited`. Después de `planExpiresAt` pasa a `free`. `expiresAt`, si viene, es un alias de `planExpiresAt`. `paymentMethod` es `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, `revenuecat` o `whitelist`. Un checkout de lista blanca de la licencia a `$0` guarda `paymentMethod` `whitelist`. `nextPlans` lista lo que ese nombre todavía puede comprar. `upgrade.url` solo viene cuando la acción tiene un enlace.
+`plan` es el plan efectivo ahora mismo: `free`, `premium` o `unlimited`. Cuando un plazo de pago ya venció, `plan` es `free` y `planExpiresAt` es esa fecha de fin pasada. `leaseExpiresAt` es el lease del nombre. `expiresAt` es esa misma fecha de lease del nombre, conservada para clientes antiguos. `paymentMethod` es `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, `revenuecat` o `whitelist`. Un checkout de lista blanca de la licencia a `$0` guarda `paymentMethod` `whitelist`. `nextPlans` lista lo que ese nombre todavía puede comprar. `upgrade.url` solo viene cuando la acción tiene un enlace.
 
 Hoy el checkout de Stripe para Zelf ID es un pago único. `stripe_portal` solo aplica cuando el lease guarda `paymentMethod` `stripe_subscription`. Los enlaces de subida usan `https://zelf.world`, salvo que `LANDING_URL` cambie ese host.
 
