@@ -103,17 +103,19 @@ Quien llama tiene que ser el dueño verificado. En la sesión, `verifiedTagName`
   "nextPlans": ["unlimited"],
   "upgrade": {
     "action": "checkout",
-    "url": "https://zelf.world/checkout?zelfName=myname.zelf&plan=unlimited"
+    "url": "https://zelf.world/pricing?tagname=myname&domain=zelf&duration=1&plan=unlimited"
   }
 }
 ```
 
 `plan` es `free`, `premium` o `unlimited`. `paymentMethod` es `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon` o `revenuecat`. `nextPlans` lista lo que ese nombre todavía puede comprar. `upgrade.url` solo viene cuando la acción tiene un enlace.
 
+Hoy el checkout de Stripe para Zelf ID es un pago único. `stripe_portal` solo aplica cuando el lease guarda `paymentMethod` `stripe_subscription`.
+
 | Pago actual | `upgrade.action` | A dónde va el dueño |
 |-------------|------------------|---------------------|
-| `stripe_subscription` activa | `stripe_portal` | URL de una sesión del portal de cliente de Stripe |
-| `stripe` de un solo pago, `crypto`, `coupon` o `free` | `checkout` | Checkout de `https://zelf.world` con este nombre y el siguiente plan ya elegidos (Stripe o crypto) |
+| `stripe_subscription` en el lease | `stripe_portal` | URL de una sesión del portal de cliente de Stripe |
+| `stripe` de un solo pago, `crypto`, `coupon` o `free` | `checkout` | `https://zelf.world/pricing?tagname=<tag>&domain=<domain>&duration=1&plan=<plan>` (Stripe o crypto) |
 | `revenuecat` | `mobile_store` | La app móvil de Zelf |
 | Unlimited `lifetime` | `none` | No hay subida. `nextPlans` queda vacío. |
 

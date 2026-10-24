@@ -103,17 +103,19 @@ The caller must be the verified owner. On the session, `verifiedTagName` must eq
   "nextPlans": ["unlimited"],
   "upgrade": {
     "action": "checkout",
-    "url": "https://zelf.world/checkout?zelfName=myname.zelf&plan=unlimited"
+    "url": "https://zelf.world/pricing?tagname=myname&domain=zelf&duration=1&plan=unlimited"
   }
 }
 ```
 
 `plan` is `free`, `premium`, or `unlimited`. `paymentMethod` is `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, or `revenuecat`. `nextPlans` lists what this name can still buy. `upgrade.url` is present only when the action has a link.
 
+Zelf ID Stripe checkout is a one-off payment today. `stripe_portal` applies only when the lease stores `paymentMethod` `stripe_subscription`.
+
 | Current payment | `upgrade.action` | Where the owner goes |
 |-----------------|------------------|----------------------|
-| Active `stripe_subscription` | `stripe_portal` | Stripe customer portal session URL |
-| One-off `stripe`, `crypto`, `coupon`, or `free` | `checkout` | `https://zelf.world` checkout with this name and the next plan filled in (Stripe or crypto) |
+| `stripe_subscription` on the lease | `stripe_portal` | Stripe customer portal session URL |
+| One-off `stripe`, `crypto`, `coupon`, or `free` | `checkout` | `https://zelf.world/pricing?tagname=<tag>&domain=<domain>&duration=1&plan=<plan>` (Stripe or crypto) |
 | `revenuecat` | `mobile_store` | The Zelf mobile app |
 | Unlimited `lifetime` | `none` | No upgrade. `nextPlans` is empty. |
 
