@@ -1,7 +1,7 @@
 ---
 title: Coupons
 description: Percent-off coupons for Zelf ID Premium and Unlimited plans. Quote, grant, and super-admin create, list, and deactivate.
-keywords: [zelf id coupon, premium coupon, unlimited coupon, percent off, plan pricing]
+keywords: [zelf id coupon, premium coupon, unlimited coupon, percent off, plan pricing, my-plan, upgrade plan]
 image: /img/social-card.png
 sidebar_label: Coupons
 ---
@@ -84,6 +84,44 @@ A rejected grant does not write a redemption. Create and redeem each write an au
 ### Partial (`percentOff` under 100)
 
 Stripe and crypto charge `amountDue`. Crypto quotes in `prices` and the `signedDataPrice` JWT use that discounted USD amount. Confirm crypto with payment confirmation and `network`, as usual. The redemption is written when that checkout grants the plan.
+
+## Upgrading a plan
+
+```
+GET https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf
+```
+
+The caller must be the verified owner. On the session, `verifiedTagName` must equal the normalized `zelfName`, and the request must fall inside `verifiedUntil`. A missing session is `401`. A session that fails that match is `403`.
+
+```json
+{
+  "zelfName": "myname.zelf",
+  "plan": "premium",
+  "duration": "1y",
+  "expiresAt": "2027-10-24T18:00:00.000Z",
+  "paymentMethod": "coupon",
+  "nextPlans": ["unlimited"],
+  "upgrade": {
+    "action": "checkout",
+    "url": "https://zelf.world/checkout?zelfName=myname.zelf&plan=unlimited"
+  }
+}
+```
+
+`plan` is `free`, `premium`, or `unlimited`. `paymentMethod` is `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, or `revenuecat`. `nextPlans` lists what this name can still buy. `upgrade.url` is present only when the action has a link.
+
+| Current payment | `upgrade.action` | Where the owner goes |
+|-----------------|------------------|----------------------|
+| Active `stripe_subscription` | `stripe_portal` | Stripe customer portal session URL |
+| One-off `stripe`, `crypto`, `coupon`, or `free` | `checkout` | `https://zelf.world` checkout with this name and the next plan filled in (Stripe or crypto) |
+| `revenuecat` | `mobile_store` | The Zelf mobile app |
+| Unlimited `lifetime` | `none` | No upgrade. `nextPlans` is empty. |
+
+```bash
+curl -X GET "https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Origin: https://yourdomain.com"
+```
 
 ## Admin
 

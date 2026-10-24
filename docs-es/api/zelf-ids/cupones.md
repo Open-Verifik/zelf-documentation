@@ -1,7 +1,7 @@
 ---
 title: Cupones
 description: Cupones de porcentaje para los planes Premium y Unlimited de Zelf ID. Cotización, concesión y alta, listado y desactivación de super-admin.
-keywords: [cupón zelf id, cupón premium, cupón unlimited, percent off, precio del plan]
+keywords: [cupón zelf id, cupón premium, cupón unlimited, percent off, precio del plan, my-plan, subir de plan]
 image: /img/social-card.png
 sidebar_label: Cupones
 ---
@@ -84,6 +84,44 @@ Una concesión rechazada no escribe un canje. Cada alta y cada canje escriben un
 ### Parcial (`percentOff` menor de 100)
 
 Stripe y crypto cobran `amountDue`. Las cotizaciones crypto de `prices` y el JWT `signedDataPrice` usan ese importe en USD ya descontado. La confirmación crypto lleva `network`, como siempre. El canje se escribe cuando ese checkout concede el plan.
+
+## Subir de plan
+
+```
+GET https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf
+```
+
+Quien llama tiene que ser el dueño verificado. En la sesión, `verifiedTagName` debe coincidir con el `zelfName` normalizado, y la petición tiene que caer dentro de `verifiedUntil`. Sin sesión la respuesta es `401`. Una sesión que no cumple esa comprobación recibe `403`.
+
+```json
+{
+  "zelfName": "myname.zelf",
+  "plan": "premium",
+  "duration": "1y",
+  "expiresAt": "2027-10-24T18:00:00.000Z",
+  "paymentMethod": "coupon",
+  "nextPlans": ["unlimited"],
+  "upgrade": {
+    "action": "checkout",
+    "url": "https://zelf.world/checkout?zelfName=myname.zelf&plan=unlimited"
+  }
+}
+```
+
+`plan` es `free`, `premium` o `unlimited`. `paymentMethod` es `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon` o `revenuecat`. `nextPlans` lista lo que ese nombre todavía puede comprar. `upgrade.url` solo viene cuando la acción tiene un enlace.
+
+| Pago actual | `upgrade.action` | A dónde va el dueño |
+|-------------|------------------|---------------------|
+| `stripe_subscription` activa | `stripe_portal` | URL de una sesión del portal de cliente de Stripe |
+| `stripe` de un solo pago, `crypto`, `coupon` o `free` | `checkout` | Checkout de `https://zelf.world` con este nombre y el siguiente plan ya elegidos (Stripe o crypto) |
+| `revenuecat` | `mobile_store` | La app móvil de Zelf |
+| Unlimited `lifetime` | `none` | No hay subida. `nextPlans` queda vacío. |
+
+```bash
+curl -X GET "https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Origin: https://yourdomain.com"
+```
 
 ## Administración
 
