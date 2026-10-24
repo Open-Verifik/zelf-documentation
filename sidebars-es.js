@@ -26,6 +26,7 @@ const sidebars = {
 				"empezar/preservacion-privacidad",
 				"empezar/casos-uso",
 				"empezar/descargas",
+				"empezar/planes-y-tokens",
 			],
 		},
 		{

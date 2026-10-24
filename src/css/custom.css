@@ -427,6 +427,28 @@ a {
   font-weight: 600;
 }
 
+.plans-table-wrap {
+  max-width: 100%;
+  margin: 1.25rem 0 1.75rem;
+  overflow-x: auto;
+}
+
+.theme-doc-markdown .plans-table-wrap > table {
+  display: table;
+  width: 100%;
+  overflow: visible;
+}
+
+.theme-doc-markdown .plans-table-wrap--compare > table {
+  min-width: 40rem;
+}
+
+.theme-doc-markdown .plans-table-wrap th,
+.theme-doc-markdown .plans-table-wrap td {
+  white-space: normal;
+  vertical-align: top;
+}
+
 .tabs-container {
   margin: 1.75rem 0;
 }
