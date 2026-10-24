@@ -61,7 +61,7 @@ The API checks, in this order: the code exists, `active` is true, `expiresAt` is
 
 A failed check still returns the quote. `amountDue` stays the license price, and `coupon.reason` says why. A failed check does not write a redemption.
 
-`amountDue = listPrice × (100 − percentOff) / 100`. The figures below use the example license row for a 6–15 character name, one year, **$24**. Each TLD sets its own table.
+With no upgrade credit, `amountDue = listPrice × (100 − percentOff) / 100`. A Premium-to-Unlimited upgrade subtracts `upgradeCredit` before the coupon. See [Upgrade credit](#upgrade-credit). The figures below use the example license row for a 6–15 character name, one year, **$24**. Each TLD sets its own table.
 
 ## Checkout
 
@@ -130,6 +130,24 @@ curl -X GET "https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Origin: https://yourdomain.com"
 ```
+
+### Upgrade credit {#upgrade-credit}
+
+When a name on an active paid **premium** term upgrades to **unlimited**, unused Premium time is a discount on the Unlimited price.
+
+`upgradeCredit` is the amount actually paid for the current Premium term × (remaining seconds / total term seconds), rounded down to the cent, and capped at the Unlimited price. The server computes it when it builds the quote and checks it again at confirm.
+
+A term granted by a 100% coupon or a whitelist (`$0` paid) gets `$0` credit. A partial coupon credits the amount that was actually paid. A `lifetime` term and a lapsed term get no credit.
+
+The new Unlimited term starts on the upgrade date. Unused Premium time is not added onto that term.
+
+`GET /api/zelf-ids/payment-options` returns `listPrice`, `upgradeCredit`, and `amountDue`. The coupon applies after the credit:
+
+`amountDue = (listPrice − upgradeCredit) × (100 − percentOff) / 100`
+
+Half of a `$24` Premium term is `$12.00` of credit. If Unlimited lists at `$48`, `amountDue` is `$36` before a coupon.
+
+A final amount of `$0` uses the free-grant path. Identity is required, and no payment gateway is called. When `amountDue` is above `$0` and below the Stripe minimum, Stripe returns `stripe_amount_below_minimum`. Crypto checkout still works.
 
 ## Admin
 

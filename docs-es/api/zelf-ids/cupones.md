@@ -61,7 +61,7 @@ La API comprueba, en este orden: el código existe, `active` es true, `expiresAt
 
 Si una comprobación falla, la cotización se devuelve igual. `amountDue` sigue siendo el precio de la licencia y `coupon.reason` indica el motivo. Un fallo no escribe un canje.
 
-`amountDue = listPrice × (100 − percentOff) / 100`. Las cifras de abajo usan la fila de ejemplo de la licencia para un nombre de 6–15 caracteres, un año, **$24**. Cada TLD define su tabla.
+Sin crédito de subida, `amountDue = listPrice × (100 − percentOff) / 100`. Una subida de Premium a Unlimited resta `upgradeCredit` antes del cupón. Ver [Crédito de subida](#credito-de-subida). Las cifras de abajo usan la fila de ejemplo de la licencia para un nombre de 6–15 caracteres, un año, **$24**. Cada TLD define su tabla.
 
 ## Checkout
 
@@ -130,6 +130,24 @@ curl -X GET "https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Origin: https://yourdomain.com"
 ```
+
+### Crédito de subida {#credito-de-subida}
+
+Cuando un nombre con un plazo **premium** de pago activo sube a **unlimited**, el tiempo Premium que no se usó es un descuento sobre el precio de Unlimited.
+
+`upgradeCredit` es lo que se pagó de verdad por el plazo Premium actual × (segundos restantes / segundos totales del plazo), redondeado hacia abajo al centavo, y con tope en el precio de Unlimited. El servidor lo calcula al armar la cotización y lo vuelve a comprobar al confirmar.
+
+Un plazo concedido con un cupón del 100% o con whitelist (`$0` pagados) da `$0` de crédito. Un cupón parcial acredita lo que sí se pagó. Un plazo `lifetime` y un plazo ya vencido no dan crédito.
+
+El nuevo plazo Unlimited empieza en la fecha de la subida. El tiempo Premium que sobra no se suma a ese plazo.
+
+`GET /api/zelf-ids/payment-options` devuelve `listPrice`, `upgradeCredit` y `amountDue`. El cupón se aplica después del crédito:
+
+`amountDue = (listPrice − upgradeCredit) × (100 − percentOff) / 100`
+
+La mitad de un plazo Premium de `$24` son `$12.00` de crédito. Si Unlimited figura a `$48`, `amountDue` es `$36` antes de un cupón.
+
+Un importe final de `$0` usa la vía de concesión gratuita. Hace falta identidad, y no se llama a ninguna pasarela de pago. Si `amountDue` es mayor que `$0` y está por debajo del mínimo de Stripe, Stripe devuelve `stripe_amount_below_minimum`. El checkout crypto sigue disponible.
 
 ## Administración
 
