@@ -77,6 +77,7 @@ const sidebars = {
 						"api/zelf-ids/preview-zelf-id-qr",
 						"api/zelf-ids/payment-options",
 						"api/zelf-ids/payment-confirmation",
+						"api/zelf-ids/coupons",
 						"api/zelf-ids/unit-tests",
 					],
 				},

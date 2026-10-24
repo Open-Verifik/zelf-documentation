@@ -54,6 +54,12 @@ const sidebars = {
 			items: [
 				{
 					type: "category",
+					label: "API de Zelf ID",
+					collapsible: true,
+					items: ["api/zelf-ids/cupones"],
+				},
+				{
+					type: "category",
 					label: "Etiquetas (Tags)",
 					collapsible: true,
 					items: [
