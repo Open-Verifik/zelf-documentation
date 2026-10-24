@@ -108,14 +108,14 @@ The caller must be the verified owner. On the session, `verifiedTagName` must eq
 }
 ```
 
-`plan` is `free`, `premium`, or `unlimited`. `paymentMethod` is `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, or `revenuecat`. `nextPlans` lists what this name can still buy. `upgrade.url` is present only when the action has a link.
+`plan` is `free`, `premium`, or `unlimited`. `paymentMethod` is `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, `revenuecat`, or `whitelist`. A `$0` license whitelist checkout stores `paymentMethod` `whitelist`. `nextPlans` lists what this name can still buy. `upgrade.url` is present only when the action has a link.
 
-Zelf ID Stripe checkout is a one-off payment today. `stripe_portal` applies only when the lease stores `paymentMethod` `stripe_subscription`.
+Zelf ID Stripe checkout is a one-off payment today. `stripe_portal` applies only when the lease stores `paymentMethod` `stripe_subscription`. Upgrade links use `https://zelf.world` unless `LANDING_URL` overrides that host.
 
 | Current payment | `upgrade.action` | Where the owner goes |
 |-----------------|------------------|----------------------|
 | `stripe_subscription` on the lease | `stripe_portal` | Stripe customer portal session URL |
-| One-off `stripe`, `crypto`, `coupon`, or `free` | `checkout` | `https://zelf.world/pricing?tagname=<tag>&domain=<domain>&duration=1&plan=<plan>` (Stripe or crypto) |
+| One-off `stripe`, `crypto`, `coupon`, `free`, or `whitelist` | `checkout` | `https://zelf.world/pricing?tagname=<tag>&domain=<domain>&duration=1&plan=<plan>` (Stripe or crypto) |
 | `revenuecat` | `mobile_store` | The Zelf mobile app |
 | Unlimited `lifetime` | `none` | No upgrade. `nextPlans` is empty. |
 

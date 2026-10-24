@@ -108,14 +108,14 @@ Quien llama tiene que ser el dueño verificado. En la sesión, `verifiedTagName`
 }
 ```
 
-`plan` es `free`, `premium` o `unlimited`. `paymentMethod` es `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon` o `revenuecat`. `nextPlans` lista lo que ese nombre todavía puede comprar. `upgrade.url` solo viene cuando la acción tiene un enlace.
+`plan` es `free`, `premium` o `unlimited`. `paymentMethod` es `free`, `stripe`, `stripe_subscription`, `crypto`, `coupon`, `revenuecat` o `whitelist`. Un checkout de lista blanca de la licencia a `$0` guarda `paymentMethod` `whitelist`. `nextPlans` lista lo que ese nombre todavía puede comprar. `upgrade.url` solo viene cuando la acción tiene un enlace.
 
-Hoy el checkout de Stripe para Zelf ID es un pago único. `stripe_portal` solo aplica cuando el lease guarda `paymentMethod` `stripe_subscription`.
+Hoy el checkout de Stripe para Zelf ID es un pago único. `stripe_portal` solo aplica cuando el lease guarda `paymentMethod` `stripe_subscription`. Los enlaces de subida usan `https://zelf.world`, salvo que `LANDING_URL` cambie ese host.
 
 | Pago actual | `upgrade.action` | A dónde va el dueño |
 |-------------|------------------|---------------------|
 | `stripe_subscription` en el lease | `stripe_portal` | URL de una sesión del portal de cliente de Stripe |
-| `stripe` de un solo pago, `crypto`, `coupon` o `free` | `checkout` | `https://zelf.world/pricing?tagname=<tag>&domain=<domain>&duration=1&plan=<plan>` (Stripe o crypto) |
+| `stripe` de un solo pago, `crypto`, `coupon`, `free` o `whitelist` | `checkout` | `https://zelf.world/pricing?tagname=<tag>&domain=<domain>&duration=1&plan=<plan>` (Stripe o crypto) |
 | `revenuecat` | `mobile_store` | La app móvil de Zelf |
 | Unlimited `lifetime` | `none` | No hay subida. `nextPlans` queda vacío. |
 
