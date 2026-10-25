@@ -26,7 +26,7 @@ One TLD → one license object → one pricing table. Changing prices means upda
 
 ## Zelf ID plans on top of the table
 
-Paid Zelf ID plans are **yearly subscriptions**. Dollar amounts always come from `tags.payment.pricingTable`. The product only decides which plans a name may use:
+Paid Zelf ID plans are **yearly subscriptions**. Dollar amounts always come from `tags.payment.pricingTable`. A [coupon](/docs/api/zelf-ids/coupons) applies a percent off that price for premium and unlimited. The table stays the only price list. The product only decides which plans a name may use:
 
 | Bare-name length | Allowed plans | Lease behavior |
 |------------------|---------------|----------------|

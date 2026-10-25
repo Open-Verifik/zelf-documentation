@@ -7,7 +7,7 @@ image: /img/social-card.png
 
 # Payment Options
 
-Return unique payment addresses, per-network quotes, and a JWT (`signedDataPrice`) for a Zelf ID that is already leased. Quotes use the **domain license** yearly pricing table. Use this after a **short-name 5-hour hold** (unlimited only), or to buy **premium** or **unlimited** on a 6–27 character name. Pass `plan=premium` or `plan=unlimited` for long names. Short names cannot be quoted as `premium`. Do not call `/api/my-tags/payment-options` for v4 names.
+Return unique payment addresses, per-network quotes, and a JWT (`signedDataPrice`) for a Zelf ID that is already leased. Quotes use the **domain license** yearly pricing table. Use this after a **short-name 5-hour hold** (unlimited only), or to buy **premium** or **unlimited** on a 6–27 character name. Pass `plan=premium` or `plan=unlimited` for long names. Short names cannot be quoted as `premium`. Pass `coupon` to apply a percent-off [coupon](/docs/api/zelf-ids/coupons). A rejected code comes back on this quote with `coupon.reason`, and the license price stays the amount due. Do not call `/api/my-tags/payment-options` for v4 names.
 
 ## Endpoint
 
@@ -27,6 +27,7 @@ Requires a JWT token obtained from `POST /api/sessions`.
 | `domain` | string | Yes | Domain TLD (e.g., `"zelf"`) |
 | `duration` | string | Yes | `"1"`, `"2"`, `"3"`, `"4"`, `"5"`, or `"lifetime"` (years of a yearly subscription) |
 | `plan` | string | No | `"premium"` or `"unlimited"`. Required intent for 6–27 character names. Short names are always `unlimited`. |
+| `coupon` | string | No | Coupon code. Case-insensitive. See [Coupons](/docs/api/zelf-ids/coupons). |
 
 ## Response
 
