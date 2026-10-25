@@ -10,7 +10,7 @@ sidebar_label: Coupons
 
 A coupon takes a percent off a paid Zelf ID plan. It applies to **premium**, **unlimited**, or both. The list price is the license plan price for that name and duration (`tags.payment.pricingTable`, via `domainConfig.getPrice`). See [The License Object](/docs/api/licenses/license-object). A coupon does not add another price list.
 
-Account plans for passwords and 2FA are a separate price list. This page covers Zelf ID name plans only.
+The name's plan also sets its Zelf Keys password and 2FA limits. For what each plan includes, limits, extra slots, renewal and lapse, see [Plans: Free, Premium and Unlimited](/docs/api/zelf-ids/plans).
 
 Quote with [Payment Options](/docs/api/zelf-ids/payment-options). A **100%** coupon grants the plan on the same free-checkout path as a `$0` quote. A **partial** coupon charges the discounted amount on the normal Stripe or crypto checkout.
 

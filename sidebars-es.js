@@ -56,7 +56,7 @@ const sidebars = {
 					type: "category",
 					label: "API de Zelf ID",
 					collapsible: true,
-					items: ["api/zelf-ids/cupones"],
+					items: ["api/zelf-ids/planes", "api/zelf-ids/cupones"],
 				},
 				{
 					type: "category",

@@ -75,6 +75,7 @@ const sidebars = {
 						"api/zelf-ids/decrypt",
 						"api/zelf-ids/delete",
 						"api/zelf-ids/preview-zelf-id-qr",
+						"api/zelf-ids/plans",
 						"api/zelf-ids/payment-options",
 						"api/zelf-ids/payment-confirmation",
 						"api/zelf-ids/coupons",

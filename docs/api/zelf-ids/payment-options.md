@@ -9,6 +9,8 @@ image: /img/social-card.png
 
 Return unique payment addresses, per-network quotes, and a JWT (`signedDataPrice`) for a Zelf ID that is already leased. Quotes use the **domain license** yearly pricing table. Use this after a **short-name 5-hour hold** (unlimited only), or to buy **premium** or **unlimited** on a 6–27 character name. Pass `plan=premium` or `plan=unlimited` for long names. Short names cannot be quoted as `premium`. Pass `coupon` to apply a percent-off [coupon](/docs/api/zelf-ids/coupons). A rejected code comes back on this quote with `coupon.reason`, and the license price stays the amount due. Do not call `/api/my-tags/payment-options` for v4 names.
 
+For what Free, Premium and Unlimited include, upgrade credit, renewal and lapse, see [Plans: Free, Premium and Unlimited](/docs/api/zelf-ids/plans).
+
 ## Endpoint
 
 ```

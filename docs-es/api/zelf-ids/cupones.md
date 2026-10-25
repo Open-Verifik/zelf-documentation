@@ -10,7 +10,7 @@ sidebar_label: Cupones
 
 Un cupón resta un porcentaje a un plan de pago de Zelf ID. Aplica a **premium**, **unlimited**, o a los dos. El precio de lista es el precio del plan en la licencia para ese nombre y esa duración (`tags.payment.pricingTable`, vía `domainConfig.getPrice`). Un cupón no añade otra lista de precios.
 
-Los planes de cuenta (contraseñas y 2FA) usan otra lista. Esta página cubre solo los planes de nombre Zelf ID.
+El plan del nombre también define sus límites de contraseñas y 2FA en Zelf Keys. Para ver qué incluye cada plan, los límites, los espacios extra, la renovación y el vencimiento, consulta [Planes: Free, Premium y Unlimited](/docs-es/api/zelf-ids/planes).
 
 La cotización es `GET /api/zelf-ids/payment-options`. Un cupón del **100%** concede el plan por la misma vía de checkout gratuito que una cotización de `$0`. Un cupón **parcial** cobra el importe con descuento en el checkout normal de Stripe o crypto.
 
