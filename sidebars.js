@@ -33,6 +33,7 @@ const sidebars = {
 				"getting-started/privacy-preserving",
 				"getting-started/use-cases",
 				"getting-started/downloads",
+				"getting-started/plans-and-tokens",
 			],
 		},
 		{
