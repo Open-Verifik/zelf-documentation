@@ -189,3 +189,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 </TabItem>
 </Tabs>
+
+## Related
+
+- [Monthly access](/docs/api/zelf-ids/monthly-access) is the Free-plan ZNS quote for opening the vault. It is a separate call from this name-plan quote.
+- [Proposal: Monthly ZNS access for Free accounts](/docs/api/zelf-ids/monthly-zns-access-proposal)

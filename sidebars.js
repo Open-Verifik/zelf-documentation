@@ -80,6 +80,7 @@ const sidebars = {
 						"api/zelf-ids/payment-confirmation",
 						"api/zelf-ids/coupons",
 						"api/zelf-ids/monthly-zns-access-proposal",
+						"api/zelf-ids/monthly-access",
 						"api/zelf-ids/unit-tests",
 					],
 				},

@@ -132,3 +132,4 @@ The owner's current plan and the available upgrade path come from `GET https://v
 - [Coupons](/docs/api/zelf-ids/coupons)
 - [The License Object](/docs/api/licenses/license-object)
 - [Proposal: Monthly ZNS access for Free accounts](/docs/api/zelf-ids/monthly-zns-access-proposal)
+- [Monthly access](/docs/api/zelf-ids/monthly-access)

@@ -56,7 +56,7 @@ const sidebars = {
 					type: "category",
 					label: "API de Zelf ID",
 					collapsible: true,
-					items: ["api/zelf-ids/planes", "api/zelf-ids/cupones", "api/zelf-ids/propuesta-acceso-mensual-zns"],
+					items: ["api/zelf-ids/planes", "api/zelf-ids/cupones", "api/zelf-ids/propuesta-acceso-mensual-zns", "api/zelf-ids/acceso-mensual"],
 				},
 				{
 					type: "category",

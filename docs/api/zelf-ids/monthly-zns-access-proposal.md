@@ -1,6 +1,6 @@
 ---
 title: "Proposal: Monthly ZNS access for Free accounts"
-description: Design proposal for a monthly ZNS fee on Free Zelf ID accounts, charged on the first liveness decryption of a calendar month, with one grace open when the ZNS balance is short. Not implemented.
+description: Design proposal for a monthly ZNS fee on Free Zelf ID accounts, charged on the first liveness decryption of a calendar month, with one grace open when the ZNS balance is short. The API contract is on the Monthly access page.
 keywords: [proposal, monthly zns access, free plan, liveness, zelf keys, premium equivalent, daily reward]
 image: /img/social-card.png
 sidebar_label: "Proposal: Monthly ZNS access"
@@ -8,9 +8,9 @@ sidebar_label: "Proposal: Monthly ZNS access"
 
 # Proposal: Monthly ZNS access for Free accounts
 
-:::info Proposal only
+:::info Design proposal
 
-This page is a product design proposal. Nothing here is implemented, and the endpoints in the [API sketch](#proposed-api-shape) are not deployed. Prices and limits below are the current v4 behavior described on [Plans](/docs/api/zelf-ids/plans). A future implementation must read the live license and the server token price. It must not copy the illustration numbers into a client.
+This page is the product design. The extension contract is [Monthly access](/docs/api/zelf-ids/monthly-access). That API is implemented in [zelf-online-version#211](https://github.com/ZelfOfficial/zelf-online-version/pull/211) and is not live yet. It stays behind a server switch until the switch is turned on. Prices and limits below follow [Plans](/docs/api/zelf-ids/plans). The client must use the quote from the API.
 
 :::
 
@@ -263,7 +263,7 @@ The extension and the app should make the month visible before the camera starts
 
 ## Proposed API shape
 
-Proposed only. Place it on the existing Zelf ID router, in the same order the rest of v4 uses: **route → Joi middleware → controller → module**.
+The extension contract is [Monthly access](/docs/api/zelf-ids/monthly-access). The notes below are the original sketch of the same route, Joi middleware, controller, and module.
 
 | Layer | Proposed home |
 |---|---|

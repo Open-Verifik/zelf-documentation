@@ -1,6 +1,6 @@
 ---
 title: "Propuesta: acceso mensual ZNS para cuentas Free"
-description: Propuesta de diseño para una tarifa mensual en ZNS de las cuentas Free de Zelf ID, cobrada en el primer descifrado con prueba de vida de un mes calendario, con una apertura de gracia si el saldo de ZNS no alcanza. No está implementada.
+description: Propuesta de diseño para una tarifa mensual en ZNS de las cuentas Free de Zelf ID, cobrada en el primer descifrado con prueba de vida de un mes calendario, con una apertura de gracia si el saldo de ZNS no alcanza. El contrato de la API está en la página de acceso mensual.
 keywords: [propuesta, acceso mensual zns, plan free, prueba de vida, zelf keys, equivalente premium, recompensa diaria]
 image: /img/social-card.png
 sidebar_label: "Propuesta: acceso mensual ZNS"
@@ -8,9 +8,9 @@ sidebar_label: "Propuesta: acceso mensual ZNS"
 
 # Propuesta: acceso mensual ZNS para cuentas Free
 
-:::info Solo una propuesta
+:::info Propuesta de diseño
 
-Esta página es una propuesta de diseño de producto. Nada de lo descrito está implementado, y los endpoints del [esquema de API](#esquema-de-api-propuesto) no están desplegados. Los precios y los límites de abajo son el comportamiento actual de v4 descrito en [Planes](/docs-es/api/zelf-ids/planes). Una implementación futura debe leer la licencia vigente y el precio del token en el servidor. No debe copiar las cifras de la ilustración en un cliente.
+Esta página es el diseño de producto. El contrato para la extensión es [Acceso mensual](/docs-es/api/zelf-ids/acceso-mensual). Esa API está implementada en [zelf-online-version#211](https://github.com/ZelfOfficial/zelf-online-version/pull/211) y todavía no está en producción. Permanece detrás de un interruptor del servidor hasta que se encienda. Los precios y los límites de abajo siguen [Planes](/docs-es/api/zelf-ids/planes). El cliente debe usar la cotización de la API.
 
 :::
 
@@ -263,7 +263,7 @@ La extensión y la app deben mostrar el mes antes de que empiece la cámara, par
 
 ## Esquema de API propuesto
 
-Solo propuesto. Va en el router actual de Zelf ID, en el mismo orden que usa el resto de v4: **ruta → middleware Joi → controlador → módulo**.
+El contrato de la extensión es [Acceso mensual](/docs-es/api/zelf-ids/acceso-mensual). Las notas de abajo son el esquema original de la misma ruta, middleware Joi, controlador y módulo.
 
 | Capa | Lugar propuesto |
 |---|---|

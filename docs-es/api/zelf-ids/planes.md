@@ -132,3 +132,4 @@ El plan actual del dueño y la forma de subir de plan se consultan con `GET http
 - [Cupones](/docs-es/api/zelf-ids/cupones)
 - [El objeto License](/docs/api/licenses/license-object)
 - [Propuesta: acceso mensual ZNS para cuentas Free](/docs-es/api/zelf-ids/propuesta-acceso-mensual-zns)
+- [Acceso mensual](/docs-es/api/zelf-ids/acceso-mensual)
