@@ -32,8 +32,8 @@
 					    document.head.appendChild(s);
 					  }catch(e){}
 					})();</script><link rel="stylesheet" href="/es/assets/css/styles.2f01f1c7.css">
-<script src="/es/assets/js/runtime~main.37af900c.js" defer="defer"></script>
-<script src="/es/assets/js/main.b5338774.js" defer="defer"></script>
+<script src="/es/assets/js/runtime~main.3f33c3d6.js" defer="defer"></script>
+<script src="/es/assets/js/main.eec3d996.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -53,7 +53,7 @@
 </ol>
 <p>One TLD → one license object → one pricing table. Changing prices means updating the license, not a Zelf ID constant.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="zelf-id-plans-on-top-of-the-table">Zelf ID plans on top of the table<a href="#zelf-id-plans-on-top-of-the-table" class="hash-link" aria-label="Enlace directo al Zelf ID plans on top of the table" title="Enlace directo al Zelf ID plans on top of the table">​</a></h2>
-<p>Paid Zelf ID plans are <strong>yearly subscriptions</strong>. Dollar amounts always come from <code>tags.payment.pricingTable</code>. The product only decides which plans a name may use:</p>
+<p>Paid Zelf ID plans are <strong>yearly subscriptions</strong>. Dollar amounts always come from <code>tags.payment.pricingTable</code>. A <a href="/es/docs/api/zelf-ids/coupons">coupon</a> applies a percent off that price for premium and unlimited. The table stays the only price list. The product only decides which plans a name may use:</p>
 <table><thead><tr><th>Bare-name length</th><th>Allowed plans</th><th>Lease behavior</th></tr></thead><tbody><tr><td>1–5</td><td><code>unlimited</code> only</td><td>Leftover license price → 5-hour <code>name.domain.hold</code>. <code>$0</code> after referral → complimentary year of <code>unlimited</code>. Cannot be <code>premium</code>.</td></tr><tr><td>6–27</td><td><code>free</code>, <code>premium</code>, <code>unlimited</code></td><td>Lease as <code>free</code> if you do not pay. Later buy a yearly <code>premium</code> or <code>unlimited</code> year from the same table. Never <code>.hold</code>.</td></tr></tbody></table>
 <p>After a paid year ends, the name stays and the visible plan reads as <code>free</code>. See <a href="/es/docs/changelog/2026-08-31-zelf-id-migration-v4">Migration v4</a> and <a href="/es/docs/api/zelf-ids/lease">Lease</a>.</p>
 <p><code>getPrice</code> looks up:</p>
