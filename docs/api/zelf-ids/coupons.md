@@ -135,7 +135,7 @@ curl -X GET "https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf" \
 
 When a name on an active paid **premium** term upgrades to **unlimited**, unused Premium time is a discount on the Unlimited price.
 
-`upgradeCredit` is the amount actually paid for the current Premium term × (remaining seconds / total term seconds), rounded down to the cent, and capped at the Unlimited price. The server computes it when it builds the quote and checks it again at confirm.
+`upgradeCredit` is the amount actually paid for the current Premium term × (remaining seconds / total term seconds), rounded down to the cent, and capped at the Unlimited price. The server locks that credit and the prices inside the signed quote (`signedDataPrice`) for the quote's validity window. Confirm honors those locked figures and does not recompute them.
 
 A term granted by a 100% coupon or a whitelist (`$0` paid) gets `$0` credit. A partial coupon credits the amount that was actually paid. A `lifetime` term and a lapsed term get no credit.
 
@@ -146,6 +146,8 @@ The new Unlimited term starts on the upgrade date. Unused Premium time is not ad
 `amountDue = (listPrice − upgradeCredit) × (100 − percentOff) / 100`
 
 Half of a `$24` Premium term is `$12.00` of credit. If Unlimited lists at `$48`, `amountDue` is `$36` before a coupon.
+
+An expired quote is rejected. The client requests a new quote, which recomputes the credit and the prices. Crypto prices can change between quotes. A Stripe Checkout session expires when the quote expires. A quote with under 30 minutes left returns `409` `quote_expiring`. If the Premium term behind the credit is no longer the current term, confirm returns `409` `upgrade_term_changed`. An Unlimited lifetime name returns `409` `already_lifetime` from payment-options.
 
 A final amount of `$0` uses the free-grant path. Identity is required, and no payment gateway is called. When `amountDue` is above `$0` and below the Stripe minimum, Stripe returns `stripe_amount_below_minimum`. Crypto checkout still works.
 
