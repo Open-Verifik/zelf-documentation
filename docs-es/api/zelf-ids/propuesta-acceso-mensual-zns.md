@@ -1,6 +1,6 @@
 ---
 title: "Propuesta: acceso mensual ZNS para cuentas Free"
-description: Propuesta de diseño para una tarifa mensual en ZNS de las cuentas Free de Zelf ID, cobrada en el primer descifrado con prueba de vida de un mes calendario. No está implementada.
+description: Propuesta de diseño para una tarifa mensual en ZNS de las cuentas Free de Zelf ID, cobrada en el primer descifrado con prueba de vida de un mes calendario, con una apertura de gracia si el saldo de ZNS no alcanza. No está implementada.
 keywords: [propuesta, acceso mensual zns, plan free, prueba de vida, zelf keys, equivalente premium, recompensa diaria]
 image: /img/social-card.png
 sidebar_label: "Propuesta: acceso mensual ZNS"
@@ -38,10 +38,10 @@ Premium y Unlimited quedan exentos de esta tarifa de Free. Una sección aparte, 
 | Quién paga | Solo Free. Premium y Unlimited están exentos mientras el plazo de pago está activo. |
 | Cuándo | El primer descifrado con prueba de vida que abre secretos guardados o desbloquea la billetera en un mes de facturación. Un mes sin esa apertura no se cobra. |
 | Mes | Mes calendario en **UTC**. Clave de periodo `YYYY-MM`. |
-| Cuántos cobros | Uno por Zelf ID y por periodo. Las aperturas posteriores de ese mes quedan cubiertas. |
+| Cuántos cobros | Un débito por Zelf ID y por periodo. La apertura de gracia no es un débito. Cuando el periodo está pagado, las aperturas posteriores que disparan la tarifa quedan cubiertas. |
 | Monto | El precio en dólares de un año de Premium en la licencia, dividido entre 12, convertido a ZNS enteros con el precio del token en el servidor y el mismo redondeo de los espacios extra. Piso: el monto configurado de usuario activo mensual (por defecto $0.10). |
 | Ilustración | $29 / 12 a $0.05 por ZNS redondea hacia arriba a **49 ZNS**. La cotización vigente reemplaza esta cifra. |
-| Saldo insuficiente | Bloquear la apertura. Ofrecer Premium, un pago con tarjeta de ese mes, o ganar más ZNS. Sin saldo negativo. La exportación de la billetera y la recuperación del lease siguen disponibles. **Decisión abierta para Miguel.** |
+| Saldo insuficiente | **Decidido el 2026-10-25.** Una apertura de gracia en el mes. La tarifa queda impaga. Las aperturas posteriores que disparan la tarifa se bloquean hasta que el mes se pague. Sin deuda. La exportación de la billetera y la recuperación del lease siguen disponibles y no gastan la gracia. Ver [Decisiones](#decisiones). |
 | Recompensa diaria | Exenta. Es la forma de ganar el saldo. Los nombres Free confirmados usan la ruleta de mainnet: 2, 4, …, 24 ZNS al día (media 13). |
 | Cotización | Firmada y fijada por 2 horas, con la misma idea que [Payment Options](/docs/api/zelf-ids/payment-options). |
 
@@ -51,7 +51,9 @@ Se cobra en el **primer descifrado con prueba de vida del mes de facturación** 
 
 Quien no abre sus datos ese mes no paga. Eso coincide con la facturación por usuario activo mensual: el costo aparece cuando la cuenta está activa, y no aparece en un mes en calma.
 
-Un cobro exitoso cubre cada apertura posterior de ese mismo periodo que dispararía la tarifa, incluidas visitas nuevas y sesiones verificadas nuevas de 10 minutos.
+Cuando esa primera apertura paga la tarifa, el pago cubre cada apertura posterior de ese mismo periodo que dispararía la tarifa, incluidas visitas nuevas y sesiones verificadas nuevas de 10 minutos.
+
+Cuando el saldo no alcanza, esa primera apertura es el descifrado de gracia del mes. Deja la tarifa impaga. Las aperturas posteriores de ese mes que disparan la tarifa siguen cerradas hasta que el mes se pague. Ver [ZNS insuficientes](#zns-insuficientes).
 
 ### Qué mes
 
@@ -114,22 +116,39 @@ La confirmación de una cotización vencida se rechaza. El cliente pide una coti
 
 ## ZNS insuficientes
 
-Este bloque es una **decisión abierta y explícita para Miguel**. La recomendación de abajo es el valor por defecto para construir solo después de esa decisión.
+Miguel decidió esto el **2026-10-25**. Ver [Decisiones](#decisiones). No hay saldo negativo. La tarifa impaga de un mes de gracia no se arrastra al mes siguiente como deuda.
 
-Tres opciones:
+### Este mes
 
-| Opción | Qué ve la persona | Contrapartida |
-|---|---|---|
-| Bloquear la apertura y ofrecer una forma de pagar | Los secretos siguen cerrados. La hoja ofrece subir a Premium, pagar este mes con tarjeta por los dólares fijados, o ganar ZNS y reintentar. | Cobra el mes que generó el costo de la prueba de vida. Quien nunca reclama recompensas puede pagar con tarjeta o subir de plan. |
-| Una apertura de gracia por mes | La primera apertura del mes funciona con saldo cero o parcial. El mes siguiente vuelve a quedar impago. | Es simple, y deja el problema original: una visita cada varios meses sigue costando un usuario activo mensual y no aporta ZNS. |
-| Saldo negativo | La apertura funciona y el libro queda por debajo de cero hasta que recompensas posteriores lo paguen. | El libro de espacios extra ya se niega a comprometer más ZNS que el saldo en cadena. Una cuenta Free puede no volver a saldar la deuda. |
+La comprobación corre en la primera apertura que dispara la tarifa del mes UTC, después de que la cotización firmada dice cuántos ZNS cuesta el mes.
 
-**Recomendación: bloquear la apertura, sin deuda.** La recuperación de los fondos propios sigue disponible. Ver las filas exentas en [Qué operaciones cuentan](#qué-operaciones-cuentan).
+| Situación | Qué ocurre |
+|---|---|
+| Los ZNS disponibles cubren la cotización | Se debita una vez. El estado pasa a `paid`. Las aperturas posteriores de ese mes que disparan la tarifa siguen. |
+| Los ZNS disponibles no alcanzan, y este mes puede usar la gracia | La apertura funciona. El estado pasa a `grace`. La tarifa queda impaga y no se debitan ZNS. La hoja dice que este es el pase libre del mes y muestra los ZNS y los dólares que todavía faltan. |
+| El estado ya es `grace` y la tarifa sigue impaga | La apertura se bloquea. La hoja ofrece tres formas de seguir: subir a Premium, pagar con tarjeta los dólares fijados de la cotización firmada vigente, o conseguir más ZNS (por ejemplo la recompensa diaria) y después pagar el mes. |
+| La persona paga más tarde en ese mismo mes | Una confirmación en ZNS o un pago con tarjeta de la cotización firmada convierte `grace` en `paid`. El bloqueo se levanta. Las aperturas posteriores del mes que disparan la tarifa siguen. |
+| La persona sube a un plazo Premium o Unlimited activo | La tarifa de Free deja de aplicar, así que el bloqueo se levanta mientras ese plazo esté activo. |
+| Exportación de la billetera o [recuperación del lease](/docs/api/zelf-ids/lease-recovery) | Siempre disponibles. Estas llamadas no crean un registro de gracia, no consumen la apertura de gracia y no abren la bóveda de Zelf Keys. |
 
-- Las contraseñas, las cuentas 2FA, las notas y las tarjetas de Zelf Keys siguen cerradas hasta que el mes se pague en ZNS, la persona suba a un plazo Premium o Unlimited activo, o un pago con tarjeta liquide los dólares fijados de ese periodo.
-- La exportación de la billetera y la [recuperación del lease](/docs/api/zelf-ids/lease-recovery) siguen disponibles con saldo corto. Ese camino sirve para mover los fondos del dueño y recuperar el nombre. No abre la bóveda de Zelf Keys.
-- El monto de la tarjeta es el `amountUsd` fijado en la cotización, que ya está al menos en el piso de la prueba de vida. No es un segundo precio escrito en el código.
-- Un mes pagado queda marcado como pagado tanto si la liquidación fue en ZNS como con tarjeta, así que el resto del periodo no vuelve a preguntar.
+Un segundo dispositivo que abre en el mismo momento que la apertura de gracia resuelve al mismo registro de gracia. No otorga un segundo pase. El pago es idempotente: una segunda confirmación de un mes que ya está `paid` devuelve ese registro y no vuelve a debitar.
+
+El monto de la tarjeta es el `amountUsd` de la cotización firmada que la persona confirma. Esa cotización sigue el bloqueo de dos horas de [Monto](#monto). Un pago después de que vence la cotización pide primero una cotización nueva. Esa cotización nueva es la que se guarda cuando el estado pasa a `paid`.
+
+### El mes siguiente
+
+**Valor recomendado, para que Miguel lo confirme.** Es la [pregunta abierta 1](#preguntas-abiertas).
+
+La gracia se renueva solo cuando el mes UTC anterior fue `paid`, o cuando ese mes no tuvo un uso que dispare la tarifa (no hay registro de acceso mensual).
+
+Cuando el mes anterior sigue en `grace`, el mes nuevo no ofrece gracia. La primera apertura que dispara la tarifa exige el pago. Si el saldo cubre la cotización del mes nuevo, esa apertura lo debita y el estado queda `paid`. Si el saldo no alcanza, la apertura se bloquea y aparecen las mismas tres opciones: Premium, tarjeta por los dólares fijados de este mes, o más ZNS. La tarifa impaga de gracia del mes anterior no se suma a esta cotización, y el saldo no baja de cero.
+
+| Mes anterior | Este mes, saldo corto en la primera apertura que dispara la tarifa |
+|---|---|
+| `paid` | Una apertura de gracia. El estado pasa a `grace`. |
+| Sin uso que dispare la tarifa | Una apertura de gracia. El estado pasa a `grace`. |
+| `grace`, y después se pagó antes de que terminara el mes | Una apertura de gracia. El estado pasa a `grace`. |
+| `grace`, y la tarifa nunca se pagó | Sin gracia. La primera apertura se bloquea hasta que este mes se pague. |
 
 ## Qué operaciones cuentan
 
@@ -142,7 +161,7 @@ La prueba de vida con el rostro se usa en todo el producto. **Solo un descifrado
 | Descifrado de la billetera para usarla (`POST /api/my-wallets/decrypt`) | Rostro | **Dispara** |
 | Descifrado de Tags y descifrado ZNS v2, cuando abren un nombre Free | Rostro | **Disparan** |
 | Recompensa diaria (`POST /api/rewards/daily`) | Rostro, más la contraseña maestra cuando el Zelf ID la tiene | **Exenta** |
-| Exportar la billetera / mover fondos propios, y recuperación del lease | Rostro en la recuperación | **Exentas**, también con saldo corto |
+| Exportar la billetera / mover fondos propios, y recuperación del lease | Rostro en la recuperación | **Exentas.** Siempre disponibles. Nunca cuentan como la apertura de gracia. |
 | Vista previa de Zelf Keys | Rostro | **Exenta**. No abre elementos guardados de la bóveda. |
 | Guardar o agregar una contraseña, 2FA, nota o tarjeta | Rostro | **Exenta** |
 | Cambiar la contraseña maestra | Rostro | **Exenta** |
@@ -197,7 +216,8 @@ Una prueba de rostro exitosa, junto con la contraseña maestra cuando el Zelf ID
 | Situación | Tarifa |
 |---|---|
 | Mes ya pagado, dentro o fuera de la ventana de 10 minutos | No hay otro cobro de acceso. El rostro sigue ejecutándose cuando la acción lo pide. |
-| Mes impago, y la sesión sigue dentro de la ventana de 10 minutos | La primera apertura que dispara la tarifa en el periodo nuevo igual cotiza. La ventana no arrastra el pago del mes anterior. |
+| El mes todavía no tiene registro, dentro de una ventana abierta el mes pasado | La primera apertura que dispara la tarifa en el periodo nuevo igual cotiza. La ventana no arrastra el pago del mes anterior. |
+| El mes está en `grace` y sigue impago, dentro de la ventana de 10 minutos | La ventana no otorga otra apertura de la bóveda. Las aperturas posteriores que disparan la tarifa siguen bloqueadas hasta que el mes se pague. |
 | Recompensa diaria dentro de una ventana verificada | Sigue exenta. |
 
 ## Cálculo de la recompensa diaria
@@ -222,9 +242,9 @@ Comparado con la ilustración de **49 ZNS** ($29 / 12 a $0.05 por ZNS):
 | Mes completo en la media | unos 364 a 403 | Sí |
 | Hold heredado, mes completo en el mínimo | 28 a 31 | No |
 
-Un nombre Free que reclama la mayoría de los días cubre el mes ilustrado incluso con una racha del segmento más pequeño. Una sola visita no lo cubre. Quien vuelve después de varios meses en calma, sin reclamos en el medio, no tiene recompensa nueva de esos meses. El saldo anterior sin gastar podría cubrir la apertura, y si no alcanza aparece la hoja de [saldo corto](#zns-insuficientes).
+Un nombre Free que reclama la mayoría de los días cubre el mes ilustrado incluso con una racha del segmento más pequeño. Una sola visita no lo cubre. Quien vuelve después de varios meses en calma, sin reclamos en el medio, no tiene recompensa nueva de esos meses. El saldo anterior sin gastar podría cubrir la apertura. Cuando no alcanza, la primera apertura de un mes que puede usar la gracia es el [descifrado de gracia](#zns-insuficientes). La recompensa diaria sigue disponible después, así que puede ganar ZNS y pagar el mes antes de la siguiente apertura.
 
-El reclamo en sí debe seguir exento. Cobrar la tarifa en el reclamo quitaría ZNS de la acción que los genera, y un saldo corto podría bloquear la única forma de ganar el mes siguiente.
+El reclamo en sí debe seguir exento. Cobrar la tarifa en el reclamo quitaría ZNS de la acción que los genera, y bloquear la recompensa quitaría la forma de pagar un mes de gracia.
 
 La cobertura se mueve si se mueve el precio del token. En la ilustración de $29, un mes de 28 días con reclamos de 2 ZNS (56 ZNS) cubre la tarifa mientras el precio del token se mantiene en unos **$0.043** o más. El valor por defecto de $0.05 está por encima de esa línea. Lo que muestra la app es la cotización vigente, no esta tabla.
 
@@ -232,13 +252,14 @@ La cobertura se mueve si se mueve el precio del token. En la ilustración de $29
 
 La extensión y la app deben mostrar el mes antes de que empiece la cámara, para que quien rechace el cobro no inicie una prueba de vida.
 
-1. **Saldo.** La bóveda muestra los ZNS disponibles (en cadena menos los tokens ya comprometidos) y el periodo actual: `Sin cargo`, `Impago`, `Pagado` o `Incluido con Premium` / `Incluido con Unlimited`.
-2. **Aviso antes del cobro.** En la primera apertura que dispara la tarifa de un mes Free impago, una hoja muestra la cotización fijada: periodo, ZNS, dólares, precio del token y el saldo después del débito. Acciones: confirmar con ZNS, subir a Premium, pagar este mes con tarjeta. Cancelar deja los datos cerrados y no enciende la cámara.
-3. **Después, la verificación de siempre.** Confirmar sigue con el rostro y, cuando el Zelf ID la tiene, la contraseña maestra. El servidor debita una vez y entonces devuelve los secretos. Reintentar esa confirmación no vuelve a debitar.
-4. **Recibo.** El historial gana una fila: `Acceso mensual · octubre 2026 · 49 ZNS`, con los dólares fijados, el precio del token y la hora. Esa misma fila es la que soporte puede leer en el registro de auditoría.
-5. **Sin ZNS suficientes.** La hoja permanece. Muestra el faltante, la recompensa diaria si el reclamo de hoy sigue abierto, la subida a Premium desde `GET /api/zelf-ids/my-plan`, y la opción de tarjeta por los dólares fijados. La apertura de la bóveda sigue cerrada. **Exportar billetera** y **Recuperar nombre** siguen habilitados.
-6. **Con el mes pagado.** Las aperturas posteriores de ese mes UTC se saltan la hoja. El rostro y la sesión de 10 minutos se comportan como hoy.
-7. **Subida de plan.** La hoja puede decir que Premium incluye este acceso durante el plazo de pago. El precio del botón sale de la cotización vigente de payment-options, no de una constante en la app.
+1. **Saldo.** La bóveda muestra los ZNS disponibles (en cadena menos los tokens ya comprometidos) y el periodo actual: `Sin cargo`, `Gracia`, `Pagado` o `Incluido con Premium` / `Incluido con Unlimited`.
+2. **ZNS suficientes.** En la primera apertura que dispara la tarifa de un mes Free impago, una hoja muestra la cotización fijada: periodo, ZNS, dólares, precio del token y el saldo después del débito. Confirmar paga el mes y sigue con el rostro y, cuando el Zelf ID la tiene, la contraseña maestra. Cancelar deja los datos cerrados y no enciende la cámara. Reintentar esa confirmación no vuelve a debitar.
+3. **Apertura de gracia.** Cuando el saldo no alcanza y la gracia está disponible, la hoja dice que esta apertura es el pase libre del mes. Muestra los ZNS que todavía faltan, los dólares de la cotización y el saldo actual. Después la apertura funciona. El mes sigue impago.
+4. **Pantalla de bloqueo.** Después de esa apertura de gracia, cada apertura posterior que dispara la tarifa, mientras el mes sigue impago, muestra una pantalla de bloqueo con tres opciones: subir a Premium, pagar con tarjeta los dólares fijados, o conseguir más ZNS (la recompensa diaria, si el reclamo de hoy sigue abierto). La bóveda sigue cerrada. Cuando un pago en ZNS o con tarjeta convierte el mes a `paid`, el bloqueo se levanta.
+5. **Exportación y recuperación.** **Exportar billetera** y **Recuperar nombre** siguen habilitados en la hoja de gracia y en la pantalla de bloqueo. No usan el pase de gracia.
+6. **Recibo.** Un mes pagado agrega una fila al historial: `Acceso mensual · octubre 2026 · 49 ZNS`, con los dólares fijados, el precio del token y la hora. Un mes de gracia agrega `Acceso mensual · octubre 2026 · gracia`, con los ZNS que todavía faltaban. Esas mismas filas son las que soporte puede leer en el registro de auditoría.
+7. **Con el mes pagado.** Las aperturas posteriores de ese mes UTC se saltan la hoja. El rostro y la sesión de 10 minutos se comportan como hoy.
+8. **Subida de plan.** La hoja de gracia y la pantalla de bloqueo pueden decir que Premium incluye este acceso durante el plazo de pago. El precio del botón sale de la cotización vigente de payment-options, no de una constante en la app.
 
 ## Esquema de API propuesto
 
@@ -255,11 +276,11 @@ La autenticación coincide con las demás llamadas protegidas de Zelf ID: un JWT
 
 | Método y ruta | Función |
 |---|---|
-| `GET /api/zelf-ids/monthly-access` | Estado para `tagName` y `domain`: plan, periodo, si hay un cobro pendiente, saldo disponible e historial pagado. |
+| `GET /api/zelf-ids/monthly-access` | Estado para `tagName` y `domain`: plan, periodo, `none` / `grace` / `paid` / `exempt`, si otra apertura que dispara la tarifa está permitida, saldo disponible e historial. |
 | `GET /api/zelf-ids/monthly-access/quote` | Arma y firma la cotización del periodo UTC actual. Sin débito. |
-| `POST /api/zelf-ids/monthly-access/confirm` | Acepta el `token` firmado, debita una vez y marca el periodo como pagado. |
+| `POST /api/zelf-ids/monthly-access/confirm` | Acepta el `token` firmado, debita una vez y deja el periodo en `paid`. Un periodo que estaba en `grace` pasa a `paid`. |
 
-Un descifrado que dispara la tarifa, en un mes Free impago, no devuelve secretos hasta que la confirmación haya pagado ese periodo, o hasta que la llamada sea una de las acciones de recuperación exentas. El cliente debe cotizar y mostrar la hoja antes de encender la cámara.
+En un mes Free sin registro, un descifrado que dispara la tarifa con saldo corto devuelve los secretos una vez y escribe `grace`. Un descifrado posterior que dispara la tarifa, mientras el estado es `grace`, no devuelve secretos hasta que la confirmación haya dejado `paid`, salvo que la llamada sea la exportación de la billetera o la recuperación del lease. El cliente muestra el aviso de gracia, o la pantalla de bloqueo, antes de encender la cámara.
 
 ### Registro
 
@@ -269,23 +290,31 @@ Un registro de acceso mensual por Zelf ID y por periodo. La clave natural de ide
 {
   "zelfName": "myname.zelf",
   "periodKey": "2026-10",
-  "status": "paid",
-  "settlement": "zns",
+  "status": "grace",
   "amountZns": 49,
   "amountUsd": "2.4166666667",
   "tokenPriceUsd": 0.05,
   "premiumYearlyUsd": 29,
   "floorUsd": 0.1,
   "trigger": "retrieve",
-  "chargedAt": "2026-10-25T16:00:00.000Z"
+  "graceAt": "2026-10-25T16:00:00.000Z"
 }
 ```
 
-`amountZns` y los campos en dólares de ese ejemplo son la ilustración de la foto actual de $29 y $0.05. Un registro real guarda las cifras fijadas en la cotización de ese periodo.
+`amountZns` y los campos en dólares de ese ejemplo son la ilustración de la foto actual de $29 y $0.05. Un registro real guarda la cotización mostrada para ese periodo.
 
-`status` es `quoted` o `paid`. Un nombre Premium o Unlimited no necesita una fila de débito: la consulta de estado devuelve `exempt` con `reason` `premium` o `unlimited`. `settlement` es `zns` o `card` cuando exista un camino con tarjeta.
+El `status` de una fila guardada es `grace` o `paid`. Si no hay fila para ese Zelf ID y ese periodo, el estado es `none`: el mes no tuvo una apertura que dispare la tarifa. Un nombre Premium o Unlimited no necesita una fila de débito: la consulta de estado devuelve `exempt` con `reason` `premium` o `unlimited`.
 
-Una segunda confirmación de la misma clave devuelve el registro pagado y no aumenta el saldo comprometido. Dos dispositivos que confirman el mismo periodo resuelven en un solo débito.
+Una fila de gracia no tiene `settlement` ni `chargedAt`. Cuando la persona paga, la misma fila queda así:
+
+| Campo | Después del pago |
+|---|---|
+| `status` | `paid` |
+| `settlement` | `zns` o `card` |
+| `chargedAt` | Hora de la confirmación exitosa |
+| `amountZns`, `amountUsd`, `tokenPriceUsd` | La cotización firmada aceptada al pagar |
+
+Escribir la fila de gracia es idempotente. Un segundo intento en el mismo periodo devuelve la fila existente y no otorga otra apertura de gracia. Una segunda confirmación después de `paid` devuelve la fila pagada y no aumenta el saldo comprometido. Dos dispositivos que llegan al mismo periodo resuelven en una sola fila.
 
 ### Registro de auditoría
 
@@ -294,7 +323,7 @@ Solo de agregado, una fila por intento:
 | Campo | Ejemplo |
 |---|---|
 | `zelfName`, `periodKey` | `myname.zelf`, `2026-10` |
-| `event` | `quoted`, `paid`, `idempotent_replay`, `insufficient_zns`, `exempt` |
+| `event` | `quoted`, `grace_opened`, `grace_blocked`, `paid`, `idempotent_replay`, `exempt` |
 | `amountZns`, `amountUsd`, `tokenPriceUsd` | Cifras de la cotización fijada |
 | `trigger` | `retrieve`, `decrypt`, `wallet-decrypt` |
 | `at` | ISO-8601 UTC |
@@ -349,11 +378,26 @@ Un segundo destino: después de un número alto de aperturas con prueba de vida 
 - Es fácil que se sienta como un recargo para quien ya paga el año.
 - El umbral es una decisión de producto, no algo que copiar de la tarifa de Free.
 
+## Decisiones
+
+### Saldo corto de ZNS
+
+**Miguel, 2026-10-25.** Cuando un Zelf ID Free abre su bóveda por primera vez en un mes UTC y el saldo de ZNS disponible no cubre la tarifa mensual:
+
+- Esa apertura funciona. El mes se guarda como `grace` y la tarifa queda impaga.
+- Cualquier apertura posterior de ese mismo mes que dispare la tarifa, mientras la tarifa siga impaga, se bloquea.
+- La pantalla de bloqueo ofrece subir a Premium, pagar con tarjeta los dólares fijados de la cotización firmada, o conseguir más ZNS (por ejemplo la recompensa diaria). Después de que el mes se paga, esas aperturas continúan.
+- Pagar en ZNS o con tarjeta convierte `grace` en `paid` y levanta el bloqueo. Subir a un plazo Premium o Unlimited activo levanta el bloqueo porque la tarifa de Free ya no aplica.
+- El saldo no queda negativo. La tarifa impaga de gracia no se arrastra como deuda.
+- La exportación de la billetera y la recuperación del lease siguen disponibles todo el tiempo. Nunca cuentan como la apertura de gracia, y no abren Zelf Keys.
+
+La regla del **mes siguiente** no forma parte de esta decisión. El valor recomendado está en [El mes siguiente](#el-mes-siguiente), y es la [pregunta abierta 1](#preguntas-abiertas).
+
 ## Preguntas abiertas
 
-Para Miguel y el CEO:
+Para Miguel y el CEO. La decisión sobre el saldo corto está en [Decisiones](#decisiones). La pregunta 1 es la parte de esa decisión que sigue abierta: cómo se comporta la gracia el mes siguiente. Las preguntas 2 a 12 son las preguntas anteriores 2 a 12.
 
-1. **Saldo corto de ZNS.** Confirmar o reemplazar la recomendación: bloquear la apertura de la bóveda, ofrecer Premium o tarjeta por los dólares fijados, rechazar el saldo negativo, y mantener disponibles la exportación de la billetera y la recuperación del lease.
+1. **Gracia el mes siguiente.** Confirmar el valor recomendado: se ofrece una gracia nueva solo cuando el mes UTC anterior fue pagado, o no tuvo un uso que dispare la tarifa. Si el mes anterior quedó en `grace` y nunca se pagó, el mes siguiente no ofrece gracia, y la primera apertura que dispara la tarifa exige el pago. La tarifa anterior no se suma como deuda.
 2. **Desbloqueo de la billetera frente a exportación.** Confirmar que desbloquear la billetera para usarla dispara la tarifa, y que una exportación dedicada de los fondos del dueño queda exenta y no abre Zelf Keys.
 3. **Qué pruebas de rostro cuentan.** Confirmar que solo el descifrado y el desbloqueo de la billetera disparan la tarifa, y que guardar, borrar, cambiar la contraseña y la recompensa diaria siguen exentos aunque usen el rostro.
 4. **Nombres cortos.** Confirmar que un nombre Free de 1 a 5 caracteres, que no puede comprar Premium, usa el precio de un año de Premium de la licencia para los nombres que sí pueden.

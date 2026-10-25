@@ -1,6 +1,6 @@
 ---
 title: "Proposal: Monthly ZNS access for Free accounts"
-description: Design proposal for a monthly ZNS fee on Free Zelf ID accounts, charged on the first liveness decryption of a calendar month. Not implemented.
+description: Design proposal for a monthly ZNS fee on Free Zelf ID accounts, charged on the first liveness decryption of a calendar month, with one grace open when the ZNS balance is short. Not implemented.
 keywords: [proposal, monthly zns access, free plan, liveness, zelf keys, premium equivalent, daily reward]
 image: /img/social-card.png
 sidebar_label: "Proposal: Monthly ZNS access"
@@ -38,10 +38,10 @@ Premium and Unlimited stay exempt from this Free fee. A separate, lower-priority
 | Who pays | Free only. Premium and Unlimited are exempt while the paid term is active. |
 | When | The first liveness decryption that opens stored secrets or unlocks the wallet in a billing month. A month with no such open is free. |
 | Month | Calendar month in **UTC**. Period key `YYYY-MM`. |
-| How many charges | One per Zelf ID per period. Later opens in that month are covered. |
+| How many charges | One debit per Zelf ID per period. A grace open is not a debit. After the period is paid, later triggering opens are covered. |
 | Amount | One-year Premium USD from the license, divided by 12, converted to whole ZNS at the server token price, using the same rounding as extra slots. Floor: the configured monthly active-user amount (default $0.10). |
 | Illustration | $29 / 12 at $0.05 per ZNS rounds up to **49 ZNS**. The live quote replaces this figure. |
-| Short balance | Block the open. Offer Premium, a card payment for that month, or earning more ZNS. Do not allow a negative balance. Wallet export and lease recovery stay available. **Open decision for Miguel.** |
+| Short balance | **Decided 2026-10-25.** One grace open for the month. The fee stays unpaid. Further triggering opens are blocked until the month is paid. No debt. Wallet export and lease recovery stay available and do not use the grace. See [Decisions](#decisions). |
 | Daily reward | Exempt. It is how the balance is earned. Confirmed Free names use the mainnet wheel: 2, 4, …, 24 ZNS a day (mean 13). |
 | Quote | Signed, locked for 2 hours, same idea as [Payment Options](/docs/api/zelf-ids/payment-options). |
 
@@ -51,7 +51,9 @@ Charge on the **first liveness-based decryption of the billing month** that open
 
 A person who does not open their data that month is not charged. That matches monthly active-user billing: the cost appears when the account is active, and it does not appear in a quiet month.
 
-One successful charge covers every later triggering open in that same period, including new visits and new 10-minute verified sessions.
+When that first open pays the fee, the payment covers every later triggering open in that same period, including new visits and new 10-minute verified sessions.
+
+When the balance is short, that first open is the one grace decrypt for the month. It leaves the fee unpaid. Later triggering opens in that month stay closed until the month is paid. See [Insufficient ZNS](#insufficient-zns).
 
 ### Which month
 
@@ -114,22 +116,39 @@ Confirmation of an expired quote is refused. The client requests a new quote. A 
 
 ## Insufficient ZNS
 
-This block is an **explicit open decision for Miguel**. The recommendation below is the default to build only after that decision.
+Miguel decided this on **2026-10-25**. See [Decisions](#decisions). There is no negative balance. The unpaid fee for a grace month is not carried into the next month as debt.
 
-Three options:
+### This month
 
-| Option | What the person sees | Trade-off |
-|---|---|---|
-| Block the open, and offer a way to pay | The secrets stay closed. The sheet offers upgrade to Premium, pay this month by card for the locked USD, or earn ZNS and retry. | Collects the month that created the liveness cost. A person who never claims rewards can still pay by card or upgrade. |
-| One grace open per month | The first open of the month succeeds with a zero or partial balance. The next month is unpaid again. | Simple, and it leaves the original problem in place: a visit every few months still costs a monthly active user and brings in no ZNS. |
-| Negative balance | The open succeeds and the ledger goes below zero until later rewards repay it. | The extra-slot ledger already refuses to commit more ZNS than the on-chain balance. A Free account may never come back to clear the debt. |
+The check runs on the first triggering open of the UTC month, after the signed quote says how much ZNS the month costs.
 
-**Recommendation: block the open, with no debt.** Recovery of the person's own funds stays available. See the exempt rows in [Which operations count](#which-operations-count).
+| Situation | What happens |
+|---|---|
+| Spendable ZNS covers the quote | Debit once. Status becomes `paid`. Later triggering opens in that month proceed. |
+| Spendable ZNS is short, and this month may use grace | The open succeeds. Status becomes `grace`. The fee stays unpaid, and no ZNS is debited. The sheet says this is the free pass for the month and shows the ZNS and USD still needed. |
+| Status is already `grace`, and the fee is still unpaid | The open is blocked. The sheet offers three ways to continue: upgrade to Premium, pay the locked USD on the current signed quote by card, or get more ZNS (for example the daily reward) and then pay the month. |
+| The person pays later in that same month | A ZNS confirm or a card payment of the signed quote converts `grace` to `paid`. The block lifts. Later triggering opens in the month proceed. |
+| The person upgrades to an active Premium or Unlimited term | The Free fee stops applying, so the block lifts for as long as that term is active. |
+| Wallet export or [lease recovery](/docs/api/zelf-ids/lease-recovery) | Always available. These calls do not create a grace record, do not consume the grace open, and do not open the Zelf Keys vault. |
 
-- Zelf Keys passwords, 2FA, notes, and cards stay closed until the month is paid in ZNS, the person upgrades to an active Premium or Unlimited term, or a card payment settles the locked USD for that period.
-- Wallet export and [lease recovery](/docs/api/zelf-ids/lease-recovery) stay available on a short balance. That path is for moving the owner's own funds and recovering the name. It does not open the Zelf Keys vault.
-- The card amount is the locked `amountUsd` on the quote, which is already at least the liveness floor. It is not a second hardcoded price.
-- A paid month is marked paid whether the settlement was ZNS or card, so the rest of the period does not ask again.
+A second device that opens at the same moment as the grace open resolves to the same grace record. It does not grant a second pass. Paying is idempotent: a second confirm of a month that is already `paid` returns that record and does not debit again.
+
+The card amount is the `amountUsd` on the signed quote the person confirms. That quote follows the two-hour lock in [Amount](#amount). A payment after the quote expires asks for a new quote first. The new quote is what gets stored when status becomes `paid`.
+
+### The following month
+
+**Recommended default, for Miguel to confirm.** This is [open question 1](#open-questions).
+
+Grace resets only when the previous UTC month was `paid`, or when that month had no triggering use (no monthly-access record).
+
+When the previous month is still `grace`, the new month offers no grace. The first triggering open requires payment. If the balance covers the new month's quote, that open debits it and the status is `paid`. If the balance is short, the open is blocked and the same three options appear: Premium, card for this month's locked USD, or more ZNS. The unpaid grace fee from the previous month is not added to this quote, and the balance does not go below zero.
+
+| Previous month | This month, balance short on the first triggering open |
+|---|---|
+| `paid` | One grace open. Status becomes `grace`. |
+| No triggering use | One grace open. Status becomes `grace`. |
+| `grace`, then paid before the month ended | One grace open. Status becomes `grace`. |
+| `grace`, and the fee was never paid | No grace. The first open is blocked until this month is paid. |
 
 ## Which operations count
 
@@ -142,7 +161,7 @@ Face-liveness is used across the product. **Only a decryption that opens stored 
 | Wallet decrypt for use (`POST /api/my-wallets/decrypt`) | Face | **Triggers** |
 | Tags decrypt and ZNS v2 decrypt, when they open a Free name | Face | **Triggers** |
 | Daily reward (`POST /api/rewards/daily`) | Face, plus master password when the Zelf ID has one | **Exempt** |
-| Wallet export / move-own-funds, and lease recovery | Face on recovery | **Exempt**, including when the balance is short |
+| Wallet export / move-own-funds, and lease recovery | Face on recovery | **Exempt.** Always available. Never counts as the grace open. |
 | Zelf Keys preview | Face | **Exempt**. It does not open stored vault items. |
 | Store or add a password, 2FA, note, or card | Face | **Exempt** |
 | Change master password | Face | **Exempt** |
@@ -197,7 +216,8 @@ A successful face check, together with the master password when the Zelf ID has 
 | Situation | Fee |
 |---|---|
 | Month already paid, inside or outside the 10-minute window | No further access charge. Face still runs when the action requires it. |
-| Month not paid, and the session is still inside the 10-minute window | The first triggering open of the new period still quotes. The window does not carry last month's payment forward. |
+| Month has no record yet, inside a window opened last month | The first triggering open of the new period still quotes. The window does not carry last month's payment forward. |
+| Month is `grace` and still unpaid, inside the 10-minute window | The window does not grant another vault open. Further triggering opens stay blocked until the month is paid. |
 | Daily reward inside a verified window | Still exempt. |
 
 ## Daily reward math
@@ -222,9 +242,9 @@ Compared with the **49 ZNS** illustration ($29 / 12 at $0.05 per ZNS):
 | Full month at the mean | about 364 to 403 | Yes |
 | Legacy hold, full month at the minimum | 28 to 31 | No |
 
-So a Free name that claims on most days covers the illustrated month even on a run of the smallest segment. A single visit does not. A person who returns after several quiet months, without claims in between, has no new reward from those quiet months. Their earlier unspent balance might cover the open, and if it does not they hit the [short-balance](#insufficient-zns) sheet.
+So a Free name that claims on most days covers the illustrated month even on a run of the smallest segment. A single visit does not. A person who returns after several quiet months, without claims in between, has no new reward from those quiet months. Their earlier unspent balance might cover the open. When it does not, the first open of an eligible month is the [grace decrypt](#insufficient-zns). The daily reward stays available after that, so they can earn ZNS and pay the month before the next open.
 
-The claim itself must stay exempt. Charging the fee on the claim would take ZNS from the action that mints it, and a short balance could block the only way to earn the next month.
+The claim itself must stay exempt. Charging the fee on the claim would take ZNS from the action that mints it, and a blocked reward would remove the way to pay a grace month.
 
 Coverage moves if the token price moves. At the $29 illustration, a 28-day month of 2 ZNS claims (56 ZNS) covers the fee while the token price stays at or above about **$0.043**. The default $0.05 is above that line. The live quote is what the app shows, not this table.
 
@@ -232,13 +252,14 @@ Coverage moves if the token price moves. At the $29 illustration, a 28-day month
 
 The extension and the app should make the month visible before the camera starts, so a person who declines does not begin a liveness check.
 
-1. **Balance.** The vault shows spendable ZNS (on-chain minus tokens already committed) and the current period: `Not due`, `Unpaid`, `Paid`, or `Included with Premium` / `Included with Unlimited`.
-2. **Warning before the charge.** On the first triggering open of an unpaid Free month, a sheet shows the locked quote: period, ZNS, USD, token price, and the balance after the debit. Actions: confirm with ZNS, upgrade to Premium, pay this month by card. Cancel leaves the data closed and does not start the camera.
-3. **Then the usual check.** Confirm continues into face, plus the master password when the Zelf ID has one. The server debits once and then returns the secrets. A retry of that confirm does not debit again.
-4. **Receipt.** The history gains a row: `Monthly access · October 2026 · 49 ZNS`, with the locked USD, the token price, and the time. The same row is what support can read from the audit log.
-5. **Short of ZNS.** The sheet stays up. It shows the shortfall, the daily reward when today's claim is still open, the Premium upgrade from `GET /api/zelf-ids/my-plan`, and the card option for the locked USD. The vault open stays closed. **Export wallet** and **Recover name** stay enabled.
-6. **After the month is paid.** Later opens in that UTC month skip the sheet. Face and the 10-minute session behave as they do today.
-7. **Upsell.** The sheet can say that Premium includes this access for the paid term. The price on the button comes from the live payment-options quote, not from a constant in the app.
+1. **Balance.** The vault shows spendable ZNS (on-chain minus tokens already committed) and the current period: `Not due`, `Grace`, `Paid`, or `Included with Premium` / `Included with Unlimited`.
+2. **Enough ZNS.** On the first triggering open of an unpaid Free month, a sheet shows the locked quote: period, ZNS, USD, token price, and the balance after the debit. Confirm pays the month and continues into face, plus the master password when the Zelf ID has one. Cancel leaves the data closed and does not start the camera. A retry of that confirm does not debit again.
+3. **Grace open.** When the balance is short and grace is available, the sheet says this open is the free pass for the month. It shows the ZNS still needed, the USD on the quote, and the current balance. The open then succeeds. The month stays unpaid.
+4. **Block screen.** After that grace open, every later triggering open while the month is unpaid shows a block screen with three options: upgrade to Premium, pay the locked USD by card, or get more ZNS (the daily reward, when today's claim is still open). The vault stays closed. When a ZNS or card payment converts the month to `paid`, the block lifts.
+5. **Export and recovery.** **Export wallet** and **Recover name** stay enabled on the grace sheet and on the block screen. They do not use the grace pass.
+6. **Receipt.** A paid month adds a history row: `Monthly access · October 2026 · 49 ZNS`, with the locked USD, the token price, and the time. A grace month adds `Monthly access · October 2026 · grace`, with the ZNS that were still needed. The same rows are what support can read from the audit log.
+7. **After the month is paid.** Later opens in that UTC month skip the sheet. Face and the 10-minute session behave as they do today.
+8. **Upsell.** The grace sheet and the block screen can say that Premium includes this access for the paid term. The price on the button comes from the live payment-options quote, not from a constant in the app.
 
 ## Proposed API shape
 
@@ -255,11 +276,11 @@ Authentication matches the other protected Zelf ID calls: a session JWT from `PO
 
 | Method and path | Role |
 |---|---|
-| `GET /api/zelf-ids/monthly-access` | Status for `tagName` and `domain`: plan, period, whether a charge is due, spendable balance, and paid history. |
+| `GET /api/zelf-ids/monthly-access` | Status for `tagName` and `domain`: plan, period, `none` / `grace` / `paid` / `exempt`, whether another triggering open is allowed, spendable balance, and history. |
 | `GET /api/zelf-ids/monthly-access/quote` | Build and sign the quote for the current UTC period. No debit. |
-| `POST /api/zelf-ids/monthly-access/confirm` | Accept the signed `token`, debit once, mark the period paid. |
+| `POST /api/zelf-ids/monthly-access/confirm` | Accept the signed `token`, debit once, and set the period to `paid`. A period that was `grace` converts to `paid`. |
 
-A triggering decrypt on an unpaid Free month does not return secrets until confirm has paid that period, or the call is one of the exempt recovery actions. The client should quote and show the sheet before starting the camera.
+On a Free month with no record, a triggering decrypt with a short balance returns the secrets once and writes `grace`. A later triggering decrypt while status is `grace` returns no secrets until confirm has set `paid`, unless the call is wallet export or lease recovery. The client shows the grace warning, or the block screen, before starting the camera.
 
 ### Record
 
@@ -269,23 +290,31 @@ One monthly-access record per Zelf ID per period. The natural idempotency key is
 {
   "zelfName": "myname.zelf",
   "periodKey": "2026-10",
-  "status": "paid",
-  "settlement": "zns",
+  "status": "grace",
   "amountZns": 49,
   "amountUsd": "2.4166666667",
   "tokenPriceUsd": 0.05,
   "premiumYearlyUsd": 29,
   "floorUsd": 0.1,
   "trigger": "retrieve",
-  "chargedAt": "2026-10-25T16:00:00.000Z"
+  "graceAt": "2026-10-25T16:00:00.000Z"
 }
 ```
 
-`amountZns` and the USD fields in that example are the illustration from the current $29 and $0.05 snapshot. A real record stores the figures locked in that period's quote.
+`amountZns` and the USD fields in that example are the illustration from the current $29 and $0.05 snapshot. A real record stores the quote shown for that period.
 
-`status` is `quoted` or `paid`. A Premium or Unlimited name does not need a debit row: the status call returns `exempt` with `reason` `premium` or `unlimited`. `settlement` is `zns` or `card` when a card path exists.
+`status` on a stored row is `grace` or `paid`. No row for that Zelf ID and period means `none`: the month has had no triggering open. A Premium or Unlimited name does not need a debit row: the status call returns `exempt` with `reason` `premium` or `unlimited`.
 
-A second confirm for the same key returns the paid record and does not increase the committed balance. Two devices confirming the same period resolve to one debit.
+A grace row has no `settlement` and no `chargedAt`. When the person pays, the same row becomes:
+
+| Field | After payment |
+|---|---|
+| `status` | `paid` |
+| `settlement` | `zns` or `card` |
+| `chargedAt` | Time of the successful confirm |
+| `amountZns`, `amountUsd`, `tokenPriceUsd` | The signed quote accepted at payment time |
+
+Writing the grace row is idempotent. A second attempt in the same period returns the existing row and does not grant another grace open. A second confirm after `paid` returns the paid row and does not increase the committed balance. Two devices that hit the same period resolve to one row.
 
 ### Audit log
 
@@ -294,7 +323,7 @@ Append-only, one row per attempt:
 | Field | Example |
 |---|---|
 | `zelfName`, `periodKey` | `myname.zelf`, `2026-10` |
-| `event` | `quoted`, `paid`, `idempotent_replay`, `insufficient_zns`, `exempt` |
+| `event` | `quoted`, `grace_opened`, `grace_blocked`, `paid`, `idempotent_replay`, `exempt` |
 | `amountZns`, `amountUsd`, `tokenPriceUsd` | Locked quote figures |
 | `trigger` | `retrieve`, `decrypt`, `wallet-decrypt` |
 | `at` | ISO-8601 UTC |
@@ -349,11 +378,26 @@ A second sink: after a high number of liveness opens in a month, further opens c
 - Easy to feel like a surcharge on people who already pay for the year.
 - The threshold is a product choice, not something to copy from the Free fee.
 
+## Decisions
+
+### Short ZNS balance
+
+**Miguel, 2026-10-25.** When a Free Zelf ID opens its vault for the first time in a UTC month and the spendable ZNS balance does not cover the monthly fee:
+
+- That open succeeds. The month is stored as `grace`, and the fee stays unpaid.
+- Any further triggering open in that same month, while the fee is still unpaid, is blocked.
+- The block screen offers upgrade to Premium, pay the locked USD on the signed quote by card, or get more ZNS (for example the daily reward). After the month is paid, those opens continue.
+- Paying in ZNS or by card converts `grace` to `paid` and lifts the block. An upgrade to an active Premium or Unlimited term lifts the block because the Free fee no longer applies.
+- The balance does not go negative. The unpaid grace fee is not carried forward as debt.
+- Wallet export and lease recovery stay available the whole time. They never count as the grace open, and they do not open Zelf Keys.
+
+The rule for the **next** month is not part of this decision. The recommended default is in [The following month](#the-following-month), and it is [open question 1](#open-questions).
+
 ## Open questions
 
-For Miguel and the CEO:
+For Miguel and the CEO. The short-balance choice is recorded under [Decisions](#decisions). Question 1 is the part of that choice that is still open: how grace behaves the following month. Questions 2 through 12 are the previous questions 2 through 12.
 
-1. **Short ZNS balance.** Confirm or replace the recommendation: block the vault open, offer Premium or card for the locked USD, refuse a negative balance, and keep wallet export and lease recovery available.
+1. **Grace the following month.** Confirm the recommended default: a new grace is offered only when the previous UTC month was paid, or had no triggering use. If the previous month stayed `grace` and was never paid, the next month offers no grace, and the first triggering open requires payment. The old fee is not added as debt.
 2. **Wallet unlock versus export.** Confirm that unlocking the wallet for use triggers the fee, and that a dedicated export of the owner's funds stays exempt and does not open Zelf Keys.
 3. **Which face checks count.** Confirm that only decryption and wallet unlock trigger, and that store, delete, password change, and the daily reward stay exempt even though they use face.
 4. **Short names.** Confirm that a Free name of 1–5 characters, which cannot buy Premium, uses the license's one-year Premium price for names that can.
