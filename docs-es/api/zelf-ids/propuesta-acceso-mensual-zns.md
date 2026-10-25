@@ -41,7 +41,7 @@ Premium y Unlimited quedan exentos de esta tarifa de Free. Una sección aparte, 
 | Cuántos cobros | Un débito por Zelf ID y por periodo. La apertura de gracia no es un débito. Cuando el periodo está pagado, las aperturas posteriores que disparan la tarifa quedan cubiertas. |
 | Monto | El precio en dólares de un año de Premium en la licencia, dividido entre 12, convertido a ZNS enteros con el precio del token en el servidor y el mismo redondeo de los espacios extra. Piso: el monto configurado de usuario activo mensual (por defecto $0.10). |
 | Ilustración | $29 / 12 a $0.05 por ZNS redondea hacia arriba a **49 ZNS**. La cotización vigente reemplaza esta cifra. |
-| Saldo insuficiente | **Decidido el 2026-10-25.** Una apertura de gracia en el mes. La tarifa queda impaga. Las aperturas posteriores que disparan la tarifa se bloquean hasta que el mes se pague. Sin deuda. La exportación de la billetera y la recuperación del lease siguen disponibles y no gastan la gracia. Ver [Decisiones](#decisiones). |
+| Saldo insuficiente | **Decidido el 2026-10-25.** Una apertura de gracia en el mes. La tarifa queda impaga. Las aperturas posteriores que disparan la tarifa se bloquean hasta que el mes se pague. Sin deuda. Si esa gracia queda impaga, el mes siguiente no ofrece gracia y la primera apertura que dispara la tarifa exige el pago. La exportación de la billetera y la recuperación del lease siguen disponibles y no gastan la gracia. Ver [Decisiones](#decisiones). |
 | Recompensa diaria | Exenta. Es la forma de ganar el saldo. Los nombres Free confirmados usan la ruleta de mainnet: 2, 4, …, 24 ZNS al día (media 13). |
 | Cotización | Firmada y fijada por 2 horas, con la misma idea que [Payment Options](/docs/api/zelf-ids/payment-options). |
 
@@ -137,7 +137,7 @@ El monto de la tarjeta es el `amountUsd` de la cotización firmada que la person
 
 ### El mes siguiente
 
-**Valor recomendado, para que Miguel lo confirme.** Es la [pregunta abierta 1](#preguntas-abiertas).
+**Miguel, 2026-10-25.** Ver [Decisiones](#decisiones).
 
 La gracia se renueva solo cuando el mes UTC anterior fue `paid`, o cuando ese mes no tuvo un uso que dispare la tarifa (no hay registro de acceso mensual).
 
@@ -391,21 +391,22 @@ Un segundo destino: después de un número alto de aperturas con prueba de vida 
 - El saldo no queda negativo. La tarifa impaga de gracia no se arrastra como deuda.
 - La exportación de la billetera y la recuperación del lease siguen disponibles todo el tiempo. Nunca cuentan como la apertura de gracia, y no abren Zelf Keys.
 
-La regla del **mes siguiente** no forma parte de esta decisión. El valor recomendado está en [El mes siguiente](#el-mes-siguiente), y es la [pregunta abierta 1](#preguntas-abiertas).
+**Miguel, 2026-10-25.** El mes siguiente no ofrece gracia cuando la gracia del mes anterior quedó impaga. La primera apertura que dispara la tarifa en ese mes nuevo exige el pago. El detalle está en [El mes siguiente](#el-mes-siguiente).
 
 ## Preguntas abiertas
 
-Para Miguel y el CEO. La decisión sobre el saldo corto está en [Decisiones](#decisiones). La pregunta 1 es la parte de esa decisión que sigue abierta: cómo se comporta la gracia el mes siguiente. Las preguntas 2 a 12 son las preguntas anteriores 2 a 12.
+Para Miguel y el CEO. La decisión sobre el saldo corto y la regla de gracia del mes siguiente están en [Decisiones](#decisiones). Las preguntas de abajo son las preguntas anteriores 2 a 12, renumeradas del 1 al 11.
 
-1. **Gracia el mes siguiente.** Confirmar el valor recomendado: se ofrece una gracia nueva solo cuando el mes UTC anterior fue pagado, o no tuvo un uso que dispare la tarifa. Si el mes anterior quedó en `grace` y nunca se pagó, el mes siguiente no ofrece gracia, y la primera apertura que dispara la tarifa exige el pago. La tarifa anterior no se suma como deuda.
-2. **Desbloqueo de la billetera frente a exportación.** Confirmar que desbloquear la billetera para usarla dispara la tarifa, y que una exportación dedicada de los fondos del dueño queda exenta y no abre Zelf Keys.
-3. **Qué pruebas de rostro cuentan.** Confirmar que solo el descifrado y el desbloqueo de la billetera disparan la tarifa, y que guardar, borrar, cambiar la contraseña y la recompensa diaria siguen exentos aunque usen el rostro.
-4. **Nombres cortos.** Confirmar que un nombre Free de 1 a 5 caracteres, que no puede comprar Premium, usa el precio de un año de Premium de la licencia para los nombres que sí pueden.
-5. **Varios nombres Free.** Confirmar que la tarifa es por Zelf ID y por mes, sin un tope a nivel de cuenta.
-6. **Liquidación.** ¿Débito en el libro compartido con los espacios extra, o transferencia en cadena a una tesorería?
-7. **Mes con tarjeta.** ¿Un pago con tarjeta de un mes, por los dólares fijados, entra en la primera versión, y qué checkout existente debería alojarlo?
-8. **Espacios antes de la tarifa.** Confirmar que se puede comprar un espacio con el mes impago, siempre que la hoja avise que el saldo restante puede no cubrir el acceso.
-9. **Vencimiento.** Confirmar que la primera apertura que dispara la tarifa, después de que termina un plazo Premium o Unlimited, se cobra, incluidos los plazos que terminaron por cupón o whitelist.
-10. **Titularidades antiguas de Zelf Keys** que no son free, premium ni unlimited. ¿Esos nombres siguen en alcance mientras el plan de consumo se lee como Free?
-11. **ZNS en planes de pago.** Si hay que explorar después alguna de las tres opciones, ¿cuál? Ninguna está comprometida.
-12. **Meses en calma.** Confirmar que un nombre que no abre datos ese mes nunca se cobra, aunque reclame la recompensa diaria. La recomendación es que sí: el reclamo está exento, y la tarifa espera una apertura que la dispare.
+La implementación de la API avanza con los valores recomendados de estas preguntas.
+
+1. **Desbloqueo de la billetera frente a exportación.** Confirmar que desbloquear la billetera para usarla dispara la tarifa, y que una exportación dedicada de los fondos del dueño queda exenta y no abre Zelf Keys.
+2. **Qué pruebas de rostro cuentan.** Confirmar que solo el descifrado y el desbloqueo de la billetera disparan la tarifa, y que guardar, borrar, cambiar la contraseña y la recompensa diaria siguen exentos aunque usen el rostro.
+3. **Nombres cortos.** Confirmar que un nombre Free de 1 a 5 caracteres, que no puede comprar Premium, usa el precio de un año de Premium de la licencia para los nombres que sí pueden.
+4. **Varios nombres Free.** Confirmar que la tarifa es por Zelf ID y por mes, sin un tope a nivel de cuenta.
+5. **Liquidación.** ¿Débito en el libro compartido con los espacios extra, o transferencia en cadena a una tesorería?
+6. **Mes con tarjeta.** ¿Un pago con tarjeta de un mes, por los dólares fijados, entra en la primera versión, y qué checkout existente debería alojarlo?
+7. **Espacios antes de la tarifa.** Confirmar que se puede comprar un espacio con el mes impago, siempre que la hoja avise que el saldo restante puede no cubrir el acceso.
+8. **Vencimiento.** Confirmar que la primera apertura que dispara la tarifa, después de que termina un plazo Premium o Unlimited, se cobra, incluidos los plazos que terminaron por cupón o whitelist.
+9. **Titularidades antiguas de Zelf Keys** que no son free, premium ni unlimited. ¿Esos nombres siguen en alcance mientras el plan de consumo se lee como Free?
+10. **ZNS en planes de pago.** Si hay que explorar después alguna de las tres opciones, ¿cuál? Ninguna está comprometida.
+11. **Meses en calma.** Confirmar que un nombre que no abre datos ese mes nunca se cobra, aunque reclame la recompensa diaria. La recomendación es que sí: el reclamo está exento, y la tarifa espera una apertura que la dispare.

@@ -41,7 +41,7 @@ Premium and Unlimited stay exempt from this Free fee. A separate, lower-priority
 | How many charges | One debit per Zelf ID per period. A grace open is not a debit. After the period is paid, later triggering opens are covered. |
 | Amount | One-year Premium USD from the license, divided by 12, converted to whole ZNS at the server token price, using the same rounding as extra slots. Floor: the configured monthly active-user amount (default $0.10). |
 | Illustration | $29 / 12 at $0.05 per ZNS rounds up to **49 ZNS**. The live quote replaces this figure. |
-| Short balance | **Decided 2026-10-25.** One grace open for the month. The fee stays unpaid. Further triggering opens are blocked until the month is paid. No debt. Wallet export and lease recovery stay available and do not use the grace. See [Decisions](#decisions). |
+| Short balance | **Decided 2026-10-25.** One grace open for the month. The fee stays unpaid. Further triggering opens are blocked until the month is paid. No debt. If that grace stays unpaid, the next month offers no grace and the first triggering open requires payment. Wallet export and lease recovery stay available and do not use the grace. See [Decisions](#decisions). |
 | Daily reward | Exempt. It is how the balance is earned. Confirmed Free names use the mainnet wheel: 2, 4, …, 24 ZNS a day (mean 13). |
 | Quote | Signed, locked for 2 hours, same idea as [Payment Options](/docs/api/zelf-ids/payment-options). |
 
@@ -137,7 +137,7 @@ The card amount is the `amountUsd` on the signed quote the person confirms. That
 
 ### The following month
 
-**Recommended default, for Miguel to confirm.** This is [open question 1](#open-questions).
+**Miguel, 2026-10-25.** See [Decisions](#decisions).
 
 Grace resets only when the previous UTC month was `paid`, or when that month had no triggering use (no monthly-access record).
 
@@ -391,21 +391,22 @@ A second sink: after a high number of liveness opens in a month, further opens c
 - The balance does not go negative. The unpaid grace fee is not carried forward as debt.
 - Wallet export and lease recovery stay available the whole time. They never count as the grace open, and they do not open Zelf Keys.
 
-The rule for the **next** month is not part of this decision. The recommended default is in [The following month](#the-following-month), and it is [open question 1](#open-questions).
+**Miguel, 2026-10-25.** The following month does not offer grace when the previous month's grace went unpaid. The first triggering open of that new month requires payment. Detail is in [The following month](#the-following-month).
 
 ## Open questions
 
-For Miguel and the CEO. The short-balance choice is recorded under [Decisions](#decisions). Question 1 is the part of that choice that is still open: how grace behaves the following month. Questions 2 through 12 are the previous questions 2 through 12.
+For Miguel and the CEO. The short-balance choice and the next-month grace rule are recorded under [Decisions](#decisions). The questions below are the previous questions 2 through 12, renumbered 1 through 11.
 
-1. **Grace the following month.** Confirm the recommended default: a new grace is offered only when the previous UTC month was paid, or had no triggering use. If the previous month stayed `grace` and was never paid, the next month offers no grace, and the first triggering open requires payment. The old fee is not added as debt.
-2. **Wallet unlock versus export.** Confirm that unlocking the wallet for use triggers the fee, and that a dedicated export of the owner's funds stays exempt and does not open Zelf Keys.
-3. **Which face checks count.** Confirm that only decryption and wallet unlock trigger, and that store, delete, password change, and the daily reward stay exempt even though they use face.
-4. **Short names.** Confirm that a Free name of 1–5 characters, which cannot buy Premium, uses the license's one-year Premium price for names that can.
-5. **Several Free names.** Confirm the fee is per Zelf ID per month, with no account-level cap.
-6. **Settlement.** Ledger debit shared with extra slots, or an on-chain transfer to a treasury?
-7. **Card month.** Is a one-month card payment of the locked USD in scope for the first version, and which existing checkout should host it?
-8. **Slots before the fee.** Confirm that a slot purchase is allowed while the month is unpaid, as long as the sheet warns that the remaining balance may not cover access.
-9. **Lapse.** Confirm the first triggering open after a Premium or Unlimited term ends is charged, including terms that ended by coupon or whitelist.
-10. **Legacy key entitlements** that are not free, premium, or unlimited. Should those names stay in scope while the consumer plan reads as Free?
-11. **Paid-plan ZNS.** If any of the three options should be explored next, which one? None is committed.
-12. **Quiet months.** Confirm a name that never opens data that month is never charged, even if they claim the daily reward. The recommendation is yes: the claim is exempt, and the fee waits for a triggering open.
+The API implementation is proceeding with the recommended defaults in these questions.
+
+1. **Wallet unlock versus export.** Confirm that unlocking the wallet for use triggers the fee, and that a dedicated export of the owner's funds stays exempt and does not open Zelf Keys.
+2. **Which face checks count.** Confirm that only decryption and wallet unlock trigger, and that store, delete, password change, and the daily reward stay exempt even though they use face.
+3. **Short names.** Confirm that a Free name of 1–5 characters, which cannot buy Premium, uses the license's one-year Premium price for names that can.
+4. **Several Free names.** Confirm the fee is per Zelf ID per month, with no account-level cap.
+5. **Settlement.** Ledger debit shared with extra slots, or an on-chain transfer to a treasury?
+6. **Card month.** Is a one-month card payment of the locked USD in scope for the first version, and which existing checkout should host it?
+7. **Slots before the fee.** Confirm that a slot purchase is allowed while the month is unpaid, as long as the sheet warns that the remaining balance may not cover access.
+8. **Lapse.** Confirm the first triggering open after a Premium or Unlimited term ends is charged, including terms that ended by coupon or whitelist.
+9. **Legacy key entitlements** that are not free, premium, or unlimited. Should those names stay in scope while the consumer plan reads as Free?
+10. **Paid-plan ZNS.** If any of the three options should be explored next, which one? None is committed.
+11. **Quiet months.** Confirm a name that never opens data that month is never charged, even if they claim the daily reward. The recommendation is yes: the claim is exempt, and the fee waits for a triggering open.
