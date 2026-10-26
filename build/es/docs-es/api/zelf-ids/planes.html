@@ -32,8 +32,8 @@
 					    document.head.appendChild(s);
 					  }catch(e){}
 					})();</script><link rel="stylesheet" href="/es/assets/css/styles.2f01f1c7.css">
-<script src="/es/assets/js/runtime~main.e649b415.js" defer="defer"></script>
-<script src="/es/assets/js/main.f12157ff.js" defer="defer"></script>
+<script src="/es/assets/js/runtime~main.0192ba4a.js" defer="defer"></script>
+<script src="/es/assets/js/main.aba0a0f9.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -74,11 +74,11 @@
 </ol>
 <p>Los planes se compran por años. La licencia decide qué plazos se ofrecen para cada plan. Para un nombre <code>.zelf</code> de 6 o más caracteres, la API ofrece hoy:</p>
 <table><thead><tr><th>Plazo</th><th>Premium</th><th>Unlimited</th></tr></thead><tbody><tr><td>1 año</td><td>$29.00</td><td>$99.00</td></tr><tr><td>2 años</td><td>$43.49</td><td>$148.99</td></tr><tr><td>3 años</td><td>$56.99</td><td>$192.99</td></tr><tr><td>De por vida</td><td>$144.99</td><td>$494.99</td></tr></tbody></table>
-<p>Un plazo que la licencia no ofrece devuelve <code>409</code> <code>plan_duration_not_offered_by_license</code>. Un plan que la licencia no ofrece para ese largo de nombre devuelve <code>409</code> <code>plan_not_offered_for_name</code>. Un plan de por vida no tiene fecha de fin.</p>
+<p>Un plazo que la licencia no ofrece devuelve <code>409</code> <code>PLAN_DURATION_NOT_OFFERED_BY_LICENSE</code>. Un plan que la licencia no ofrece para ese largo de nombre devuelve <code>409</code> <code>PLAN_NOT_OFFERED_FOR_NAME</code>. Un plan de por vida no tiene fecha de fin.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="la-cotización-fija-el-precio">La cotización fija el precio<a href="#la-cotización-fija-el-precio" class="hash-link" aria-label="Enlace directo al La cotización fija el precio" title="Enlace directo al La cotización fija el precio">​</a></h3>
 <p>La cotización va firmada (<code>signedDataPrice</code>) y es válida por <strong>2 horas</strong>. Durante ese tiempo fija el precio en dólares, los montos en cripto y el crédito de subida, si lo hay. La confirmación usa esas cifras fijadas.</p>
 <p>Una cotización vencida se rechaza. Hay que pedir una nueva, que vuelve a calcular todo, incluidas las tasas de cripto y el crédito de subida. Un pago en cripto por el monto completo que llegó antes de que venciera la cotización se sigue respetando.</p>
-<p>Stripe necesita que a la cotización le queden al menos 30 minutos para abrir la sesión de pago. Si no, devuelve <code>409</code> <code>quote_expiring</code> y hay que pedir una cotización nueva.</p>
+<p>Stripe necesita que a la cotización le queden al menos 30 minutos para abrir la sesión de pago. Si no, devuelve <code>409</code> <code>QUOTE_EXPIRING</code> y hay que pedir una cotización nueva.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="cupones">Cupones<a href="#cupones" class="hash-link" aria-label="Enlace directo al Cupones" title="Enlace directo al Cupones">​</a></h2>
 <p>Un <a href="/es/docs-es/api/zelf-ids/cupones">cupón</a> descuenta un porcentaje de un plazo Premium o Unlimited. Pásalo a Payment Options para ver el <code>amountDue</code> con el descuento.</p>
 <ul>
@@ -86,7 +86,7 @@
 <li>Si queda un saldo, el dueño paga ese monto con descuento por Stripe o cripto.</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="subir-de-plan">Subir de plan<a href="#subir-de-plan" class="hash-link" aria-label="Enlace directo al Subir de plan" title="Enlace directo al Subir de plan">​</a></h2>
-<p>Un nombre con un plazo Premium abierto puede pasar a Unlimited en cualquier momento. Bajar de Unlimited a Premium con el plazo abierto no está permitido (<code>409</code> <code>plan_downgrade_not_allowed</code>).</p>
+<p>Un nombre con un plazo Premium abierto puede pasar a Unlimited en cualquier momento. Bajar de Unlimited a Premium con el plazo abierto no está permitido (<code>409</code> <code>PLAN_DOWNGRADE_NOT_ALLOWED</code>).</p>
 <p>Al pasar de Premium a Unlimited, el tiempo de Premium que no se usó se convierte en <strong>crédito de subida</strong>:</p>
 <p><code>upgradeCredit = monto realmente pagado por el plazo Premium × tiempo restante / duración total del plazo</code></p>
 <ul>
@@ -98,7 +98,7 @@
 </ul>
 <p>Payment Options devuelve <code>listPrice</code>, <code>upgradeCredit</code> y <code>amountDue</code>. El cupón se aplica después del crédito:</p>
 <p><code>amountDue = (listPrice − upgradeCredit) × (100 − percentOff) / 100</code></p>
-<p>Si el plazo Premium cambia entre la cotización y la confirmación, la confirmación devuelve <code>409</code> <code>upgrade_term_changed</code> y hay que pedir una cotización nueva.</p>
+<p>Si el plazo Premium cambia entre la cotización y la confirmación, la confirmación devuelve <code>409</code> <code>UPGRADE_TERM_CHANGED</code> y hay que pedir una cotización nueva.</p>
 <p>El plan actual del dueño y la forma de subir de plan se consultan con <code>GET https://v4.zelf.world/api/zelf-ids/my-plan</code>. Ver <a href="/es/docs-es/api/zelf-ids/cupones#subir-de-plan">Subir de plan</a>.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="renovación-y-vencimiento">Renovación y vencimiento<a href="#renovación-y-vencimiento" class="hash-link" aria-label="Enlace directo al Renovación y vencimiento" title="Enlace directo al Renovación y vencimiento">​</a></h2>
 <ul>

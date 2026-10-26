@@ -324,7 +324,7 @@ Same query and the same session check as [status](#status). No ZNS is debited, a
 
 An exempt name returns `status` `exempt`, `reason` `premium` or `unlimited`, `openAllowed` `true`, and `signedDataPrice` `null`.
 
-While the switch is off, quote returns `409` `monthly_access_disabled`.
+While the switch is off, quote returns `409` `MONTHLY_ACCESS_DISABLED`.
 
 ## Confirm
 
@@ -343,9 +343,9 @@ POST https://v4.zelf.world/api/zelf-ids/monthly-access/confirm
 
 Sending the same quote again after the month is `paid` returns the paid row with `charged` `false` and `idempotent` `true`. It does not debit again.
 
-`method` `card` returns `409` `monthly_access_card_unavailable`. The month is unchanged.
+`method` `card` returns `409` `MONTHLY_ACCESS_CARD_UNAVAILABLE`. The month is unchanged.
 
-A quote whose `ttl` is in the past, or whose `periodKey` is not the current UTC month, returns `409` `monthly_access_quote_expired`. Request a new quote and confirm that one.
+A quote whose `ttl` is in the past, or whose `periodKey` is not the current UTC month, returns `409` `MONTHLY_ACCESS_QUOTE_EXPIRED`. Request a new quote and confirm that one.
 
 ```json
 {
@@ -490,15 +490,15 @@ These do not create a month row, do not consume the grace open, and do not add `
 |------|--------|------|
 | 401 | | No session JWT. Body is `{ "error": "Protected resource, use Authorization header to get access" }`. |
 | 401 | `ERR_ZELF_IDENTITY_REQUIRED` | Session has no Zelf ID. |
-| 401 | `monthly_access_quote_invalid` | `token` is not a monthly-access quote. Message: `Monthly access quote is not valid`. |
+| 401 | `MONTHLY_ACCESS_QUOTE_INVALID` | `token` is not a monthly-access quote. Message: `Monthly access quote is not valid`. |
 | 403 | `ERR_SESSION_OWNER_MISMATCH` | Session name is not the query name, or not the name inside the quote. |
-| 402 | `monthly_access_payment_required` | This triggering open is blocked, or confirm does not have enough ZNS. |
+| 402 | `MONTHLY_ACCESS_PAYMENT_REQUIRED` | This triggering open is blocked, or confirm does not have enough ZNS. |
 | 409 | | Joi validation. Body is `{ "validationError": "..." }`, for example when `tagName` or `token` is missing. |
-| 409 | `monthly_access_disabled` | Quote or confirm while the switch is off. Message: `Monthly access is not enabled`. |
-| 409 | `monthly_access_quote_expired` | `ttl` has passed, or `periodKey` is not the current UTC month. Message: `Monthly access quote has expired. Request a new quote.` |
-| 409 | `monthly_access_card_unavailable` | `method` is `card`. |
-| 409 | `monthly_access_price_unavailable` | The license has no one-year Premium price to convert. |
-| 409 | `monthly_access_in_progress` | A write for this month is still finishing. Retry. |
+| 409 | `MONTHLY_ACCESS_DISABLED` | Quote or confirm while the switch is off. Message: `Monthly access is not enabled`. |
+| 409 | `MONTHLY_ACCESS_QUOTE_EXPIRED` | `ttl` has passed, or `periodKey` is not the current UTC month. Message: `Monthly access quote has expired. Request a new quote.` |
+| 409 | `MONTHLY_ACCESS_CARD_UNAVAILABLE` | `method` is `card`. |
+| 409 | `MONTHLY_ACCESS_PRICE_UNAVAILABLE` | The license has no one-year Premium price to convert. |
+| 409 | `MONTHLY_ACCESS_IN_PROGRESS` | A write for this month is still finishing. Retry. |
 | 503 | `ERR_TOKEN_BALANCE_UNAVAILABLE` | Confirm cannot read the ZNS balance. |
 
 `402` body from a blocked open or a short confirm:
@@ -506,7 +506,7 @@ These do not create a month row, do not consume the grace open, and do not add `
 ```json
 {
   "message": "Monthly access payment is required",
-  "code": "monthly_access_payment_required",
+  "code": "MONTHLY_ACCESS_PAYMENT_REQUIRED",
   "periodKey": "2026-10",
   "amountZns": 49,
   "amountUsd": "2.4166666667",
@@ -529,7 +529,7 @@ These do not create a month row, do not consume the grace open, and do not add `
 ```json
 {
   "message": "Card payment for this month is not available yet",
-  "code": "monthly_access_card_unavailable",
+  "code": "MONTHLY_ACCESS_CARD_UNAVAILABLE",
   "periodKey": "2026-10",
   "amountUsd": "2.4166666667",
   "amountZns": 49,
@@ -566,7 +566,7 @@ sequenceDiagram
 
 1. **First open, balance covers the fee.** `status` is `none` and `spendableBalance` is at least `amountZns`. The sheet shows those two fields and `amountUsd`. The triggering open then returns `monthlyAccess.charged` `true`. Show a receipt toast with `amountZns`, `amountUsd`, and `periodKey`. The extension can also `POST` confirm before the camera. After that, the open is idempotent and `charged` is `false`.
 2. **Grace open.** `status` is `none`, `graceAvailable` is `true`, and `znsNeeded` is above 0. The sheet says this is the free pass for the month and shows `znsNeeded` and `amountZns`. The open succeeds. `monthlyAccess.status` is `grace` and `charged` is `false`.
-3. **Blocked.** `openAllowed` is `false`, or the call returns `402`. Do not start the camera. The block screen offers **Upgrade to Premium** (`upgrade.url` from `my-plan`) and **Get more ZNS** (`POST /api/rewards/daily` when today's claim is still open). Hide the card button while `options` has `card.available` `false`. After the person has enough ZNS, quote, then confirm with `method` `zns`. A `409` `monthly_access_quote_expired` means the two-hour quote lapsed or the UTC month rolled: call quote again and confirm the new `signedDataPrice`. Then the vault open proceeds.
+3. **Blocked.** `openAllowed` is `false`, or the call returns `402`. Do not start the camera. The block screen offers **Upgrade to Premium** (`upgrade.url` from `my-plan`) and **Get more ZNS** (`POST /api/rewards/daily` when today's claim is still open). Hide the card button while `options` has `card.available` `false`. After the person has enough ZNS, quote, then confirm with `method` `zns`. A `409` `MONTHLY_ACCESS_QUOTE_EXPIRED` means the two-hour quote lapsed or the UTC month rolled: call quote again and confirm the new `signedDataPrice`. Then the vault open proceeds.
 4. **Already paid or exempt.** Skip the sheet. `openAllowed` is `true`.
 
 ## Examples

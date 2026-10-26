@@ -75,8 +75,8 @@ No matching transfer yet. A short-name reservation stays a 5-hour hold. A long n
 
 ```json
 {
-  "message": "avax_use_smart_contract_confirmation",
-  "code": "avax_use_smart_contract_confirmation"
+  "message": "AVAX_USE_SMART_CONTRACT_CONFIRMATION",
+  "code": "AVAX_USE_SMART_CONTRACT_CONFIRMATION"
 }
 ```
 
@@ -91,7 +91,7 @@ No matching transfer yet. A short-name reservation stays a 5-hour hold. A long n
 
 ```json
 {
-  "validationError": "token_expired"
+  "validationError": "TOKEN_EXPIRED"
 }
 ```
 

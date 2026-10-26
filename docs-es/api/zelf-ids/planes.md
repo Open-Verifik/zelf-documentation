@@ -79,7 +79,7 @@ Los planes se compran por años. La licencia decide qué plazos se ofrecen para 
 | 3 años | $56.99 | $192.99 |
 | De por vida | $144.99 | $494.99 |
 
-Un plazo que la licencia no ofrece devuelve `409` `plan_duration_not_offered_by_license`. Un plan que la licencia no ofrece para ese largo de nombre devuelve `409` `plan_not_offered_for_name`. Un plan de por vida no tiene fecha de fin.
+Un plazo que la licencia no ofrece devuelve `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. Un plan que la licencia no ofrece para ese largo de nombre devuelve `409` `PLAN_NOT_OFFERED_FOR_NAME`. Un plan de por vida no tiene fecha de fin.
 
 ### La cotización fija el precio
 
@@ -87,7 +87,7 @@ La cotización va firmada (`signedDataPrice`) y es válida por **2 horas**. Dura
 
 Una cotización vencida se rechaza. Hay que pedir una nueva, que vuelve a calcular todo, incluidas las tasas de cripto y el crédito de subida. Un pago en cripto por el monto completo que llegó antes de que venciera la cotización se sigue respetando.
 
-Stripe necesita que a la cotización le queden al menos 30 minutos para abrir la sesión de pago. Si no, devuelve `409` `quote_expiring` y hay que pedir una cotización nueva.
+Stripe necesita que a la cotización le queden al menos 30 minutos para abrir la sesión de pago. Si no, devuelve `409` `QUOTE_EXPIRING` y hay que pedir una cotización nueva.
 
 ## Cupones
 
@@ -98,7 +98,7 @@ Un [cupón](/docs-es/api/zelf-ids/cupones) descuenta un porcentaje de un plazo P
 
 ## Subir de plan
 
-Un nombre con un plazo Premium abierto puede pasar a Unlimited en cualquier momento. Bajar de Unlimited a Premium con el plazo abierto no está permitido (`409` `plan_downgrade_not_allowed`).
+Un nombre con un plazo Premium abierto puede pasar a Unlimited en cualquier momento. Bajar de Unlimited a Premium con el plazo abierto no está permitido (`409` `PLAN_DOWNGRADE_NOT_ALLOWED`).
 
 Al pasar de Premium a Unlimited, el tiempo de Premium que no se usó se convierte en **crédito de subida**:
 
@@ -114,7 +114,7 @@ Payment Options devuelve `listPrice`, `upgradeCredit` y `amountDue`. El cupón s
 
 `amountDue = (listPrice − upgradeCredit) × (100 − percentOff) / 100`
 
-Si el plazo Premium cambia entre la cotización y la confirmación, la confirmación devuelve `409` `upgrade_term_changed` y hay que pedir una cotización nueva.
+Si el plazo Premium cambia entre la cotización y la confirmación, la confirmación devuelve `409` `UPGRADE_TERM_CHANGED` y hay que pedir una cotización nueva.
 
 El plan actual del dueño y la forma de subir de plan se consultan con `GET https://v4.zelf.world/api/zelf-ids/my-plan`. Ver [Subir de plan](/docs-es/api/zelf-ids/cupones#subir-de-plan).
 
