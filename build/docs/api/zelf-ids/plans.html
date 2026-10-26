@@ -32,8 +32,8 @@
 					    document.head.appendChild(s);
 					  }catch(e){}
 					})();</script><link rel="stylesheet" href="/assets/css/styles.2f01f1c7.css">
-<script src="/assets/js/runtime~main.3a47c925.js" defer="defer"></script>
-<script src="/assets/js/main.f059a985.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.ecd9cbeb.js" defer="defer"></script>
+<script src="/assets/js/main.b84f4b95.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -74,11 +74,11 @@
 </ol>
 <p>Plans are bought in yearly terms. The license decides which terms are offered for each plan. For a 6+ character <code>.zelf</code> name the API currently offers:</p>
 <table><thead><tr><th>Term</th><th>Premium</th><th>Unlimited</th></tr></thead><tbody><tr><td>1 year</td><td>$29.00</td><td>$99.00</td></tr><tr><td>2 years</td><td>$43.49</td><td>$148.99</td></tr><tr><td>3 years</td><td>$56.99</td><td>$192.99</td></tr><tr><td>Lifetime</td><td>$144.99</td><td>$494.99</td></tr></tbody></table>
-<p>A term the license does not offer returns <code>409</code> <code>plan_duration_not_offered_by_license</code>. A plan the license does not offer for that name length returns <code>409</code> <code>plan_not_offered_for_name</code>. A Lifetime term has no plan end date.</p>
+<p>A term the license does not offer returns <code>409</code> <code>PLAN_DURATION_NOT_OFFERED_BY_LICENSE</code>. A plan the license does not offer for that name length returns <code>409</code> <code>PLAN_NOT_OFFERED_FOR_NAME</code>. A Lifetime term has no plan end date.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-quote-locks-the-price">The quote locks the price<a href="#the-quote-locks-the-price" class="hash-link" aria-label="Direct link to The quote locks the price" title="Direct link to The quote locks the price">​</a></h3>
 <p>The quote is signed (<code>signedDataPrice</code>) and is valid for <strong>2 hours</strong>. It locks the USD price, the crypto amounts and any upgrade credit for that window. Confirmation uses those locked figures.</p>
 <p>An expired quote is refused. Request a new quote, which reprices everything, including crypto rates and upgrade credit. A crypto payment of the full quoted amount that arrived before the quote expired is still honored.</p>
-<p>Stripe needs at least 30 minutes left on the quote to open a checkout session. Otherwise it returns <code>409</code> <code>quote_expiring</code>; request a new quote.</p>
+<p>Stripe needs at least 30 minutes left on the quote to open a checkout session. Otherwise it returns <code>409</code> <code>QUOTE_EXPIRING</code>; request a new quote.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="coupons">Coupons<a href="#coupons" class="hash-link" aria-label="Direct link to Coupons" title="Direct link to Coupons">​</a></h2>
 <p>A <a href="/docs/api/zelf-ids/coupons">coupon</a> takes a percent off a Premium or Unlimited term. Pass it to Payment Options to see the discounted <code>amountDue</code>.</p>
 <ul>
@@ -86,7 +86,7 @@
 <li>If a balance remains, the owner pays that discounted amount with Stripe or crypto.</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="upgrading">Upgrading<a href="#upgrading" class="hash-link" aria-label="Direct link to Upgrading" title="Direct link to Upgrading">​</a></h2>
-<p>A name on an open Premium term can move to Unlimited at any time. Moving down from Unlimited to Premium while the term is open is not allowed (<code>409</code> <code>plan_downgrade_not_allowed</code>).</p>
+<p>A name on an open Premium term can move to Unlimited at any time. Moving down from Unlimited to Premium while the term is open is not allowed (<code>409</code> <code>PLAN_DOWNGRADE_NOT_ALLOWED</code>).</p>
 <p>When upgrading from Premium to Unlimited, the unused Premium time becomes <strong>upgrade credit</strong>:</p>
 <p><code>upgradeCredit = amount actually paid for the Premium term × remaining time / total term time</code></p>
 <ul>
@@ -98,7 +98,7 @@
 </ul>
 <p>Payment Options returns <code>listPrice</code>, <code>upgradeCredit</code> and <code>amountDue</code>. A coupon applies after the credit:</p>
 <p><code>amountDue = (listPrice − upgradeCredit) × (100 − percentOff) / 100</code></p>
-<p>If the Premium term changes between the quote and the confirmation, confirmation returns <code>409</code> <code>upgrade_term_changed</code>; request a new quote.</p>
+<p>If the Premium term changes between the quote and the confirmation, confirmation returns <code>409</code> <code>UPGRADE_TERM_CHANGED</code>; request a new quote.</p>
 <p>The owner&#x27;s current plan and the available upgrade path come from <code>GET https://v4.zelf.world/api/zelf-ids/my-plan</code>. See <a href="/docs/api/zelf-ids/coupons#upgrading-a-plan">Upgrading a plan</a>.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="renewal-and-lapse">Renewal and lapse<a href="#renewal-and-lapse" class="hash-link" aria-label="Direct link to Renewal and lapse" title="Direct link to Renewal and lapse">​</a></h2>
 <ul>
