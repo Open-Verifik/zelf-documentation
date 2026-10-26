@@ -72,7 +72,7 @@ import TabItem from '@theme/TabItem';
 }
 ```
 
-The name is available or was never leased. Lease it first.
+`message` and `code` are both `TAG_NOT_FOUND`. `GET /api/zelf-ids/my-plan` uses this same body. The name is available or was never leased. Lease it first.
 
 </TabItem>
 <TabItem value="409" label="409 Conflict">
@@ -81,6 +81,24 @@ The name is available or was never leased. Lease it first.
 {
   "validationError": "\"tagName\" is required"
 }
+```
+
+A plan or term the license does not offer, a downgrade, or a missing license price returns `409` with that code in both `message` and `code`:
+
+```json
+{ "message": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE", "code": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE" }
+```
+
+```json
+{ "message": "PLAN_NOT_OFFERED_FOR_NAME", "code": "PLAN_NOT_OFFERED_FOR_NAME" }
+```
+
+```json
+{ "message": "PLAN_DOWNGRADE_NOT_ALLOWED", "code": "PLAN_DOWNGRADE_NOT_ALLOWED" }
+```
+
+```json
+{ "message": "LICENSE_PRICE_REQUIRED", "code": "LICENSE_PRICE_REQUIRED" }
 ```
 
 </TabItem>

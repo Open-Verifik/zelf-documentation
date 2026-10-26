@@ -79,7 +79,19 @@ Los planes se compran por años. La licencia decide qué plazos se ofrecen para 
 | 3 años | $56.99 | $192.99 |
 | De por vida | $144.99 | $494.99 |
 
-Un plazo que la licencia no ofrece devuelve `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. Un plan que la licencia no ofrece para ese largo de nombre devuelve `409` `PLAN_NOT_OFFERED_FOR_NAME`. Un plan de por vida no tiene fecha de fin.
+Un plazo que la licencia no ofrece devuelve `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. Un plan que la licencia no ofrece para ese largo de nombre devuelve `409` `PLAN_NOT_OFFERED_FOR_NAME`. Una licencia sin función de precio devuelve `409` `LICENSE_PRICE_REQUIRED`. `message` y `code` son esa misma cadena. Un plan de por vida no tiene fecha de fin.
+
+```json
+{ "message": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE", "code": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE" }
+```
+
+```json
+{ "message": "PLAN_NOT_OFFERED_FOR_NAME", "code": "PLAN_NOT_OFFERED_FOR_NAME" }
+```
+
+```json
+{ "message": "LICENSE_PRICE_REQUIRED", "code": "LICENSE_PRICE_REQUIRED" }
+```
 
 ### La cotización fija el precio
 
@@ -98,7 +110,11 @@ Un [cupón](/docs-es/api/zelf-ids/cupones) descuenta un porcentaje de un plazo P
 
 ## Subir de plan
 
-Un nombre con un plazo Premium abierto puede pasar a Unlimited en cualquier momento. Bajar de Unlimited a Premium con el plazo abierto no está permitido (`409` `PLAN_DOWNGRADE_NOT_ALLOWED`).
+Un nombre con un plazo Premium abierto puede pasar a Unlimited en cualquier momento. Bajar de Unlimited a Premium con el plazo abierto no está permitido (`409` `PLAN_DOWNGRADE_NOT_ALLOWED`). `message` y `code` son esa misma cadena.
+
+```json
+{ "message": "PLAN_DOWNGRADE_NOT_ALLOWED", "code": "PLAN_DOWNGRADE_NOT_ALLOWED" }
+```
 
 Al pasar de Premium a Unlimited, el tiempo de Premium que no se usó se convierte en **crédito de subida**:
 

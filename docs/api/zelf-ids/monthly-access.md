@@ -498,10 +498,12 @@ These do not create a month row, do not consume the grace open, and do not add `
 | 409 | `MONTHLY_ACCESS_QUOTE_EXPIRED` | `ttl` has passed, or `periodKey` is not the current UTC month. Message: `Monthly access quote has expired. Request a new quote.` |
 | 409 | `MONTHLY_ACCESS_CARD_UNAVAILABLE` | `method` is `card`. |
 | 409 | `MONTHLY_ACCESS_PRICE_UNAVAILABLE` | The license has no one-year Premium price to convert. |
+| 500 | `MONTHLY_ACCESS_PRICE_UNAVAILABLE` | The ZNS amount is not a number. |
 | 409 | `MONTHLY_ACCESS_IN_PROGRESS` | A write for this month is still finishing. Retry. |
 | 503 | `ERR_TOKEN_BALANCE_UNAVAILABLE` | Confirm cannot read the ZNS balance. |
+| 503 | `ERR_SLOT_STORE_UNAVAILABLE` | Confirm cannot record the ZNS debit. |
 
-`402` body from a blocked open or a short confirm:
+`402` body from a blocked open or a short confirm. `confirmReady` is true when `spendableBalance` covers `amountZns`. `signedDataPrice` is the quote to send as `token` on confirm.
 
 ```json
 {
@@ -515,6 +517,8 @@ These do not create a month row, do not consume the grace open, and do not add `
   "premiumYearlyUsd": 29,
   "spendableBalance": 0,
   "znsNeeded": 49,
+  "confirmReady": false,
+  "signedDataPrice": "[JWT]",
   "openAllowed": false,
   "options": [
     { "type": "upgrade", "plan": "premium" },

@@ -79,7 +79,19 @@ Plans are bought in yearly terms. The license decides which terms are offered fo
 | 3 years | $56.99 | $192.99 |
 | Lifetime | $144.99 | $494.99 |
 
-A term the license does not offer returns `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. A plan the license does not offer for that name length returns `409` `PLAN_NOT_OFFERED_FOR_NAME`. A Lifetime term has no plan end date.
+A term the license does not offer returns `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. A plan the license does not offer for that name length returns `409` `PLAN_NOT_OFFERED_FOR_NAME`. A license with no price function returns `409` `LICENSE_PRICE_REQUIRED`. `message` and `code` are both that string. A Lifetime term has no plan end date.
+
+```json
+{ "message": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE", "code": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE" }
+```
+
+```json
+{ "message": "PLAN_NOT_OFFERED_FOR_NAME", "code": "PLAN_NOT_OFFERED_FOR_NAME" }
+```
+
+```json
+{ "message": "LICENSE_PRICE_REQUIRED", "code": "LICENSE_PRICE_REQUIRED" }
+```
 
 ### The quote locks the price
 
@@ -98,7 +110,11 @@ A [coupon](/docs/api/zelf-ids/coupons) takes a percent off a Premium or Unlimite
 
 ## Upgrading
 
-A name on an open Premium term can move to Unlimited at any time. Moving down from Unlimited to Premium while the term is open is not allowed (`409` `PLAN_DOWNGRADE_NOT_ALLOWED`).
+A name on an open Premium term can move to Unlimited at any time. Moving down from Unlimited to Premium while the term is open is not allowed (`409` `PLAN_DOWNGRADE_NOT_ALLOWED`). `message` and `code` are both that string.
+
+```json
+{ "message": "PLAN_DOWNGRADE_NOT_ALLOWED", "code": "PLAN_DOWNGRADE_NOT_ALLOWED" }
+```
 
 When upgrading from Premium to Unlimited, the unused Premium time becomes **upgrade credit**:
 

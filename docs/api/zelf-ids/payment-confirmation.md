@@ -80,6 +80,8 @@ No matching transfer yet. A short-name reservation stays a 5-hour hold. A long n
 }
 ```
 
+`message` and `code` are both `AVAX_USE_SMART_CONTRACT_CONFIRMATION`.
+
 </TabItem>
 <TabItem value="409" label="409 Conflict">
 

@@ -95,7 +95,11 @@ Un nombre Free que compra **premium** o **unlimited** por `1y` o más, pagado co
 GET https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf
 ```
 
-Quien llama tiene que ser el dueño verificado. En la sesión, `verifiedTagName` debe coincidir con el `zelfName` normalizado, y la petición tiene que caer dentro de `verifiedUntil`. Sin sesión la respuesta es `401`. Una sesión que no cumple esa comprobación recibe `403`.
+Quien llama tiene que ser el dueño verificado. En la sesión, `verifiedTagName` debe coincidir con el `zelfName` normalizado, y la petición tiene que caer dentro de `verifiedUntil`. Sin sesión la respuesta es `401`. Una sesión que no cumple esa comprobación recibe `403`. Un nombre que no está alquilado es `404`. `message` y `code` son ambos `TAG_NOT_FOUND`.
+
+```json
+{ "message": "TAG_NOT_FOUND", "code": "TAG_NOT_FOUND" }
+```
 
 ```json
 {
@@ -185,6 +189,7 @@ Los rechazos de cotización son HTTP **200**. `coupon.reason` es uno de:
 | 409 | `COUPON_INVALID` | La revalidación al conceder falló. `code` es el `reason` de la cotización. |
 | 409 | `DOWNGRADE_NOT_ALLOWED` | Hay un lease de pago activo y el plan pedido es inferior. |
 | 409 | `PLAN_NOT_ALLOWED_FOR_NAME` | Premium en un nombre de 5 caracteres o menos. |
+| 409 | `LIFETIME_ALREADY_OWNED` | Concesión del mismo plan o de uno inferior mientras hay un plazo Unlimited de por vida activo. |
 | 409 | — | Validación del cuerpo. Texto `validationError`, igual que el resto de rutas de Zelf ID. |
 
 ## Respuesta
@@ -304,6 +309,10 @@ En un nombre Free, `publicData.expiresAt` es el lease del nombre a 100 años. `p
 
 ```json
 { "message": "DOWNGRADE_NOT_ALLOWED", "code": "DOWNGRADE_NOT_ALLOWED" }
+```
+
+```json
+{ "message": "LIFETIME_ALREADY_OWNED", "code": "LIFETIME_ALREADY_OWNED" }
 ```
 
 ```json
