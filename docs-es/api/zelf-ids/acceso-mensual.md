@@ -498,10 +498,12 @@ Estas no crean una fila del mes, no consumen la apertura de gracia y no agregan 
 | 409 | `MONTHLY_ACCESS_QUOTE_EXPIRED` | `ttl` ya pasó, o `periodKey` no es el mes UTC actual. Mensaje: `Monthly access quote has expired. Request a new quote.` |
 | 409 | `MONTHLY_ACCESS_CARD_UNAVAILABLE` | `method` es `card`. |
 | 409 | `MONTHLY_ACCESS_PRICE_UNAVAILABLE` | La licencia no tiene un precio de un año de Premium para convertir. |
+| 500 | `MONTHLY_ACCESS_PRICE_UNAVAILABLE` | El monto en ZNS no es un número. |
 | 409 | `MONTHLY_ACCESS_IN_PROGRESS` | Una escritura de este mes todavía no termina. Reintentar. |
 | 503 | `ERR_TOKEN_BALANCE_UNAVAILABLE` | La confirmación no puede leer el saldo de ZNS. |
+| 503 | `ERR_SLOT_STORE_UNAVAILABLE` | La confirmación no puede registrar el débito de ZNS. |
 
-Cuerpo `402` de una apertura bloqueada o de una confirmación con saldo corto:
+Cuerpo `402` de una apertura bloqueada o de una confirmación con saldo corto. `confirmReady` es true cuando `spendableBalance` cubre `amountZns`. `signedDataPrice` es la cotización que se envía como `token` en la confirmación.
 
 ```json
 {
@@ -515,6 +517,8 @@ Cuerpo `402` de una apertura bloqueada o de una confirmación con saldo corto:
   "premiumYearlyUsd": 29,
   "spendableBalance": 0,
   "znsNeeded": 49,
+  "confirmReady": false,
+  "signedDataPrice": "[JWT]",
   "openAllowed": false,
   "options": [
     { "type": "upgrade", "plan": "premium" },

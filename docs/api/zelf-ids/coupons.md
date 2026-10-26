@@ -95,7 +95,11 @@ A Free name that buys **premium** or **unlimited** for `1y` or longer, paid by S
 GET https://v4.zelf.world/api/zelf-ids/my-plan?zelfName=myname.zelf
 ```
 
-The caller must be the verified owner. On the session, `verifiedTagName` must equal the normalized `zelfName`, and the request must fall inside `verifiedUntil`. A missing session is `401`. A session that fails that match is `403`.
+The caller must be the verified owner. On the session, `verifiedTagName` must equal the normalized `zelfName`, and the request must fall inside `verifiedUntil`. A missing session is `401`. A session that fails that match is `403`. A name that is not leased is `404`. `message` and `code` are both `TAG_NOT_FOUND`.
+
+```json
+{ "message": "TAG_NOT_FOUND", "code": "TAG_NOT_FOUND" }
+```
 
 ```json
 {
@@ -185,6 +189,7 @@ Quote rejections are HTTP **200**. `coupon.reason` is one of:
 | 409 | `COUPON_INVALID` | Grant-time recheck failed. `code` is the quote `reason` above. |
 | 409 | `DOWNGRADE_NOT_ALLOWED` | Paid lease is active and the requested plan is lower. |
 | 409 | `PLAN_NOT_ALLOWED_FOR_NAME` | Premium on a name of 5 characters or fewer. |
+| 409 | `LIFETIME_ALREADY_OWNED` | Grant of the same plan or a lower one while an Unlimited lifetime term is active. |
 | 409 | — | Body validation. `validationError` text, same shape as other Zelf ID routes. |
 
 ## Response
@@ -304,6 +309,10 @@ On a Free name, `publicData.expiresAt` is the 100-year name lease. `planExpiresA
 
 ```json
 { "message": "DOWNGRADE_NOT_ALLOWED", "code": "DOWNGRADE_NOT_ALLOWED" }
+```
+
+```json
+{ "message": "LIFETIME_ALREADY_OWNED", "code": "LIFETIME_ALREADY_OWNED" }
 ```
 
 ```json
