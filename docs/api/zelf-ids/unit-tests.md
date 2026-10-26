@@ -25,7 +25,7 @@ File: `tests/unit/zelf-id-plan.module.test.js`
 | `resolveUpgradePlan: long names choose premium or unlimited; short stays unlimited` | Payment on a short name cannot stamp `premium`. Long names take the requested paid plan. |
 | `getZelfIdPrice reads the license table and never hardcodes a dollar amount` | Yearly quotes come from `domainConfig.getPrice` (license `pricingTable`). Referral discount and a 100% whitelist still leave the plan as `unlimited`. |
 | `getZelfIdPrice: long names can stay free or pick a paid plan from the license` | 6–27 characters may stay `free` or request `premium` / `unlimited` at the license price. |
-| `getZelfIdPrice requires a license getPrice` | Missing `domainConfig.getPrice` throws `409:license_price_required`. |
+| `getZelfIdPrice requires a license getPrice` | Missing `domainConfig.getPrice` throws `409:LICENSE_PRICE_REQUIRED`. |
 | `effectivePlan: expired mainnet reads as free, not a hold` | Past `expiresAt`, search/preview show `plan: free`. A short name stored as `premium` still reads as `unlimited`. |
 | `isUnpaidExpiredReservation deletes only expired unpaid holds` | Search may unpin expired short-name holds only. Paid mainnet is never treated as expired. |
 | `resolveV4PaymentStamp: short is unlimited; long uses the requested paid plan` | v4 payment stamps a yearly `expiresAt`. v3 records get no plan. |
@@ -57,7 +57,7 @@ Requires a live API and `Core/assets/selfie_girl.jpg`. The suite leases a **shor
 | `GET /zelf-ids/payment-options — returns unique addresses, prices, and a JWT` | Reserved name returns pay addresses, quotes, and `signedDataPrice`. |
 | `POST /zelf-ids/payment-confirmation — 409 without token` | Confirmation requires the payment JWT. |
 | `POST /zelf-ids/payment-confirmation — 401 without auth` | Confirmation is JWT-protected. |
-| `POST /zelf-ids/payment-confirmation — AVAX is rejected for the unique-address path` | AVAX unique-address confirm is `409:avax_use_smart_contract_confirmation`. |
+| `POST /zelf-ids/payment-confirmation — AVAX is rejected for the unique-address path` | AVAX unique-address confirm is `409:AVAX_USE_SMART_CONTRACT_CONFIRMATION`. |
 | `POST /zelf-ids/payment-confirmation — unpaid unique address stays unconfirmed` | No matching transfer → `confirmed: false`. |
 
 ## Full `/api/zelf-ids` integration

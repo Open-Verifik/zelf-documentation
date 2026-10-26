@@ -74,8 +74,8 @@ The API grants the plan on the free-checkout path. It does not call Stripe, Reve
 The grant uses the same purchase rules as a paid checkout:
 
 - Upgrade order is `free` → `premium` → `unlimited`.
-- A lower plan is rejected while a paid plan term is still active (`downgrade_not_allowed`). A renewal or an upgrade extends or replaces only that plan term.
-- Names of **1–5** characters are **unlimited** only (`plan_not_allowed_for_name` for premium).
+- A lower plan is rejected while a paid plan term is still active (`DOWNGRADE_NOT_ALLOWED`). A renewal or an upgrade extends or replaces only that plan term.
+- Names of **1–5** characters are **unlimited** only (`PLAN_NOT_ALLOWED_FOR_NAME` for premium).
 - Names of **6–27** characters can be premium or unlimited.
 - Duration must be one the quote accepts and one this coupon allows.
 
@@ -147,9 +147,9 @@ The new Unlimited term starts on the upgrade date. Unused Premium time is not ad
 
 Half of a `$24` Premium term is `$12.00` of credit. If Unlimited lists at `$48`, `amountDue` is `$36` before a coupon.
 
-An expired quote is rejected. The client requests a new quote, which recomputes the credit and the prices. Crypto prices can change between quotes. A Stripe Checkout session expires when the quote expires. A quote with under 30 minutes left returns `409` `quote_expiring`. If the Premium term behind the credit is no longer the current term, confirm returns `409` `upgrade_term_changed`. An Unlimited lifetime name returns `409` `already_lifetime` from payment-options.
+An expired quote is rejected. The client requests a new quote, which recomputes the credit and the prices. Crypto prices can change between quotes. A Stripe Checkout session expires when the quote expires. A quote with under 30 minutes left returns `409` `QUOTE_EXPIRING`. If the Premium term behind the credit is no longer the current term, confirm returns `409` `UPGRADE_TERM_CHANGED`. An Unlimited lifetime name returns `409` `ALREADY_LIFETIME` from payment-options.
 
-A final amount of `$0` uses the free-grant path. Identity is required, and no payment gateway is called. When `amountDue` is above `$0` and below the Stripe minimum, Stripe returns `stripe_amount_below_minimum`. Crypto checkout still works.
+A final amount of `$0` uses the free-grant path. Identity is required, and no payment gateway is called. When `amountDue` is above `$0` and below the Stripe minimum, Stripe returns `STRIPE_AMOUNT_BELOW_MINIMUM`. Crypto checkout still works.
 
 ## Admin
 
@@ -169,22 +169,22 @@ Quote rejections are HTTP **200**. `coupon.reason` is one of:
 
 | `reason` | Meaning |
 |----------|---------|
-| `not_found` | No coupon for that code. |
-| `inactive` | `active` is false. |
-| `expired` | `expiresAt` has passed. |
-| `max_redemptions` | Successful redemptions have reached `maxRedemptions`. |
-| `plan_not_allowed` | `plan` is not on this coupon. |
-| `duration_not_allowed` | `duration` is not on this coupon. |
-| `zelf_id_limit` | This Zelf ID has reached `perZelfIdLimit`. |
+| `NOT_FOUND` | No coupon for that code. |
+| `INACTIVE` | `active` is false. |
+| `EXPIRED` | `expiresAt` has passed. |
+| `MAX_REDEMPTIONS` | Successful redemptions have reached `maxRedemptions`. |
+| `PLAN_NOT_ALLOWED` | `plan` is not on this coupon. |
+| `DURATION_NOT_ALLOWED` | `duration` is not on this coupon. |
+| `ZELF_ID_LIMIT` | This Zelf ID has reached `perZelfIdLimit`. |
 
 | HTTP | `code` | When |
 |------|--------|------|
 | 401 | — | Missing session JWT. Body is `{ "error": "Protected resource, use Authorization header to get access" }`. |
-| 403 | `super_admin_required` | Admin route, caller is not a super-admin. |
-| 409 | `coupon_code_taken` | Create, code already exists. |
-| 409 | `coupon_invalid` | Grant-time recheck failed. `code` is the quote `reason` above. |
-| 409 | `downgrade_not_allowed` | Paid lease is active and the requested plan is lower. |
-| 409 | `plan_not_allowed_for_name` | Premium on a name of 5 characters or fewer. |
+| 403 | `SUPER_ADMIN_REQUIRED` | Admin route, caller is not a super-admin. |
+| 409 | `COUPON_CODE_TAKEN` | Create, code already exists. |
+| 409 | `COUPON_INVALID` | Grant-time recheck failed. `code` is the quote `reason` above. |
+| 409 | `DOWNGRADE_NOT_ALLOWED` | Paid lease is active and the requested plan is lower. |
+| 409 | `PLAN_NOT_ALLOWED_FOR_NAME` | Premium on a name of 5 characters or fewer. |
 | 409 | — | Body validation. `validationError` text, same shape as other Zelf ID routes. |
 
 ## Response
@@ -229,7 +229,7 @@ import TabItem from '@theme/TabItem';
     "percentOff": 0,
     "amountDue": 24,
     "currency": "USD",
-    "coupon": { "code": "SAVE25", "valid": false, "reason": "expired" }
+    "coupon": { "code": "SAVE25", "valid": false, "reason": "EXPIRED" }
   }
 }
 ```
@@ -291,11 +291,11 @@ On a Free name, `publicData.expiresAt` is the 100-year name lease. `planExpiresA
 ```
 
 ```json
-{ "error": "Super-admin access required", "code": "super_admin_required" }
+{ "error": "Super-admin access required", "code": "SUPER_ADMIN_REQUIRED" }
 ```
 
 ```json
-{ "message": "coupon_code_taken", "code": "coupon_code_taken" }
+{ "message": "COUPON_CODE_TAKEN", "code": "COUPON_CODE_TAKEN" }
 ```
 
 ```json
@@ -303,11 +303,11 @@ On a Free name, `publicData.expiresAt` is the 100-year name lease. `planExpiresA
 ```
 
 ```json
-{ "message": "downgrade_not_allowed", "code": "downgrade_not_allowed" }
+{ "message": "DOWNGRADE_NOT_ALLOWED", "code": "DOWNGRADE_NOT_ALLOWED" }
 ```
 
 ```json
-{ "message": "coupon_invalid", "code": "max_redemptions" }
+{ "message": "COUPON_INVALID", "code": "MAX_REDEMPTIONS" }
 ```
 
 </TabItem>

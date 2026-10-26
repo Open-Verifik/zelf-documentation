@@ -324,7 +324,7 @@ El `ttl` de ese ejemplo es solo un marcador. Usa el número de la respuesta.
 
 Un nombre exento devuelve `status` `exempt`, `reason` `premium` o `unlimited`, `openAllowed` `true` y `signedDataPrice` `null`.
 
-Con el interruptor apagado, la cotización devuelve `409` `monthly_access_disabled`.
+Con el interruptor apagado, la cotización devuelve `409` `MONTHLY_ACCESS_DISABLED`.
 
 ## Confirmar
 
@@ -343,9 +343,9 @@ POST https://v4.zelf.world/api/zelf-ids/monthly-access/confirm
 
 Enviar la misma cotización otra vez cuando el mes ya está `paid` devuelve la fila pagada con `charged` `false` e `idempotent` `true`. No vuelve a debitar.
 
-`method` `card` devuelve `409` `monthly_access_card_unavailable`. El mes no cambia.
+`method` `card` devuelve `409` `MONTHLY_ACCESS_CARD_UNAVAILABLE`. El mes no cambia.
 
-Una cotización cuyo `ttl` ya pasó, o cuyo `periodKey` no es el mes UTC actual, devuelve `409` `monthly_access_quote_expired`. Hay que pedir una cotización nueva y confirmar esa.
+Una cotización cuyo `ttl` ya pasó, o cuyo `periodKey` no es el mes UTC actual, devuelve `409` `MONTHLY_ACCESS_QUOTE_EXPIRED`. Hay que pedir una cotización nueva y confirmar esa.
 
 ```json
 {
@@ -490,15 +490,15 @@ Estas no crean una fila del mes, no consumen la apertura de gracia y no agregan 
 |------|--------|--------|
 | 401 | | No hay JWT de sesión. El cuerpo es `{ "error": "Protected resource, use Authorization header to get access" }`. |
 | 401 | `ERR_ZELF_IDENTITY_REQUIRED` | La sesión no tiene Zelf ID. |
-| 401 | `monthly_access_quote_invalid` | `token` no es una cotización de acceso mensual. Mensaje: `Monthly access quote is not valid`. |
+| 401 | `MONTHLY_ACCESS_QUOTE_INVALID` | `token` no es una cotización de acceso mensual. Mensaje: `Monthly access quote is not valid`. |
 | 403 | `ERR_SESSION_OWNER_MISMATCH` | El nombre de la sesión no es el de la query, o no es el nombre dentro de la cotización. |
-| 402 | `monthly_access_payment_required` | Esta apertura que dispara la tarifa está bloqueada, o la confirmación no tiene ZNS suficientes. |
+| 402 | `MONTHLY_ACCESS_PAYMENT_REQUIRED` | Esta apertura que dispara la tarifa está bloqueada, o la confirmación no tiene ZNS suficientes. |
 | 409 | | Validación Joi. El cuerpo es `{ "validationError": "..." }`, por ejemplo cuando falta `tagName` o `token`. |
-| 409 | `monthly_access_disabled` | Cotización o confirmación con el interruptor apagado. Mensaje: `Monthly access is not enabled`. |
-| 409 | `monthly_access_quote_expired` | `ttl` ya pasó, o `periodKey` no es el mes UTC actual. Mensaje: `Monthly access quote has expired. Request a new quote.` |
-| 409 | `monthly_access_card_unavailable` | `method` es `card`. |
-| 409 | `monthly_access_price_unavailable` | La licencia no tiene un precio de un año de Premium para convertir. |
-| 409 | `monthly_access_in_progress` | Una escritura de este mes todavía no termina. Reintentar. |
+| 409 | `MONTHLY_ACCESS_DISABLED` | Cotización o confirmación con el interruptor apagado. Mensaje: `Monthly access is not enabled`. |
+| 409 | `MONTHLY_ACCESS_QUOTE_EXPIRED` | `ttl` ya pasó, o `periodKey` no es el mes UTC actual. Mensaje: `Monthly access quote has expired. Request a new quote.` |
+| 409 | `MONTHLY_ACCESS_CARD_UNAVAILABLE` | `method` es `card`. |
+| 409 | `MONTHLY_ACCESS_PRICE_UNAVAILABLE` | La licencia no tiene un precio de un año de Premium para convertir. |
+| 409 | `MONTHLY_ACCESS_IN_PROGRESS` | Una escritura de este mes todavía no termina. Reintentar. |
 | 503 | `ERR_TOKEN_BALANCE_UNAVAILABLE` | La confirmación no puede leer el saldo de ZNS. |
 
 Cuerpo `402` de una apertura bloqueada o de una confirmación con saldo corto:
@@ -506,7 +506,7 @@ Cuerpo `402` de una apertura bloqueada o de una confirmación con saldo corto:
 ```json
 {
   "message": "Monthly access payment is required",
-  "code": "monthly_access_payment_required",
+  "code": "MONTHLY_ACCESS_PAYMENT_REQUIRED",
   "periodKey": "2026-10",
   "amountZns": 49,
   "amountUsd": "2.4166666667",
@@ -529,7 +529,7 @@ Cuerpo `402` de una apertura bloqueada o de una confirmación con saldo corto:
 ```json
 {
   "message": "Card payment for this month is not available yet",
-  "code": "monthly_access_card_unavailable",
+  "code": "MONTHLY_ACCESS_CARD_UNAVAILABLE",
   "periodKey": "2026-10",
   "amountUsd": "2.4166666667",
   "amountZns": 49,
@@ -566,7 +566,7 @@ sequenceDiagram
 
 1. **Primera apertura, el saldo cubre la tarifa.** `status` es `none` y `spendableBalance` es al menos `amountZns`. La hoja muestra esos dos campos y `amountUsd`. La apertura que dispara la tarifa devuelve entonces `monthlyAccess.charged` `true`. Muestra un toast de recibo con `amountZns`, `amountUsd` y `periodKey`. La extensión también puede hacer `POST` confirm antes de la cámara. Después, la apertura es idempotente y `charged` es `false`.
 2. **Apertura de gracia.** `status` es `none`, `graceAvailable` es `true` y `znsNeeded` es mayor que 0. La hoja dice que este es el pase libre del mes y muestra `znsNeeded` y `amountZns`. La apertura funciona. `monthlyAccess.status` es `grace` y `charged` es `false`.
-3. **Bloqueo.** `openAllowed` es `false`, o la llamada devuelve `402`. No enciendas la cámara. La pantalla de bloqueo ofrece **Subir a Premium** (`upgrade.url` de `my-plan`) y **Conseguir más ZNS** (`POST /api/rewards/daily` cuando el reclamo de hoy sigue abierto). Oculta el botón de tarjeta mientras `options` tenga `card.available` `false`. Cuando la persona tenga ZNS suficientes, cotiza y luego confirma con `method` `zns`. Un `409` `monthly_access_quote_expired` significa que la cotización de dos horas venció o que cambió el mes UTC: vuelve a cotizar y confirma el `signedDataPrice` nuevo. Después la apertura de la bóveda sigue.
+3. **Bloqueo.** `openAllowed` es `false`, o la llamada devuelve `402`. No enciendas la cámara. La pantalla de bloqueo ofrece **Subir a Premium** (`upgrade.url` de `my-plan`) y **Conseguir más ZNS** (`POST /api/rewards/daily` cuando el reclamo de hoy sigue abierto). Oculta el botón de tarjeta mientras `options` tenga `card.available` `false`. Cuando la persona tenga ZNS suficientes, cotiza y luego confirma con `method` `zns`. Un `409` `MONTHLY_ACCESS_QUOTE_EXPIRED` significa que la cotización de dos horas venció o que cambió el mes UTC: vuelve a cotizar y confirma el `signedDataPrice` nuevo. Después la apertura de la bóveda sigue.
 4. **Ya pagado o exento.** Sáltate la hoja. `openAllowed` es `true`.
 
 ## Ejemplos

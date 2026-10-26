@@ -67,8 +67,8 @@ import TabItem from '@theme/TabItem';
 
 ```json
 {
-  "message": "tag_not_found",
-  "code": "tag_not_found"
+  "message": "TAG_NOT_FOUND",
+  "code": "TAG_NOT_FOUND"
 }
 ```
 

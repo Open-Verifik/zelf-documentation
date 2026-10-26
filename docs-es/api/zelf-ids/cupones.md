@@ -74,8 +74,8 @@ La API concede el plan por la vía de checkout gratuito. No llama a Stripe, Reve
 La concesión usa las mismas reglas que una compra de pago:
 
 - El orden de subida es `free` → `premium` → `unlimited`.
-- Un plan inferior se rechaza mientras un plazo de plan de pago sigue activo (`downgrade_not_allowed`). Una renovación o una subida alarga o sustituye solo ese plazo del plan.
-- Los nombres de **1–5** caracteres son solo **unlimited** (`plan_not_allowed_for_name` si el plan es premium).
+- Un plan inferior se rechaza mientras un plazo de plan de pago sigue activo (`DOWNGRADE_NOT_ALLOWED`). Una renovación o una subida alarga o sustituye solo ese plazo del plan.
+- Los nombres de **1–5** caracteres son solo **unlimited** (`PLAN_NOT_ALLOWED_FOR_NAME` si el plan es premium).
 - Los nombres de **6–27** caracteres pueden ser premium o unlimited.
 - La duración tiene que ser una que acepte la cotización y una que permita este cupón.
 
@@ -147,9 +147,9 @@ El nuevo plazo Unlimited empieza en la fecha de la subida. El tiempo Premium que
 
 La mitad de un plazo Premium de `$24` son `$12.00` de crédito. Si Unlimited figura a `$48`, `amountDue` es `$36` antes de un cupón.
 
-Una cotización vencida se rechaza. El cliente pide una cotización nueva, que vuelve a calcular el crédito y los precios. Los precios crypto pueden cambiar entre cotizaciones. Una sesión de Stripe Checkout vence cuando vence la cotización. Una cotización a la que le quedan menos de 30 minutos devuelve `409` `quote_expiring`. Si el plazo Premium del crédito ya no es el plazo actual, la confirmación devuelve `409` `upgrade_term_changed`. Un nombre Unlimited `lifetime` devuelve `409` `already_lifetime` en payment-options.
+Una cotización vencida se rechaza. El cliente pide una cotización nueva, que vuelve a calcular el crédito y los precios. Los precios crypto pueden cambiar entre cotizaciones. Una sesión de Stripe Checkout vence cuando vence la cotización. Una cotización a la que le quedan menos de 30 minutos devuelve `409` `QUOTE_EXPIRING`. Si el plazo Premium del crédito ya no es el plazo actual, la confirmación devuelve `409` `UPGRADE_TERM_CHANGED`. Un nombre Unlimited `lifetime` devuelve `409` `ALREADY_LIFETIME` en payment-options.
 
-Un importe final de `$0` usa la vía de concesión gratuita. Hace falta identidad, y no se llama a ninguna pasarela de pago. Si `amountDue` es mayor que `$0` y está por debajo del mínimo de Stripe, Stripe devuelve `stripe_amount_below_minimum`. El checkout crypto sigue disponible.
+Un importe final de `$0` usa la vía de concesión gratuita. Hace falta identidad, y no se llama a ninguna pasarela de pago. Si `amountDue` es mayor que `$0` y está por debajo del mínimo de Stripe, Stripe devuelve `STRIPE_AMOUNT_BELOW_MINIMUM`. El checkout crypto sigue disponible.
 
 ## Administración
 
@@ -169,22 +169,22 @@ Los rechazos de cotización son HTTP **200**. `coupon.reason` es uno de:
 
 | `reason` | Significado |
 |----------|-------------|
-| `not_found` | No hay cupón con ese código. |
-| `inactive` | `active` es false. |
-| `expired` | `expiresAt` ya pasó. |
-| `max_redemptions` | Los canjes exitosos llegaron a `maxRedemptions`. |
-| `plan_not_allowed` | El `plan` no está en este cupón. |
-| `duration_not_allowed` | La `duration` no está en este cupón. |
-| `zelf_id_limit` | Este Zelf ID llegó a `perZelfIdLimit`. |
+| `NOT_FOUND` | No hay cupón con ese código. |
+| `INACTIVE` | `active` es false. |
+| `EXPIRED` | `expiresAt` ya pasó. |
+| `MAX_REDEMPTIONS` | Los canjes exitosos llegaron a `maxRedemptions`. |
+| `PLAN_NOT_ALLOWED` | El `plan` no está en este cupón. |
+| `DURATION_NOT_ALLOWED` | La `duration` no está en este cupón. |
+| `ZELF_ID_LIMIT` | Este Zelf ID llegó a `perZelfIdLimit`. |
 
 | HTTP | `code` | Cuándo |
 |------|--------|--------|
 | 401 | — | Falta el JWT de sesión. El cuerpo es `{ "error": "Protected resource, use Authorization header to get access" }`. |
-| 403 | `super_admin_required` | Ruta de admin y quien llama no es super-admin. |
-| 409 | `coupon_code_taken` | Alta con un código que ya existe. |
-| 409 | `coupon_invalid` | La revalidación al conceder falló. `code` es el `reason` de la cotización. |
-| 409 | `downgrade_not_allowed` | Hay un lease de pago activo y el plan pedido es inferior. |
-| 409 | `plan_not_allowed_for_name` | Premium en un nombre de 5 caracteres o menos. |
+| 403 | `SUPER_ADMIN_REQUIRED` | Ruta de admin y quien llama no es super-admin. |
+| 409 | `COUPON_CODE_TAKEN` | Alta con un código que ya existe. |
+| 409 | `COUPON_INVALID` | La revalidación al conceder falló. `code` es el `reason` de la cotización. |
+| 409 | `DOWNGRADE_NOT_ALLOWED` | Hay un lease de pago activo y el plan pedido es inferior. |
+| 409 | `PLAN_NOT_ALLOWED_FOR_NAME` | Premium en un nombre de 5 caracteres o menos. |
 | 409 | — | Validación del cuerpo. Texto `validationError`, igual que el resto de rutas de Zelf ID. |
 
 ## Respuesta
@@ -229,7 +229,7 @@ import TabItem from '@theme/TabItem';
     "percentOff": 0,
     "amountDue": 24,
     "currency": "USD",
-    "coupon": { "code": "SAVE25", "valid": false, "reason": "expired" }
+    "coupon": { "code": "SAVE25", "valid": false, "reason": "EXPIRED" }
   }
 }
 ```
@@ -291,11 +291,11 @@ En un nombre Free, `publicData.expiresAt` es el lease del nombre a 100 años. `p
 ```
 
 ```json
-{ "error": "Super-admin access required", "code": "super_admin_required" }
+{ "error": "Super-admin access required", "code": "SUPER_ADMIN_REQUIRED" }
 ```
 
 ```json
-{ "message": "coupon_code_taken", "code": "coupon_code_taken" }
+{ "message": "COUPON_CODE_TAKEN", "code": "COUPON_CODE_TAKEN" }
 ```
 
 ```json
@@ -303,11 +303,11 @@ En un nombre Free, `publicData.expiresAt` es el lease del nombre a 100 años. `p
 ```
 
 ```json
-{ "message": "downgrade_not_allowed", "code": "downgrade_not_allowed" }
+{ "message": "DOWNGRADE_NOT_ALLOWED", "code": "DOWNGRADE_NOT_ALLOWED" }
 ```
 
 ```json
-{ "message": "coupon_invalid", "code": "max_redemptions" }
+{ "message": "COUPON_INVALID", "code": "MAX_REDEMPTIONS" }
 ```
 
 </TabItem>

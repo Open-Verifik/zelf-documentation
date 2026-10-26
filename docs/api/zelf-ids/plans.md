@@ -79,7 +79,7 @@ Plans are bought in yearly terms. The license decides which terms are offered fo
 | 3 years | $56.99 | $192.99 |
 | Lifetime | $144.99 | $494.99 |
 
-A term the license does not offer returns `409` `plan_duration_not_offered_by_license`. A plan the license does not offer for that name length returns `409` `plan_not_offered_for_name`. A Lifetime term has no plan end date.
+A term the license does not offer returns `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. A plan the license does not offer for that name length returns `409` `PLAN_NOT_OFFERED_FOR_NAME`. A Lifetime term has no plan end date.
 
 ### The quote locks the price
 
@@ -87,7 +87,7 @@ The quote is signed (`signedDataPrice`) and is valid for **2 hours**. It locks t
 
 An expired quote is refused. Request a new quote, which reprices everything, including crypto rates and upgrade credit. A crypto payment of the full quoted amount that arrived before the quote expired is still honored.
 
-Stripe needs at least 30 minutes left on the quote to open a checkout session. Otherwise it returns `409` `quote_expiring`; request a new quote.
+Stripe needs at least 30 minutes left on the quote to open a checkout session. Otherwise it returns `409` `QUOTE_EXPIRING`; request a new quote.
 
 ## Coupons
 
@@ -98,7 +98,7 @@ A [coupon](/docs/api/zelf-ids/coupons) takes a percent off a Premium or Unlimite
 
 ## Upgrading
 
-A name on an open Premium term can move to Unlimited at any time. Moving down from Unlimited to Premium while the term is open is not allowed (`409` `plan_downgrade_not_allowed`).
+A name on an open Premium term can move to Unlimited at any time. Moving down from Unlimited to Premium while the term is open is not allowed (`409` `PLAN_DOWNGRADE_NOT_ALLOWED`).
 
 When upgrading from Premium to Unlimited, the unused Premium time becomes **upgrade credit**:
 
@@ -114,7 +114,7 @@ Payment Options returns `listPrice`, `upgradeCredit` and `amountDue`. A coupon a
 
 `amountDue = (listPrice − upgradeCredit) × (100 − percentOff) / 100`
 
-If the Premium term changes between the quote and the confirmation, confirmation returns `409` `upgrade_term_changed`; request a new quote.
+If the Premium term changes between the quote and the confirmation, confirmation returns `409` `UPGRADE_TERM_CHANGED`; request a new quote.
 
 The owner's current plan and the available upgrade path come from `GET https://v4.zelf.world/api/zelf-ids/my-plan`. See [Upgrading a plan](/docs/api/zelf-ids/coupons#upgrading-a-plan).
 
