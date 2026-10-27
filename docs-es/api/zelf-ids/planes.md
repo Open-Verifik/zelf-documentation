@@ -79,7 +79,15 @@ Los planes se compran por años. La licencia decide qué plazos se ofrecen para 
 | 3 años | $56.99 | $192.99 |
 | De por vida | $144.99 | $494.99 |
 
-Un plazo que la licencia no ofrece devuelve `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. Un plan que la licencia no ofrece para ese largo de nombre devuelve `409` `PLAN_NOT_OFFERED_FOR_NAME`. Una licencia sin función de precio devuelve `409` `LICENSE_PRICE_REQUIRED`. `message` y `code` son esa misma cadena. Un plan de por vida no tiene fecha de fin.
+Hoy no se ofrece ningún otro plazo, así que un plazo de 4 o 5 años se rechaza. Un plazo que la licencia no ofrece devuelve `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. Un plan que la licencia no ofrece para ese largo de nombre devuelve `409` `PLAN_NOT_OFFERED_FOR_NAME`. Una licencia sin función de precio devuelve `409` `LICENSE_PRICE_REQUIRED`. Un plan de por vida no tiene fecha de fin.
+
+Payment Options y el checkout de Stripe revisan el plazo y el plan antes de armar la cotización, así que ahí el código llega en `validationError`:
+
+```json
+{ "validationError": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE" }
+```
+
+Las demás rutas, como buscar un nombre disponible con un `plan` explícito, devuelven el código en `message` y en `code`:
 
 ```json
 { "message": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE", "code": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE" }
