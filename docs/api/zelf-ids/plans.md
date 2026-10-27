@@ -79,7 +79,15 @@ Plans are bought in yearly terms. The license decides which terms are offered fo
 | 3 years | $56.99 | $192.99 |
 | Lifetime | $144.99 | $494.99 |
 
-A term the license does not offer returns `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. A plan the license does not offer for that name length returns `409` `PLAN_NOT_OFFERED_FOR_NAME`. A license with no price function returns `409` `LICENSE_PRICE_REQUIRED`. `message` and `code` are both that string. A Lifetime term has no plan end date.
+No other term is offered today, so a 4- or 5-year term is refused. A term the license does not offer returns `409` `PLAN_DURATION_NOT_OFFERED_BY_LICENSE`. A plan the license does not offer for that name length returns `409` `PLAN_NOT_OFFERED_FOR_NAME`. A license with no price function returns `409` `LICENSE_PRICE_REQUIRED`. A Lifetime term has no plan end date.
+
+[Payment Options](/docs/api/zelf-ids/payment-options) and Stripe checkout check the term and plan before building the quote, so there the code comes in `validationError`:
+
+```json
+{ "validationError": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE" }
+```
+
+Other routes, such as searching an available name with an explicit `plan`, return the code in both `message` and `code`:
 
 ```json
 { "message": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE", "code": "PLAN_DURATION_NOT_OFFERED_BY_LICENSE" }
